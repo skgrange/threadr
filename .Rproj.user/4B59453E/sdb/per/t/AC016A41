@@ -1,0 +1,16 @@
+{
+    "contents" : "getwd()\n# setwd('Dropbox/R/package_development')\n# setwd(\"~/Dropbox/R/package_development\")\n# setwd(\"C:/Dropbox/R/package_development\")\n\n\nsetwd(\"threadr/\")\ndevtools::document()\n\nsetwd(\"..\")\ndevtools::install('threadr', local = FALSE)\n\nremove.packages('threadr')\n\nthreadr::timePad\nlibrary(threadr)\ntimePad",
+    "created" : 1432674178604.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3493267773",
+    "id" : "AC016A41",
+    "lastKnownWriteTime" : 1432674835,
+    "path" : "~/Dropbox/R/package_development/service_packages.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

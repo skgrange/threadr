@@ -1,0 +1,9 @@
+{
+    "path" : "~/threadr",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

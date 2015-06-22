@@ -1,0 +1,16 @@
+{
+    "contents" : "#' A function to pad timeseries\n#'\n#' Function to insert missing dates within a timeseries due to a huge\n#' number of possible reasons.\n#'\n#' The use is analogous to openair::timeAverage, however the application\n#' of aggregation functions does not occur. This function also does not\n#' drop non-numerical variables and can include identifiers post-pad. \n#'\n#' @param x A data frame including parsed dates\n#' @param pad.time Frequency of time padding\n#' @param nice.start Should the padding begin at a 'nice' place. For example \n#' at the beginning of the day? See \\code{date.round}.\n#' @param date.round When should the nice starting period begin?\n#' @param add.id.var Should an identifying variable be applied to the data post-\n#' pad? See \\code{id.var}\n#' @param id.var Name of identifying variable to be used post-pad\n#' \n#' @author Stuart Grange\n#' \n#' @examples\n#' \n#' # Pad time series so every minute is present\n#' \\dontrun{\n#' data.nelson.pad <- timePad(data.nelson, pad.time = 'minute', nice.start = TRUE)\n#' }\n#' \n#' \ntimePad <- function (x, pad.time = '10 min', nice.start = FALSE, \n                    date.round = 'day', add.id.var = FALSE, id.var = 'site') {\n  \n  # Needed at times for dplyr? \n  # To-do: Need to understand why\n  x <- data.frame(x)\n  \n  # Find identifiying vairable, do not include NAs\n  if (add.id.var) {\n    \n    index.not.na <- which(!is.na(x))\n    first.not.na <- min(index.not.na)\n    y <- x[, id.var][first.not.na]\n    \n  }\n\n  # Find the start and end of the date sequence\n  if (nice.start) {\n    \n    date.start <- lubridate::floor_date(min(x$date), date.round)\n    date.end <- lubridate::ceiling_date(max(x$date), date.round)\n    \n  } else {\n    \n    date.start <- min(x$date)\n    date.end <- max(x$date)\n    \n  }\n  \n  # Create the sequence of dates\n  seq.all.dates <- data.frame(date = seq(date.start, date.end, by = pad.time))\n  # Do the padding\n  x <- merge(seq.all.dates, x, all = T, by = 'date')\n  \n  # Add the id variable to all the padded data\n  if (add.id.var) {\n    \n    x[, id.var] <- y\n    \n  }\n  \n  # Return\n  x\n}\n\n",
+    "created" : 1432674834028.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2646412039",
+    "id" : "4605D7B8",
+    "lastKnownWriteTime" : 1432672229,
+    "path" : "~/Dropbox/R/package_development/threadr/R/timePad.R",
+    "project_path" : "R/timePad.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

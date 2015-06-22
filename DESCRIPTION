@@ -1,0 +1,22 @@
+Package: threadr
+Type: Package
+Title: Threading Pieces Of Analysis Together
+Version: 0.1
+Date: 2015-05-25
+Author: Stuart Grange
+Maintainer: Stuart Grange <s.k.grange@gmail.com>
+Description: A collection of R utility functions to link pieces of analysis together.
+License: GPL (>= 2)
+Imports: 
+  lubridate, 
+  stringr, 
+  plyr, 
+  dplyr, 
+  geojsonio, 
+  sp, 
+  ggplot2,
+  rgdal,
+Suggests: 
+  openair
+LazyLoad: yes
+  
