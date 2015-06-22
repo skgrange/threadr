@@ -4,7 +4,7 @@ threadr is a collection of R utility functions to link pieces of analysis togeth
 
 ## To install:
 
-the development version: `install_github('skgrange/threadr')`
+the development version: `devtools::install_github('skgrange/threadr')`
 
 ## To-do: 
 
