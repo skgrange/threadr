@@ -1,4 +1,4 @@
-#' Function for carring last observation fowards. 
+#' Function for carrying last observation forwards. 
 #' 
 #' Used to replace each NA with the most recent non-NA prior to it.
 #' 
@@ -10,7 +10,7 @@
 #' 
 locf <- function (x, na.rm = FALSE) {
   
-  # Carry observation fowards
+  # Carry observation forwards
   x <- zoo::na.locf(x, na.rm = na.rm)
   
   # Return

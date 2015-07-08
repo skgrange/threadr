@@ -2,7 +2,7 @@
 % Please edit documentation in R/locf.R
 \name{locf}
 \alias{locf}
-\title{Function for carring last observation fowards.}
+\title{Function for carrying last observation forwards.}
 \usage{
 locf(x, na.rm = FALSE)
 }
