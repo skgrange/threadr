@@ -41,7 +41,6 @@ joined.
 longitude pairs within Europe
 data.join <- left_join_spatial(data.tidy, latitude = "latitude",
   longitude = "longitude", polygons = shape.file.pm10)
-
 }
 }
 \author{

@@ -3,14 +3,14 @@
 \name{write.json}
 \alias{write.json}
 \title{Function to write a data frame to a JSON file with usage analogous to
-\code{write.table} and its derivatives.}
+\code{write.table}.}
 \usage{
 write.json(df, file = "", pretty = TRUE, na.empty = TRUE)
 }
 \arguments{
 \item{df}{Data frame to be written as a JSON file.}
 
-\item{file}{JSON file name}
+\item{file}{JSON file name.}
 
 \item{pretty}{Should the JSON output be formatted for readability? Default is
 TRUE.}
@@ -23,7 +23,7 @@ not included in the the JSON element?}
 }
 \examples{
 \dontrun{
-write.json(data.nelson, "nelson_data_as_json.json")
+write.json(data.car.identifiers, "car_identifiers.json")
 }
 }
 \author{

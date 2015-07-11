@@ -11,7 +11,7 @@ write.gpx(df, file, latitude = "latitude", longitude = "longitude",
 \arguments{
 \item{df}{Data frame to be written to a GPX file.}
 
-\item{file}{File name of exported GPX file.}
+\item{file}{File name of GPX file.}
 
 \item{latitude}{\code{df}'s latitude variable name.}
 
@@ -26,11 +26,16 @@ GPX file.}
 \description{
 \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the
 standard \code{writeOGR} function, \code{write.gpx} will automatically expand
-file paths and can overwrite previous files.
+file paths and can overwrite previous files if necessary.
 }
 \examples{
 \dontrun{
+# Export a GPX file containing points
 write.gpx(data.bus.stations, "~/Desktop/bus_stations.gpx")
+
+# Export GPX file with lines
+write.gpx(data.gpx.track, "~/Desktop/drive_to_bath.gpx", layer = "points")
+
 }
 }
 \author{

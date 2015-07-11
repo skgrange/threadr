@@ -9,7 +9,7 @@ round_date_interval(date, interval = "5 min")
 }
 \arguments{
 \item{date}{A vector of dates to be rounded. This variable must be named
-\code{'date'}.}
+\code{"date"}.}
 
 \item{interval}{A numeric or string value which represents the time interval
 in minutes.}
@@ -35,8 +35,8 @@ more convenient.
 Currently round_date_interval cannot deal with multiples other than minutes.
 Intervals such as 2 hours will not work yet.
 
-The \code{interval} argument can take 'friendly' forms such as
-\code{'5 mins'} or \code{'15 min'} as well as \code{5} or \code{15}.
+The \code{interval} argument can take "friendly" forms such as
+\code{"5 mins"} or \code{"15 min"} as well as \code{5} or \code{15}.
 }
 \examples{
 \dontrun{

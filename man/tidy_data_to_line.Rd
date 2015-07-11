@@ -2,12 +2,27 @@
 % Please edit documentation in R/tidy_data_to_line.R
 \name{tidy_data_to_line}
 \alias{tidy_data_to_line}
-\title{Function for converting tidy data into spatial lines.}
+\title{Function for converting a data frame into spatial lines.}
 \usage{
 tidy_data_to_line(df, latitude = "latitude", longitude = "longitude")
 }
+\arguments{
+\item{df}{Data frame to be converted into SpatialLinesDataFrame.}
+
+\item{latitude}{\code{df}'s latitude variable name.}
+
+\item{longitude}{\code{df}'s longitude variable name.}
+}
 \description{
-Function for converting tidy data into spatial lines.
+tidy_data_to_line returns a SpatialLinesDataFrame with a single line object.
+Multiple identifiers will currently not be preserved, but will be in the
+future. In general usage \code{latitude} and \code{longitude} should be
+projected in WGS84.
+}
+\examples{
+\dontrun{
+spatial.lines <- tidy_data_to_line(data.gps.track, "latitude", "longitude")
+}
 }
 \author{
 Stuart K. Grange

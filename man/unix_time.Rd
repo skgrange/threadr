@@ -15,12 +15,19 @@ efficient to parse and store.
 \details{
 Dates in R are often parsed and interacted with without including correct
 time-zone information for convenience. However, if the time-zone information
-for an input date is incorrect, the return of unix_time will also be
-incorrect. Rather than forcing users to correctly parse all dates,
-unix_time has an argument \code{tz.overwrite} where the correct
-time-zone for the date can be supplied only for this function.
+for an input date is incorrect, the return of unix_time will also be incorrect.
+Rather than forcing users to correctly parse all dates, unix_time has an
+argument (\code{tz.overwrite}) where the correct time-zone for the date can
+be supplied only for this function.
 
 \code{OlsonNames()} lists the time zones which can be used.
+}
+\examples{
+\dontrun{
+# Add unix time to a data frame which contains local dates
+data.air.quality$unix.time <- unix_time(data.air.quality$date,
+  tz.overwrite = "Pacific/Auckland")
+}
 }
 \author{
 Stuart K. Grange

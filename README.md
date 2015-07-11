@@ -20,7 +20,7 @@ When dealing with time-series data, one of the most important things to do is to
 
 ### Round messy dates to arbitrary time intervals
 
-Dealing with multiple data sources which have observations at at different time intervals can be frustrating. More frustration can occur when the different data sources begin at an unhelpful times such as `2015-07-10 09:21:42`. `round_time_interval` allows issues likes these to be resolved to allow for future joining or aggregation of values from different sources.
+Dealing with multiple data sources which have observations at different time intervals can be frustrating. More frustration can occur when the different data sources begin at an unhelpful times such as `2015-07-10 09:21:42`. `round_time_interval` allows issues likes these to be resolved to allow for future joining or aggregation of values from different sources.
 
 ### `unix_time`
 

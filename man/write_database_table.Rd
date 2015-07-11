@@ -8,11 +8,18 @@ write_database_table(db, table, nrow = 1e+06, file = "")
 }
 \arguments{
 \item{db}{A database connection.}
+
+\item{table}{\code{db}'s table which is to be written to disk.}
+
+\item{nrow}{Number of rows of the \code{db}'s table to query and then write
+to disk in each cycle. Default is 1000000 rows.}
+
+\item{file}{File to export the table to.}
 }
 \description{
-write_database_table breaks up the queries and exports to small pieces to
-allow for very large tables to be writen to disc with systems with limited
-amounts of physical memory.
+\code{write_database_table} breaks up the queries and exports to small pieces
+to allow for very large tables to be written to disc with systems with limited
+amounts of physical memory. The output is a \code{.csv} file.
 }
 \author{
 Stuart K. Grange

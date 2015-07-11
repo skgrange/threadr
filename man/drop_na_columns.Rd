@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop_na_columns.R
 \name{drop_na_columns}
 \alias{drop_na_columns}
-\title{Function to drop columns in a data frame which only contain NA}
+\title{Function to drop columns in a data frame which only contain NA.}
 \usage{
 drop_na_columns(df)
 }

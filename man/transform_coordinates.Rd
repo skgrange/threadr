@@ -22,7 +22,7 @@ data frame \code{x} and \code{y} are in.}
 converted coordinates will be in.}
 
 \item{rename}{Should the converted coordinates be renamed to a generic
-\code{x} and \code{y}.}
+\code{x} and \code{y}?}
 
 \item{reorder}{Should the converted coordinates be placed in the first two
 columns of the returned data frame?}
@@ -51,7 +51,7 @@ and \code{to} arguments. \code{to} by default is set as WGS 84/EPSG:4326
 bng <- "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894 +units=m +no_defs"
 
 data.reading.transform <- transform_coordinates(
-  data.reading, x = "x_coordinate", y = "y_coordinate", from = bng)
+  data.oxford, x = "x_coordinate", y = "y_coordinate", from = bng)
 }
 }
 \author{

@@ -11,7 +11,10 @@ get_exchange_rate(currencies)
 }
 \description{
 get_exchange_rate is a simple wrapper for \code{quantmod::getFX} which returns
-a single exchange as a numeric value.
+a single exchange rate as a numeric value.
+}
+\details{
+To-do: Add past-dates argument.
 }
 \examples{
 \dontrun{

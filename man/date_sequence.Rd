@@ -16,7 +16,7 @@ numbers to go back in time.}
 vector rather than a date vector? Default is TRUE.}
 }
 \description{
-Useful for generating patterns which match file names.
+date_sequence is useful for generating patterns which match file-names.
 }
 \examples{
 # Make a date sequence of the last three days and today

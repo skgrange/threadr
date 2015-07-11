@@ -11,17 +11,17 @@ time_pad(df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
 \item{df}{A data frame including parsed dates. The date variable/column must
 be named 'date'.}
 
-\item{pad.time}{Frequency of time padding. Some examples could be: 'min'
-'hour', 'day', 'month', 'year' but multiples such as '5 min' work too.}
+\item{pad.time}{Frequency of time padding. Some examples could be: "min"
+"hour", "day", "month", "year" but multiples such as "5 min" work too.}
 
 \item{start.unit}{A optional date unit where the padded time-series should
-begin and end. Examples are 'hour', 'day', 'month', and 'year'.}
+begin and end. Examples are "hour", "day", "month", and "year".}
 
 \item{id.var}{Should identifying variables be applied to the data
 post-pad?}
 
 \item{dplyr.join}{Should dplyr::left_join be used rather than base:merge for
-the date sequence join? dplyr::left_join performs better.}
+the date sequence join?}
 
 \item{remove.final}{Should the final observation of the padded time-series be
 removed? Sometimes if makes sense to remove the last observation if the
@@ -33,7 +33,7 @@ of values does not occur.
 }
 \details{
 time_pad does not drop non-numerical variables, can include identifiers
-post-pad, and can start and end a padded time-series at a 'nice place',
+post-pad, and can start and end a padded time-series at a "nice place",
 for example, at the beginning of an hour or day.
 
 time_pad pads a time-series by calculating the maximum and minimum dates
@@ -48,7 +48,7 @@ users can still opt to use base::merge because dplyr is reporting many bugs.
 \examples{
 # Pad time-series so every minute is present
 \dontrun{
-data.nelson.pad <- time_pad(data.nelson, pad.time = 'min', start.unit = 'day')
+data.nelson.pad <- time_pad(data.nelson, pad.time = "min", start.unit = "day")
 }
 }
 \author{
