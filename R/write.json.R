@@ -1,21 +1,21 @@
 #' Function to write a data frame to a JSON file with usage analogous to 
-#' \code{write.table} and its derivatives.
+#' \code{write.table}.
 #' 
 #' \code{write.json} Uses \code{jsonlite} as the data frame to JSON parser.
 #' 
 #' @param df Data frame to be written as a JSON file.
-#' @param file JSON file name
+#' @param file JSON file name.
 #' @param pretty Should the JSON output be formatted for readability? Default is
 #' TRUE. 
 #' @param na.empty Should empty strings be converted to NA values to they are 
 #' not included in the the JSON element? 
-#'   
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples
 #' 
 #' \dontrun{
-#' write.json(data.nelson, "nelson_data_as_json.json")
+#' write.json(data.car.identifiers, "car_identifiers.json")
 #' }
 #'
 #' @export

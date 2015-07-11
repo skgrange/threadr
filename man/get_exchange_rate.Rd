@@ -10,7 +10,8 @@ get_exchange_rate(currencies)
 \item{currencies}{Currency-pairs to get.}
 }
 \description{
-get_exchange_rate is a simple wrapper for \code{quantmod::getFX}.
+get_exchange_rate is a simple wrapper for \code{quantmod::getFX} which returns
+a single exchange as a numeric value.
 }
 \examples{
 \dontrun{

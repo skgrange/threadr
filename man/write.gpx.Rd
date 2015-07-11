@@ -3,29 +3,30 @@
 \name{write.gpx}
 \alias{write.gpx}
 \title{Function to write a data frame to a GPX file with usage analogous to
-\code{write.table} and its derivatives.}
+\code{write.table}.}
 \usage{
-write.gpx(df, latitude = "latitude", longitude = "longitude", file = "",
-  name = NULL, layer = "")
+write.gpx(df, file, latitude = "latitude", longitude = "longitude",
+  name = NULL, layer = "points")
 }
 \arguments{
-\item{df}{Data frame to be written as a GPX file.}
+\item{df}{Data frame to be written to a GPX file.}
 
-\item{latitude}{df's latitude variable name.}
+\item{file}{File name of exported GPX file.}
 
-\item{longitude}{df's longitude variable name.}
+\item{latitude}{\code{df}'s latitude variable name.}
 
-\item{file}{File name of exported GPX file}
+\item{longitude}{\code{df}'s longitude variable name.}
 
-\item{name}{Name of variable which will be copied and added in the "name"
-element of the GPX file.}
+\item{name}{Name of variable which will be added in the "name" element of the
+GPX file.}
 
-\item{layer}{}
+\item{layer}{Type of layer to be written to GPX file. Can either be
+"points" or "lines". Default is "points".}
 }
 \description{
 \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the
-standard \code{rgdal} function, write.gpx will automatically expand file
-paths and overwrite previous files.
+standard \code{writeOGR} function, \code{write.gpx} will automatically expand
+file paths and can overwrite previous files.
 }
 \examples{
 \dontrun{

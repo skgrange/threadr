@@ -1,10 +1,14 @@
 #' Function to write an entire database table to disk. 
 #' 
-#' write_database_table breaks up the queries and exports to small pieces to 
-#' allow for very large tables to be writen to disc with systems with limited
-#' amounts of physical memory.  
+#' \code{write_database_table} breaks up the queries and exports to small pieces 
+#' to allow for very large tables to be written to disc with systems with limited
+#' amounts of physical memory. The output is a \code{.csv} file.
 #' 
 #' @param db A database connection. 
+#' @param table \code{db}'s table which is to be written to disk. 
+#' @param nrow Number of rows of the \code{db}'s table to query and then write
+#' to disk in each cycle. Default is 1000000 rows. 
+#' @param file File to export the table to. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -34,6 +38,8 @@ write_database_table <- function (db, table, nrow = 1000000, file = "") {
   # Select and write using the many select statements
   message(paste("Selecting data and writing to disk in", 
                 length(statement.select), "pieces..."))
+                
+  # Apply functions
   l_ply(statement.select, select_and_write, db, file = file, .progress = "text")
   
 }
@@ -42,7 +48,7 @@ write_database_table <- function (db, table, nrow = 1000000, file = "") {
 # Function for selecting then exporting file
 select_and_write <- function (statement, db, file) {
   
-  # Get data from data base
+  # Get data from database
   df <- dbGetQuery(db, statement)
   
   # Export data

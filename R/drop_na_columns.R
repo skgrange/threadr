@@ -1,4 +1,4 @@
-#' Function to drop columns in a data frame which only contain NA
+#' Function to drop columns in a data frame which only contain NA. 
 #' 
 #' See: http://stackoverflow.com/questions/2643939/remove-columns-from-dataframe-where-all-values-are-na
 #'

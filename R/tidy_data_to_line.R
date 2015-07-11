@@ -1,40 +1,58 @@
-#' Function for converting tidy data into spatial lines.
+#' Function for converting a data frame into spatial lines.
+#' 
+#' tidy_data_to_line returns a SpatialLinesDataFrame with a single line object.
+#' Multiple identifiers will currently not be preserved, but will be in the 
+#' future. In general usage \code{latitude} and \code{longitude} should be 
+#' projected in WGS84. 
+#' 
+#' @param df Data frame to be converted into SpatialLinesDataFrame. 
+#' @param latitude \code{df}'s latitude variable name.
+#' @param longitude \code{df}'s longitude variable name.
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @import sp
+#' 
+#' @examples 
+#' 
+#' \dontrun{
+#' spatial.lines <- tidy_data_to_line(data.gps.track, "latitude", "longitude")
+#' }
+#' 
 #' @export
 #' 
-tidy_data_to_line <- function (df, latitude = "lat", longitude = "long") {
+tidy_data_to_line <- function (df, latitude = "latitude", 
+                               longitude = "longitude") {
+  
+  # Make an identifier variable for lines
+  if (!"id" %in% names(df)) {
+    df[, "id"] <- 1
+  }
+  
+  # Get data part for the SpatialLinesDataFrame
+  data.extras <- data.frame(id = unique(df[, "id"]))
+  # row.names(data.extras) <- data.extras[, "id"]
   
   # Make sp points object
-  sp::coordinates(df) <- c(longitude, latitude)
+  coordinates(df) <- c(longitude, latitude)
   
   # Reassign
   sp.object <- df
-  
-  # Force projection, not ideal
-  sp::proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
   
   # From
   # http://stackoverflow.com/questions/24284356/convert-spatialpointsdataframe-to-spatiallinesdataframe-in-r
   # Generate lines for each id
   lines <- lapply(split(sp.object, sp.object$id), 
-                  function(x) Lines(list(Line(coordinates(x))), x$id[1L]))
+                  function(x) Lines(list(Line(sp::coordinates(x))), x$id[1L]))
   
-  # Make spatial object
-  lines <- sp::SpatialLines(lines)
+  # Create spatial object with a forced projection
+  lines <- SpatialLines(lines)
   
-  # Get identifiers
-  data.extras <- data.frame(id = unique(df$id))
-  
-  # Add row names
-  rownames(data.extras) <- data.extras$id
+  # 
+  proj4string(lines) = CRS("+proj=longlat +datum=WGS84")
   
   # Make SpatialLinesDataFrame
-  lines.data <- sp::SpatialLinesDataFrame(lines, data.extras)
-  
-  # Force projection for lines
-  sp::proj4string(lines.data) <- "+proj=longlat +datum=WGS84"
+  lines.data <- SpatialLinesDataFrame(lines, data.extras)
   
   # Return
   lines.data

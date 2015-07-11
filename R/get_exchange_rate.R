@@ -1,7 +1,9 @@
 #' Function get current exchange rates. 
 #'
 #' get_exchange_rate is a simple wrapper for \code{quantmod::getFX} which returns
-#' a single exchange as a numeric value. 
+#' a single exchange rate as a numeric value. 
+#'
+#' To-do: Add past-dates argument. 
 #' 
 #' @param currencies Currency-pairs to get. 
 #' 

@@ -4,7 +4,7 @@
 \alias{tidy_data_to_line}
 \title{Function for converting tidy data into spatial lines.}
 \usage{
-tidy_data_to_line(df, latitude = "lat", longitude = "long")
+tidy_data_to_line(df, latitude = "latitude", longitude = "longitude")
 }
 \description{
 Function for converting tidy data into spatial lines.

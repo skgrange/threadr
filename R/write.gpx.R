@@ -1,30 +1,36 @@
 #' Function to write a data frame to a GPX file with usage analogous to 
-#' \code{write.table} and its derivatives.
+#' \code{write.table}.
 #' 
 #' \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the 
-#' standard \code{rgdal} function, write.gpx will automatically expand file 
-#' paths and overwrite previous files. 
+#' standard \code{writeOGR} function, \code{write.gpx} will automatically expand 
+#' file paths and can overwrite previous files if necessary. 
 #' 
-#' @param df Data frame to be written as a GPX file.
-#' @param latitude df's latitude variable name.
-#' @param longitude df's longitude variable name.
-#' @param file File name of exported GPX file
-#' @param name Name of variable which will be copied and added in the "name"
-#' element of the GPX file. 
-#' @param layer 
+#' @param df Data frame to be written to a GPX file.
+#' @param file File name of GPX file.
+#' @param latitude \code{df}'s latitude variable name.
+#' @param longitude \code{df}'s longitude variable name.
+#' @param name Name of variable which will be added in the "name" element of the
+#' GPX file. 
+#' @param layer Type of layer to be written to GPX file. Can either be 
+#' "points" or "lines". Default is "points". 
 #'   
 #' @author Stuart K. Grange
 #' 
 #' @examples
 #' 
 #' \dontrun{
+#' # Export a GPX file containing points
 #' write.gpx(data.bus.stations, "~/Desktop/bus_stations.gpx")
+#' 
+#' # Export GPX file with lines
+#' write.gpx(data.gpx.track, "~/Desktop/drive_to_bath.gpx", layer = "points")
+#' 
 #' }
 #'
 #' @export
 #' 
-write.gpx <- function (df, latitude = "latitude", longitude = "longitude", 
-                       file = "", name = NULL, layer = "") {
+write.gpx <- function (df, file, latitude = "latitude", longitude = "longitude", 
+                       name = NULL, layer = "points") {
   
   # Check
   if (!layer %in% c("points", "lines")) {
@@ -44,10 +50,11 @@ write.gpx <- function (df, latitude = "latitude", longitude = "longitude",
     df[, "name"] <- df[, name]
   }
   
+  # Make spatial points
   if (layer == "points") {
     
     # For writeOGR
-    layer.vector <- 'points'
+    layer.vector <- "points"
     
     # Make sp points object
     sp::coordinates(df) <- c(longitude, latitude)
@@ -56,20 +63,21 @@ write.gpx <- function (df, latitude = "latitude", longitude = "longitude",
     sp.object <- df
     
     # Force projection, not ideal
-    proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
+    sp::proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
     
   }
   
+  # Make spatial lines
   if (layer == "lines") {
     
     # For writeOGR
     layer.vector <- "lines"
     
-    sp.object <- tidy_data_to_line(df, latitude = latitude, longitude = longitude)
+    sp.object <- tidy_data_to_line(df, latitude, longitude)
     
   }
   
-  # Write gpx file
+  # Write GPX file
   rgdal::writeOGR(sp.object, file, layer = layer.vector, driver = "GPX", 
                   dataset_options = "GPX_USE_EXTENSIONS=yes")
   

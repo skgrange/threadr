@@ -1,6 +1,6 @@
 #' Function to generate a sequence of past or future dates. 
 #' 
-#' Useful for generating patterns which match file names.
+#' date_sequence is useful for generating patterns which match file-names.
 #' 
 #' @param days Number of days of the sequence from system's date. Use negative
 #' numbers to go back in time. 

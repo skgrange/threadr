@@ -56,7 +56,7 @@ tabulise_file_metadata <- function (file = "music.mp3") {
   variable <- stringr::str_replace_all(variable, "/", ".")
   variable <- tolower(variable)
   
-  # If there are duplicated vairables, append a suffix
+  # If there are duplicated variables, append a suffix
   variable <- make.names(variable, unique = TRUE)
   
   # Make data frame

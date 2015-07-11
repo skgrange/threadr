@@ -21,7 +21,7 @@
 #' @param to A proj4 string which represents what coordinate system the 
 #' converted coordinates will be in. 
 #' @param rename Should the converted coordinates be renamed to a generic 
-#' \code{x} and \code{y}. 
+#' \code{x} and \code{y}?
 #' @param reorder Should the converted coordinates be placed in the first two 
 #' columns of the returned data frame? 
 #' 
@@ -37,7 +37,7 @@
 #' bng <- "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894 +units=m +no_defs"
 #' 
 #' data.reading.transform <- transform_coordinates(
-#'   data.reading, x = "x_coordinate", y = "y_coordinate", from = bng)
+#'   data.oxford, x = "x_coordinate", y = "y_coordinate", from = bng)
 #' }
 #'
 #' @export
@@ -57,12 +57,13 @@ transform_coordinates <- function (df, x = "easting", y = "northing", from = "",
   # Make sp points object, x, y order
   sp::coordinates(df) <- c(x, y)
   
+  # Give input a projection
   sp::proj4string(df) <- from
   
   # Convert coordinate system
   new.projection <- sp::CRS(to)
   
-  # Apply conversion
+  # Do the projection conversion
   df <- sp::spTransform(df, new.projection)
   
   # Back to data frame

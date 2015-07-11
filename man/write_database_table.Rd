@@ -14,12 +14,6 @@ write_database_table breaks up the queries and exports to small pieces to
 allow for very large tables to be writen to disc with systems with limited
 amounts of physical memory.
 }
-\examples{
-# Pad time-series so every minute is present
-\dontrun{
-data.nelson.pad <- time_pad(data.nelson, pad.time = 'min', start.unit = 'day')
-}
-}
 \author{
 Stuart K. Grange
 }
