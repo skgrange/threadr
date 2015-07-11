@@ -1,6 +1,6 @@
-# *threadr*
+# **threadr**
 
-*threadr* is a collection of R utility functions to link pieces of analysis together.
+**threadr** is a collection of R utility functions to link pieces of analysis together.
 
 ## To install:
 
