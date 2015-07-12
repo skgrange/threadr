@@ -7,11 +7,14 @@
 data_frame_to_polygon(df, latitude = "latitude", longitude = "longitude")
 }
 \description{
-\code{data_frame_to_polygon} will create closed polygons by joining the first
-and last observations together in a straight line from the input data frame's
-coordinate points.
+\code{data_frame_to_polygon} conveniently transforms a data frame to a
+SpatialPolygonsDataFrame.
 }
 \details{
+\code{data_frame_to_polygon} will create closed polygons by joining the first
+and last observations together in a straight line if the input data frame's
+first and last coordinate pairs to not match.
+
 \code{data_frame_to_polygon} correctly deals with holes if the variable "hole"
 is present in the input data frame.
 }

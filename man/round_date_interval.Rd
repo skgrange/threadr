@@ -2,44 +2,76 @@
 % Please edit documentation in R/round_date_interval.R
 \name{round_date_interval}
 \alias{round_date_interval}
-\title{Function to round dates to arbitrary time intervals such as 5-, 10-, 15-, or
-30-minute periods.}
+\title{Function to round dates to arbitrary time intervals.}
 \usage{
 round_date_interval(date, interval = "5 min")
 }
 \arguments{
-\item{date}{A vector of dates to be rounded. This variable must be named
-\code{"date"}.}
+\item{date}{A vector of dates to be rounded.}
 
-\item{interval}{A numeric or string value which represents the time interval
-in minutes.}
+\item{interval}{The time-interval the date is to be rounded to.}
 }
 \description{
-round_date_interval rounds dates to the nearest arbitrary time interval
-unlike xts::align.time which always pushes dates to the next interval. Dates
-that fall in the centre of the time interval are rounded down.
+\code{round_date_interval} is useful when a date, or a vector of dates, are
+to be rounded to to intervals such as 5-seconds, 5-minutes, or 15-minutes.
 }
 \details{
-round_date_interval works by first calculating an origin which is the first
-instant of the date's hour. round_date_interval then extracts the
-seconds-past-the-origin of the date and rounds this value to the interval's
-multiple. The rounded value and the origin are then summed and returned.
+\code{round_date_interval} rounds dates to the nearest arbitrary time
+interval unlike \code{xts::align.time} which always pushes dates to the next
+interval. Dates that fall in the centre of the time interval are rounded down.
 
-round_date_interval does not make any adjustments for duplicated dates in the
-input or output.
+\code{round_date_interval} works by first calculating an origin. This origin
+is the first instant of the date's hour. \code{round_date_interval} then
+extracts the seconds-past-the-origin and rounds this value to the interval's
+multiple (in seconds). The rounded value and the origin are then summed and
+returned.
 
-round_date_interval can be used for rounding dates to the nearest whole
-minute or hour, however, lubridate::round_date and related functions may be
-more convenient.
+\code{round_date_interval} does not make any adjustments for duplicated dates
+in the input or output.
 
-Currently round_date_interval cannot deal with multiples other than minutes.
-Intervals such as 2 hours will not work yet.
+\code{round_date_interval} can be also used for rounding dates to the nearest
+whole second, minute, or hour. However, \code{lubridate::round_date} and
+related functions may be more convenient.
 
-The \code{interval} argument can take "friendly" forms such as
-\code{"5 mins"} or \code{"15 min"} as well as \code{5} or \code{15}.
+\code{round_date_interval} cannot deal with multiples other than seconds or
+minutes. Intervals such as 2 hours will not work.
+
+The \code{interval} argument must include a number and a unit (for example:
+\code{15 seconds} or \code{5 min}). This has been done so that there is no
+ambiguity about the units which the date is to be rounded to.
 }
 \examples{
 \dontrun{
+# A messy date vector
+date.vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
+                 "2015-04-09 07:02:27", "2015-04-09 07:50:40")
+
+# Parse dates
+date.vector <- lubridate::ymd_hms(date.vector)
+
+# Round dates to 15 minute intervals
+round_date_interval(date.vector, "15 min")
+"2015-04-09 06:30:00 UTC" "2015-04-09 06:45:00 UTC" "2015-04-09 07:00:00 UTC"
+"2015-04-09 07:45:00 UTC"
+
+# Round dates to 5 minute intervals
+round_date_interval(date.vector, "5 mins")
+"2015-04-09 06:25:00 UTC" "2015-04-09 06:40:00 UTC" "2015-04-09 07:00:00 UTC"
+"2015-04-09 07:50:00 UTC"
+
+
+# Round a single date to various second-intervals
+# Parse
+date <- lubridate::ymd_hms("2013-09-13 08:03:37")
+
+# 10 seconds
+round_date_interval(date, "10 sec")
+"2013-09-13 08:03:40 UTC"
+
+# 30 seconds
+round_date_interval(date, "30 sec")
+"2013-09-13 08:03:30 UTC"
+
 }
 }
 \author{
