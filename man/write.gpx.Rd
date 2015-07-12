@@ -18,10 +18,10 @@ write.gpx(df, file, latitude = "latitude", longitude = "longitude",
 \item{longitude}{\code{df}'s longitude variable name.}
 
 \item{name}{Name of variable which will be added in the "name" element of the
-GPX file.}
+GPX file. Optional.}
 
 \item{layer}{Type of layer to be written to GPX file. Can either be
-"points" or "lines". Default is "points".}
+\code{"points"} or \code{"lines"}. Default is \code{"points"}.}
 }
 \description{
 \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the
@@ -33,9 +33,8 @@ file paths and can overwrite previous files if necessary.
 # Export a GPX file containing points
 write.gpx(data.bus.stations, "~/Desktop/bus_stations.gpx")
 
-# Export GPX file with lines
-write.gpx(data.gpx.track, "~/Desktop/drive_to_bath.gpx", layer = "points")
-
+# Export GPX file which contains a line object
+write.gpx(data.gpx.track, "~/Desktop/drive_to_bath.gpx", layer = "lines")
 }
 }
 \author{

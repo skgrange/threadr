@@ -5,12 +5,15 @@
 \title{Function to extract file metadata with \code{exiftool} and store it within a
 data frame.}
 \usage{
-tabulise_file_metadata(file = "music.mp3")
+tabulise_file_metadata(file)
+}
+\arguments{
+\item{file}{The file to extract metadata from.}
 }
 \description{
-tabulise_file_metadata uses Phil Harvey's Perl \code{exiftool} to extract a
-file's metadata and then formats the output into a table which can be
-conveniently used within R.
+\code{tabulise_file_metadata} uses Phil Harvey's Perl \code{exiftool} to
+extract a file's metadata and then formats the output into a table which can
+be conveniently used within R.
 }
 \details{
 \code{exiftool} is called as a system command and this function has not been
@@ -18,12 +21,17 @@ tested on other non-Debian systems. I do not know how \code{exiftool} is
 implemented on Windows or OS X and therefore I cannot guarantee that this
 function will work on such systems.
 
-tabulise_file_metadata can be useful for media files and the exploration of
-metadata.
+\code{tabulise_file_metadata} can be useful for media files and the
+exploration of metadata.
 
 All variables which are supported and returned by \code{exiftool} will be
 present. Watch out for very large numbers of variables when imputing large
-xml or json documents with a large numbers of nested elements.
+XML or JSON documents with a large numbers of elements.
+}
+\examples{
+\dontrun{
+data.metadata <- tabulise_file_metadata("music.mp3")
+}
 }
 \author{
 Stuart K. Grange

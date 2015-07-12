@@ -12,14 +12,25 @@ write_database_table(db, table, nrow = 1e+06, file = "")
 \item{table}{\code{db}'s table which is to be written to disk.}
 
 \item{nrow}{Number of rows of the \code{db}'s table to query and then write
-to disk in each cycle. Default is 1000000 rows.}
+to disk for each cycle. Default is 1000000 rows.}
 
 \item{file}{File to export the table to.}
 }
 \description{
-\code{write_database_table} breaks up the queries and exports to small pieces
-to allow for very large tables to be written to disc with systems with limited
-amounts of physical memory. The output is a \code{.csv} file.
+\code{write_database_table} generates multiple queries based on row numbers
+and then discretely queries and exports pieces of the database table. This
+allows very large tables to be written to disk when the system's physical
+memory is limited. The output is a \code{.csv} file.
+}
+\details{
+For the fastest export, make \code{nrow} as big as your system allows.
+}
+\examples{
+\dontrun{
+# Export a climate database's table 100000 rows at a time
+write_database_table(db, "data_cliflo", nrow = 100000,
+  file = "~/Desktop/cliflo_database_table.csv")
+}
 }
 \author{
 Stuart K. Grange

@@ -5,11 +5,11 @@
 \title{Function to pad time-series.}
 \usage{
 time_pad(df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
-  dplyr.join = TRUE, remove.final = FALSE)
+  dplyr = TRUE, remove.final = FALSE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
-be named 'date'.}
+be named \code{"date"}.}
 
 \item{pad.time}{Frequency of time padding. Some examples could be: "min"
 "hour", "day", "month", "year" but multiples such as "5 min" work too.}
@@ -17,38 +17,44 @@ be named 'date'.}
 \item{start.unit}{A optional date unit where the padded time-series should
 begin and end. Examples are "hour", "day", "month", and "year".}
 
-\item{id.var}{Should identifying variables be applied to the data
-post-pad?}
+\item{id.var}{What identifying variables be applied to the data
+post-pad? \code{id.var} can take multiple values.}
 
-\item{dplyr.join}{Should dplyr::left_join be used rather than base:merge for
-the date sequence join?}
+\item{dplyr}{Should \code{dplyr::left_join} be used rather than
+\code{base:merge} for the date sequence join?}
 
 \item{remove.final}{Should the final observation of the padded time-series be
 removed? Sometimes if makes sense to remove the last observation if the
 end date has been rounded forwards.}
 }
 \description{
-time_pad use is analogous to openair::timeAverage. However, the aggregation
-of values does not occur.
+\code{time_pad} use is analogous to \code{openair::timeAverage}. However, the
+aggregation of values does not occur.
 }
 \details{
-time_pad does not drop non-numerical variables, can include identifiers
-post-pad, and can start and end a padded time-series at a "nice place",
-for example, at the beginning of an hour or day.
+\code{time_pad} does not drop non-numerical variables, can include
+identifiers post-pad, and can start and end a padded time-series at a
+"nice place", for example, at the beginning of an hour or day.
 
-time_pad pads a time-series by calculating the maximum and minimum dates
-within a time-series and then generating a uniform date sequence between the
-maximum and minimum dates. This date sequence is then joined to the input
-data frame and the missing values are represented as NA.
+\code{time_pad} pads a time-series by calculating the maximum and minimum
+dates within a time-series and then generating a uniform date sequence
+between the maximum and minimum dates. This date sequence is then joined to
+the input data frame and the missing values are represented as \code{NA}.
 
-time_pad uses dplyr::left_join for the date join because testing has
-demonstrated this function performs much faster than base::merge. However,
-users can still opt to use base::merge because dplyr is reporting many bugs.
+\code{time_pad} uses \code{dplyr::left_join} for the date join because
+testing has demonstrated this function performs much faster than
+\code{base::merge}. However, users can still opt to use \code{base::merge}
+ because dplyr is reporting many bugs.
 }
 \examples{
-# Pad time-series so every minute is present
 \dontrun{
+# Pad time-series so every minute is present
 data.nelson.pad <- time_pad(data.nelson, pad.time = "min", start.unit = "day")
+
+# Keep identifying variables "site" and "sensor"
+data.ozone.sensor.pad <- time_pad(data.ozone.sensor, pad.time = "hour",
+  id.var = c("site", "sensor"))
+
 }
 }
 \author{

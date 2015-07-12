@@ -8,7 +8,7 @@ left_join_spatial(df, latitude = "latitude", longitude = "longitude",
   polygons = NULL)
 }
 \arguments{
-\item{df}{A data frame containing latitude and longitude variables.}
+\item{df}{Data frame containing latitude and longitude variables.}
 
 \item{latitude}{\code{df}'s latitude variable name.}
 
@@ -17,14 +17,15 @@ left_join_spatial(df, latitude = "latitude", longitude = "longitude",
 \item{polygons}{A spatial polygon object to be joined to \code{df}.}
 }
 \description{
-left_join_spatial tests if a point is within a spatial polygon and joins
-tabular data from a spatial object if the match TRUE. This process is
+\code{left_join_spatial} tests if a point is within a spatial polygon and
+joins tabular data from a spatial object if the match TRUE. This process is
 analogous to a SQL left join with the match being a spatial intersection.
 }
 \details{
 Points to be tested are stored in a data frame with latitude and longitude
-(WGS84) while the polygons must be stored in a spatial object. The result is
-the input data frame with the joined data within the spatial polygon.
+while the polygons must be stored in a spatial object. The result is the
+input data frame with the joined data contained within the spatial polygon
+object.
 
 Ensure that the data frame containing points and the polygons are both
 projected as WGS84 ("+proj=latlong +datum=WGS84"; see sp::spTransform).
