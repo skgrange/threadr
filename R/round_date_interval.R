@@ -32,7 +32,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso See \code{\link{time_pad}}, \code{\link{lubridate::round_date}}
+#' @seealso See \code{\link{time_pad}}, \code{\link{round_date}}
 #' 
 #' @examples
 #' 

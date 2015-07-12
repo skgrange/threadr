@@ -78,6 +78,6 @@ round_date_interval(date, "30 sec")
 Stuart K. Grange
 }
 \seealso{
-See \code{\link{time_pad}}, \code{\link{lubridate::round_date}}
+See \code{\link{time_pad}}, \code{\link{round_date}}
 }
 

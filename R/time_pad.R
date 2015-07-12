@@ -31,8 +31,7 @@
 #' removed? Sometimes if makes sense to remove the last observation if the
 #' end date has been rounded forwards. 
 #' 
-#' @seealso See \code{\link{round_date_interval}}, 
-#' \code{\link{openair::timeAverage}}
+#' @seealso See \code{\link{round_date_interval}}, \code{\link{timeAverage}}
 #' 
 #' @author Stuart K. Grange
 #' 
