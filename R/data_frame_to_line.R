@@ -2,7 +2,7 @@
 #' 
 #' \code{data_frame_to_line} returns a SpatialLinesDataFrame with a single line 
 #' object. Multiple identifiers will not be preserved, but will be in the 
-#' future. In general usage \code{latitude} and \code{longitude} will be 
+#' future. In general usage, \code{latitude} and \code{longitude} will be 
 #' projected in WGS84. 
 #' 
 #' @param df Data frame to be converted into SpatialLinesDataFrame. 

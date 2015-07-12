@@ -10,12 +10,12 @@
 #' object. 
 #' 
 #' Ensure that the data frame containing points and the polygons are both 
-#' projected as WGS84 ("+proj=latlong +datum=WGS84"; see sp::spTransform). 
+#' projected as WGS84 (\code{"+proj=latlong +datum=WGS84"; see sp::spTransform}). 
 #' 
-#' sp::over is used for the point-in-polygon test
+#' \code{sp::over} is used for the point-in-polygon test
 #' 
-#' Function can be rather slow when many points and many polygons are to be 
-#' joined. 
+#' \code{left_join_spatial} can be rather slow when many points and many 
+#' polygons are to be joined. 
 #' 
 #' @param df Data frame containing latitude and longitude variables. 
 #' @param latitude \code{df}'s latitude variable name.
@@ -27,8 +27,7 @@
 #' @examples 
 #' \dontrun{
 #' 
-#' # Join air quality zone (for PM10) information for 280 000 latitude and 
-#' longitude pairs within Europe
+#' # Join PM10 air quality zones to 280 000 latitude and longitude pairs
 #' data.join <- left_join_spatial(data.tidy, latitude = "latitude", 
 #'   longitude = "longitude", polygons = shape.file.pm10)
 #' }
