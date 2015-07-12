@@ -14,11 +14,11 @@ The development version: `devtools::install_github('skgrange/threadr')`
 
 ## Some explanation
 
-### Padding time-series
+### Padding time-series with `time_pad`
 
-When dealing with time-series data, one of the most important things to do is to ensure that the time-series is uniform, *i.e.* all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that with helpful extensions such as starting the time-series at the beginning of a hour/day/month/year and ensuring that identifying variables are added to the data after time-padding has occurred. 
+When dealing with time-series data, often one of the most important things to do is to ensure that the time-series is uniform, *i.e.* all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that with helpful extensions such as starting the time-series at the beginning of a hour/day/month/year and ensuring that identifying variables are added to the data after time-padding has occurred. 
 
-### Round messy dates to arbitrary time intervals
+### Round messy dates to arbitrary time intervals with `round_time_interval`
 
 Dealing with multiple data sources which have observations at different time intervals can be frustrating. More frustration can occur when the different data sources begin at an unhelpful times such as `2015-07-10 09:21:42`. `round_time_interval` allows issues likes these to be resolved to allow for future joining or aggregation of values from different sources.
 
