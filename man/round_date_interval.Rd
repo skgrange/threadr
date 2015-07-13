@@ -13,7 +13,7 @@ round_date_interval(date, interval = "5 min")
 }
 \description{
 \code{round_date_interval} can be useful when a date, or a vector of dates,
-are to be rounded to to intervals like 5-seconds, 5-minutes, or 15-minutes.
+are to be rounded to intervals such as 5-seconds, 5-minutes, or 15-minutes.
 }
 \details{
 \code{round_date_interval} rounds dates to the nearest arbitrary time
