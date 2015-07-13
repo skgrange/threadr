@@ -1,7 +1,7 @@
 #' Function to round dates to arbitrary time intervals.
 #' 
-#' \code{round_date_interval} is useful when a date, or a vector of dates, are
-#' to be rounded to to intervals such as 5-seconds, 5-minutes, or 15-minutes.
+#' \code{round_date_interval} can be useful when a date, or a vector of dates, 
+#' are to be rounded to to intervals like 5-seconds, 5-minutes, or 15-minutes.
 #'
 #' \code{round_date_interval} rounds dates to the nearest arbitrary time 
 #' interval unlike \code{xts::align.time} which always pushes dates to the next 
@@ -10,8 +10,7 @@
 #' \code{round_date_interval} works by first calculating an origin. This origin
 #' is the first instant of the date's hour. \code{round_date_interval} then 
 #' extracts the seconds-past-the-origin and rounds this value to the interval's 
-#' multiple (in seconds). The rounded value and the origin are then summed and 
-#' returned.
+#' multiple. The rounded value and the origin are then summed and returned.
 #' 
 #' \code{round_date_interval} does not make any adjustments for duplicated dates 
 #' in the input or output.
@@ -75,14 +74,14 @@ round_date_interval <- function (date, interval = "5 min") {
   
   # Parse argument into numeric value which represents second-multiple
   interval <- switch(interval,
-                     "1 sec" =, "1 second" = 1, 
+                     "1 sec" =, "1 second" =, "sec" = 1, 
                      "2 sec" =, "2 secs" =, "2 seconds" = 2, 
                      "5 sec" =, "5 secs" =, "5 seconds" = 5, 
                      "10 sec" =, "10 secs" =, "10 seconds" = 10,
                      "15 sec" =, "15 secs" =, "15 seconds" = 15,
                      "20 sec" =, "20 secs" =, "20 seconds" = 20,
                      "30 sec" =, "30 secs" =, "30 seconds" = 30,
-                     "60 sec" =, "60 secs" =, "60 seconds" =, "1 min" = 60, 
+                     "60 sec" =, "60 secs" =, "60 seconds" =, "1 min" =, "min" = 60, 
                      "2 min" =, "2 mins" =, "2 minutes" = 2 * 60, 
                      "5 min" =, "5 mins" =, "5 minutes" = 5 * 60, 
                      "10 min" =, "10 mins" =, "10 minutes" = 10 * 60,

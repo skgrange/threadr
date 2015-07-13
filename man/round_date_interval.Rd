@@ -12,8 +12,8 @@ round_date_interval(date, interval = "5 min")
 \item{interval}{The time-interval the date is to be rounded to.}
 }
 \description{
-\code{round_date_interval} is useful when a date, or a vector of dates, are
-to be rounded to to intervals such as 5-seconds, 5-minutes, or 15-minutes.
+\code{round_date_interval} can be useful when a date, or a vector of dates,
+are to be rounded to to intervals like 5-seconds, 5-minutes, or 15-minutes.
 }
 \details{
 \code{round_date_interval} rounds dates to the nearest arbitrary time
@@ -23,8 +23,7 @@ interval. Dates that fall in the centre of the time interval are rounded down.
 \code{round_date_interval} works by first calculating an origin. This origin
 is the first instant of the date's hour. \code{round_date_interval} then
 extracts the seconds-past-the-origin and rounds this value to the interval's
-multiple (in seconds). The rounded value and the origin are then summed and
-returned.
+multiple. The rounded value and the origin are then summed and returned.
 
 \code{round_date_interval} does not make any adjustments for duplicated dates
 in the input or output.
