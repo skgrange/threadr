@@ -1,10 +1,17 @@
 #' Function for carrying last observation forwards. 
 #' 
-#' Used to replace each NA with the most recent non-NA prior to it.
+#' Used to replace each \code{NA} with the most recent non-\code{NA} prior to it.
 #' 
-#' A wrapper for zoo::na.locf with na.rm defaulting to FALSE.
+#' A simple wrapper for \code{zoo::na.locf} with \code{na.rm} defaulting to 
+#' \code{FALSE}
 #' 
 #' @author Stuart K. Grange
+#' 
+#' @examples
+#' \dontrun{
+#' # Push observations forwards
+#' data.income$income.chunk <- locf(data.income$income.chunk)
+#' }
 #' 
 #' @export
 #' 

@@ -4,13 +4,15 @@
 #' \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the 
 #' standard \code{writeOGR} function, \code{write.gpx} will automatically expand 
 #' file paths and can overwrite previous files if necessary. 
+#'
+#' \code{latitude} and \code{longitude} must not contain \code{NA} values.
 #' 
 #' @param df Data frame to be written to a GPX file.
 #' @param file File name of GPX file.
 #' @param latitude \code{df}'s latitude variable name.
 #' @param longitude \code{df}'s longitude variable name.
-#' @param name Name of variable which will be added in the "name" element of the
-#' GPX file. Optional. 
+#' @param name Name of variable which will be added in the \code{"name"} element
+#' of the GPX file. Optional. 
 #' @param layer Type of layer to be written to GPX file. Can either be 
 #' \code{"points"} or \code{"lines"}. Default is \code{"points"}. 
 #'   
@@ -40,7 +42,6 @@ write.gpx <- function (df, file, latitude = "latitude", longitude = "longitude",
   if (!is.null(name)) {
     df[, "name"] <- df[, name]
   }
-  
   
   # Make spatial points
   if (layer == "points") {
@@ -84,7 +85,7 @@ write.gpx <- function (df, file, latitude = "latitude", longitude = "longitude",
     file.remove(file)
   }
   
-  # Use ogr
+  # Export file
   rgdal::writeOGR(sp.object, file, layer = layer.vector, driver = "GPX", 
                   dataset_options = "GPX_USE_EXTENSIONS=yes")
   

@@ -1,7 +1,7 @@
 #' Function to write a data frame to a JSON file with usage analogous to 
 #' \code{write.table}.
 #' 
-#' \code{write.json} Uses \code{jsonlite} as the data frame to JSON parser.
+#' \code{write.json} uses \code{jsonlite} as the data frame to JSON parser.
 #' 
 #' @param df Data frame to be written as a JSON file.
 #' @param file JSON file name.
