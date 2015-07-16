@@ -22,6 +22,10 @@
 #' 
 write.json <- function (df, file = "", pretty = TRUE, na.empty = TRUE) {
   
+  # Make factors strings
+  index.factor <- sapply(df, is.factor)
+  df[index.factor] <- lapply(df[index.factor], as.character)
+  
   # Replace empty strings with NA so the variable will not be written to file
   if (na.empty) {
     
