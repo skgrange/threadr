@@ -17,8 +17,8 @@ write.gpx(df, file, latitude = "latitude", longitude = "longitude",
 
 \item{longitude}{\code{df}'s longitude variable name.}
 
-\item{name}{Name of variable which will be added in the "name" element of the
-GPX file. Optional.}
+\item{name}{Name of variable which will be added in the \code{"name"} element
+of the GPX file. Optional.}
 
 \item{layer}{Type of layer to be written to GPX file. Can either be
 \code{"points"} or \code{"lines"}. Default is \code{"points"}.}
@@ -27,6 +27,9 @@ GPX file. Optional.}
 \code{write.gpx} uses \code{rgdal::writeOGR} as the GPX writer. Unlike the
 standard \code{writeOGR} function, \code{write.gpx} will automatically expand
 file paths and can overwrite previous files if necessary.
+}
+\details{
+\code{latitude} and \code{longitude} must not contain \code{NA} values.
 }
 \examples{
 \dontrun{

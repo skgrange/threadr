@@ -22,7 +22,8 @@
 #' 
 write.json <- function (df, file = "", pretty = TRUE, na.empty = TRUE) {
   
-  # Make factors strings
+  # Make factors strings so they are not subjected to the classic factor
+  # conversion process
   index.factor <- sapply(df, is.factor)
   df[index.factor] <- lapply(df[index.factor], as.character)
   
@@ -30,7 +31,7 @@ write.json <- function (df, file = "", pretty = TRUE, na.empty = TRUE) {
   if (na.empty) {
     
     # Catch dates
-    index.date <- sapply(df, is.POSIXt)
+    index.date <- sapply(df, lubridate::is.POSIXt)
     df[index.date] <- lapply(df[index.date], as.character)
 
     # Replace empty strings

@@ -19,7 +19,7 @@ TRUE.}
 not included in the the JSON element?}
 }
 \description{
-\code{write.json} Uses \code{jsonlite} as the data frame to JSON parser.
+\code{write.json} uses \code{jsonlite} as the data frame to JSON parser.
 }
 \examples{
 \dontrun{
