@@ -11,22 +11,16 @@
 #' dates within a time-series and then generating a uniform date sequence 
 #' between the maximum and minimum dates. This date sequence is then joined to 
 #' the input data frame and the missing values are represented as \code{NA}. 
-#' 
-#' \code{time_pad} uses \code{dplyr::left_join} for the date join because 
-#' testing has demonstrated this function performs much faster than 
-#' \code{base::merge}. However, users can still opt to use \code{base::merge}
-#'  because dplyr is reporting many bugs. 
 #'
 #' @param df A data frame including parsed dates. The date variable/column must
 #' be named \code{"date"}.
 #' @param pad.time Frequency of time padding. Some examples could be: "min"
 #' "hour", "day", "month", "year" but multiples such as "5 min" work too. 
-#' @param start.unit A optional date unit where the padded time-series should 
-#' begin and end. Examples are "hour", "day", "month", and "year". 
+#' @param round An optional date-unit to round the first and last observations
+#' of \code{df} so the padded time-series begins and ends at a "nice place".
+#' Examples are "hour", "day", "month", and "year". 
 #' @param id.var What identifying variables be applied to the data 
 #' post-pad? \code{id.var} can take multiple values. 
-#' @param dplyr Should \code{dplyr::left_join} be used rather than 
-#' \code{base:merge} for the date sequence join? 
 #' @param remove.final Should the final observation of the padded time-series be
 #' removed? Sometimes if makes sense to remove the last observation if the
 #' end date has been rounded forwards. 
@@ -39,7 +33,7 @@
 #' 
 #' \dontrun{
 #' # Pad time-series so every minute is present
-#' data.nelson.pad <- time_pad(data.nelson, pad.time = "min", start.unit = "day")
+#' data.nelson.pad <- time_pad(data.nelson, pad.time = "min", round = "day")
 #' 
 #' # Keep identifying variables "site" and "sensor"
 #' data.ozone.sensor.pad <- time_pad(data.ozone.sensor, pad.time = "hour", 
@@ -49,17 +43,28 @@
 #' 
 #' @export
 #' 
-time_pad <- function (df, pad.time = "10 min", start.unit = NULL, id.var = NULL, 
-                     dplyr = TRUE, remove.final = FALSE) {
+time_pad <- function (df, pad.time = "hour", round = NA, id.var = NA, 
+                      remove.final = FALSE) {
   
-  # Ensure data frame is data frame, issue occurs when dplyr::tbl_df is used
+  # Check if df has a date variable
+  if (!"date" %in% names(df)) {
+    stop("Input data frame must contain a date variable/column and must be named 'date'")
+  }
+  
+  # Make id.var a single element for flow control
+  id.var.string <- stringr::str_c(id.var, collapse = "|")
+  
+  # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
+  # due to the lack of indices
   df <- data.frame(df)
   
   # Get identifying variables
-  if (!is.null(id.var)) {
-    
-    # Get identifiers
+  if (!is.na(id.var.string)) {
+
+    # Get the first non-NA elements
     identifiers <- lapply(df[, id.var], first_na_element)
+    # Make a data frame
+    identifiers <- data.frame(identifiers)
     
     # Drop ids from data frame  
     df <- df[!names(df) %in% id.var]
@@ -67,7 +72,7 @@ time_pad <- function (df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
   }
   
   # Find the start and end of the date sequence
-  if (is.null(start.unit)) {
+  if (is.na(round)) {
     
     # No date rounding, use date values in df
     date.start <- min(df$date)
@@ -76,8 +81,8 @@ time_pad <- function (df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
   } else {
     
     # Date rounding
-    date.start <- lubridate::floor_date(min(df$date), start.unit)
-    date.end <- lubridate::ceiling_date(max(df$date), start.unit)
+    date.start <- lubridate::floor_date(min(df$date), round)
+    date.end <- lubridate::ceiling_date(max(df$date), round)
     
   }
   
@@ -85,14 +90,12 @@ time_pad <- function (df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
   date.sequence <- data.frame(date = seq(date.start, date.end, by = pad.time))
   
   # Do the padding
-  if (dplyr) {
-    df <- dplyr::left_join(date.sequence, df, by = "date")
-  } else {
-    df <- merge(date.sequence, df, all = TRUE, by = "date")
-  }
-  
+  df <- dplyr::left_join(date.sequence, df, by = "date")
+
   # Add the id variables to the padded data
-  if (!is.null(id.var)) {
+  if (!is.na(id.var.string)) {
+    # length <- nrow(df)
+    # cbind will replicate the vector
     df <- cbind(df, identifiers)
   }
   
@@ -107,14 +110,14 @@ time_pad <- function (df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
 }
 
 # Define function to find first non-NA element
-# Define function
 first_na_element <- function (vector) {
   
   # Index of na elements
   index <- which(!is.na(vector))
+  index <- min(index)
   
   # Get first non-na element
-  element <- vector[min(index)]
+  element <- vector[index]
   
   # Return
   element
