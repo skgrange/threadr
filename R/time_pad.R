@@ -14,7 +14,7 @@
 #'
 #' @param df A data frame including parsed dates. The date variable/column must
 #' be named \code{"date"}.
-#' @param pad.time Frequency of time padding. Some examples could be: "min"
+#' @param interval Frequency of time padding. Some examples could be: "min"
 #' "hour", "day", "month", "year" but multiples such as "5 min" work too. 
 #' @param round An optional date-unit to round the first and last observations
 #' of \code{df} so the padded time-series begins and ends at a "nice place".
@@ -33,17 +33,17 @@
 #' 
 #' \dontrun{
 #' # Pad time-series so every minute is present
-#' data.nelson.pad <- time_pad(data.nelson, pad.time = "min", round = "day")
+#' data.nelson.pad <- time_pad(data.nelson, interval = "min", round = "day")
 #' 
 #' # Keep identifying variables "site" and "sensor"
-#' data.ozone.sensor.pad <- time_pad(data.ozone.sensor, pad.time = "hour", 
+#' data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour", 
 #'   id.var = c("site", "sensor"))
 #' 
 #' }
 #' 
 #' @export
 #' 
-time_pad <- function (df, pad.time = "hour", round = NA, id.var = NA, 
+time_pad <- function (df, interval = "hour", round = NA, id.var = NA, 
                       remove.final = FALSE) {
   
   # Check if df has a date variable
@@ -87,7 +87,7 @@ time_pad <- function (df, pad.time = "hour", round = NA, id.var = NA,
   }
   
   # Create the sequence of dates
-  date.sequence <- data.frame(date = seq(date.start, date.end, by = pad.time))
+  date.sequence <- data.frame(date = seq(date.start, date.end, by = interval))
   
   # Do the padding
   df <- dplyr::left_join(date.sequence, df, by = "date")

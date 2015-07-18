@@ -4,24 +4,22 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, pad.time = "10 min", start.unit = NULL, id.var = NULL,
-  dplyr = TRUE, remove.final = FALSE)
+time_pad(df, interval = "hour", round = NA, id.var = NA,
+  remove.final = FALSE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
 be named \code{"date"}.}
 
-\item{pad.time}{Frequency of time padding. Some examples could be: "min"
+\item{interval}{Frequency of time padding. Some examples could be: "min"
 "hour", "day", "month", "year" but multiples such as "5 min" work too.}
 
-\item{start.unit}{A optional date unit where the padded time-series should
-begin and end. Examples are "hour", "day", "month", and "year".}
+\item{round}{An optional date-unit to round the first and last observations
+of \code{df} so the padded time-series begins and ends at a "nice place".
+Examples are "hour", "day", "month", and "year".}
 
 \item{id.var}{What identifying variables be applied to the data
 post-pad? \code{id.var} can take multiple values.}
-
-\item{dplyr}{Should \code{dplyr::left_join} be used rather than
-\code{base:merge} for the date sequence join?}
 
 \item{remove.final}{Should the final observation of the padded time-series be
 removed? Sometimes if makes sense to remove the last observation if the
@@ -40,19 +38,14 @@ identifiers post-pad, and can start and end a padded time-series at a
 dates within a time-series and then generating a uniform date sequence
 between the maximum and minimum dates. This date sequence is then joined to
 the input data frame and the missing values are represented as \code{NA}.
-
-\code{time_pad} uses \code{dplyr::left_join} for the date join because
-testing has demonstrated this function performs much faster than
-\code{base::merge}. However, users can still opt to use \code{base::merge}
- because dplyr is reporting many bugs.
 }
 \examples{
 \dontrun{
 # Pad time-series so every minute is present
-data.nelson.pad <- time_pad(data.nelson, pad.time = "min", start.unit = "day")
+data.nelson.pad <- time_pad(data.nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
-data.ozone.sensor.pad <- time_pad(data.ozone.sensor, pad.time = "hour",
+data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour",
   id.var = c("site", "sensor"))
 
 }
