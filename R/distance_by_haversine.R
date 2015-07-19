@@ -1,14 +1,17 @@
 #' Function to calculate distances between two points in metres or kilometres.
 #' 
 #' \code{distance_by_haversine} is used when distances between latitude and 
-#' longitude-pairs need to be represented in metre or kilometre units. 
+#' longitude-pairs need to be represented in metre or kilometre units. The 
+#' distances between two points is based on the Haversine Formula which is 
+#' approximate and is most appropriate when used for short-distance calculations.
 #' 
-#' \code{distance_by_haversine} is not a spatial function, it uses the 
-#' Haversine Formula which does not compensate for Earth's slightly 
-#' non-spherical shape. The Haversine Formula is most appropriate when used for 
-#' short-distance calculations and will overestimate distances in the polar 
-#' regions but underestimate distances near the equator. For more information 
-#' see: \url{https://en.wikipedia.org/wiki/Haversine_formula}. 
+#' The Haversine Formula does not compensate for Earth's non-spherical shape, 
+#' will overestimate distances in the polar regions but will underestimate 
+#' distances near the equator. For more information see 
+#' \url{https://en.wikipedia.org/wiki/Haversine_formula}
+#' 
+#' \code{distance_by_haversine} is not a spatial function and does not have any
+#' geographic library dependencies. 
 #' 
 #' @param longitude A vector of longitude values in decimal degrees.
 #' @param latitude A vector of latitude values in decimal degrees.
