@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_frame_to_polygon.R
 \name{data_frame_to_polygon}
 \alias{data_frame_to_polygon}
-\title{Function for converting a data frame to spatial polygons.}
+\title{Function for converting a data frame to spatial-polygon data frame.}
 \usage{
 data_frame_to_polygon(df, latitude = "latitude", longitude = "longitude")
 }
@@ -13,10 +13,9 @@ SpatialPolygonsDataFrame.
 \details{
 \code{data_frame_to_polygon} will create closed polygons by joining the first
 and last observations together in a straight line if the input data frame's
-first and last coordinate pairs to not match.
-
-\code{data_frame_to_polygon} correctly deals with holes if the variable "hole"
-is present in the input data frame.
+first and last coordinate pairs to not match. \code{data_frame_to_polygon}
+correctly deals with holes if the variable "hole" is present in the input
+data frame.
 }
 \examples{
 \dontrun{

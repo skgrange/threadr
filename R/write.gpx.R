@@ -31,48 +31,119 @@
 #' @export
 #' 
 write.gpx <- function (df, file, latitude = "latitude", longitude = "longitude", 
-                       name = NULL, layer = "points") {
+                       name = NA, layer = "points") {
   
-  # Check
-  if (!layer %in% c("points", "lines")) {
-    stop("Layer must either be 'points' or 'lines'.")
+  # For data frames
+  if (grepl("data.frame", class(df), ignore.case = TRUE)) {
+    
+    # Check
+    if (!layer %in% c("points", "lines")) {
+      stop("Layer must either be 'points' or 'lines'.")
+    }
+    
+    # Add a name element
+    if (!is.na(name)) {
+      df[, "name"] <- df[, name]
+    }
+    
+    # Make spatial points
+    if (layer == "points") {
+      
+      # A catch for when only coordinates are present, i.e. there are no extra 
+      # identifiers in df. To-do: do this better. 
+      if (ncol(df) == 2) {
+        df[, "name"] <- ""
+      }
+      
+      # Make sp points object
+      sp::coordinates(df) <- c(longitude, latitude)
+      
+      # Reassign
+      sp.object <- df
+      
+      # Force projection, not ideal
+      sp::proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
+      
+      # For writeOGR
+      layer.vector <- "points"
+      
+    }
+    
+    # Make spatial lines
+    if (layer == "lines") {
+      
+      # Use function
+      sp.object <- data_frame_to_line(df, latitude, longitude)
+      
+      # For writeOGR
+      layer.vector <- "lines"
+      
+    }
+    
   }
   
-  # Add a name element
-  if (!is.null(name)) {
-    df[, "name"] <- df[, name]
-  }
-  
-  # Make spatial points
-  if (layer == "points") {
+  # For spatial objects
+  # Points
+  if (grepl("spatialpoints", class(df), ignore.case = TRUE)) {
+    
+    # Re-assign input
+    sp.object <- df
+    
+    if (!is.na(name)) {
+      
+      # Extract vector for gpx name
+      name.vector <- sp.object@data[, name]
+      
+      # Add vector to object
+      sp.object@data[, "name"] <- name.vector
+      
+    }
     
     # For writeOGR
     layer.vector <- "points"
     
-    # A catch for when only coordinates are present, i.e. there are no extra 
-    # identifiers in df. To-do: do this better. 
-    if (ncol(df) == 2) {
-      df[, "name"] <- ""
-    }
+  }
+  
+  # Lines
+  if (grepl("spatiallines", class(df), ignore.case = TRUE)) {
     
-    # Make sp points object
-    sp::coordinates(df) <- c(longitude, latitude)
-    
-    # Reassign
+    # Simply re-assign input
     sp.object <- df
     
-    # Force projection, not ideal
-    sp::proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
+    if (!is.na(name)) {
+      
+      # Extract vector for gpx name
+      name.vector <- sp.object@data[, name]
+      
+      # Add vector to object
+      sp.object@data[, "name"] <- name.vector
+      
+    }
+    
+    # For writeOGR
+    layer.vector <- "tracks"
     
   }
   
-  # Make spatial lines
-  if (layer == "lines") {
+  # Polygons
+  if (grepl("spatialpolygons", class(df), ignore.case = TRUE)) {
+    
+    # Polygons are not supported by gpx files, convert to lines
+    message("Polygons are not supported by GPX, the polygons have been coerced to lines.")
+    sp.object <- as(df, "SpatialLinesDataFrame")
+    
+    if (!is.na(name)) {
+      
+      # Extract vector for gpx name
+      name.vector <- sp.object@data[, name]
+      
+      # Add vector to object
+      sp.object@data[, "name"] <- name.vector
+      
+    }
     
     # For writeOGR
-    layer.vector <- "lines"
-    
-    sp.object <- data_frame_to_line(df, latitude, longitude)
+    layer.vector <- "tracks"
     
   }
   

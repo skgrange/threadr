@@ -38,8 +38,9 @@ are supplied and the coordinate system is different that what is desired.
 \details{
 \code{transform_coordinates} works by coercing the input data frame to a
 spatial object, applies \code{sp::spTransform} to convert the coordinates,
-and then returns the input data frame with the transformed coordinates. The
-transformed coordinates can be optionally renamed and reordered.
+converts the spatial object back to a data frame and then returns the data
+frame with the transformed coordinates. The transformed coordinates can be
+optionally renamed and reordered.
 
 \code{transform_coordinates} requires a CRS projection string for the
 \code{from} and \code{to} arguments. \code{to} by default is set as
@@ -59,5 +60,8 @@ data.oxford.transform <- transform_coordinates(
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+See \code{\link{spTransform}}
 }
 

@@ -6,7 +6,7 @@
 \code{write.table}.}
 \usage{
 write.gpx(df, file, latitude = "latitude", longitude = "longitude",
-  name = NULL, layer = "points")
+  name = NA, layer = "points")
 }
 \arguments{
 \item{df}{Data frame to be written to a GPX file.}

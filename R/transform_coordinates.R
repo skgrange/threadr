@@ -6,8 +6,9 @@
 #' 
 #' \code{transform_coordinates} works by coercing the input data frame to a 
 #' spatial object, applies \code{sp::spTransform} to convert the coordinates, 
-#' and then returns the input data frame with the transformed coordinates. The 
-#' transformed coordinates can be optionally renamed and reordered. 
+#' converts the spatial object back to a data frame and then returns the data 
+#' frame with the transformed coordinates. The transformed coordinates can be 
+#' optionally renamed and reordered. 
 #' 
 #' \code{transform_coordinates} requires a CRS projection string for the 
 #' \code{from} and \code{to} arguments. \code{to} by default is set as 
@@ -26,6 +27,8 @@
 #' columns of the returned data frame? 
 #' @param round How many decimal points should the converted coordinates be
 #' rounded to? Default is 6. 
+#' 
+#' @seealso See \code{\link{spTransform}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -71,7 +74,7 @@ transform_coordinates <- function (df, x = "easting", y = "northing", from = "",
   # Back to data frame
   df <- data.frame(df)
   
-  # Remove optional variable, why does this appear? 
+  # Remove optional variable
   if ("optional" %in% names(df)) {
     df$optional <- NULL
   }

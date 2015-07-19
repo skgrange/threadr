@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_frame_to_line.R
 \name{data_frame_to_line}
 \alias{data_frame_to_line}
-\title{Function for converting a data frame into spatial lines.}
+\title{Function for converting a data frame into a spatial-lines data frame.}
 \usage{
 data_frame_to_line(df, latitude = "latitude", longitude = "longitude")
 }
@@ -15,14 +15,14 @@ data_frame_to_line(df, latitude = "latitude", longitude = "longitude")
 }
 \description{
 \code{data_frame_to_line} returns a SpatialLinesDataFrame with a single line
-object. Multiple identifiers will not be preserved, but will be in the
-future. In general usage, \code{latitude} and \code{longitude} will be
-projected in WGS84. \code{latitude} and \code{longitude} must not contain
-\code{NA} values.
+object. Multiple identifiers are not currently preserved. In general usage,
+\code{latitude} and \code{longitude} will be projected in WGS84.
+\code{latitude} and \code{longitude} must not contain \code{NA} values
+because this is a limitation of the spatial object.
 }
 \examples{
 \dontrun{
-spatial.lines <- data_frame_to_line(data.gps.track, "latitude", "longitude")
+sp.lines <- data_frame_to_line(data.gps.track, "latitude", "longitude")
 }
 }
 \author{

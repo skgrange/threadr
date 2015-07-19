@@ -1,10 +1,10 @@
-#' Function for converting a data frame into spatial lines.
+#' Function for converting a data frame into a spatial-lines data frame.
 #' 
 #' \code{data_frame_to_line} returns a SpatialLinesDataFrame with a single line 
-#' object. Multiple identifiers will not be preserved, but will be in the 
-#' future. In general usage, \code{latitude} and \code{longitude} will be 
-#' projected in WGS84. \code{latitude} and \code{longitude} must not contain 
-#' \code{NA} values.
+#' object. Multiple identifiers are not currently preserved. In general usage, 
+#' \code{latitude} and \code{longitude} will be projected in WGS84. 
+#' \code{latitude} and \code{longitude} must not contain \code{NA} values 
+#' because this is a limitation of the spatial object. 
 #' 
 #' @param df Data frame to be converted into SpatialLinesDataFrame. 
 #' @param latitude \code{df}'s latitude variable name.
@@ -15,10 +15,11 @@
 #' @examples 
 #' 
 #' \dontrun{
-#' spatial.lines <- data_frame_to_line(data.gps.track, "latitude", "longitude")
+#' sp.lines <- data_frame_to_line(data.gps.track, "latitude", "longitude")
 #' }
 #' 
 #' @import sp
+#' 
 #' @export
 #' 
 data_frame_to_line <- function (df, latitude = "latitude", 

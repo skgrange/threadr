@@ -5,7 +5,7 @@
 \title{Function for a point-in-polygon test.}
 \usage{
 left_join_spatial(df, latitude = "latitude", longitude = "longitude",
-  polygons = NULL)
+  polygons = NA)
 }
 \arguments{
 \item{df}{Data frame containing latitude and longitude variables.}
@@ -14,20 +14,21 @@ left_join_spatial(df, latitude = "latitude", longitude = "longitude",
 
 \item{longitude}{\code{df}'s longitude variable name.}
 
-\item{polygons}{A spatial polygon object to be joined to \code{df}.}
+\item{polygons}{A spatial-polygon data frame to be joined to \code{df}.}
 }
 \description{
-\code{left_join_spatial} tests if a point is within a spatial polygon and
-joins tabular data from a spatial object if the match TRUE. This process is
-analogous to a SQL left join with the match being a spatial intersection.
+\code{left_join_spatial} tests if a point is within a polygon and joins
+tabular data from a spatial object (the data part of the spatial-polygon data
+frame) if the match is TRUE. This process is analogous to a SQL left join
+with the match being a spatial intersection.
 }
 \details{
 Points to be tested are stored in a data frame with latitude and longitude
-while the polygons must be stored in a spatial object. The result is the
-input data frame with the joined data contained within the spatial polygon
-object.
+pairs while the polygons must be stored in a spatial object. The result is
+the input data frame with the joined data contained within the
+spatial-polygon data frame.
 
-Ensure that the data frame containing points and the polygons are both
+Ensure that the data frame containing points and the polygon object are both
 projected as WGS84 (\code{"+proj=latlong +datum=WGS84"; see sp::spTransform}).
 
 \code{sp::over} is used for the point-in-polygon test
@@ -41,9 +42,25 @@ polygons are to be joined.
 # Join PM10 air quality zones to 280 000 latitude and longitude pairs
 data.join <- left_join_spatial(data.tidy, latitude = "latitude",
   longitude = "longitude", polygons = shape.file.pm10)
+
+
+# I am in London, I know the latitude and longitude. Which borough am I in?
+
+# ... load shape file containing the London boroughs
+
+# Make latitude and longitude a data frame
+data.point <- data.frame(latitude = 51.523595, longitude = -0.027114)
+
+# Test point with 33 polygons (boroughs) in the shape file
+left_join_spatial(data.point, polygons = shape.file)
+"Tower Hamlets"
 }
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+See \code{\link{spTransform}}, \code{\link{over}},
+\code{\link{merge}}, \code{\link{join}}
 }
 
