@@ -58,6 +58,11 @@ left_join_spatial <- function (df, latitude = "latitude",
     stop("Spatial polygons must be defined in the 'polygon' argument. ")
   }
   
+  # Catch for dplyr's data frame class
+  if ("tbl" %in% class(df)) {
+    df <- data.frame(df)
+  }
+  
   # A message to the user
   message("This function assumes points and polygons are projected in WGS84.")
   
@@ -67,7 +72,7 @@ left_join_spatial <- function (df, latitude = "latitude",
   # Reassign
   sp.object <- df
   
-  # Force projection, not ide
+  # Force projection, not ideal
   proj4string(sp.object) <- "+proj=longlat +datum=WGS84"
   
   # The point in polygon function

@@ -4,29 +4,28 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", round = NA, id.var = NA,
-  remove.final = FALSE)
+time_pad(df, interval = "hour", round = NA, id = NA, final = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
-be named \code{"date"}.}
+be named \code{date}.}
 
-\item{interval}{Frequency of time padding. Some examples could be: "min"
-"hour", "day", "month", "year" but multiples such as "5 min" work too.}
+\item{interval}{Interval of returned time series. Some examples could be:
+"min" "hour", "day", "month", "year" but multiples such as "5 min" work too.}
 
 \item{round}{An optional date-unit to round the first and last observations
-of \code{df} so the padded time-series begins and ends at a "nice place".
-Examples are "hour", "day", "month", and "year".}
+of \code{df}. This allows the padded time-series to begin and end at a
+"nice place". Examples are "hour", "day", "month", and "year".}
 
-\item{id.var}{What identifying variables be applied to the data
-post-pad? \code{id.var} can take multiple values.}
+\item{id}{What identifying variables should be applied to the data post-pad?
+\code{id} can take multiple values.}
 
-\item{remove.final}{Should the final observation of the padded time-series be
-removed? Sometimes if makes sense to remove the last observation if the
-end date has been rounded forwards.}
+\item{final}{Should the final observation of the padded time-series be
+kept? Sometimes if makes sense to remove the last observation if the
+end-date has been rounded forwards.}
 }
 \description{
-\code{time_pad} use is analogous to \code{openair::timeAverage}. However, the
+\code{time_pad} use is similar to \code{openair::timeAverage}. However, the
 aggregation of values does not occur.
 }
 \details{
@@ -46,7 +45,7 @@ data.nelson.pad <- time_pad(data.nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
 data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour",
-  id.var = c("site", "sensor"))
+  id = c("site", "sensor"))
 
 }
 }
@@ -55,6 +54,6 @@ Stuart K. Grange
 }
 \seealso{
 See \code{\link{round_date_interval}}, \code{\link{timeAverage}},
-\code{\link{round_date}}
+\code{\link{round_date}}, \code{\link{left_join}}
 }
 

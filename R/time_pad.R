@@ -1,6 +1,6 @@
 #' Function to pad time-series.
 #'
-#' \code{time_pad} use is analogous to \code{openair::timeAverage}. However, the
+#' \code{time_pad} use is similar to \code{openair::timeAverage}. However, the
 #' aggregation of values does not occur. 
 #' 
 #' \code{time_pad} does not drop non-numerical variables, can include 
@@ -13,20 +13,20 @@
 #' the input data frame and the missing values are represented as \code{NA}. 
 #'
 #' @param df A data frame including parsed dates. The date variable/column must
-#' be named \code{"date"}.
-#' @param interval Frequency of time padding. Some examples could be: "min"
-#' "hour", "day", "month", "year" but multiples such as "5 min" work too. 
+#' be named \code{date}.
+#' @param interval Interval of returned time series. Some examples could be: 
+#' "min" "hour", "day", "month", "year" but multiples such as "5 min" work too. 
 #' @param round An optional date-unit to round the first and last observations
-#' of \code{df} so the padded time-series begins and ends at a "nice place".
-#' Examples are "hour", "day", "month", and "year". 
-#' @param id.var What identifying variables be applied to the data 
-#' post-pad? \code{id.var} can take multiple values. 
-#' @param remove.final Should the final observation of the padded time-series be
-#' removed? Sometimes if makes sense to remove the last observation if the
-#' end date has been rounded forwards. 
+#' of \code{df}. This allows the padded time-series to begin and end at a 
+#' "nice place". Examples are "hour", "day", "month", and "year". 
+#' @param id What identifying variables should be applied to the data post-pad? 
+#' \code{id} can take multiple values. 
+#' @param final Should the final observation of the padded time-series be
+#' kept? Sometimes if makes sense to remove the last observation if the
+#' end-date has been rounded forwards. 
 #' 
 #' @seealso See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
-#' \code{\link{round_date}}
+#' \code{\link{round_date}}, \code{\link{left_join}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -38,37 +38,47 @@
 #' 
 #' # Keep identifying variables "site" and "sensor"
 #' data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour", 
-#'   id.var = c("site", "sensor"))
+#'   id = c("site", "sensor"))
 #' 
 #' }
 #' 
 #' @export
 #' 
-time_pad <- function (df, interval = "hour", round = NA, id.var = NA, 
-                      remove.final = FALSE) {
+time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) {
   
   # Check if df has a date variable
   if (!"date" %in% names(df)) {
     stop("Input data frame must contain a date variable/column and must be named 'date'")
   }
   
-  # Make id.var a single element for flow control
-  id.var.string <- stringr::str_c(id.var, collapse = "|")
+  # Make id a single element for flow control
+  id.string <- stringr::str_c(id, collapse = "|")
   
   # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
   # due to the lack of indices
   df <- data.frame(df)
   
   # Get identifying variables
-  if (!is.na(id.var.string)) {
-
-    # Get the first non-NA elements
-    identifiers <- lapply(df[, id.var], first_na_element)
-    # Make a data frame
-    identifiers <- data.frame(identifiers)
+  if (!is.na(id.string)) {
     
+    # A ddply catch
+    if (length(id) == 1) {
+      
+      identifiers <- first_na_element(df[, id])
+      identifiers <- data.frame(identifiers)
+      names(identifiers) <- id
+      
+    } else {
+      
+      # Get the first non-NA elements
+      identifiers <- lapply(df[, id], first_na_element)
+      # Make a data frame
+      identifiers <- data.frame(identifiers)
+      
+    }
+
     # Drop ids from data frame  
-    df <- df[!names(df) %in% id.var]
+    df <- df[!names(df) %in% id]
     
   }
   
@@ -94,14 +104,13 @@ time_pad <- function (df, interval = "hour", round = NA, id.var = NA,
   df <- dplyr::left_join(date.sequence, df, by = "date")
 
   # Add the id variables to the padded data
-  if (!is.na(id.var.string)) {
-    # length <- nrow(df)
-    # cbind will replicate the vector
+  if (!is.na(id.string)) {
+    # cbind will replicate/recycle the vector
     df <- cbind(df, identifiers)
   }
   
   # Remove final observation
-  if (remove.final) {
+  if (!final) {
     df <- df[-nrow(df), ]
   }
   

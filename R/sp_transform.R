@@ -10,7 +10,7 @@
 #' @param round Number of decimal places the transformed coordinates will be
 #' rounded to. 
 #' 
-#' @seealso \code{\link(spTransform)}
+#' @seealso \code{\link{spTransform}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -42,7 +42,6 @@ sp_transform <- function (sp, to = "+proj=longlat +datum=WGS84", round = NA) {
   if (!is.na(round)) {
     sp@coords <- round(sp@coords, round)
   }
-  
   
   # Return
   sp

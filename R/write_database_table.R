@@ -26,6 +26,9 @@
 #' 
 write_database_table <- function (db, table, nrow = 1000000, file = "") {
   
+  # No scientific notation in statement
+  nrow <- format(nrow, scientific = FALSE)
+
   # Get size of table
   message("Finding the length of the table...")
   count.statement <- paste("SELECT COUNT(*) FROM", table)
