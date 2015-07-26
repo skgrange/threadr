@@ -4,15 +4,13 @@
 \alias{unix_time}
 \title{Function to calculate unix time from a date vector.}
 \usage{
-unix_time(date, tz = NA, message = TRUE)
+unix_time(date, tzone = NA)
 }
 \arguments{
-\item{date}{Date to be transformed into unix time}
+\item{date}{Date to be transformed into unix time.}
 
-\item{tz}{Olson time-zone string for \code{date} if \code{date} has current
+\item{tzone}{Olson time-zone string for \code{date} if \code{date} has current
 incorrect time-zone information.}
-
-\item{message}{Should a reminder message be displayed?}
 }
 \description{
 \code{unix_time} returns the numeric value from a date which represents
@@ -25,8 +23,8 @@ Dates in R are often parsed and interacted with without including correct
 time-zone information for convenience. However, if the time-zone information
 for an input date is incorrect, the return of \code{unix_time} will also be
 incorrect. Rather than forcing users to correctly parse all dates,
-\code{unix_time} has an argument (\code{tz}) where the correct time-zone for
-the date can be supplied only for this function.
+\code{unix_time} has an argument (\code{tzone}) where the correct time-zone
+for the date can be supplied only for this function.
 
 \code{OlsonNames()} lists the time zones which can be used.
 }
@@ -34,7 +32,7 @@ the date can be supplied only for this function.
 \dontrun{
 # Add unix time to a data frame which contains local dates
 data.air.quality$unix.time <- unix_time(data.air.quality$date,
-  tz = "Pacific/Auckland")
+  tzone = "Pacific/Auckland")
 }
 }
 \author{

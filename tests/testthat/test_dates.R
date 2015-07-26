@@ -51,6 +51,9 @@ test_that("Unix time correct-ness", {
   date.utc <- as.POSIXct(date.unix, origin = "1970-01-01", tz = "UTC")
   date.nz <- as.POSIXct(date.unix, origin = "1970-01-01", tz = "Pacific/Auckland")
   
+  # How I parse dates
+  date.normal <- lubridate::ymd_hms("2015-07-26 07:40:06")
+  
   # Only testing the base as.numeric function
   expect_equal(unix_time(date.london), date.unix)
   expect_equal(unix_time(date.utc), date.unix)
@@ -59,8 +62,6 @@ test_that("Unix time correct-ness", {
   
   
   # Check the tz handling
-  # How I parse dates
-  date.normal <- ymd_hms("2015-07-26 07:40:06")
   expect_equal(date.normal, as.POSIXct(date.unix, origin = "1970-01-01"))
   
   # Time zone change for function
