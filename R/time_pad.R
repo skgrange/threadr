@@ -51,15 +51,12 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
     stop("Input data frame must contain a date variable/column and must be named 'date'")
   }
   
-  # Make id a single element for flow control
-  id.string <- stringr::str_c(id, collapse = "|")
-  
   # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
   # due to the lack of indices
   df <- data.frame(df)
   
   # Get identifying variables
-  if (!is.na(id.string)) {
+  if (!is.na(id[1])) {
     
     # A ddply catch
     if (length(id) == 1) {
@@ -104,7 +101,7 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
   df <- dplyr::left_join(date.sequence, df, by = "date")
 
   # Add the id variables to the padded data
-  if (!is.na(id.string)) {
+  if (!is.na(id[1])) {
     # cbind will replicate/recycle the vector
     df <- cbind(df, identifiers)
   }

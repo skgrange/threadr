@@ -4,7 +4,7 @@
 
 ## To install:
 
-The development version: `devtools::install_github('skgrange/threadr')`
+The development version: `devtools::install_github("skgrange/threadr")`
 
 ## To-do: 
 
@@ -12,24 +12,58 @@ The development version: `devtools::install_github('skgrange/threadr')`
   2. Work on documentation
   3. Get package on CRAN
 
-## Some explanation
+## Some examples
 
-### Padding time-series with `time_pad`
+### Padding time-series
 
-When dealing with time-series data, often one of the most important things to do is to ensure that the time-series is uniform, *i.e.* all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that with helpful extensions such as starting the time-series at the beginning of a hour/day/month/year and ensuring that identifying variables are added to the data after time-padding has occurred. 
+When dealing with time-series data, often one of the most important things to do is to ensure that the time-series is uniform, *i.e.* all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that. There are also helpful extensions such as starting the time-series at the beginning of a hour/day/month/year, and ensuring that identifying variables are added to the data after time-padding has occurred.
 
-### Round messy dates to arbitrary time intervals with `round_time_interval`
+```
+# Set-up
+library(lubridate)
+library(threadr)
+
+# Load data
+data.air <- read.csv("oxford_road_air_quality_data.csv")
+
+# Parse dates
+data.air$date <- ymd_hms(data.air$date)
+
+# Pad time-series
+data.air.pad <- time_pad(
+  data.air, interval = "hour", round = "day", id = c("site", "site.name"))
+```
+
+### Round dates to arbitrary time intervals
 
 Dealing with multiple data sources which have observations at different time intervals can be frustrating. More frustration can occur when the different data sources begin at an unhelpful times such as `2015-07-10 09:21:42`. `round_time_interval` allows issues likes these to be resolved to allow for future joining or aggregation of values from different sources.
 
-### `unix_time`
+```
+# Set-up
+library(lubridate)
+library(threadr)
 
-Dealing with dates and time-zones can get confusing quickly. Unix time is an numeric value which is time-zone independent and therefore has no ambiguity. Although Unix time is opaque for humans, it can be very useful to store alongside dates. `unix_time` allows for this date to Unix time transformation to occur easily. 
+# Load data
+data.gps <- read.csv("gps_track_data.csv")
+data.sensor <- read.csv("co2_sensor_data.csv")
 
-### `write.json`
+# Parse dates
+data.gps$date <- ymd_hms(data.gps$date)
+data.sensor$date <- ymd_hms(data.sensor$date)
 
-`write.json` is a simple wrapper for `jsonlite::toJSON` which allows for very quick JSON export in the same way as `write.table`/`write.csv`. 
+# Round both data sources to 5-second intervals
+data.gps.clean$date <- round_date_interval(data.gps.clean$date, "5 sec")
+data.sensor.clean$date <- round_date_interval(data.gps.sensor$date, "5 sec")
 
-### `write.gpx`
+# Join data
+data.join <- merge(data.gps.clean, data.sensor.clean, by = "date", all = TRUE)
+```
 
-Like `write.json`, `write.gpx` is a wrapper for a function which writes GPX files. However there is a bit more complexity due to the limitations of the wrapped function and the different types of spatial data GPX files can contain. Again, the usage is very similar to `write.csv`. 
+### Export data frame to JSON
+
+`write.json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
+
+### Export an object to a GPX file
+
+Like `write.json`, `write.gpx` is a wrapper for a function which writes GPX files. Again, the usage is very similar to `write.csv`. 
+

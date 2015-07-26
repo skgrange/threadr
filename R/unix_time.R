@@ -9,10 +9,14 @@
 #' time-zone information for convenience. However, if the time-zone information 
 #' for an input date is incorrect, the return of \code{unix_time} will also be 
 #' incorrect. Rather than forcing users to correctly parse all dates, 
-#' \code{unix_time} has an argument (\code{tz}) where the correct time-zone for
-#' the date can be supplied only for this function. 
+#' \code{unix_time} has an argument (\code{tzone}) where the correct time-zone 
+#' for the date can be supplied only for this function. 
 #' 
 #' \code{OlsonNames()} lists the time zones which can be used. 
+#' 
+#' @param date Date to be transformed into unix time. 
+#' @param tzone Olson time-zone string for \code{date} if \code{date} has current
+#' incorrect time-zone information. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -20,24 +24,18 @@
 #' \dontrun{
 #' # Add unix time to a data frame which contains local dates
 #' data.air.quality$unix.time <- unix_time(data.air.quality$date, 
-#'   tz.overwrite = "Pacific/Auckland")
+#'   tzone = "Pacific/Auckland")
 #' }
 #' 
 #' @export
 #' 
-unix_time <- function (date, tz = NA) {
-  
-  # Remind the user that time zone info must be correct
-  message("Ensure the time-zone of your date is correct.")
+unix_time <- function (date, tzone = NA) {
   
   # Overwrite time zone info. Same clock/values, different moment
-  if (!is.na(tz)) {
-    date <- lubridate::force_tz(date, tz)
+  if (!is.na(tzone)) {
+    date <- lubridate::force_tz(date, tzone)
   }
-  
-  # Make this date UTC, the date in the UTC time zone
-  date <- lubridate::with_tz(date, "UTC")
-  
+
   # Convert date to numeric, i.e. unix time
   date <- as.numeric(date)
   

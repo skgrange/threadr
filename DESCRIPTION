@@ -19,5 +19,6 @@ Imports:
   jsonlite
 Suggests: 
   openair,
-  quantmod
+  quantmod,
+    testthat
 LazyLoad: yes
