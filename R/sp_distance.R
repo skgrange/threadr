@@ -53,7 +53,7 @@
 #' sp.coast.line <- readOGR("coastlines, "coastlines")
 #' 
 #' # Places in the UK, spatial points
-#' sp.places <- readOGR(great-britain", "places")
+#' sp.places <- readOGR("great-britain", "places")
 #' 
 #' # Get a data frame from the sp.places object
 #' data.places <- data.frame(sp.places)
