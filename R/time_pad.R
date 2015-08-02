@@ -111,6 +111,11 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
     df <- df[-nrow(df), ]
   }
   
+  # A message if duplicate dates are present
+  if (anyDuplicated(df$date) != 0) {
+    message("There are duplicated dates in the padded time-series.")
+  }
+  
   # Return
   df
   
