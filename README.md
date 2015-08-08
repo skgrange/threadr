@@ -62,8 +62,3 @@ data.join <- merge(data.gps.clean, data.sensor.clean, by = "date", all = TRUE)
 ### Export data frame to JSON
 
 `write.json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
-
-### Export an object to a GPX file
-
-Like `write.json`, `write.gpx` is a wrapper for a function which writes GPX files. Again, the usage is very similar to `write.csv`. 
-
