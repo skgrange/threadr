@@ -70,3 +70,23 @@ test_that("Unix time correct-ness", {
   expect_equal(unix_time(date.normal, tzone = "Pacific/Auckland"), 1437853206)
   
 })
+
+
+context("Test the low-level utility functions")
+
+test_that("Test hexidecimal to integer function", {
+  
+  x <- "fff4d"
+  # As binary: threadr::as.binary(strtoi(x, 16))
+  expect_equal(strtoi(x, 16), 1048397)
+  
+})
+
+
+test_that("Test Two's Complement function", {
+  
+  x <- 1048397
+  expect_identical(threadr::twos_complement(x), -179)
+  
+})
+

@@ -24,7 +24,7 @@
 #' 
 #' @export
 #' 
-write_database_table <- function (db, table, nrow = 1000000, file = "") {
+write_database_table <- function (db, table, nrow = 1000000, file) {
   
   # No scientific notation in statement
   nrow <- format(nrow, scientific = FALSE)
@@ -53,7 +53,8 @@ write_database_table <- function (db, table, nrow = 1000000, file = "") {
                 length(statement.select), "pieces..."))
                 
   # Apply functions
-  l_ply(statement.select, select_and_write, db, file = file, .progress = "text")
+  plyr::l_ply(statement.select, select_and_write, db, file = file, 
+              .progress = "text")
   
 }
 

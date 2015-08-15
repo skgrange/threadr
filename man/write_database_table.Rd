@@ -4,7 +4,7 @@
 \alias{write_database_table}
 \title{Function to write an entire database table to disk.}
 \usage{
-write_database_table(db, table, nrow = 1e+06, file = "")
+write_database_table(db, table, nrow = 1e+06, file)
 }
 \arguments{
 \item{db}{A database connection.}

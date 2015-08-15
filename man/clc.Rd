@@ -10,6 +10,6 @@ clc()
 Found here: \url{http://stackoverflow.com/questions/14260340/function-to-clear-the-console-in-r}
 }
 \author{
-Hadley Wickham
+Stuart K. Grange
 }
 
