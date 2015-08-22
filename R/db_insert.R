@@ -6,8 +6,8 @@
 #' @author Stuart K. Grange
 #' 
 #' @param db A database connection.
-#' @param table A table in or to be created in \code{db}
-#' @param df Data frame to be inserted into \code{db}
+#' @param table A table in or to be created in \code{db}.
+#' @param df Data frame to be inserted into \code{db}.
 #' @param append Should the table be appended? Default is TRUE. 
 #' @param overwrite Should the table be overwrited? Default is FALSE. 
 #' @param rows Should the inserted data include row names? Default is FALSE. 
@@ -34,7 +34,8 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
     df <- plyr::rbind.fill(get_database_names(db, table), df)
   }
   
-  # Write data frame
-  dbWriteTable(db, table, df, append = append, overwrite, row.names = rows)
+  # Write data frame to database
+  dbWriteTable(db, table, df, append = append, overwrite = overwrite, 
+               row.names = rows)
   
 }

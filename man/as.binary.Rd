@@ -16,6 +16,9 @@ as.binary(x, n = 32)
 \code{as.binary} is vectorised.
 }
 \details{
+\code{as.binary} does not work for integers which are larger than 32 bit.
+To-do: Fix this.
+
 \url{http://stackoverflow.com/questions/6614283/converting-decimal-to-binary-in-r}
 }
 \examples{

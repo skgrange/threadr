@@ -10,9 +10,9 @@ db_insert(db, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
 \arguments{
 \item{db}{A database connection.}
 
-\item{table}{A table in or to be created in \code{db}}
+\item{table}{A table in or to be created in \code{db}.}
 
-\item{df}{Data frame to be inserted into \code{db}}
+\item{df}{Data frame to be inserted into \code{db}.}
 
 \item{append}{Should the table be appended? Default is TRUE.}
 
