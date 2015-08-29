@@ -35,7 +35,18 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
   }
   
   # Write data frame to database
-  dbWriteTable(db, table, df, append = append, overwrite = overwrite, 
-               row.names = rows)
+  # Do not display cat output
+  quiet(
+    dbWriteTable(db, table, df, append = append, overwrite = overwrite, 
+                 row.names = rows)
+  )
   
 }
+
+
+# http://r.789695.n4.nabble.com/Suppressing-output-e-g-from-cat-td859876.html
+quiet <- function (x) {
+  sink(tempfile()) 
+  on.exit(sink()) 
+  invisible(force(x)) 
+} 

@@ -1,7 +1,7 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.2.2
+Version: 0.2.3
 Date: 2015-08-16
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -16,7 +16,8 @@ Imports:
   sp, 
   ggplot2,
   rgdal,
-  jsonlite
+  jsonlite,
+  pbapply
 Suggests: 
   openair,
   quantmod
