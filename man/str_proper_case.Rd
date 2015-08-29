@@ -4,6 +4,7 @@
 \alias{str_date}
 \alias{str_proper_case}
 \alias{str_rm_non_ascii}
+\alias{str_sentence_case}
 \alias{str_trim_length}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
@@ -15,6 +16,8 @@ str_date(time = TRUE, tz = TRUE, underscore = FALSE)
 str_rm_non_ascii(x)
 
 str_trim_length(string, length = NA)
+
+str_sentence_case(x)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string.
@@ -26,6 +29,9 @@ str_trim_length(string, length = NA)
 \code{str_date} returns the system's idea of the date as a character string.
 
 \code{str_trim_length} trims strings to certain character lengths.
+
+\code{str_sentence_case} capitalises the first letter in a string and makes
+all other characters lowercase.
 }
 \examples{
 \dontrun{

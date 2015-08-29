@@ -101,13 +101,14 @@ round_date_interval <- function (date, interval = "5 min") {
   # Pull out the pieces of the date
   # Minutes
   minutes <- lubridate::minute(date)
-  minutes.in.seconds <- minutes * 60
+  # Minutes as seconds
+  minutes <- minutes * 60
   
   # Seconds
   seconds <- lubridate::second(date)
   
   # Add minutes and seconds of date
-  seconds.sum <- minutes.in.seconds + seconds
+  seconds.sum <- minutes + seconds
   
   # Round to nearest interval multiple of the second-interval
   second.rounded <- interval * round(seconds.sum / interval)

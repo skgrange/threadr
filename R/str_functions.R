@@ -10,6 +10,9 @@
 #' 
 #' \code{str_trim_length} trims strings to certain character lengths. 
 #' 
+#' \code{str_sentence_case} capitalises the first letter in a string and makes
+#' all other characters lowercase. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @examples
@@ -26,6 +29,7 @@
 #' @export
 #'
 str_proper_case <- function (x) stringi::stri_trans_totitle(x)
+
 
 #' @rdname str_proper_case
 #' 
@@ -94,3 +98,38 @@ str_trim_length <- function (string, length = NA) {
   string <- ifelse(!is.na(length), strtrim(string, length), string)
   string
 }
+
+
+#' @rdname str_proper_case
+#' 
+#' @export
+#' 
+str_sentence_case <- function (x) {
+  
+  # Get first character
+  first <- substring(x, 1, 1)
+  # Capitialise
+  first <- toupper(first)
+  
+  # Get other characters
+  other.characters <- substring(x, 1 + 1)
+  # Lower case
+  other.characters <- tolower(other.characters)
+  
+  # Combine again
+  x <- stringr::str_c(first, other.characters)
+  
+  # Return
+  x
+  
+}
+
+# #'
+# #' 
+# str_upper_first <- function (x, all = FALSE) {
+#   
+#   x <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", x, perl = TRUE)
+#   x
+#   
+# }
+
