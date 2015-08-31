@@ -11,11 +11,17 @@
 #' dates within a time-series and then generating a uniform date sequence 
 #' between the maximum and minimum dates. This date sequence is then joined to 
 #' the input data frame and the missing values are represented as \code{NA}. 
+#' 
+#' To-do: Enhance group-by operations by using \code{dplyr} rather than 
+#' \code{plyr}. 
 #'
 #' @param df A data frame including parsed dates. The date variable/column must
 #' be named \code{date}.
 #' @param interval Interval of returned time series. Some examples could be: 
 #' "min" "hour", "day", "month", "year" but multiples such as "5 min" work too. 
+#' @param by Should \code{time_pad} apply the padding function to groups within
+#' \code{df}? This is helpful when there are many sites/other identifiers within
+#' \code{df} which need to be padded individually. 
 #' @param round An optional date-unit to round the first and last observations
 #' of \code{df}. This allows the padded time-series to begin and end at a 
 #' "nice place". Examples are "hour", "day", "month", and "year". 
@@ -44,21 +50,50 @@
 #' 
 #' @export
 #' 
-time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) {
+time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) {
+  
+  # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
+  # due to the lack of indices
+  df <- base_df(df)
+  
+  if (!is.na(by)[1]) {
+    
+    # Group-by operation
+    df <- plyr::ddply(df, as.quoted(by), padder, interval = interval, id = by, 
+                      round = round, final = final)
+    
+    # To-do...
+    #     df <- df %>% 
+    #       group_by_(by) %>% 
+    #       padder(interval = interval, id = by, round = round, final = final)) %>% 
+    #       ungroup()
+    
+  } else {
+    
+    # No grouping so no need to use dplyr
+    df <- padder(df, interval = interval, id = by, round = round, final = final)
+    
+  }
+  
+  # Return 
+  df
+  
+}
+
+
+# The main function
+# No export
+#
+padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   
   # Check if df has a date variable
   if (!"date" %in% names(df)) {
     stop("Input data frame must contain a date variable/column and must be named 'date'")
   }
   
-  # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
-  # due to the lack of indices
-  df <- data.frame(df)
-  
   # Get identifying variables
   if (!is.na(id[1])) {
     
-    # A ddply catch
     if (length(id) == 1) {
       
       identifiers <- first_na_element(df[, id])
@@ -73,7 +108,7 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
       identifiers <- data.frame(identifiers)
       
     }
-
+    
     # Drop ids from data frame  
     df <- df[!names(df) %in% id]
     
@@ -99,7 +134,7 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
   
   # Do the padding
   df <- dplyr::left_join(date.sequence, df, by = "date")
-
+  
   # Add the id variables to the padded data
   if (!is.na(id[1])) {
     # cbind will replicate/recycle the vector
@@ -110,11 +145,6 @@ time_pad <- function (df, interval = "hour", round = NA, id = NA, final = TRUE) 
   if (!final) {
     df <- df[-nrow(df), ]
   }
-  
-  #   # A message if duplicate dates are present
-  #   if (anyDuplicated(df$date) != 0) {
-  #     message("There are duplicated dates in the padded time-series.")
-  #   }
   
   # Return
   df

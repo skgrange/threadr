@@ -4,7 +4,7 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", round = NA, id = NA, final = TRUE)
+time_pad(df, interval = "hour", by = NA, round = NA, final = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
@@ -13,16 +13,20 @@ be named \code{date}.}
 \item{interval}{Interval of returned time series. Some examples could be:
 "min" "hour", "day", "month", "year" but multiples such as "5 min" work too.}
 
+\item{by}{Should \code{time_pad} apply the padding function to groups within
+\code{df}? This is helpful when there are many sites/other identifiers within
+\code{df} which need to be padded individually.}
+
 \item{round}{An optional date-unit to round the first and last observations
 of \code{df}. This allows the padded time-series to begin and end at a
 "nice place". Examples are "hour", "day", "month", and "year".}
 
-\item{id}{What identifying variables should be applied to the data post-pad?
-\code{id} can take multiple values.}
-
 \item{final}{Should the final observation of the padded time-series be
 kept? Sometimes if makes sense to remove the last observation if the
 end-date has been rounded forwards.}
+
+\item{id}{What identifying variables should be applied to the data post-pad?
+\code{id} can take multiple values.}
 }
 \description{
 \code{time_pad} use is similar to \code{openair::timeAverage}. However, the
@@ -37,6 +41,9 @@ identifiers post-pad, and can start and end a padded time-series at a
 dates within a time-series and then generating a uniform date sequence
 between the maximum and minimum dates. This date sequence is then joined to
 the input data frame and the missing values are represented as \code{NA}.
+
+To-do: Enhance group-by operations by using \code{dplyr} rather than
+\code{plyr}.
 }
 \examples{
 \dontrun{
