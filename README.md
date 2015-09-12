@@ -31,7 +31,7 @@ data.air$date <- ymd_hms(data.air$date)
 
 # Pad time-series
 data.air.pad <- time_pad(
-  data.air, interval = "hour", round = "day", id = c("site", "site.name"))
+  data.air, interval = "hour", by = c("site", "site.name"), round = "day")
 ```
 
 ### Round dates to arbitrary time intervals

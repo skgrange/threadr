@@ -24,6 +24,9 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
                          
   # No :: because many connections could be used
   
+  # Catch dplyr's data table
+  df <- base_df(df)
+  
   # Reset auto increment
   if (increment_reset) {
     dbSendQuery(db, stringr::str_c("ALTER TABLE ", table, " AUTO_INCREMENT = 1"))
@@ -44,8 +47,11 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
 }
 
 
-#' No export
-#' http://r.789695.n4.nabble.com/Suppressing-output-e-g-from-cat-td859876.html
+# http://r.789695.n4.nabble.com/Suppressing-output-e-g-from-cat-td859876.html
+# Function to catch \code{cat} messages and make them invisible. 
+# 
+#' @export
+#'
 quiet <- function (x) {
   sink(tempfile())
   on.exit(sink())
