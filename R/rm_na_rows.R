@@ -31,7 +31,7 @@ rm_na_rows <- function (df, index = NA) {
     # Simple filtering for single column
     df <- df[!is.na(df[, index]), ]
     
-  } else{
+  } else {
     
     # The indices of rows with NAs
     indices <- apply(df[, index], 1, function (x) all(is.na(x)))

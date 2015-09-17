@@ -20,7 +20,6 @@ When dealing with time-series data, often one of the most important things to do
 
 ```
 # Set-up
-library(lubridate)
 library(threadr)
 
 # Load data
@@ -40,7 +39,6 @@ Dealing with multiple data sources which have observations at different time int
 
 ```
 # Set-up
-library(lubridate)
 library(threadr)
 
 # Load data
@@ -62,3 +60,4 @@ data.join <- merge(data.gps.clean, data.sensor.clean, by = "date", all = TRUE)
 ### Export data frame to JSON
 
 `write.json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
+

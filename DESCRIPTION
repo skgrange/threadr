@@ -13,8 +13,7 @@ Depends:
   plyr
 Imports:
   ggplot2,
-  dplyr, 
-  geojsonio, 
+  dplyr,  
   jsonlite,
   pbapply
 Suggests: 
