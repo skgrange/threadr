@@ -14,10 +14,15 @@
 #'
 db_table_names <- function (db, table) {
   
-  # Get database table names with no data
+  # Get database table names with one observation
+  # Returning data too because some database connections return nothing when
+  # LIMIT = 0
   suppressWarnings(
-    df <- dbGetQuery(db, stringr::str_c("SELECT * FROM ", table, " LIMIT 0"))
+    df <- dbGetQuery(db, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
   )
+  
+  # Remove data
+  df <- df[-1, ]
   
   # Return
   df
