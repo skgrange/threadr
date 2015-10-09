@@ -25,6 +25,8 @@ db_optimise_table <- function (db, table, clear = TRUE) {
     dbClearResult(dbListResults(db)[[1]])
   }
   
+  # No return
+  
 }
 
 
@@ -37,5 +39,7 @@ db_optimise_all_tables <- function (db, progress = "text") {
   
   # Optimise all tables
   plyr::l_ply(tables, db_optimise_table, db = db, .progress = progress)
+  
+  # No return
   
 }

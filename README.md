@@ -23,14 +23,14 @@ When dealing with time-series data, often one of the most important things to do
 library(threadr)
 
 # Load data
-data.air <- read.csv("oxford_road_air_quality_data.csv")
+data_air <- read.csv("oxford_road_air_quality_data.csv")
 
 # Parse dates
-data.air$date <- ymd_hms(data.air$date)
+data_air$date <- ymd_hms(data_air$date)
 
 # Pad time-series
-data.air.pad <- time_pad(
-  data.air, interval = "hour", by = c("site", "site.name"), round = "day")
+data_air_pad <- time_pad(
+  data_air, interval = "hour", by = c("site", "site_name"), round = "day")
 ```
 
 ### Round dates to arbitrary time intervals
@@ -42,22 +42,22 @@ Dealing with multiple data sources which have observations at different time int
 library(threadr)
 
 # Load data
-data.gps <- read.csv("gps_track_data.csv")
-data.sensor <- read.csv("co2_sensor_data.csv")
+data_gps <- read.csv("gps_track_data.csv")
+data_sensor <- read.csv("co2_sensor_data.csv")
 
 # Parse dates
-data.gps$date <- ymd_hms(data.gps$date)
-data.sensor$date <- ymd_hms(data.sensor$date)
+data_gps$date <- ymd_hms(data_gps$date)
+data_sensor$date <- ymd_hms(data_sensor$date)
 
 # Round both data sources to 5-second intervals
-data.gps.clean$date <- round_date_interval(data.gps.clean$date, "5 sec")
-data.sensor.clean$date <- round_date_interval(data.gps.sensor$date, "5 sec")
+data_gps_clean$date <- round_date_interval(data_gps_clean$date, "5 sec")
+data_sensor_clean$date <- round_date_interval(data_gps_sensor$date, "5 sec")
 
 # Join data
-data.join <- merge(data.gps.clean, data.sensor.clean, by = "date", all = TRUE)
+data_join <- merge(data_gps_clean, data_sensor_clean, by = "date", all = TRUE)
 ```
 
 ### Export data frame to JSON
 
-`write.json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
+`write_json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
 

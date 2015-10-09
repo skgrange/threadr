@@ -19,8 +19,8 @@
 #' @export
 #'
 db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
-                         rows = FALSE, fill = FALSE, 
-                         increment_reset = FALSE) {
+                       rows = FALSE, fill = FALSE, 
+                       increment_reset = FALSE) {
                          
   # No :: because many connections could be used
   

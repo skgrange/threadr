@@ -33,7 +33,7 @@
 #' 
 #' # Connect, no need for second argument when one connection is present in 
 #' # configuration file
-#' db.seven <- db_connect(string)
+#' db_seven <- db_connect(string)
 #' 
 #' }
 #' 

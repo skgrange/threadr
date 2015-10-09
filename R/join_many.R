@@ -16,6 +16,7 @@ join_many <- function (dfs) {
   
   df <- Reduce(function(...) merge(..., all = TRUE), dfs)
   
+  # Return
   df
   
 }

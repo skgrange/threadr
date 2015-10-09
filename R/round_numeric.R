@@ -23,10 +23,10 @@
 round_numeric <- function (df, round = 1) {
   
   # Get index
-  index.numeric <- sapply(df, is.numeric)
+  index <- sapply(df, is.numeric)
   
   # Apply function to all the numeric variables in data frame
-  df[index.numeric] <- lapply(df[index.numeric], function(x) round(x, round))
+  df[index] <- lapply(df[index], function(x) round(x, round))
   
   # Return
   df

@@ -4,7 +4,7 @@
 \alias{date_sequence}
 \title{Function to generate a sequence of past or future dates.}
 \usage{
-date_sequence(days = -1, as.character = TRUE, today = TRUE)
+date_sequence(days = -1, character = TRUE, today = TRUE)
 }
 \arguments{
 \item{days}{Number of days of the sequence from system's date. Use negative
@@ -12,7 +12,7 @@ numbers to go back in time.}
 
 \item{today}{Should system date be included in the returned sequence?}
 
-\item{as.character.}{Should the date sequence be returned as a character
+\item{character.}{Should the date sequence be returned as a character
 vector rather than a date vector? Default is TRUE.}
 }
 \description{

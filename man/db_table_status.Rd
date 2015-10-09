@@ -9,7 +9,7 @@ db_table_status(db, table)
 \arguments{
 \item{db}{MySQL database connection.}
 
-\item{table}{Database table}
+\item{table}{Database table.}
 }
 \description{
 \code{db_table_status} queries a MySQL database for a table's status.

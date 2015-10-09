@@ -65,9 +65,9 @@ test_that("Unix time correct-ness", {
   expect_equal(date.normal, as.POSIXct(date.unix, origin = "1970-01-01"))
   
   # Time zone change for function
-  expect_equal(unix_time(date.normal, tzone = "Europe/London"), 1437892806)
-  expect_equal(unix_time(date.normal, tzone = "UTC"), 1437896406)
-  expect_equal(unix_time(date.normal, tzone = "Pacific/Auckland"), 1437853206)
+  expect_equal(unix_time(date.normal, tz = "Europe/London"), 1437892806)
+  expect_equal(unix_time(date.normal, tz = "UTC"), 1437896406)
+  expect_equal(unix_time(date.normal, tz = "Pacific/Auckland"), 1437853206)
   
 })
 

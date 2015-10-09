@@ -33,8 +33,8 @@ twos_complement <- function (x) {
   
 }
 
-#' Main function
-#' Parse Two's Complement integer, will convert to-and-from binary
+# Main function
+# Parse Two's Complement integer, will convert to-and-from binary
 parse_twos_complement <- function (x) {
   
   # 

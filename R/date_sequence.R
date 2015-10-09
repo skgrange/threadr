@@ -4,7 +4,7 @@
 #' 
 #' @param days Number of days of the sequence from system's date. Use negative
 #' numbers to go back in time. 
-#' @param as.character. Should the date sequence be returned as a character 
+#' @param character. Should the date sequence be returned as a character 
 #' vector rather than a date vector? Default is TRUE. 
 #' @param today Should system date be included in the returned sequence? 
 #' 
@@ -21,37 +21,34 @@
 #'
 #' @export
 #' 
-date_sequence <- function (days = -1, as.character = TRUE, today = TRUE) {
+date_sequence <- function (days = -1, character = TRUE, today = TRUE) {
   
   # Get system date
-  date.system <- lubridate::ymd(Sys.Date())
+  date_system <- lubridate::ymd(Sys.Date())
   
   if (days < 0) {
-    
     # Get past dates
-    date.sequence <- seq(date.system + lubridate::days(days), date.system, 
+    date_sequence <- seq(date_system + lubridate::days(days), date_system, 
                          by = "days")
     
-    
   } else {
-    
     # Get future dates
-    date.sequence <- seq(date.system, date.system + lubridate::days(days),
+    date_sequence <- seq(date_system, date_system + lubridate::days(days),
                          by = "days")
     
   }
   
   # Remove today's date
   if (!today) {
-    date.sequence <- date.sequence[!date.sequence %in% date.system]
+    date_sequence <- date_sequence[!date_sequence %in% date_system]
   }
   
   # Make a character
-  if (as.character) {
-    date.sequence <- as.character(date.sequence)
+  if (character) {
+    date_sequence <- as.character(date_sequence)
   }
   
   # Return
-  date.sequence
+  date_sequence
   
 }

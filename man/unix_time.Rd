@@ -4,13 +4,13 @@
 \alias{unix_time}
 \title{Function to calculate unix time from a date vector.}
 \usage{
-unix_time(date, tzone = NA)
+unix_time(date, tz = NA)
 }
 \arguments{
 \item{date}{Date to be transformed into unix time.}
 
-\item{tzone}{Olson time-zone string for \code{date} if \code{date} has current
-incorrect time-zone information.}
+\item{tz}{Olson time-zone string for \code{date} if \code{date} has incorrect
+time-zone information.}
 }
 \description{
 \code{unix_time} returns the numeric value from a date which represents
@@ -31,8 +31,9 @@ for the date can be supplied only for this function.
 \examples{
 \dontrun{
 # Add unix time to a data frame which contains local dates
-data.air.quality$unix.time <- unix_time(data.air.quality$date,
-  tzone = "Pacific/Auckland")
+data_air_quality$unix_time <- unix_time(data_air_quality$date,
+  tz = "Pacific/Auckland")
+
 }
 }
 \author{

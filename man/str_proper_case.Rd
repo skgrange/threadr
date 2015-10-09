@@ -15,7 +15,7 @@ str_date(time = TRUE, tz = TRUE, underscore = FALSE)
 
 str_rm_non_ascii(x)
 
-str_trim_length(string, length = NA)
+str_trim_length(string, length)
 
 str_sentence_case(x)
 }

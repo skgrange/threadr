@@ -2,18 +2,18 @@
 % Please edit documentation in R/get_exchange_rates.R
 \name{get_exchange_rates}
 \alias{get_exchange_rates}
-\title{Function get exchange rates.}
+\title{Function get exchange rates from Oanda.}
 \usage{
 get_exchange_rates(currencies, from = NA, rename = TRUE)
 }
 \arguments{
-\item{currencies}{Currency-pairs to get.}
+\item{currencies}{Currency-pairs to get. See examples for format.}
 
 \item{from}{Date from when exchange rates should be returned from. The date
 format should be \code{yyyy-mm-dd}.}
 
 \item{rename}{If \code{from} is used, should the exchange rate variable be
-renamed as a generic "exchange.rate" rather than the currency pair string?
+renamed as a generic "exchange_rate" rather than the currency pair string?
 Default is TRUE.}
 }
 \description{
@@ -27,18 +27,18 @@ five years from the current day.
 \examples{
 \dontrun{
 # Get exhange rate of the New Zealand Dollar to the British Pound
-nzd.to.gbp <- get_exchange_rates("NZD/GBP")
+nzd_to_gbp <- get_exchange_rates("NZD/GBP")
 
 # On 2015-07-08
-nzd.to.gbp
+nzd_to_gbp
 0.4289
 
 
 # Get exchange rates since 2015-07-08
-data.exchange.rates <- get_exchange_rates("NZD/GBP", from = "2015-07-08")
+data_exchange_rates <- get_exchange_rates("NZD/GBP", from = "2015-07-08")
 
-head(data.exchange.rates, 3)
-      date exchange.rate
+head(data_exchange_rates, 3)
+      date exchange_rate
 2015-07-08        0.4289
 2015-07-09        0.4339
 2015-07-10        0.4375

@@ -96,7 +96,7 @@ round_date_interval <- function (date, interval = "5 min") {
   }
   
   # Floor round date to hour, 0 minutes and seconds, an origin
-  date.floor <- lubridate::floor_date(date, "hour")
+  date_floor <- lubridate::floor_date(date, "hour")
   
   # Pull out the pieces of the date
   # Minutes
@@ -108,13 +108,13 @@ round_date_interval <- function (date, interval = "5 min") {
   seconds <- lubridate::second(date)
   
   # Add minutes and seconds of date
-  seconds.sum <- minutes + seconds
+  seconds_sum <- minutes + seconds
   
   # Round to nearest interval multiple of the second-interval
-  second.rounded <- interval * round(seconds.sum / interval)
+  second_rounded <- interval * round(seconds_sum / interval)
   
   # Add rounded seconds to floor rounded date
-  date <- date.floor + lubridate::seconds(second.rounded)
+  date <- date_floor + lubridate::seconds(second_rounded)
   
   # Return
   date

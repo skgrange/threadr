@@ -57,11 +57,11 @@ str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
     
     # Get time zone
     # To-do: do a unix work-around, returning NA if zone is not set
-    time.zone <- Sys.timezone(location = TRUE)
+    time_zone <- Sys.timezone(location = TRUE)
     
     # Add time zone to string
-    if (!is.na(time.zone)) {
-      date <- paste(date, time.zone)
+    if (!is.na(time_zone)) {
+      date <- paste(date, time_zone)
     }
     
   }
@@ -94,7 +94,7 @@ str_rm_non_ascii <- function (x) {
 #' 
 #' @export
 #' 
-str_trim_length <- function (string, length = NA) {
+str_trim_length <- function (string, length) {
   string <- ifelse(!is.na(length), strtrim(string, length), string)
   string
 }
@@ -112,20 +112,20 @@ str_sentence_case <- function (x) {
   first <- toupper(first)
   
   # Get other characters
-  other.characters <- substring(x, 1 + 1)
+  other_characters <- substring(x, 1 + 1)
   # Lower case
-  other.characters <- tolower(other.characters)
+  other_characters <- tolower(other_characters)
   
   # Combine again
-  x <- stringr::str_c(first, other.characters)
+  x <- stringr::str_c(first, other_characters)
   
   # Return
   x
   
 }
 
-# #'
-# #' 
+
+ 
 # str_upper_first <- function (x, all = FALSE) {
 #   
 #   x <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", x, perl = TRUE)

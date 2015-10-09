@@ -48,10 +48,10 @@ To-do: Enhance group-by operations by using \code{dplyr} rather than
 \examples{
 \dontrun{
 # Pad time-series so every minute is present
-data.nelson.pad <- time_pad(data.nelson, interval = "min", round = "day")
+data_nelson_pad <- time_pad(data.nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
-data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour",
+data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour",
   id = c("site", "sensor"))
 
 }

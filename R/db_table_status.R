@@ -5,7 +5,7 @@
 #' the variables which are returned. 
 #'
 #' @param db MySQL database connection. 
-#' @param table Database table
+#' @param table Database table. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -17,9 +17,9 @@ db_table_status <- function (db, table) {
   statement <- stringr::str_c("SHOW TABLE STATUS WHERE `name` = '", table, "'")
   
   # Get status
-  info.status <- dbGetQuery(db, statement)
+  df <- dbGetQuery(db, statement)
    
   # Return
-  info.status
+  df
   
 }

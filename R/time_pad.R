@@ -40,10 +40,10 @@
 #' 
 #' \dontrun{
 #' # Pad time-series so every minute is present
-#' data.nelson.pad <- time_pad(data.nelson, interval = "min", round = "day")
+#' data_nelson_pad <- time_pad(data.nelson, interval = "min", round = "day")
 #' 
 #' # Keep identifying variables "site" and "sensor"
-#' data.ozone.sensor.pad <- time_pad(data.ozone.sensor, interval = "hour", 
+#' data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour", 
 #'   id = c("site", "sensor"))
 #' 
 #' }
@@ -54,12 +54,12 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) 
   
   # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
   # due to the lack of indices
-  df <- base_df(df)
+  df <- threadr::base_df(df)
   
   if (!is.na(by)[1]) {
     
     # Group-by operation
-    df <- plyr::ddply(df, as.quoted(by), padder, interval = interval, id = by, 
+    df <- plyr::ddply(df, plyr::as.quoted(by), padder, interval = interval, id = by, 
                       round = round, final = final)
     
     # To-do...
@@ -69,7 +69,6 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) 
     #       ungroup()
     
   } else {
-    
     # No grouping so no need to use dplyr
     df <- padder(df, interval = interval, id = by, round = round, final = final)
     
@@ -118,22 +117,22 @@ padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   if (is.na(round)) {
     
     # No date rounding, use date values in df
-    date.start <- min(df$date)
-    date.end <- max(df$date)
+    date_start <- min(df$date)
+    date_end <- max(df$date)
     
   } else {
     
     # Date rounding
-    date.start <- lubridate::floor_date(min(df$date), round)
-    date.end <- lubridate::ceiling_date(max(df$date), round)
+    date_start <- lubridate::floor_date(min(df$date), round)
+    date_end <- lubridate::ceiling_date(max(df$date), round)
     
   }
   
   # Create the sequence of dates
-  date.sequence <- data.frame(date = seq(date.start, date.end, by = interval))
+  date_sequence <- data.frame(date = seq(date_start, date_end, by = interval))
   
   # Do the padding
-  df <- dplyr::left_join(date.sequence, df, by = "date")
+  df <- dplyr::left_join(date_sequence, df, by = "date")
   
   # Add the id variables to the padded data
   if (!is.na(id[1])) {
@@ -151,7 +150,7 @@ padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   
 }
 
-# Define function to find first non-NA element
+# Function to find first non-NA element within a variable
 first_na_element <- function (vector) {
   
   # Index of na elements

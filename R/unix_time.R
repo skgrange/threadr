@@ -15,25 +15,28 @@
 #' \code{OlsonNames()} lists the time zones which can be used. 
 #' 
 #' @param date Date to be transformed into unix time. 
-#' @param tzone Olson time-zone string for \code{date} if \code{date} has current
-#' incorrect time-zone information. 
+#' @param tz Olson time-zone string for \code{date} if \code{date} has incorrect
+#' time-zone information. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
+#'
 #' \dontrun{
 #' # Add unix time to a data frame which contains local dates
-#' data.air.quality$unix.time <- unix_time(data.air.quality$date, 
-#'   tzone = "Pacific/Auckland")
+#' data_air_quality$unix_time <- unix_time(data_air_quality$date, 
+#'   tz = "Pacific/Auckland")
+#'
 #' }
 #' 
 #' @export
 #' 
-unix_time <- function (date, tzone = NA) {
+unix_time <- function (date, tz = NA) {
   
   # Overwrite time zone info. Same clock/values, different moment
-  if (!is.na(tzone)) {
-    date <- lubridate::force_tz(date, tzone)
+  if (!is.na(tz)) {
+    date <- lubridate::force_tz(date, tz)
+    
   }
 
   # Convert date to numeric, i.e. unix time
