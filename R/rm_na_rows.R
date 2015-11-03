@@ -17,8 +17,7 @@
 #' data.clean <- rm_na_rows(data, -1:-2)
 #' }
 #' 
-#' @export
-#' 
+#' @export 
 rm_na_rows <- function (df, index = NA) {
   
   # If no index is given, default to all rows

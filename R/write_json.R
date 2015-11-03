@@ -21,7 +21,6 @@
 #' }
 #'
 #' @export
-#' 
 write_json <- function (df, file, pretty = TRUE, na = FALSE) {
   
   # Make factors strings so they are not subjected to the classic factor

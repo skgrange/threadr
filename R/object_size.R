@@ -1,18 +1,18 @@
 #' Convenience function to find size of R object. 
 #' 
 #' \code{object_size} is a simple wrapper for \code{object.size} and 
-#' \code{format} which allows for quick reutrn of an object's size in memory. 
+#' \code{format} which allows for quick return of an object's size in memory. 
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param x A R object. 
-#' @param unit. Units of size. See \link{object.size} for options. 
+#' @param object A R object. 
+#' @param unit Units of size. See \link{object.size} for options. Defaults to 
+#' \code{"Mb"} for megabytes.
 #'
 #' @export
-#'
-object_size <- function (x, unit = "Mb") {
+object_size <- function (object, unit = "Mb") {
   
-  y <- object.size(x)
+  y <- object.size(object)
   y <- format(y, unit)
   y
   

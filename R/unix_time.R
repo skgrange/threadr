@@ -30,7 +30,6 @@
 #' }
 #' 
 #' @export
-#' 
 unix_time <- function (date, tz = NA) {
   
   # Overwrite time zone info. Same clock/values, different moment

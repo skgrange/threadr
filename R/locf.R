@@ -10,11 +10,10 @@
 #' @examples
 #' \dontrun{
 #' # Push observations forwards
-#' data.income$income.chunk <- locf(data.income$income.chunk)
+#' data_income$income_chunk <- locf(data_income$income_chunk)
 #' }
 #' 
 #' @export
-#' 
 locf <- function (x, na.rm = FALSE) {
   
   # Carry observation forwards

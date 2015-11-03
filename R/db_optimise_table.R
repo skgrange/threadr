@@ -8,7 +8,6 @@
 #' @author Stuart K. Grange
 #' 
 #' @export
-#' 
 db_optimise_table <- function (db, table, clear = TRUE) {
   
   # Catch the reserved verbs

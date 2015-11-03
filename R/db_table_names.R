@@ -2,6 +2,8 @@
 #' zero rows. 
 #' 
 #' \code{db_table_names} is useful when preparing a data frame for a SQL insert.
+#' If a database table is empty, this function can fail on some databases. To-do:
+#' catch this. 
 #' 
 #' @param db Database connection.
 #' @param table Database table.
@@ -11,7 +13,6 @@
 #' @author Stuart K. Grange
 #'
 #' @export
-#'
 db_table_names <- function (db, table) {
   
   # Get database table names with one observation

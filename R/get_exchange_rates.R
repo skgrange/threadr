@@ -36,7 +36,6 @@
 #' }
 #' 
 #' @export
-#' 
 get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
   
   # If no date is specified, use system time

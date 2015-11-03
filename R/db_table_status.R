@@ -10,14 +10,13 @@
 #' @author Stuart K. Grange
 #' 
 #' @export 
-#' 
 db_table_status <- function (db, table) {
   
   # Build statement
   statement <- stringr::str_c("SHOW TABLE STATUS WHERE `name` = '", table, "'")
   
   # Get status
-  df <- dbGetQuery(db, statement)
+  df <- DBI::dbGetQuery(db, statement)
    
   # Return
   df

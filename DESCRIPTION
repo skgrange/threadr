@@ -1,22 +1,28 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.2.7
-Date: 2015-10-06
+Version: 0.2.9
+Date: 2015-11-03
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
-Description: A collection of utility functions to link pieces of analysis together.
+Description: A collection of utility functions to link pieces of analysis
+    together.
 License: GPL (>= 2)
-Depends: 
-  stringr,
-  lubridate,
-  plyr
+Depends:
+    stringr,
+    lubridate,
+    plyr
 Imports:
-  ggplot2,
-  dplyr, 
-  jsonlite,
-  pbapply
-Suggests: 
-  openair,
-  quantmod
+    ggplot2,
+    dplyr,
+    jsonlite,
+    pbapply,
+    RCurl
+Suggests:
+    openair,
+    quantmod,
+    RSQLite,
+    RMySQL,
+    RPostgreSQL
 LazyLoad: yes
+RoxygenNote: 5.0.0

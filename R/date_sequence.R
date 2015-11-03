@@ -1,12 +1,18 @@
 #' Function to generate a sequence of past or future dates. 
 #' 
-#' date_sequence is useful for generating patterns which match file-names.
+#' \code{date_sequence} is useful for generating patterns which match file names.
 #' 
 #' @param days Number of days of the sequence from system's date. Use negative
-#' numbers to go back in time. 
+#' integers to go back in time. 
+#'
 #' @param character. Should the date sequence be returned as a character 
-#' vector rather than a date vector? Default is TRUE. 
+#' vector rather than a date vector? Default is \code{TRUE}. 
+#'
 #' @param today Should system date be included in the returned sequence? 
+#'
+#' @param sep What seperator should be used between the year, month, and day
+#' pieces of the date? If this is changed from \code{"-"} (hyphen), then the 
+#' returned vector will always be characters.
 #' 
 #' @author Stuart K. Grange
 #'
@@ -20,8 +26,12 @@
 #' "2015-06-22" "2015-06-23" "2015-06-24" "2015-06-25"
 #'
 #' @export
-#' 
-date_sequence <- function (days = -1, character = TRUE, today = TRUE) {
+date_sequence <- function (days = -1, character = TRUE, today = TRUE, sep = "-") {
+  
+  # If character is not a hyphen, then the dates will always be characters
+  if (sep != "-") {
+    character <- TRUE
+  }
   
   # Get system date
   date_system <- lubridate::ymd(Sys.Date())
@@ -46,6 +56,10 @@ date_sequence <- function (days = -1, character = TRUE, today = TRUE) {
   # Make a character
   if (character) {
     date_sequence <- as.character(date_sequence)
+  }
+  
+  if (sep != "-") {
+    date_sequence <- stringr::str_replace_all(date_sequence, "-", sep)
   }
   
   # Return

@@ -4,6 +4,12 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @export
+#' @examples 
+#' \dontrun{
+#' # Clear console
+#' clc()
 #' 
+#' }
+#' 
+#' @export
 clc <- function() cat("\014")

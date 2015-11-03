@@ -1,4 +1,6 @@
 #' Function to create tidy data descriptives from a data frame. 
+#'
+#' Only numeric variables are currently returned. 
 #' 
 #' @param df Data frame for descriptives to be calculated from. 
 #' 
@@ -11,7 +13,6 @@
 #' }
 #' 
 #' @export
-#' 
 tidy_summary <- function (df) {
   
   # Select only numeric variables
@@ -49,9 +50,11 @@ tidy_summary <- function (df) {
   df_summary <- df_summary[!is.na(df_summary$summary_variable), ]
   
   # Transform
+  # Values
   df_summary$value <- as.numeric(df_summary$value)
   df_summary$value <- round(df_summary$value, 3)
   
+  # Variables
   df_summary$summary_variable <- tolower(df_summary$summary_variable)
   df_summary$summary_variable <- str_trim(df_summary$summary_variable)
   

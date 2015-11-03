@@ -1,5 +1,5 @@
-#' Function to read RData files but not their name so standard assignment can
-#' be used. 
+#' Function to read \code{RData} files but not their name so standard assignment 
+#' can be used. 
 #' 
 #' If a single object needs to be saved in R's native format, use 
 #' \code{\link{saveRDS}} rather than \code{\link{save}}. 
@@ -14,7 +14,6 @@
 #' }
 #' 
 #' @export
-#' 
 read_rdata <- function(file) {
   
   # Load RData

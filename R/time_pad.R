@@ -17,16 +17,21 @@
 #'
 #' @param df A data frame including parsed dates. The date variable/column must
 #' be named \code{date}.
+#' 
 #' @param interval Interval of returned time series. Some examples could be: 
 #' "min" "hour", "day", "month", "year" but multiples such as "5 min" work too. 
+#' 
 #' @param by Should \code{time_pad} apply the padding function to groups within
 #' \code{df}? This is helpful when there are many sites/other identifiers within
 #' \code{df} which need to be padded individually. 
+#' 
 #' @param round An optional date-unit to round the first and last observations
 #' of \code{df}. This allows the padded time-series to begin and end at a 
 #' "nice place". Examples are "hour", "day", "month", and "year". 
+#' 
 #' @param id What identifying variables should be applied to the data post-pad? 
 #' \code{id} can take multiple values. 
+#' 
 #' @param final Should the final observation of the padded time-series be
 #' kept? Sometimes if makes sense to remove the last observation if the
 #' end-date has been rounded forwards. 
@@ -49,7 +54,6 @@
 #' }
 #' 
 #' @export
-#' 
 time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) {
   
   # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
@@ -80,7 +84,7 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) 
 }
 
 
-# The main function
+# The real function
 # No export
 #
 padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
@@ -136,8 +140,9 @@ padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   
   # Add the id variables to the padded data
   if (!is.na(id[1])) {
-    # cbind will replicate/recycle the vector
+    # cbind will recycle the vector
     df <- cbind(df, identifiers)
+    
   }
   
   # Remove final observation

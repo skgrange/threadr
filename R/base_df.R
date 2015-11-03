@@ -1,14 +1,14 @@
 #' Function to catch \code{dplyr}'s \code{tbl_df} data frame class and convert 
 #' to a standard/base data frame. 
 #' 
-#' I have found that the different type of data frame in \code{dplyr} can cause
-#' failures for some functions. \code{base_df} degrades a \code{tbl_df} to a 
-#' base data frame. 
+#' The different type of data frame in \code{dplyr} can cause failures for some 
+#' functions. \code{base_df} degrades a \code{tbl_df} to a base data frame. 
 #'
 #' @author Stuart K. Grange
 #'
-#' @export
+#' @param tbl_df \code{tbl_df} to be converted into a standard data frame. 
 #'
+#' @export
 base_df <- function (df) {
   
   # Collapse class vector

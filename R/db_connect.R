@@ -2,10 +2,12 @@
 #' 
 #' \code{db_connect} uses a \code{JSON} configuration file to create a database
 #' connection. This configuration file will generally exist outside a code 
-#' package so database credentials are not accidentally transmitted. 
+#' package so database credentials are not accidentally transmitted or shared. 
 #' 
 #' If only one entry is in the \code{JSON} file, the \code{database} argument is
-#' not needed. MySQL and PostgreSQL connections are currently supported. 
+#' not needed.
+#'
+#' MySQL and PostgreSQL connections are currently supported. 
 #' 
 #' @param file \code{JSON} file or string containing database connection 
 #' details. 
@@ -38,7 +40,6 @@
 #' }
 #' 
 #' @export
-#' 
 db_connect <- function (file, database) {
   
   # Load configuration file

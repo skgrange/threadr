@@ -12,9 +12,6 @@
 #' extracts the seconds-past-the-origin and rounds this value to the interval's 
 #' multiple. The rounded value and the origin are then summed and returned.
 #' 
-#' \code{round_date_interval} does not make any adjustments for duplicated dates 
-#' in the input or output.
-#' 
 #' \code{round_date_interval} can be also used for rounding dates to the nearest
 #' whole second, minute, or hour. However, \code{lubridate::round_date} and 
 #' related functions may be more convenient. 
@@ -69,7 +66,6 @@
 #' }
 #' 
 #' @export
-#' 
 round_date_interval <- function (date, interval = "5 min") {
   
   # Parse argument into numeric value which represents second-multiple
@@ -101,6 +97,7 @@ round_date_interval <- function (date, interval = "5 min") {
   # Pull out the pieces of the date
   # Minutes
   minutes <- lubridate::minute(date)
+  
   # Minutes as seconds
   minutes <- minutes * 60
   

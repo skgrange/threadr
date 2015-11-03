@@ -3,8 +3,7 @@
 #' \code{standardise} will transform all numeric variables so they have a mean 
 #' of 0 and a standard deviation of 1. 
 #' 
-#' @author http://inseaddataanalytics.github.io/INSEADAnalytics/Report_s45.html 
-#' and Stuart K. Grange
+#' @author and Stuart K. Grange
 #' 
 #' @param df Data frame containing numeric variables.
 #' 
@@ -15,17 +14,15 @@
 #' }
 #' 
 #' @export
-#' 
 standardise <- function (df) {
   
-  # http://inseaddataanalytics.github.io/INSEADAnalytics/Report_s45.html
-  x <- apply(df, 2, function(r) {
-    if (sd(r) != 0) res = (r - mean(r)) / sd(r)
-    else res = 0 * r
-    res
-    
-  })
+  # Centers and scales the variables
+  matrix <- scale(df)
   
-  x <- data.frame(x)
+  # Back to data frame
+  df <- data.frame(matrix)
+  
+  # Return
+  df
   
 }
