@@ -1,8 +1,11 @@
 #' Function to quickly return tables, variables, and values in a database. 
 #' 
-#' \code{db_contents} will return a tidy data frame with three variables, "table",
-#' "variable", and "value". \code{db_contents} is useful to explore a database's
-#' structure. 
+#' \code{db_contents} will return a tidy data frame with three variables, 
+#' \code{"table"}, \code{"variable"}, and \code{"value"}. \code{db_contents} is 
+#' useful to explore a database's structure. 
+#' 
+#' If there are complexities around schemas, PostGIS tables, temporary tables, 
+#' or permissions, the table name is returned with a single variable of \code{NA}.
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -14,10 +17,10 @@
 #' @examples 
 #' \dontrun{
 #' # Only one value will be returned
-#' data_single <- db_contents(db)
+#' data_single_value <- db_contents(db)
 #' 
-#' # Entire table will be returned
-#' data_all <- db_contents(db, limit = NA)
+#' # Entire tables will be returned
+#' data_entire_contents <- db_contents(db, limit = NA)
 #' }
 #'
 #' @export
@@ -44,14 +47,20 @@ table_reader <- function (table, db, limit = NA) {
   if (is.na(limit)) {
     
     # Read entire table
-    df <- DBI::dbReadTable(db, table)
+    suppressWarnings(
+      df <- tryCatch(DBI::dbReadTable(db, table),
+                     error = function(e) data.frame(table = integer()))
+    )
     
   } else {
     
     # Only read n rows/observations
-    df <- DBI::dbGetQuery(db, stringr::str_c("SELECT * FROM ", 
-                                             table, 
-                                             " LIMIT ", limit))
+    suppressWarnings(
+      df <- tryCatch(DBI::dbGetQuery(db, stringr::str_c("SELECT * FROM ", 
+                                               table, 
+                                               " LIMIT ", limit)),
+                     error = function(e) data.frame(table = integer()))
+    )
     
   }
   

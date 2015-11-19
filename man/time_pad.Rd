@@ -24,9 +24,6 @@ of \code{df}. This allows the padded time-series to begin and end at a
 \item{final}{Should the final observation of the padded time-series be
 kept? Sometimes if makes sense to remove the last observation if the
 end-date has been rounded forwards.}
-
-\item{id}{What identifying variables should be applied to the data post-pad? 
-\code{id} can take multiple values.}
 }
 \description{
 \code{time_pad} use is similar to \code{openair::timeAverage}. However, the

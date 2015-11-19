@@ -38,9 +38,9 @@
 #' @export
 get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
   
-  # If no date is specified, use system time
+  # If no date is specified, use yesterday's date
   if (is.na(from)) {
-    from <- Sys.Date()
+    from <- Sys.Date() - lubridate::days(1)
   }
   
   # Check date range, then give message
@@ -55,7 +55,7 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
   
   # Return the values as a object which name is known
   exchange_rate <- get(exchange_rate_auto_assigned)
-  
+
   if (length(exchange_rate) == 1) {
     
     # For a single day

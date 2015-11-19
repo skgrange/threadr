@@ -29,9 +29,6 @@
 #' of \code{df}. This allows the padded time-series to begin and end at a 
 #' "nice place". Examples are "hour", "day", "month", and "year". 
 #' 
-#' @param id What identifying variables should be applied to the data post-pad? 
-#' \code{id} can take multiple values. 
-#' 
 #' @param final Should the final observation of the padded time-series be
 #' kept? Sometimes if makes sense to remove the last observation if the
 #' end-date has been rounded forwards. 

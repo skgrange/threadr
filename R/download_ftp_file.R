@@ -1,12 +1,16 @@
 #' Functions to download files from an FTP or SFTP server. 
 #' 
-#' \code{download_ftp_file} is not vectorised yet. 
+#' @param url. The url(s) of the file(s) which is to be downloaded. 
 #' 
-#' @param url. The url of the file which is to be downloaded. 
-#' @param credentials Credentials for a FTP or SFTP server.
+#' @param credentials Credentials for a FTP or SFTP server. Do not use 
+#' \code{credentials} if the server does not require authentication. 
+#' 
 #' @param directory Directory where the files are to be downloaded to.
 #' 
-#' @seealso \code{\link{RCurl}}
+#' @param curl Should RCurl be used to download the files or base R's 
+#' \code{download.file}? Default is \code{TRUE}. 
+#' 
+#' @seealso \code{RCurl}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -27,42 +31,69 @@
 #' "ftp://195.174.23.76/test/hour_5.csv"
 #' 
 #' }
-#'
+#' 
+#' @aliases download_ftp_files
 #' @export
-download_ftp_file <- function (url, credentials, directory = NA) {
+download_ftp_file <- function (file, credentials = "", directory = NA, 
+                               curl = TRUE, progress = "text") {
+  
+  plyr::l_ply(file, downloader, credentials, directory, curl, 
+              .progress = progress)
+  
+}
+
+
+
+downloader <- function (url, credentials = "", directory = NA, curl = TRUE) {
   
   if (is.na(directory)) {
-    stop("A directory must be specified.")
+    directory <- getwd()
   }
-  
-  # Download the file as a binary object
-  data_bin <- RCurl::getBinaryURL(url, userpwd = credentials, 
-                                  ftp.use.epsv = FALSE)
   
   # Create file name
   file_name <- basename(url)
   
   # Create if does not exist
-  threadr::create_directory(directory)
+  create_directory(directory)
   
   # Add file path
-  directory <- file.path(directory, file_name)
+  file_name <- file.path(directory, file_name)
   
-  # Save binary object as file
-  writeBin(data_bin, directory)
+  if (curl) {
+    
+    # Download the file as a binary object
+    data_bin <- RCurl::getBinaryURL(url, userpwd = credentials, 
+                                    ftp.use.epsv = FALSE)
+    
+    # Save binary object as file
+    writeBin(data_bin, file_name)
+    
+  } else {
+    
+    download.file(url, file_name, quiet = TRUE)
+    
+  }
+  
+  # No return
   
 }
 
 
-#' @rdname download_ftp_file
+#' Function to list files on an FTP or SFTP server. 
 #' 
 #' @export
-list_files_ftp <- function (url, credentials) {
+list_files_ftp <- function (url, credentials = "") {
+  
+  # url must be prefixed with ftp or sftp
+  if (!grepl("^ftp://|^sftp://", url)) {
+    stop("URL must be prefixed with 'ftp://' or 'sftp://'")
+  }
   
   # Ensure the directory has a trailing separator
   url <- stringr::str_c(url, .Platform$file.sep)
   
   # Get the file list
+  # If credentials are blank, this will still work
   file_list <- RCurl::getURL(url, userpwd = credentials, ftp.use.epsv = FALSE, 
                              dirlistonly = TRUE)
   
@@ -75,9 +106,38 @@ list_files_ftp <- function (url, credentials) {
   
 }
 
-# download_ftp_files <- function (file, credentials, directory, progress = "text") {
-#   
-#   plyr::l_ply(file, downloader, credentials = credentials, 
-#               directory = directory, .progress = progress)
-#   
-# }
+
+#' Function to upload a file to an ftp or stpf server. 
+#' 
+#' @export
+upload_to_ftp <- function (file, url, credentials = "", progress = "text") {
+  
+  plyr::l_ply(file, uploader, url = url, credentials = credentials, 
+              .progress = progress)
+  
+}
+
+
+uploader <- function (file, url, credentials) {
+  
+  # url must be prefixed with ftp or sftp
+  if (!grepl("^ftp://|^sftp://", url)) {
+    stop("URL must be prefixed with 'ftp://' or 'sftp://'")
+  }
+  
+  # Ensure the directory has a trailing separator
+  url <- stringr::str_c(url, .Platform$file.sep)
+  
+  # Add file name to url
+  url <- stringr::str_c(url, basename(file))
+  
+  # Upload
+  RCurl::ftpUpload(file, url, userpwd = credentials)
+  
+  # No return
+  
+}
+
+
+
+

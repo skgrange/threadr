@@ -13,17 +13,21 @@ db_contents(db, limit = 1)
 \code{NA} to read entire table; use with caution.}
 }
 \description{
-\code{db_contents} will return a tidy data frame with three variables, "table",
-"variable", and "value". \code{db_contents} is useful to explore a database's
-structure.
+\code{db_contents} will return a tidy data frame with three variables, 
+\code{"table"}, \code{"variable"}, and \code{"value"}. \code{db_contents} is 
+useful to explore a database's structure.
+}
+\details{
+If there are complexities around schemas, PostGIS tables, temporary tables, 
+or permissions, the table name is returned with a single variable of \code{NA}.
 }
 \examples{
 \dontrun{
 # Only one value will be returned
-data_single <- db_contents(db)
+data_single_value <- db_contents(db)
 
-# Entire table will be returned
-data_all <- db_contents(db, limit = NA)
+# Entire tables will be returned
+data_entire_contents <- db_contents(db, limit = NA)
 }
 
 }

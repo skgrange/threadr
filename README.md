@@ -1,6 +1,6 @@
 # **threadr**
 
-**threadr** is a collection of R utility functions to link pieces of analysis together.
+**threadr** is a collection of R utility functions to link pieces of analysis together. **threadr** is not a focused, single-unit package, rather a collection of functions which I use to glue many processes together.
 
 ## To install:
 
@@ -11,6 +11,27 @@ The development version: `devtools::install_github("skgrange/threadr")`
   1. Do some unit testing
   2. Work on documentation
   3. Get package on CRAN
+  
+## A glance
+
+  - Utilities:
+    - `write_json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
+    - `download_ftp_file`
+    - `str_*` functions. Do things which **stringr** does not. 
+      - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`
+    
+  - Data frame functions: 
+    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character. 
+    - `arrange_left`. Move variables/columns to the left of a data frame. 
+    - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases. 
+    - `drop_na_columns`
+    - `rm_na_rows`
+    
+  - Database functions:
+    - `db_connect` 
+    - `db_insert`
+    - `db_contents` 
+    - `db_count_rows`
 
 ## Some examples
 
@@ -57,7 +78,4 @@ data_sensor_clean$date <- round_date_interval(data_gps_sensor$date, "5 sec")
 data_join <- merge(data_gps_clean, data_sensor_clean, by = "date", all = TRUE)
 ```
 
-### Export data frame to JSON
-
-`write_json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
-
+  

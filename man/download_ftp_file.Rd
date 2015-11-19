@@ -2,22 +2,25 @@
 % Please edit documentation in R/download_ftp_file.R
 \name{download_ftp_file}
 \alias{download_ftp_file}
-\alias{list_files_ftp}
+\alias{download_ftp_files}
 \title{Functions to download files from an FTP or SFTP server.}
 \usage{
-download_ftp_file(url, credentials, directory = NA)
-
-list_files_ftp(url, credentials)
+download_ftp_file(file, credentials = "", directory = NA, curl = TRUE,
+  progress = "text")
 }
 \arguments{
-\item{credentials}{Credentials for a FTP or SFTP server.}
+\item{credentials}{Credentials for a FTP or SFTP server. Do not use 
+\code{credentials} if the server does not require authentication.}
 
 \item{directory}{Directory where the files are to be downloaded to.}
 
-\item{url.}{The url of the file which is to be downloaded.}
+\item{curl}{Should RCurl be used to download the files or base R's 
+\code{download.file}? Default is \code{TRUE}.}
+
+\item{url.}{The url(s) of the file(s) which is to be downloaded.}
 }
 \description{
-\code{download_ftp_file} is not vectorised yet.
+Functions to download files from an FTP or SFTP server.
 }
 \examples{
 
@@ -42,6 +45,6 @@ list_files_ftp("ftp://195.174.23.76/test", credentials)
 Stuart K. Grange
 }
 \seealso{
-\code{\link{RCurl}}
+\code{RCurl}
 }
 

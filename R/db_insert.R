@@ -33,7 +33,7 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
                        increment_reset = FALSE) {
                          
   # Catch dplyr's data table
-  # df <- base_df(df)
+  df <- base_df(df)
   
   # Reset auto increment
   if (increment_reset) {
@@ -42,7 +42,7 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
   
   # Reorder and fill the columns
   if (fill) {
-    df <- plyr::rbind.fill(get_database_names(db, table), df)
+    df <- plyr::rbind.fill(db_table_names(db, table), df)
   }
   
   # Write data frame to database
