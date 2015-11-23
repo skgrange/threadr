@@ -8,7 +8,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @examples  
+#' @examples
 #' \dontrun{
 #' # Move a single variable to the first position
 #' data_ozone <- arrange_left(data_ozone, "date")

@@ -38,7 +38,6 @@ db_contents <- function (db, limit = 1) {
 }
 
 
-
 # The function which does the work
 # 
 # No export

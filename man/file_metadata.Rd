@@ -5,10 +5,13 @@
 \title{Function to extract file metadata with \code{exiftool} and store it within a 
 data frame.}
 \usage{
-file_metadata(file, progress = "text")
+file_metadata(file, progress = "time")
 }
 \arguments{
 \item{file}{The file to extract metadata from.}
+
+\item{progress}{What type of progress bar should the funciton display? Default
+is \code{"time"}, use \code{"none"} for none.}
 }
 \description{
 \code{file_metadata} uses Phil Harvey's Perl \code{exiftool} to extract a 
@@ -36,5 +39,8 @@ data_metadata <- file_metadata("music.mp3")
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+\link{http://www.sno.phy.queensu.ca/~phil/exiftool/}
 }
 

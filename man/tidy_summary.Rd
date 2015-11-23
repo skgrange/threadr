@@ -7,7 +7,7 @@
 tidy_summary(df)
 }
 \arguments{
-\item{df}{Data frame for descriptives to be calculated from.}
+\item{df}{Data frame for descriptives to be calculated for.}
 }
 \description{
 Only numeric variables are currently returned.

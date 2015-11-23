@@ -8,12 +8,12 @@ create_directory(directory)
 }
 \arguments{
 \item{directory}{Name or path of directory to be created if id does not exist. 
-\code{directory} can take many values and will create multiple levels of new
-directories.}
+
+\code{directory} can take many values and is recursive.}
 }
 \description{
 If the directory exists, no function will be called. \code{create_directory} 
-will not create multiple levels of directories
+will create multiple levels of directories (it is recursive).
 }
 \examples{
 \dontrun{
@@ -21,7 +21,7 @@ will not create multiple levels of directories
 # Create a directory
 create_directory("data_dump")
 
-# Create many directories
+# Create two directories
 create_directory(c("data_dump", "new_directory"))
 
 }

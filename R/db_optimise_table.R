@@ -17,11 +17,11 @@ db_optimise_table <- function (db, table, clear = TRUE) {
   statement <- stringr::str_c("OPTIMIZE TABLE ", table)
   
   # Use statement
-  dbSendQuery(db, statement)
+  DBI::dbSendQuery(db, statement)
   
   # Clear results
   if (clear) {
-    dbClearResult(dbListResults(db)[[1]])
+    DBI::dbClearResult(dbListResults(db)[[1]])
   }
   
   # No return
@@ -34,7 +34,7 @@ db_optimise_table <- function (db, table, clear = TRUE) {
 db_optimise_all_tables <- function (db, progress = "text") {
   
   # Get a vector of all tables in database
-  tables <- dbListTables(db)
+  tables <- DBI::dbListTables(db)
   
   # Optimise all tables
   plyr::l_ply(tables, db_optimise_table, db = db, .progress = progress)

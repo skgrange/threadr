@@ -2,7 +2,7 @@
 #'
 #' Only numeric variables are currently returned. 
 #' 
-#' @param df Data frame for descriptives to be calculated from. 
+#' @param df Data frame for descriptives to be calculated for.  
 #' 
 #' @author Stuart K. Grange
 #' 

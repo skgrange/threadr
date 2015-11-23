@@ -51,18 +51,6 @@ string.
 
 \code{str_chop} will chop a string into a vector of fixed-width lengths.
 }
-\examples{
-
-\dontrun{
-# Some strings
-string <- c("auckland", "wellington", "berlin")
-
-# Make proper case
-str_proper_case(string)
-"Auckland"   "Wellington" "Berlin"
-}
-
-}
 \author{
 Stuart K. Grange
 }

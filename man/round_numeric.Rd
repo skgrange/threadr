@@ -24,6 +24,7 @@ data_tidy_round <- round_numeric(data_tidy, round = 2)
 
 # or, make all numeric variables integers
 data_tidy_integer <- round_numeric(data_tidy, round = 0)
+
 }
 
 }

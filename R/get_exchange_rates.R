@@ -8,11 +8,15 @@
 #' five years from the current day. 
 #' 
 #' @param currencies Currency-pairs to get. See examples for format. 
+#' 
 #' @param from Date from when exchange rates should be returned from. The date
 #' format should be \code{yyyy-mm-dd}. 
+#' 
 #' @param rename If \code{from} is used, should the exchange rate variable be
 #' renamed as a generic "exchange_rate" rather than the currency pair string?
-#' Default is TRUE.  
+#' Default is \code{TRUE}.  
+#' 
+#' @aliases get_exchange_rate
 #' 
 #' @examples
 #' 
@@ -37,29 +41,46 @@
 #' 
 #' @export
 get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
-  
-  # If no date is specified, use yesterday's date
-  if (is.na(from)) {
-    from <- Sys.Date() - lubridate::days(1)
-  }
-  
-  # Check date range, then give message
-  if (lubridate::ymd(from) + lubridate::years(5) <= lubridate::ymd(Sys.Date())) {
-    message("This function returns a maximum of five years worth of data.")
-  }
-  
-  # Get current exchange rate, a xts object
-  suppressWarnings(
-    exchange_rate_auto_assigned <- quantmod::getFX(currencies, from = from)
-  )
-  
-  # Return the values as a object which name is known
-  exchange_rate <- get(exchange_rate_auto_assigned)
 
+  # Parse
+  currencies <- stringr::str_to_upper(currencies)
+  
+  if (is.na(from)) {
+    
+    # Try system's date
+    suppressWarnings(
+      exchange_rate <- quantmod::getFX(
+        currencies, from = Sys.Date(), auto.assign = FALSE)
+    )
+    
+    # If today is not avaliable, get yesterday's
+    if (length(exchange_rate) == 0) {
+      suppressWarnings(
+        exchange_rate <- quantmod::getFX(
+          currencies, from = Sys.Date() - lubridate::days(1), auto.assign = FALSE)
+      )
+    }
+    
+  } else {
+    
+    # Check date range, then give message if needed
+    if (lubridate::ymd(from) + lubridate::years(5) <= lubridate::ymd(Sys.Date())) {
+      warning("This function returns a maximum of five years worth of data.", 
+              call. = FALSE)
+    }
+    
+    # Use argument when it is used
+    suppressWarnings(
+      exchange_rate <- quantmod::getFX(
+        currencies, from = from, auto.assign = FALSE)
+    )
+    
+  }
+  
+  # The returning
   if (length(exchange_rate) == 1) {
     
     # For a single day
-    # Make a vector
     exchange_rate <- as.vector(exchange_rate)
     
   } else {
@@ -85,11 +106,4 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
   # Return
   exchange_rate
   
-}
-
-# Deprecate singular function
-#' @export
-get_exchange_rate <- function(x) {
-  .Deprecated("get_exchange_rates", package = "threadr")
-  get_exchange_rates(x)
 }

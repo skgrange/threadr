@@ -19,7 +19,12 @@
 #' 
 #' @param file The file to extract metadata from. 
 #' 
+#' @param progress What type of progress bar should the funciton display? Default
+#' is \code{"time"}, use \code{"none"} for none. 
+#' 
 #' @author Stuart K. Grange
+#' 
+#' @seealso \link{http://www.sno.phy.queensu.ca/~phil/exiftool/}
 #'
 #' @examples
 #' \dontrun{
@@ -27,7 +32,7 @@
 #' }
 #'
 #' @export
-file_metadata <- function (file, progress = "text") {
+file_metadata <- function (file, progress = "time") {
   
   # Vectorise function
   df <- plyr::ldply(file, scraper, .progress = progress)
@@ -39,7 +44,6 @@ file_metadata <- function (file, progress = "text") {
 # The function which does the work
 #
 # No export 
-#
 scraper <- function (file) {
 
   # Get file basename
@@ -51,41 +55,20 @@ scraper <- function (file) {
 
   # Build system command
   # Watch the different types of quotes here
-  command <- stringr::str_c("exiftool ", '"', file, '"')
+  command <- stringr::str_c("exiftool -json ", '"', file, '"')
   
   # Use system command
-  system_string <- system(command, intern = TRUE)
+  string <- system(command, intern = TRUE)
   
   # Split string into variable and value
-  system_string_split <- stringr::str_split_fixed(system_string, ":", n = 2)
-  
-  # Split string
-  variable <- system_string_split[, 1]
-  value <- system_string_split[, 2]
-  
-  # Strip unneeded whitespace
-  variable <- stringr::str_trim(variable)
-  
-  # Remove special characters first
-  # value <- stringr::str_replace_all(value, "[^[:alnum:]///' ]", "")
-  value <- stringr::str_trim(value)
-  
-  # Clean some things up
-  variable <- stringr::str_replace_all(variable, " ", "_")
-  variable <- stringr::str_replace_all(variable, "/", "_")
-  variable <- tolower(variable)
+  df <- jsonlite::fromJSON(string)
   
   # If there are duplicated variables, append a suffix
-  variable <- make.names(variable, unique = TRUE)
-  variable <- stringr::str_replace_all(variable, "\\.", "_")
-  
-  # Make data frame
-  data <- data.frame(file = file, file_basename, variable, value)
-  
-  # Reshape data
-  data <- tidyr::spread(data, variable, value)
+  names(df) <- threadr::str_underscore(names(df))
+  # names(df) <- stringr::str_to_lower(names(df))
+  names(df) <- make.names(names(df), unique = TRUE)
   
   # Return
-  data
+  df
   
 }

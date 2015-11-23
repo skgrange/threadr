@@ -6,6 +6,7 @@
 #' @author Stuart K. Grange
 #' 
 #' @param object A R object. 
+#' 
 #' @param unit Units of size. See \link{object.size} for options. Defaults to 
 #' \code{"Mb"} for megabytes.
 #'

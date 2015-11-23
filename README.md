@@ -16,9 +16,14 @@ The development version: `devtools::install_github("skgrange/threadr")`
 
   - Utilities:
     - `write_json` is a simple wrapper for `jsonlite::toJSON` which allows for quick JSON export in the same way as `write.csv`.
-    - `download_ftp_file`
+    - `download_ftp_file` and `upload_to_ftp`. 
     - `str_*` functions. Do things which **stringr** does not. 
       - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`
+    - Write JSON files with `write_json`. 
+      
+  - Date functions
+    - Pad time-series to different intervals with `time_pad`. 
+    - Round dates to arbitrary time intervals such as 5-seconds, 5-minutes, 15-minutes, 2-minutes, 30-minutes (etc.) with `round_date_interval`
     
   - Data frame functions: 
     - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character. 
@@ -77,5 +82,3 @@ data_sensor_clean$date <- round_date_interval(data_gps_sensor$date, "5 sec")
 # Join data
 data_join <- merge(data_gps_clean, data_sensor_clean, by = "date", all = TRUE)
 ```
-
-  

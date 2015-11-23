@@ -14,6 +14,9 @@ Found here: \url{http://stackoverflow.com/questions/14260340/function-to-clear-t
 # Clear console
 clc()
 
+# Or without loading package
+threadr::clc()
+
 }
 
 }

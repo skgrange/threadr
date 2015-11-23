@@ -28,26 +28,7 @@ add_row_numbers <- function (df, name = "row_number") {
   df[, name] <- sequence
   
   # Move variable to the first column position
-  df <- move_variable(df, name)
-  
-  # Return
-  df
-  
-}
-
-
-#' Function to move a variable (column)  to the first position of a data frame.
-#' 
-#' @author Stuart K. Grange
-#' 
-#' @export 
-move_variable <- function (df, name) {
-  
-  # Get location of variable
-  index <- grep(stringr::str_c("\\<", name, "\\>"), names(df))
-  
-  # Rearrange
-  df <- df[, c(c(index), (1:ncol(df))[-index])]
+  df <- arrange_left(df, name)
   
   # Return
   df

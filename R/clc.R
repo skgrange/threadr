@@ -9,6 +9,9 @@
 #' # Clear console
 #' clc()
 #' 
+#' # Or without loading package
+#' threadr::clc()
+#' 
 #' }
 #' 
 #' @export
