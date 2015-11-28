@@ -14,7 +14,7 @@
 #' data_ozone <- arrange_left(data_ozone, "date")
 #' 
 #' # Move many variables to left hand side of data frame
-#' data_ozone <- arrange_left(data_ozone, c("date", "site", "site_name, "sensor"))
+#' data_ozone <- arrange_left(data_ozone, c("date", "site", "site_name", "sensor"))
 #' 
 #' }
 #' 

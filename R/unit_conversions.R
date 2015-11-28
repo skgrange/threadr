@@ -3,45 +3,69 @@
 #' @author Stuart K. Grange
 #' 
 #' 
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
-miles_to_kilometres <- function (x) x * 1.609344
+miles_to_km <- function (x) x * 1.609344
 
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
-kilometres_to_miles <- function (x) miles_to_kilometres(x) / 1
+km_to_miles <- function (x) miles_to_km(x) / 1
+
+
+#' @rdname miles_to_km
+#' @export
+knots_to_km_h <- function (x) x * 1.852
+
+#' @rdname miles_to_km
+#' @export
+km_h_to_knots <- function (x) x / knots_to_km_h(1)
+
+
+#' @rdname miles_to_km
+#' @export
+ms_to_km_h <- function (x) x * 3.6
+
+#' @rdname miles_to_km
+#' @export
+km_h_to_ms <- function (x) x / ms_to_km_h(1)
+
+
+#' @rdname miles_to_km
+#' @export
+km_h_to_km_min <- function (x) x * (1 / 60)
 
 
 # Volume
-#' @rdname miles_to_kilometres
+# Should be a single function
+#' @rdname miles_to_km
 #' @export
 imperial_gallon_to_litres <- function (x) x * 4.54609
 
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
 litres_to_imperial_gallon <- function (x) imperial_gallon_to_litres(x) / 1
 
 # US
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
 us_gallon_to_litres <- function (x) x * 3.785411784
 
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
 litres_to_us_gallon <- function (x) us_gallon_to_litres(x) / 1
 
 
 # Fuel consumption
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 #' @export
 mpg_to_l_100_km <- function (mpg, type = "imperial") {
   
   if (type == "imperial") {
-    metric <- 100 / (mpg * miles_to_kilometres(1) / imperial_gallon_to_litres(1))
+    metric <- 100 / (mpg * miles_to_km(1) / imperial_gallon_to_litres(1))
   }
   
   if (type == "us") {
-    metric <- 100 / (mpg * miles_to_kilometres(1) / us_gallon_to_litres(1))
+    metric <- 100 / (mpg * miles_to_km(1) / us_gallon_to_litres(1))
   }
   
   # Return
@@ -50,55 +74,59 @@ mpg_to_l_100_km <- function (mpg, type = "imperial") {
 } 
 
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 mpg_to_km_l <- function (mpg, type = "imperial") {
   
   if (type == "imperial") {
-    metric <-  mpg * miles_to_kilometres(1) / imperial_gallon_to_litres(1)
+    metric <-  mpg * miles_to_km(1) / imperial_gallon_to_litres(1)
   }
   
   if (type == "us") {
-    metric <-  mpg * miles_to_kilometres(1) / us_gallon_to_litres(1)
+    metric <-  mpg * miles_to_km(1) / us_gallon_to_litres(1)
   }
   
   # Return
   metric
 
-}  
+}
+
+#' @export
+#' @rdname miles_to_km
+l_100_km_to_100_l <- function (x) 100 / x # just the reciprocal
 
 
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 cubic_inches_to_cubic_centimetres <- function (x) x * 16.387064
 
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 cubic_centimetres_to_cubic_inches <- function (x) x / cubic_inches_to_cubic_centimetres(1)
 
 
 # Pressure
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 bar_to_psi <- function (x) x * 14.5037738007
 
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 psi_to_bar <- function (x) x / bar_to_psi(1)
 
 
 # Temperatures
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 fahrenheit_to_celsius <- function (x) (x - 32) / (9 / 5)
 
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 celsius_to_fahrenheit <- function (x) x * 9 / 5 + 32
 
 
 # https://github.com/cran/weathermetrics
 #' @export
-#' @rdname miles_to_kilometres
+#' @rdname miles_to_km
 heat_index <- function (temp, rh, unit = "c") {
   
   if (unit == "c") {
@@ -166,3 +194,41 @@ heat_index_calculation <- function (t = NA, rh = NA) {
   hi
   
 }
+
+
+# Power
+#' @export
+#' @rdname miles_to_km
+kw_to_hp <- function (x, metric = FALSE) {
+  
+  if (metric) {
+    # Mechanical horse power
+    y <- x * 1 / 0.74569987158227
+  } else {
+    # "Metric" horse power, PS auf Deutsch
+    y <- x * 1 / 0.73549875
+  }
+  
+  # Return
+  y
+  
+}
+
+
+#' @export
+#' @rdname miles_to_km
+hp_to_kw <- function (x, metric = FALSE) x / kw_to_hp(1, metric)
+
+
+# Torque
+#' @export
+#' @rdname miles_to_km
+newton_metre_to_kg_force <- function (x) x / 9.80665 # standard gravity
+
+#' @export
+#' @rdname miles_to_km
+newton_metre_to_foot_pound <- function (x) x / 1.35581794833
+
+#' @export
+#' @rdname miles_to_km
+foot_pound_to_newton_meter <- function (x) x / newton_metre_to_foot_pound(1)

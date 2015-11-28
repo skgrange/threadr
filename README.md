@@ -20,6 +20,9 @@ The development version: `devtools::install_github("skgrange/threadr")`
     - `str_*` functions. Do things which **stringr** does not. 
       - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`
     - Write JSON files with `write_json`. 
+    - A number of unit conversion functions.
+      - Simple ones like: `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, and `psi_to_bar`. 
+      - More interesting ones like `mpg_to_l_100_km`, `mpg_to_km_l` (for fuel efficiency and consumption). 
       
   - Date functions
     - Pad time-series to different intervals with `time_pad`. 

@@ -20,11 +20,14 @@
 #' @import dygraphs
 #' 
 #' @export
-time_dygraph <- function (df, variable = "no2", color = "dodgerblue", 
-                          range = TRUE, step = FALSE, points = FALSE, fill = FALSE) {
+time_dygraph <- function (df, variable = "no2", colour = "dodgerblue", 
+                          range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
+                          color = colour) {
   
   # Catch dplyr's table data frame
   df <- base_df(df)
+  
+  # missing(colour)
   
   # Create timeseries object
   time_series <- xts::xts(df[, variable], df[, "date"], order.by = df[, "date"], 

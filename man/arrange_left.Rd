@@ -15,6 +15,17 @@ arrange_left(df, variable)
 \code{arrange_left} is useful when some variables/columns want to be moved to
 the left-side of a data frame.
 }
+\examples{
+\dontrun{
+# Move a single variable to the first position
+data_ozone <- arrange_left(data_ozone, "date")
+
+# Move many variables to left hand side of data frame
+data_ozone <- arrange_left(data_ozone, c("date", "site", "site_name", "sensor"))
+
+}
+
+}
 \author{
 Stuart K. Grange
 }

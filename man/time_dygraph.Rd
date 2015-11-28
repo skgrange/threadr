@@ -5,15 +5,13 @@
 \title{Function for plotting interactive time-series plots in a similar way to
 \code{openair::timePlot}.}
 \usage{
-time_dygraph(df, variable = "no2", color = "dodgerblue", range = TRUE,
-  step = FALSE, points = FALSE, fill = FALSE)
+time_dygraph(df, variable = "no2", colour = "dodgerblue", range = TRUE,
+  step = FALSE, points = FALSE, fill = FALSE, color = colour)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named "date".}
 
 \item{variable}{Variable in \code{df} to plot.}
-
-\item{color}{Color of plotted geometry.}
 
 \item{range}{Should a range selector be plotted?}
 
@@ -22,6 +20,8 @@ time_dygraph(df, variable = "no2", color = "dodgerblue", range = TRUE,
 \item{points}{Should the plot include points where observations are recorded?}
 
 \item{fill}{Should the plot fill between the x-axis and the geometry?}
+
+\item{color}{Color of plotted geometry.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to
