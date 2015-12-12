@@ -10,14 +10,14 @@ date_sequence(days = -1, character = TRUE, today = TRUE, sep = "-")
 \item{days}{Number of days of the sequence from system's date. Use negative
 integers to go back in time.}
 
+\item{character}{Should the date sequence be returned as a character vector 
+rather than a date vector? Default is \code{TRUE}.}
+
 \item{today}{Should system date be included in the returned sequence?}
 
 \item{sep}{What seperator should be used between the year, month, and day
 pieces of the date? If this is changed from \code{"-"} (hyphen), then the 
-returned vector will always be characters.}
-
-\item{character.}{Should the date sequence be returned as a character 
-vector rather than a date vector? Default is \code{TRUE}.}
+returned vector will always be a character.}
 }
 \description{
 \code{date_sequence} is useful for generating patterns which match file names.

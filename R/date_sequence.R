@@ -5,14 +5,14 @@
 #' @param days Number of days of the sequence from system's date. Use negative
 #' integers to go back in time. 
 #'
-#' @param character. Should the date sequence be returned as a character 
-#' vector rather than a date vector? Default is \code{TRUE}. 
+#' @param character Should the date sequence be returned as a character vector 
+#' rather than a date vector? Default is \code{TRUE}. 
 #'
 #' @param today Should system date be included in the returned sequence? 
 #'
 #' @param sep What seperator should be used between the year, month, and day
 #' pieces of the date? If this is changed from \code{"-"} (hyphen), then the 
-#' returned vector will always be characters.
+#' returned vector will always be a character.
 #' 
 #' @author Stuart K. Grange
 #'

@@ -22,6 +22,11 @@
 #' 
 #' \code{str_chop} will chop a string into a vector of fixed-width lengths. 
 #' 
+#' \code{str_drop_xml_tags} removes XML tags from strings. 
+#' 
+#' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
+#' and characters within them. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -167,3 +172,29 @@ str_chop <- function (string, n) {
   
 }
 
+
+#' @rdname str_proper_case
+#' 
+#' @export
+str_drop_xml_tags <- function (string) {
+  
+  string <- stringr::str_replace_all(string, "<.*?>", "")
+  string <- stringr::str_trim(string)
+  string
+  
+}
+
+
+#' @rdname str_proper_case
+#' 
+#' @export
+str_rm_brackets_and_contents <- function (x) {
+  x <- stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
+  x
+}
+
+# 
+# #' @rdname str_proper_case
+# #' 
+# #' @export
+# str_extract_digits <- function (x) stringr::str_extract(x, "[[:digit:]]+")

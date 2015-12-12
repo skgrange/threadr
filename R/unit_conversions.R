@@ -11,15 +11,13 @@ miles_to_km <- function (x) x * 1.609344
 #' @export
 km_to_miles <- function (x) miles_to_km(x) / 1
 
+#' @rdname miles_to_km
+#' @export
+n_mile_to_km <- function (x) x * 1.852
 
 #' @rdname miles_to_km
 #' @export
-knots_to_km_h <- function (x) x * 1.852
-
-#' @rdname miles_to_km
-#' @export
-km_h_to_knots <- function (x) x / knots_to_km_h(1)
-
+km_to_nmile <- function (x) x / n_mile_to_km(1)
 
 #' @rdname miles_to_km
 #' @export
@@ -29,10 +27,26 @@ ms_to_km_h <- function (x) x * 3.6
 #' @export
 km_h_to_ms <- function (x) x / ms_to_km_h(1)
 
-
 #' @rdname miles_to_km
 #' @export
 km_h_to_km_min <- function (x) x * (1 / 60)
+
+#' @rdname miles_to_km
+#' @export
+km_h_to_min_km <- function (x) 60 / x
+
+#' @rdname miles_to_km
+#' @export
+min_km_to_km_h <- function (x) km_h_to_min_km(x) / 1
+
+
+#' @rdname miles_to_km
+#' @export
+inch_to_mm <- function (x) x / 25.4
+
+#' @rdname miles_to_km
+#' @export
+mm_to_inch <- function (x) x * inch_to_mm(1)
 
 
 # Volume
@@ -92,7 +106,12 @@ mpg_to_km_l <- function (mpg, type = "imperial") {
 
 #' @export
 #' @rdname miles_to_km
-l_100_km_to_100_l <- function (x) 100 / x # just the reciprocal
+l_100_km_to_km_l <- function (x) 100 / x # just the reciprocal
+
+# Metric to other systems after talking to John
+#' @export
+#' @rdname miles_to_km
+l_100km_to_mpg <- function (x, type = "imperial") mpg_to_l_100_km(1, type) / x
 
 
 #' @export
@@ -213,7 +232,6 @@ kw_to_hp <- function (x, metric = FALSE) {
   y
   
 }
-
 
 #' @export
 #' @rdname miles_to_km

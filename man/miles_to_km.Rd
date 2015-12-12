@@ -10,19 +10,24 @@
 \alias{heat_index}
 \alias{hp_to_kw}
 \alias{imperial_gallon_to_litres}
+\alias{inch_to_mm}
 \alias{km_h_to_km_min}
-\alias{km_h_to_knots}
+\alias{km_h_to_min_km}
 \alias{km_h_to_ms}
 \alias{km_to_miles}
-\alias{knots_to_km_h}
+\alias{km_to_nmile}
 \alias{kw_to_hp}
-\alias{l_100_km_to_100_l}
+\alias{l_100_km_to_km_l}
+\alias{l_100km_to_mpg}
 \alias{litres_to_imperial_gallon}
 \alias{litres_to_us_gallon}
 \alias{miles_to_km}
+\alias{min_km_to_km_h}
+\alias{mm_to_inch}
 \alias{mpg_to_km_l}
 \alias{mpg_to_l_100_km}
 \alias{ms_to_km_h}
+\alias{n_mile_to_km}
 \alias{newton_metre_to_foot_pound}
 \alias{newton_metre_to_kg_force}
 \alias{psi_to_bar}
@@ -33,15 +38,23 @@ miles_to_km(x)
 
 km_to_miles(x)
 
-knots_to_km_h(x)
+n_mile_to_km(x)
 
-km_h_to_knots(x)
+km_to_nmile(x)
 
 ms_to_km_h(x)
 
 km_h_to_ms(x)
 
 km_h_to_km_min(x)
+
+km_h_to_min_km(x)
+
+min_km_to_km_h(x)
+
+inch_to_mm(x)
+
+mm_to_inch(x)
 
 imperial_gallon_to_litres(x)
 
@@ -55,7 +68,9 @@ mpg_to_l_100_km(mpg, type = "imperial")
 
 mpg_to_km_l(mpg, type = "imperial")
 
-l_100_km_to_100_l(x)
+l_100_km_to_km_l(x)
+
+l_100km_to_mpg(x, type = "imperial")
 
 cubic_inches_to_cubic_centimetres(x)
 

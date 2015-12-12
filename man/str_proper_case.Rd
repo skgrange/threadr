@@ -3,7 +3,9 @@
 \name{str_proper_case}
 \alias{str_chop}
 \alias{str_date}
+\alias{str_drop_xml_tags}
 \alias{str_proper_case}
+\alias{str_rm_brackets_and_contents}
 \alias{str_rm_non_ascii}
 \alias{str_sentence_case}
 \alias{str_trim_length}
@@ -27,6 +29,10 @@ str_underscore(x)
 str_trim_many_spaces(x)
 
 str_chop(string, n)
+
+str_drop_xml_tags(string)
+
+str_rm_brackets_and_contents(x)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string. 
@@ -50,6 +56,11 @@ lower-case underscore_separated strings.
 string.
 
 \code{str_chop} will chop a string into a vector of fixed-width lengths.
+
+\code{str_drop_xml_tags} removes XML tags from strings.
+
+\code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
+and characters within them.
 }
 \author{
 Stuart K. Grange
