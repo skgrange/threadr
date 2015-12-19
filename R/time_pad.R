@@ -1,37 +1,38 @@
 #' Function to pad time-series.
 #'
 #' \code{time_pad} use is similar to \code{openair::timeAverage}. However, the
-#' aggregation of values does not occur. 
-#' 
-#' \code{time_pad} does not drop non-numerical variables, can include 
-#' identifiers post-pad, and can start and end a padded time-series at a 
-#' "nice place", for example, at the beginning of an hour or day. 
+#' aggregation of values does not occur. \code{time_pad} does not drop 
+#' non-numerical variables, can include identifiers post-pad, and can start and
+#' end a padded time-series at a "nice place", for example, at the beginning of
+#' an hour or day. 
 #' 
 #' \code{time_pad} pads a time-series by calculating the maximum and minimum 
 #' dates within a time-series and then generating a uniform date sequence 
 #' between the maximum and minimum dates. This date sequence is then joined to 
 #' the input data frame and the missing values are represented as \code{NA}. 
 #' 
-#' To-do: Enhance group-by operations by using \code{dplyr} rather than 
-#' \code{plyr}. 
-#'
 #' @param df A data frame including parsed dates. The date variable/column must
 #' be named \code{date}.
 #' 
 #' @param interval Interval of returned time series. Some examples could be: 
-#' "min" "hour", "day", "month", "year" but multiples such as "5 min" work too. 
+#' \code{"min"} \code{"hour"}, \code{"day"}, \code{"month"}, \code{"year"} but 
+#' multiples such as \code{"5 min"} work too. 
 #' 
 #' @param by Should \code{time_pad} apply the padding function to groups within
 #' \code{df}? This is helpful when there are many sites/other identifiers within
 #' \code{df} which need to be padded individually. 
 #' 
-#' @param round An optional date-unit to round the first and last observations
-#' of \code{df}. This allows the padded time-series to begin and end at a 
-#' "nice place". Examples are "hour", "day", "month", and "year". 
+#' @param round What date-unit should the first and last observations be rounded
+#' to? This allows the padded time-series to begin and end at a "nice place". 
+#' Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.
 #' 
-#' @param final Should the final observation of the padded time-series be
-#' kept? Sometimes if makes sense to remove the last observation if the
-#' end-date has been rounded forwards. 
+#' @param merge Should the base function \code{merge} be used rather than 
+#' \strong{dplyr}'s \code{left_join}. Not really a useful option, maintained to 
+#' track performance. 
+#' 
+#' @param do Should \strong{dplyr} be used for the group-by operations? Default
+#' is \code{TRUE} and should not need to be altered. Not really a useful option, 
+#' maintained to track performance. 
 #' 
 #' @seealso See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
 #' \code{\link{round_date}}, \code{\link{left_join}}
@@ -42,87 +43,98 @@
 #' 
 #' \dontrun{
 #' # Pad time-series so every minute is present
-#' data_nelson_pad <- time_pad(data.nelson, interval = "min", round = "day")
+#' data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 #' 
 #' # Keep identifying variables "site" and "sensor"
 #' data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour", 
-#'   id = c("site", "sensor"))
+#'   by = c("site", "sensor"))
 #' 
 #' }
 #' 
 #' @export
-time_pad <- function (df, interval = "hour", by = NA, round = NA, final = TRUE) {
+time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
+                      do = FALSE) {
   
-  # Ensure data frame is data frame, issues occurs when dplyr::tbl_df is used
-  # due to the lack of indices
-  df <- threadr::base_df(df)
+  # Catch dplyr's table
+  df <- base_df(df)
   
-  if (!is.na(by)[1]) {
-    
-    # Group-by operation
-    df <- plyr::ddply(df, plyr::as.quoted(by), padder, interval = interval, id = by, 
-                      round = round, final = final)
-    
-    # To-do...
-    #     df <- df %>% 
-    #       group_by_(by) %>% 
-    #       padder(interval = interval, id = by, round = round, final = final)) %>% 
-    #       ungroup()
+  if (is.na(by[1])) {
+    # No group-by needed
+    df <- padder(df, interval, by, round, merge)
     
   } else {
-    # No grouping so no need to use dplyr
-    df <- padder(df, interval = interval, id = by, round = round, final = final)
+    
+    if (do) {
+      # Use dplyr
+      # Get around non-standard evaluation
+      list_dots <- lapply(by, as.symbol)
+      
+      # Pad by group
+      df <- df %>% 
+        group_by_(.dots = list_dots) %>%
+        do(padder(., 
+                  interval = interval, 
+                  by = by,
+                  round = round, 
+                  merge = merge))
+      
+    } else {
+      # Use plyr
+      df <- plyr::ddply(df, plyr::as.quoted(by), padder, interval = interval, 
+                        by = by, round = round, merge = merge)
+      
+    }
     
   }
-  
+
   # Return 
   df
   
 }
 
 
-# The real function
+# The worker
+# 
 # No export
-#
-padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
+padder <- function (df, interval, by, round, merge) {
   
-  # Check if df has a date variable
+  # Check if input has a date variable
   if (!"date" %in% names(df)) {
-    stop("Input data frame must contain a date variable/column and must be named 'date'")
+    stop("Data frame must contain a date variable/column and must be named `date`.",
+         call. = FALSE)
   }
   
-  # Get identifying variables
-  if (!is.na(id[1])) {
+  # Check if of date class
+  if (!lubridate::is.POSIXt(df$date)) {
+    stop("`date` must be a parsed date. ", call. = FALSE)
+  }
+  
+  # Get identifiers
+  if (!is.na(by[1])) {
     
-    if (length(id) == 1) {
-      
-      identifiers <- first_na_element(df[, id])
-      identifiers <- data.frame(identifiers)
-      names(identifiers) <- id
+    if (length(by) == 1) {
+      data_by <- df[, by][1]
+      data_by <- data.frame(data_by)
+      names(data_by) <- by
       
     } else {
-      
-      # Get the first non-NA elements
-      identifiers <- lapply(df[, id], first_na_element)
-      # Make a data frame
-      identifiers <- data.frame(identifiers)
+      by_collapse <- stringr::str_c(stringr::str_c("\\b", by, "\\b"), collapse = "|")
+      data_by <- df[, grep(by_collapse, names(df))][1, ]
+      row.names(data_by) <- NULL
       
     }
-    
-    # Drop ids from data frame  
-    df <- df[!names(df) %in% id]
+    # Drop identifiers
+    df <- df[!names(df) %in% by]
     
   }
   
   # Find the start and end of the date sequence
   if (is.na(round)) {
-    
     # No date rounding, use date values in df
     date_start <- min(df$date)
     date_end <- max(df$date)
     
   } else {
-    
     # Date rounding
     date_start <- lubridate::floor_date(min(df$date), round)
     date_end <- lubridate::ceiling_date(max(df$date), round)
@@ -132,19 +144,30 @@ padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   # Create the sequence of dates
   date_sequence <- data.frame(date = seq(date_start, date_end, by = interval))
   
-  # Do the padding
-  df <- dplyr::left_join(date_sequence, df, by = "date")
+  # Remove final observation if ceiling rounded
+  if (!is.na(round)) {
+    date_sequence <- date_sequence[-nrow(date_sequence), ]
+  }
   
-  # Add the id variables to the padded data
-  if (!is.na(id[1])) {
-    # cbind will recycle the vector
-    df <- cbind(df, identifiers)
+  # Do the padding
+  if (merge) {
+    # Base function
+    df <- merge(date_sequence, df, by = "date", all = TRUE)
+    
+  } else{
+    # Use dplyr, it is faster
+    df <- dplyr::left_join(date_sequence, df, by = "date")
     
   }
   
-  # Remove final observation
-  if (!final) {
-    df <- df[-nrow(df), ]
+  # Overwrite identifiers
+  if (!is.na(by[1])) {
+    df <- cbind(df, data_by)
+  }
+  
+  # Message
+  if (any(duplicated(df$date))) {
+    warning("Duplicated dates detected.", call. = FALSE)
   }
   
   # Return
@@ -152,17 +175,3 @@ padder <- function (df, interval, id = NA, round = NA, final = TRUE) {
   
 }
 
-# Function to find first non-NA element within a variable
-first_na_element <- function (vector) {
-  
-  # Index of na elements
-  index <- which(!is.na(vector))
-  index <- min(index)
-  
-  # Get first non-na element
-  element <- vector[index]
-  
-  # Return
-  element
-  
-}

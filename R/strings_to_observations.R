@@ -13,8 +13,6 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \link{}
-#'
 #' @examples
 #' \dontrun{
 #' # Load data
@@ -72,3 +70,4 @@ strings_to_observations <- function (df, variable, pattern) {
   df
   
 }
+

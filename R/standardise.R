@@ -1,7 +1,9 @@
 #' Function to standardise all variables in a data frame. 
 #' 
 #' \code{standardise} will transform all numeric variables so they have a mean 
-#' of 0 and a standard deviation of 1. 
+#' of 0 and a standard deviation of 1. This is also known as the z-score. 
+#'
+#' @seealso \link{scale} 
 #' 
 #' @author and Stuart K. Grange
 #' 

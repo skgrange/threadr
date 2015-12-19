@@ -11,7 +11,7 @@ standardise(df)
 }
 \description{
 \code{standardise} will transform all numeric variables so they have a mean 
-of 0 and a standard deviation of 1.
+of 0 and a standard deviation of 1. This is also known as the z-score.
 }
 \examples{
 \dontrun{
@@ -22,5 +22,8 @@ data_standardise <- standardise(data_csv)
 }
 \author{
 and Stuart K. Grange
+}
+\seealso{
+\link{scale}
 }
 

@@ -29,4 +29,7 @@ data_zones <- add_row_numbers(data_zones, name = "order")
 \author{
 Stuart K. Grange
 }
+\seealso{
+\link{dplyr::add_rownames}
+}
 

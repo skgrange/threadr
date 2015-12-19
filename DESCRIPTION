@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.2.21
-Date: 2015-12-03
+Version: 0.2.23
+Date: 2015-12-19
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: A collection of utility functions threading processes together. 
@@ -10,10 +10,10 @@ License: GPL (>= 2)
 Depends:
     stringr,
     lubridate,
-    plyr
+    plyr,
+    dplyr
 Imports:
     ggplot2,
-    dplyr,
     jsonlite,
     pbapply,
     RCurl,

@@ -7,10 +7,13 @@
 \alias{cubic_inches_to_cubic_centimetres}
 \alias{fahrenheit_to_celsius}
 \alias{foot_pound_to_newton_meter}
+\alias{foot_to_metre}
 \alias{heat_index}
 \alias{hp_to_kw}
 \alias{imperial_gallon_to_litres}
 \alias{inch_to_mm}
+\alias{kg_to_pound}
+\alias{kg_to_stone}
 \alias{km_h_to_km_min}
 \alias{km_h_to_min_km}
 \alias{km_h_to_ms}
@@ -19,8 +22,10 @@
 \alias{kw_to_hp}
 \alias{l_100_km_to_km_l}
 \alias{l_100km_to_mpg}
+\alias{lb_to_kg}
 \alias{litres_to_imperial_gallon}
 \alias{litres_to_us_gallon}
+\alias{metre_to_foot}
 \alias{miles_to_km}
 \alias{min_km_to_km_h}
 \alias{mm_to_inch}
@@ -30,7 +35,9 @@
 \alias{n_mile_to_km}
 \alias{newton_metre_to_foot_pound}
 \alias{newton_metre_to_kg_force}
+\alias{pound_to_kg}
 \alias{psi_to_bar}
+\alias{stone_to_kg}
 \alias{us_gallon_to_litres}
 \title{Functions to convert unit systems.}
 \usage{
@@ -55,6 +62,10 @@ min_km_to_km_h(x)
 inch_to_mm(x)
 
 mm_to_inch(x)
+
+foot_to_metre(x)
+
+metre_to_foot(x)
 
 imperial_gallon_to_litres(x)
 
@@ -95,6 +106,16 @@ newton_metre_to_kg_force(x)
 newton_metre_to_foot_pound(x)
 
 foot_pound_to_newton_meter(x)
+
+pound_to_kg(x)
+
+lb_to_kg(x)
+
+kg_to_pound(x)
+
+stone_to_kg(x)
+
+kg_to_stone(x)
 }
 \description{
 Functions to convert unit systems.

@@ -42,6 +42,8 @@ and ppb or ppm is desired.
 \details{
 These functions allow for input of temperatures and pressures which change the
 coefficients used for the conversion between the unit systems.
+
+To-do: Clean up documentation!
 }
 \examples{
 \dontrun{
@@ -54,8 +56,5 @@ gas_mass_to_volume(800, "o3")
 }
 \author{
 Stuart K. Grange
-}
-\seealso{
-
 }
 

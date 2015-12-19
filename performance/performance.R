@@ -33,12 +33,20 @@ autoplot(benchmark)
 ggsave("benchmark_download_ftp_file_methods.pdf")
 
 
-url <- "sftp://test.rebex.net"
-credentials <- "demo:password"
-# list_files_ftp(url, credentials)
-
-RCurl::curlVersion()
-# install.packages("~/Desktop/RCurl", repos=NULL, type="source")
 
 
+library(microbenchmark)
 
+time_pad_benchmark <- microbenchmark(
+  dplyr = time_pad(data_db, "hour", by = c("site", "site_name", "variable"),
+                 do = TRUE),
+  plyr = time_pad(data_db, "hour", by = c("site", "site_name", "variable"),
+                 do = FALSE),
+  plyr_merge = time_pad(data_db, "hour", by = c("site", "site_name", "variable"),
+                        do = FALSE, merge = TRUE),
+  dplyr_merge = time_pad(data_db, "hour", by = c("site", "site_name", "variable"),
+                         do = TRUE, merge = TRUE),
+  times = 5
+)
+
+autoplot(time_pad_benchmark)

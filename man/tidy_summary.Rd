@@ -4,7 +4,7 @@
 \alias{tidy_summary}
 \title{Function to create tidy data descriptives from a data frame.}
 \usage{
-tidy_summary(df)
+tidy_summary(df, round = 3)
 }
 \arguments{
 \item{df}{Data frame for descriptives to be calculated for.}

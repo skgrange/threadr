@@ -11,7 +11,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' 
 #' # Create a directory
 #' create_directory("data_dump")
 #' 

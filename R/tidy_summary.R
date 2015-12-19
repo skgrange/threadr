@@ -13,7 +13,7 @@
 #' }
 #' 
 #' @export
-tidy_summary <- function (df) {
+tidy_summary <- function (df, round = 3) {
   
   # Select only numeric variables
   df <- df[ , sapply(df, is.numeric)]
@@ -21,13 +21,13 @@ tidy_summary <- function (df) {
   # Summarise
   df_summary <- data.frame(summary(df))
   
-  # Also sd
+  # Also calculate sd
   sd <- lapply(df, sd, na.rm = TRUE)
   df_sd <- data.frame(data_variable = names(sd), 
                       summary_variable = "sd",
                       value = unlist(unname(lapply(sd, '[[', 1))))
   
-  # Variance
+  # and variance
   variance <- lapply(df, var, na.rm = TRUE)
   df_variance <- data.frame(data_variable = names(variance), 
                             summary_variable = "variance",
@@ -52,11 +52,11 @@ tidy_summary <- function (df) {
   # Transform
   # Values
   df_summary$value <- as.numeric(df_summary$value)
-  df_summary$value <- round(df_summary$value, 3)
+  df_summary$value <- round(df_summary$value, round)
   
   # Variables
-  df_summary$summary_variable <- tolower(df_summary$summary_variable)
-  df_summary$summary_variable <- str_trim(df_summary$summary_variable)
+  df_summary$summary_variable <- stringr::str_to_lower(df_summary$summary_variable)
+  df_summary$summary_variable <- stringr::str_trim(df_summary$summary_variable)
   
   df_summary$summary_variable <- stringr::str_replace_all(
     df_summary$summary_variable, "\\.|'", "")
@@ -64,10 +64,15 @@ tidy_summary <- function (df) {
   df_summary$summary_variable <- stringr::str_replace_all(
     df_summary$summary_variable, " ", "_")
   
-  df_summary$data_variable <- str_trim(df_summary$data_variable)
+  df_summary$data_variable <- stringr::str_trim(df_summary$data_variable)
   
   # Make tidy data
   df_tidy <- tidyr::spread(df_summary, summary_variable, value)
+  
+  # Replace name
+  # To-do, clean up
+  names(df_tidy) <- stringr::str_replace(names(df_tidy), "\\bdata_variable\\b", 
+                                         "variable")
   
   # Return
   df_tidy

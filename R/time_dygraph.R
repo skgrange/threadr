@@ -14,13 +14,15 @@
 #' @param points Should the plot include points where observations are recorded? 
 #' 
 #' @param fill Should the plot fill between the x-axis and the geometry? 
+#'
+#' @seealso \link{openair::timePlot}
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @import dygraphs
 #' 
 #' @export
-time_dygraph <- function (df, variable = "no2", colour = "dodgerblue", 
+time_dygraph <- function (df, variable = "no2", colour = "red", 
                           range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
                           color = colour) {
   

@@ -39,7 +39,4 @@ data_tidy
 \author{
 Stuart K. Grange
 }
-\seealso{
-\link{}
-}
 

@@ -7,12 +7,6 @@
 #' @author teucer
 #' 
 #' @export
-drop_na_columns <- function (df) {
+drop_na_columns <- function (df) df[, colSums(is.na(df)) < nrow(df)]
     
-  # Select with superscripts
-  df <- df[, colSums(is.na(df)) < nrow(df)]
 
-  # Return
-  df
-  
-}

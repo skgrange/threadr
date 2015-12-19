@@ -7,6 +7,8 @@
 #' 
 #' @param df Data frame to be transformed.
 #' @param name Name of variable to use. 
+#'
+#' @seealso \link{dplyr::add_rownames}
 #' 
 #' @examples 
 #' \dontrun{

@@ -2,7 +2,6 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' 
 #' @rdname miles_to_km
 #' @export
 miles_to_km <- function (x) x * 1.609344
@@ -39,7 +38,6 @@ km_h_to_min_km <- function (x) 60 / x
 #' @export
 min_km_to_km_h <- function (x) km_h_to_min_km(x) / 1
 
-
 #' @rdname miles_to_km
 #' @export
 inch_to_mm <- function (x) x / 25.4
@@ -47,6 +45,14 @@ inch_to_mm <- function (x) x / 25.4
 #' @rdname miles_to_km
 #' @export
 mm_to_inch <- function (x) x * inch_to_mm(1)
+
+#' @rdname miles_to_km
+#' @export
+foot_to_metre <- function (x) x * 0.3048
+
+#' @rdname miles_to_km
+#' @export
+metre_to_foot <- function (x) x / foot_to_metre(1)
 
 
 # Volume
@@ -250,3 +256,25 @@ newton_metre_to_foot_pound <- function (x) x / 1.35581794833
 #' @export
 #' @rdname miles_to_km
 foot_pound_to_newton_meter <- function (x) x / newton_metre_to_foot_pound(1)
+
+
+# Mass
+#' @export
+#' @rdname miles_to_km
+pound_to_kg <- function (x) x * 0.45359237
+
+#' @export
+#' @rdname miles_to_km
+lb_to_kg <- pound_to_kg
+
+#' @export
+#' @rdname miles_to_km
+kg_to_pound <- function (x) x / pound_to_kg(1)
+
+#' @export
+#' @rdname miles_to_km
+stone_to_kg <- function (x) x * 6.35029318
+
+#' @export
+#' @rdname miles_to_km
+kg_to_stone <- function (x) x / stone_to_kg(1)
