@@ -3,7 +3,7 @@
 \name{gas_volume_to_mass}
 \alias{gas_mass_to_volume}
 \alias{gas_volume_to_mass}
-\title{Functions to convert gas concentrations between volume and mass unit systems.}
+\title{Functions to convert gas concentrations between volume and mass units.}
 \usage{
 gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
   unit_output = "ug_m3", temperature = 0, pressure = 101325)
@@ -35,15 +35,14 @@ or 25 degrees Celsius are often used too.}
 }
 \description{
 Use \code{gas_volume_to_mass} when a gas concentration is in ppb or ppm and 
-ug m-3 or mg m-3 is desired. 
-Use \code{gas_mass_to_volume} when a gas concentration is in ug m-3 or mg m-3
-and ppb or ppm is desired.
+ug m-3 or mg m-3 is desired. Use \code{gas_mass_to_volume} when a gas 
+concentration is in ug m-3 or mg m-3 and ppb or ppm is desired.
 }
 \details{
-These functions allow for input of temperatures and pressures which change the
-coefficients used for the conversion between the unit systems.
+These functions allow for input of temperatures and pressures which change 
+the coefficients used for the conversion between the unit systems.
 
-To-do: Clean up documentation!
+To-do: Clean-up documentation.
 }
 \examples{
 \dontrun{

@@ -4,53 +4,55 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", by = NA, round = NA, final = TRUE)
+time_pad(df, interval = "hour", by = NA, round = NA, merge = FALSE,
+  do = FALSE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
 be named \code{date}.}
 
 \item{interval}{Interval of returned time series. Some examples could be: 
-"min" "hour", "day", "month", "year" but multiples such as "5 min" work too.}
+\code{"min"} \code{"hour"}, \code{"day"}, \code{"month"}, \code{"year"} but 
+multiples such as \code{"5 min"} work too.}
 
 \item{by}{Should \code{time_pad} apply the padding function to groups within
 \code{df}? This is helpful when there are many sites/other identifiers within
 \code{df} which need to be padded individually.}
 
-\item{round}{An optional date-unit to round the first and last observations
-of \code{df}. This allows the padded time-series to begin and end at a 
-"nice place". Examples are "hour", "day", "month", and "year".}
+\item{round}{What date-unit should the first and last observations be rounded
+to? This allows the padded time-series to begin and end at a "nice place". 
+Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
 
-\item{final}{Should the final observation of the padded time-series be
-kept? Sometimes if makes sense to remove the last observation if the
-end-date has been rounded forwards.}
+\item{merge}{Should the base function \code{merge} be used rather than 
+\strong{dplyr}'s \code{left_join}. Not really a useful option, maintained to 
+track performance.}
+
+\item{do}{Should \strong{dplyr} be used for the group-by operations? Default
+is \code{TRUE} and should not need to be altered. Not really a useful option, 
+maintained to track performance.}
 }
 \description{
 \code{time_pad} use is similar to \code{openair::timeAverage}. However, the
-aggregation of values does not occur.
+aggregation of values does not occur. \code{time_pad} does not drop 
+non-numerical variables, can include identifiers post-pad, and can start and
+end a padded time-series at a "nice place", for example, at the beginning of
+an hour or day.
 }
 \details{
-\code{time_pad} does not drop non-numerical variables, can include 
-identifiers post-pad, and can start and end a padded time-series at a 
-"nice place", for example, at the beginning of an hour or day.
-
 \code{time_pad} pads a time-series by calculating the maximum and minimum 
 dates within a time-series and then generating a uniform date sequence 
 between the maximum and minimum dates. This date sequence is then joined to 
 the input data frame and the missing values are represented as \code{NA}.
-
-To-do: Enhance group-by operations by using \code{dplyr} rather than 
-\code{plyr}.
 }
 \examples{
 
 \dontrun{
 # Pad time-series so every minute is present
-data_nelson_pad <- time_pad(data.nelson, interval = "min", round = "day")
+data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
 data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour", 
-  id = c("site", "sensor"))
+  by = c("site", "sensor"))
 
 }
 

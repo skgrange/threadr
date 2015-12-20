@@ -55,9 +55,6 @@
 time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
                       do = FALSE) {
   
-  # Catch dplyr's table
-  df <- base_df(df)
-  
   if (is.na(by[1])) {
     # No group-by needed
     df <- padder(df, interval, by, round, merge)
@@ -104,25 +101,21 @@ padder <- function (df, interval, by, round, merge) {
          call. = FALSE)
   }
   
-  # Check if of date class
+  # NA check
+  if (any(is.na(df$date))) {
+    stop("`date` must not contain missing (NA) values.", call. = FALSE)
+  }
+  
+  # Check class
   if (!lubridate::is.POSIXt(df$date)) {
     stop("`date` must be a parsed date. ", call. = FALSE)
   }
   
   # Get identifiers
   if (!is.na(by[1])) {
+    # Get identifiers
+    data_by <- get_identifiers(df, by = by)
     
-    if (length(by) == 1) {
-      data_by <- df[, by][1]
-      data_by <- data.frame(data_by)
-      names(data_by) <- by
-      
-    } else {
-      by_collapse <- stringr::str_c(stringr::str_c("\\b", by, "\\b"), collapse = "|")
-      data_by <- df[, grep(by_collapse, names(df))][1, ]
-      row.names(data_by) <- NULL
-      
-    }
     # Drop identifiers
     df <- df[!names(df) %in% by]
     
@@ -175,3 +168,34 @@ padder <- function (df, interval, by, round, merge) {
   
 }
 
+
+# Funciton to get identifiers from a data frame
+get_identifiers <- function (df, by) {
+  
+  # Catch dplyr's table so indexing works as expected
+  df <- base_df(df)
+  
+  if (length(by) == 1) {
+    # Single row
+    data_by <- df[, by][1]
+    
+    # Data frame building
+    data_by <- data.frame(data_by)
+    names(data_by) <- by
+    
+  } else {
+    # Selecting vector
+    by_collapse <- stringr::str_c(stringr::str_c("\\b", by, "\\b"), collapse = "|")
+    
+    # Get first row
+    data_by <- df[, grep(by_collapse, names(df))][1, ]
+    
+    # Reset
+    row.names(data_by) <- NULL
+    
+  }
+  
+  # Return
+  data_by
+  
+}

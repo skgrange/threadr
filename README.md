@@ -26,12 +26,13 @@ The development version: `devtools::install_github("skgrange/threadr")`
       
   - Date functions
     - Pad time-series to different intervals with `time_pad`. 
+    - Make a irregular time-series regular with `time_pad_irregular`. 
     - Round dates to arbitrary time intervals such as 5-seconds, 5-minutes, 15-minutes, 2-minutes, 30-minutes (etc.) with `round_date_interval`
     
   - Data frame functions: 
-    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character. 
+    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged and joined easier. 
     - `arrange_left`. Move variables/columns to the left of a data frame. 
-    - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases. 
+    - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases and using data frame indexing. 
     - `drop_na_columns`
     - `rm_na_rows`
     

@@ -19,8 +19,6 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @import dygraphs
-#' 
 #' @export
 time_dygraph <- function (df, variable = "no2", colour = "red", 
                           range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
@@ -36,15 +34,15 @@ time_dygraph <- function (df, variable = "no2", colour = "red",
                           tzone = "UTC")
   
   # Plot
-  plot <- dygraph(time_series) %>%  
-    dyOptions(colors = color, stepPlot = step, fillGraph = fill, 
-              useDataTimezone = TRUE) %>% 
-    dySeries(label = variable, drawPoints = points) 
+  plot <- dygraphs::dygraph(time_series) %>%  
+    dygraphs::dyOptions(colors = color, stepPlot = step, fillGraph = fill, 
+                        useDataTimezone = TRUE) %>% 
+    dygraphs::dySeries(label = variable, drawPoints = points) 
   
   # Add range selector
   if (range) {
     plot <- plot %>% 
-      dyRangeSelector()
+      dygraphs::dyRangeSelector()
     
   }
   
