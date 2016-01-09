@@ -40,11 +40,11 @@ min_km_to_km_h <- function (x) km_h_to_min_km(x) / 1
 
 #' @rdname miles_to_km
 #' @export
-inch_to_mm <- function (x) x / 25.4
+inch_to_mm <- function (x) x * 25.4
 
 #' @rdname miles_to_km
 #' @export
-mm_to_inch <- function (x) x * inch_to_mm(1)
+mm_to_inch <- function (x) x / inch_to_mm(1)
 
 #' @rdname miles_to_km
 #' @export

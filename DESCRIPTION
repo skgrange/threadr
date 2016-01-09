@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.2.24
-Date: 2015-12-20
+Version: 0.2.26
+Date: 2016-01-09
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: A collection of utility functions threading processes together. 

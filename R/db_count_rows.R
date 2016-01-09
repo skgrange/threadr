@@ -3,8 +3,10 @@
 #' @author Stuart K. Grange
 #' 
 #' @param db Database connection
+
 #' @param table Table name in \code{db}. If \code{table} is unknown, all tables
 #' in \code{db} will be queried. 
+
 #' @param progress Progress bar. Should a progress bar be shown? Default is 
 #' \code{FALSE}.
 #' 
@@ -34,7 +36,7 @@ counter <- function (table, db) {
   statement <- stringr::str_c("SELECT COUNT(*) AS row_count 
                                FROM ", table)
   
-  # Use statment
+  # Use statement
   df <- tryCatch(DBI::dbGetQuery(db, statement),
                  error = function(e) data.frame(row_count = NA))
   

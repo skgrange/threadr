@@ -18,11 +18,9 @@
 #' @export
 standardise <- function (df) {
   
-  # Centers and scales the variables
-  matrix <- scale(df)
-  
-  # Back to data frame
-  df <- data.frame(matrix)
+  # Center and scale the numeric variables
+  index <- sapply(df, is.numeric)
+  df[index] <- lapply(df[index], scale)
   
   # Return
   df

@@ -16,7 +16,6 @@
 #' weekdays(5)
 #' }
 #' 
-#' @export
 weekdays <- function (n = 7, monday = TRUE, factor = TRUE) {
   
   # Create sequence

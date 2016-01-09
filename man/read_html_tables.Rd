@@ -4,7 +4,7 @@
 \alias{read_html_tables}
 \title{Function to read HTML tables from an URL.}
 \usage{
-read_html_tables(url, n = NA)
+read_html_tables(url, n = NA, character = FALSE)
 }
 \arguments{
 \item{url}{A URL which contains HTML tables.}
@@ -12,6 +12,9 @@ read_html_tables(url, n = NA)
 \item{n}{Table-number to return. Optional, but this will return a single
 data frame rather than a list of data frames which is usually what is 
 desired.}
+
+\item{character}{Is \code{url} a character string? This is useful when the 
+HTML has been read and stored previously before being used by this function.}
 }
 \description{
 Function to read HTML tables from an URL.

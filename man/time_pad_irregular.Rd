@@ -4,23 +4,28 @@
 \alias{time_pad_irregular}
 \title{Function to transform a irregular time-series to a continuous time-series.}
 \usage{
-time_pad_irregular(df, interval, by = NA)
+time_pad_irregular(df, interval, by = NA, na.rm = FALSE)
 }
 \arguments{
 \item{df}{Data frame containing an irregular time-series with \code{"date"} 
 and \code{"date_end"} variables.}
 
 \item{interval}{Interval to pad the time-series to? This will almost always
-be \code{"hour"} or \code{"day"}.}
+be \code{"hour"} or \code{"day"} but also accepts \code{"sec"} and 
+\code{"min"}.}
 
 \item{by}{Should \code{time_pad_irregular} apply the padding function to 
 groups within \code{df}? This is helpful when there are many sites/other 
 identifiers within \code{df} which need to be padded individually.}
+
+\item{na.rm}{Should \code{NA} values be removed before the locf process? If 
+\code{TRUE}, this will result in a time-series with no \code{NA} values but 
+may insert observations where they were originally represented as missing.}
 }
 \description{
-\code{time_pad_irregular} is usually used when a irregularly sampled 
-variables are to be analysed alongside variables which are monitored at 
-hourly or daily intervals.
+\code{time_pad_irregular} is usually used when irregularly sampled variables 
+are to be analysed alongside variables which are monitored at regular hourly 
+or daily intervals.
 }
 \details{
 \code{time_pad_irregular} will pad a variable's time-series and then 
@@ -38,7 +43,7 @@ procedure.
 \examples{
 \dontrun{
 # Make a continuous time-series
-data_benzene_continuous <- time_pad_irregular(data_benzene, "hour")
+data_benzene_continuous <- time_pad_irregular(data_benzene, "day")
 }
 
 }

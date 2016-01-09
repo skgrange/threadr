@@ -6,6 +6,9 @@
 #' data frame rather than a list of data frames which is usually what is 
 #' desired. 
 #' 
+#' @param character Is \code{url} a character string? This is useful when the 
+#' HTML has been read and stored previously before being used by this function. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
@@ -23,25 +26,28 @@
 #' }
 #' 
 #' @export 
-read_html_tables <- function (url, n = NA) {
+read_html_tables <- function (url, n = NA, character = FALSE) {
   
-  # Get text, works with https and with many proxy servers
-  text <- readLines(url, warn = FALSE)
+  # Get text/characters, works with https and with many proxy servers
+  if (character) {
+    url <- readLines(url, warn = FALSE)
+  }
   
   # Parse html
-  document <- XML::htmlTreeParse(text, ignoreBlanks = FALSE, 
+  document <- XML::htmlTreeParse(url, ignoreBlanks = FALSE, 
                                  useInternalNodes = TRUE, trim = FALSE)
   
   if (is.na(n)) {
     # All tables as a list
-    table <- XML::readHTMLTable(document, ignoreBlanks = FALSE, trim = FALSE)
+    table <- XML::readHTMLTable(document, ignoreBlanks = FALSE, trim = FALSE,
+                                stringsAsFactors = FALSE)
     
   } else {
     # Get table nodes
     nodes <- XML::getNodeSet(document, "//table")
     
     # Parse a specific table
-    table <- XML::readHTMLTable(nodes[[n]])
+    table <- XML::readHTMLTable(nodes[[n]], stringsAsFactors = FALSE)
     
   }
   
