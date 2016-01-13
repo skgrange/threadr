@@ -34,11 +34,11 @@ db <- db_connect("connections.json", "air_quality")
 # Use a json confg file which looks similar to this
 string <- '
 {
-"driver": "MySQL",
-"host": "172.31.4.159",
-"database_name": "database_seven",
-"user": "web",
-"password": "read_password"
+  "driver": "MySQL",
+  "host": "172.31.4.159",
+  "database_name": "database_seven",
+  "user": "web",
+  "password": "read_password"
 }'
 
 # Connect, no need for second argument when one connection is present in 

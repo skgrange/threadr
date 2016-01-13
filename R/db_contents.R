@@ -9,7 +9,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param db Database connection
+#' @param con Database connection. 
 #' 
 #' @param limit Maximum number rows to return in each table. Default is 1. Use 
 #' \code{NA} to read entire table; use with caution. 
@@ -17,22 +17,22 @@
 #' @examples 
 #' \dontrun{
 #' # Only one value will be returned
-#' data_single_value <- db_contents(db)
+#' data_single_value <- db_contents(con)
 #' 
 #' # Entire tables will be returned
-#' data_entire_contents <- db_contents(db, limit = NA)
+#' data_entire_contents <- db_contents(con, limit = NA)
 #' }
 #'
 #' @export
-db_contents <- function (db, limit = 1) {
+db_contents <- function (con, limit = 1) {
   
   # Get tables
-  tables <- DBI::dbListTables(db)
+  tables <- DBI::dbListTables(con)
   
   # Apply function
-  df <- plyr::ldply(tables, table_reader, db, limit = limit, .progress = "text")
+  df <- plyr::ldply(tables, table_reader, con, limit = limit, .progress = "text")
   
-  # Reutn
+  # Return
   df
   
 }
@@ -41,13 +41,13 @@ db_contents <- function (db, limit = 1) {
 # The function which does the work
 # 
 # No export
-table_reader <- function (table, db, limit = NA) {
+table_reader <- function (table, con, limit = NA) {
   
   if (is.na(limit)) {
     
     # Read entire table
     suppressWarnings(
-      df <- tryCatch(DBI::dbReadTable(db, table),
+      df <- tryCatch(DBI::dbReadTable(con, table),
                      error = function(e) data.frame(table = integer()))
     )
     
@@ -55,7 +55,7 @@ table_reader <- function (table, db, limit = NA) {
     
     # Only read n rows/observations
     suppressWarnings(
-      df <- tryCatch(DBI::dbGetQuery(db, stringr::str_c("SELECT * FROM ", 
+      df <- tryCatch(DBI::dbGetQuery(con, stringr::str_c("SELECT * FROM ", 
                                                table, 
                                                " LIMIT ", limit)),
                      error = function(e) data.frame(table = integer()))
@@ -74,7 +74,7 @@ table_reader <- function (table, db, limit = NA) {
     # Add table variable
     df$table <- table
     
-    # This will keep the table variable in position 1
+    # This will keep the table-variable in position 1
     suppressWarnings(
       df <- tidyr::gather(df, variable, value, -table)
     )

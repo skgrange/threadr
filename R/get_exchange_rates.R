@@ -16,8 +16,6 @@
 #' renamed as a generic "exchange_rate" rather than the currency pair string?
 #' Default is \code{TRUE}.  
 #' 
-#' @aliases get_exchange_rate
-#' 
 #' @examples
 #' 
 #' \dontrun{
@@ -40,8 +38,7 @@
 #' }
 #' 
 #' @export
-get_exchange_rates <- get_exchange_rate <- function (currencies, from = NA, 
-                                                     rename = TRUE) {
+get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
 
   # Parse
   currencies <- stringr::str_to_upper(currencies)

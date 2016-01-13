@@ -4,13 +4,13 @@
 \alias{db_count_rows}
 \title{Function to get row counts from database tables.}
 \usage{
-db_count_rows(db, table = NA, progress = FALSE)
+db_count_rows(con, table = NA, progress = FALSE)
 }
 \arguments{
-\item{db}{Database connection}
+\item{con}{Database connection}
 
-\item{table}{Table name in \code{db}. If \code{table} is unknown, all tables
-in \code{db} will be queried.}
+\item{table}{Table name in \code{con}. If \code{table} is unknown, all tables
+in \code{con} will be queried.}
 
 \item{progress}{Progress bar. Should a progress bar be shown? Default is 
 \code{FALSE}.}

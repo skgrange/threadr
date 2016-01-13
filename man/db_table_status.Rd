@@ -4,10 +4,10 @@
 \alias{db_table_status}
 \title{Function to get a table's status from a MySQL database.}
 \usage{
-db_table_status(db, table)
+db_table_status(con, table)
 }
 \arguments{
-\item{db}{MySQL database connection.}
+\item{con}{MySQL database connection.}
 
 \item{table}{Database table.}
 }

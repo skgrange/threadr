@@ -5,10 +5,10 @@
 \title{Function to get the names of database table and produce a data frame with 
 zero rows.}
 \usage{
-db_table_names(db, table)
+db_table_names(con, table)
 }
 \arguments{
-\item{db}{Database connection.}
+\item{con}{Database connection.}
 
 \item{table}{Database table.}
 }

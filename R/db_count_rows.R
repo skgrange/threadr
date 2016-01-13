@@ -2,26 +2,26 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param db Database connection
+#' @param con Database connection
 
-#' @param table Table name in \code{db}. If \code{table} is unknown, all tables
-#' in \code{db} will be queried. 
+#' @param table Table name in \code{con}. If \code{table} is unknown, all tables
+#' in \code{con} will be queried. 
 
 #' @param progress Progress bar. Should a progress bar be shown? Default is 
 #' \code{FALSE}.
 #' 
 #' @export
-db_count_rows <- function (db, table = NA, progress = FALSE) {
+db_count_rows <- function (con, table = NA, progress = FALSE) {
   
   # If no table is selected, do them all
   if (is.na(table[1])) {
-    table <- DBI::dbListTables(db)
+    table <- DBI::dbListTables(con)
   } 
   
   progress <- switch_progress(progress)
   
   # Only some tables
-  df <- plyr::ldply(table, counter, db, .progress = progress)
+  df <- plyr::ldply(table, counter, con, .progress = progress)
   
   # Return
   df
@@ -30,14 +30,14 @@ db_count_rows <- function (db, table = NA, progress = FALSE) {
 
 
 # Function to get the row counts
-counter <- function (table, db) {
+counter <- function (table, con) {
   
   # Create statement
   statement <- stringr::str_c("SELECT COUNT(*) AS row_count 
                                FROM ", table)
   
   # Use statement
-  df <- tryCatch(DBI::dbGetQuery(db, statement),
+  df <- tryCatch(DBI::dbGetQuery(con, statement),
                  error = function(e) data.frame(row_count = NA))
   
   # Add table and order variables

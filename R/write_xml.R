@@ -1,6 +1,5 @@
 #' Function to write data frame to XML document. 
 #' 
-#' @export
 write_xml <- function(data, file) {
   
   # https://cran.r-project.org/web/packages/kulife/

@@ -5,7 +5,8 @@
 #' If a database table is empty, this function can fail on some databases. To-do:
 #' catch this. 
 #' 
-#' @param db Database connection.
+#' @param con Database connection.
+#' 
 #' @param table Database table.
 #' 
 #' @seealso \code{\link{dbWriteTable}}, \code{\link{rbind.fill}}
@@ -13,13 +14,13 @@
 #' @author Stuart K. Grange
 #'
 #' @export
-db_table_names <- function (db, table) {
+db_table_names <- function (con, table) {
   
   # Get database table names with one observation
   # Returning data too because some database connections return nothing when
   # LIMIT = 0
   suppressWarnings(
-    df <- dbGetQuery(db, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
+    df <- dbGetQuery(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
   )
   
   # Remove data

@@ -4,15 +4,15 @@
 \alias{db_insert}
 \title{Function to insert a data frame into/as a database table.}
 \usage{
-db_insert(db, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
+db_insert(con, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
   fill = FALSE, increment_reset = FALSE)
 }
 \arguments{
-\item{db}{Database connection.}
+\item{con}{Database connection.}
 
-\item{table}{Table in, or to be created in \code{db}.}
+\item{table}{Table in, or to be created in \code{con}.}
 
-\item{df}{Data frame to be inserted into \code{db}.}
+\item{df}{Data frame to be inserted into \code{con}.}
 
 \item{append}{Should the table be appended? Default is \code{TRUE}.}
 

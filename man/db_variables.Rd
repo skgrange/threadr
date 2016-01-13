@@ -4,10 +4,10 @@
 \alias{db_variables}
 \title{Function to return all variable names in all tables in a SQL database.}
 \usage{
-db_variables(db)
+db_variables(con)
 }
 \arguments{
-\item{db}{Database connection.}
+\item{con}{Database connection.}
 }
 \description{
 If there are complexities around schemas, PostGIS tables, or temporary tables, 
@@ -15,7 +15,7 @@ the table name is returned with a single variable of \code{NA}.
 }
 \examples{
 \dontrun{
-table_variables <- db_variables(db)
+table_variables <- db_variables(con)
 
 }
 

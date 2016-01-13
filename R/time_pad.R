@@ -169,7 +169,7 @@ padder <- function (df, interval, by, round, merge) {
 }
 
 
-# Funciton to get identifiers from a data frame
+# Function to get identifiers from a data frame
 get_identifiers <- function (df, by) {
   
   # Catch dplyr's table so indexing works as expected

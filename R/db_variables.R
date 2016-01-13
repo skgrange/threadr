@@ -5,22 +5,22 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param db Database connection. 
+#' @param con Database connection. 
 #' 
 #' @examples
 #' \dontrun{
-#' table_variables <- db_variables(db)
+#' table_variables <- db_variables(con)
 #' 
 #' }
 #'
 #' @export
-db_variables <- function (db) {
+db_variables <- function (con) {
   
   # Get table names
-  tables <- DBI::dbListTables(db)
+  tables <- DBI::dbListTables(con)
   
   # Get all table's names
-  df <- plyr::ldply(tables, get_names, db)
+  df <- plyr::ldply(tables, get_names, con)
   
   # Arrange
   df <- df[order(df$table), ]
@@ -35,10 +35,10 @@ db_variables <- function (db) {
 # 
 # No export
 # 
-get_names <- function (table, db) {
+get_names <- function (table, con) {
   
   # Get vector of variables from database table
-  variables <- tryCatch(DBI::dbListFields(db, table), 
+  variables <- tryCatch(DBI::dbListFields(con, table), 
                         error = function(e) NA)
   
   # Make data frame

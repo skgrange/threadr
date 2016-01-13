@@ -11,6 +11,7 @@
 #' 
 #' @param file \code{JSON} file or string containing database connection 
 #' details. 
+#' 
 #' @param database The name of the database within \code{file} to use to create
 #' a database connection to. If only one entry is in \code{file}, this argument 
 #' is not needed and will be ignored if used. 
@@ -26,11 +27,11 @@
 #' # Use a json confg file which looks similar to this
 #' string <- '
 #' {
-#' "driver": "MySQL",
-#' "host": "172.31.4.159",
-#' "database_name": "database_seven",
-#' "user": "web",
-#' "password": "read_password"
+#'   "driver": "MySQL",
+#'   "host": "172.31.4.159",
+#'   "database_name": "database_seven",
+#'   "user": "web",
+#'   "password": "read_password"
 #' }'
 #' 
 #' # Connect, no need for second argument when one connection is present in 
@@ -53,25 +54,25 @@ db_connect <- function (file, database) {
   # Create connection based on driver type
   if (json$driver == "MySQL") {
     
-    db <- DBI::dbConnect(RMySQL::MySQL(), 
-                         host = json$host, 
-                         dbname = json$database_name,
-                         user = json$user, 
-                         password = json$password)
+    con <- DBI::dbConnect(RMySQL::MySQL(), 
+                          host = json$host, 
+                          dbname = json$database_name,
+                          user = json$user, 
+                          password = json$password)
     
   }
   
   if (json$driver == "PostgreSQL") {
     
-    db <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
-                         host = json$host, 
-                         dbname = json$database_name,
-                         user = json$user, 
-                         password = json$password)
+    con <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
+                          host = json$host, 
+                          dbname = json$database_name,
+                          user = json$user, 
+                          password = json$password)
     
   }
   
   # Return
-  db
+  con
   
 }

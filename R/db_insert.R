@@ -8,11 +8,11 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param db Database connection.
+#' @param con Database connection.
 #'
-#' @param table Table in, or to be created in \code{db}.
+#' @param table Table in, or to be created in \code{con}.
 #'
-#' @param df Data frame to be inserted into \code{db}.
+#' @param df Data frame to be inserted into \code{con}.
 #'
 #' @param append Should the table be appended? Default is \code{TRUE}. 
 #'
@@ -28,7 +28,7 @@
 #' reset before insert? Default is \code{FALSE}. 
 #' 
 #' @export
-db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
+db_insert <- function (con, table, df, append = TRUE, overwrite = FALSE,
                        rows = FALSE, fill = FALSE, 
                        increment_reset = FALSE) {
                          
@@ -37,20 +37,22 @@ db_insert <- function (db, table, df, append = TRUE, overwrite = FALSE,
   
   # Reset auto increment
   if (increment_reset) {
-    DBI::dbSendQuery(db, stringr::str_c("ALTER TABLE ", table, " AUTO_INCREMENT = 1"))
+    DBI::dbSendQuery(con, stringr::str_c("ALTER TABLE ", table, " AUTO_INCREMENT = 1"))
   }
   
   # Reorder and fill the columns
   if (fill) {
-    df <- plyr::rbind.fill(db_table_names(db, table), df)
+    df <- plyr::rbind.fill(db_table_names(con, table), df)
   }
   
   # Write data frame to database
   # Do not display cat output
   quiet(
-    DBI::dbWriteTable(db, table, df, append = append, overwrite = overwrite, 
+    DBI::dbWriteTable(con, table, df, append = append, overwrite = overwrite, 
                       row.names = rows)
   )
+  
+  # No return
   
 }
 
@@ -64,3 +66,36 @@ quiet <- function (x) {
   on.exit(sink())
   invisible(force(x))
 } 
+
+
+#' Function to send a statement to a database. 
+#' 
+#' \code{db_send} is a wrapper for \code{DBI::dbSendQuery}. 
+#' 
+#' @param con Database connection. 
+#' @param statement Statement to send to \code{con}. 
+#' 
+#' @export
+db_send <- function (con, statement) DBI::dbSendQuery(con, statement)
+
+
+#' Function to get/fetch data from a database with a statement. 
+#' 
+#' \code{db_get} is a wrapper for \code{DBI::dbGetQuery}. 
+#' 
+#' @param con Database connection. 
+#' @param statement Statement to send to \code{con}. 
+#' 
+#' @export
+db_get <- function (con, statement) DBI::dbGetQuery(con, statement)
+
+
+#' Function to read an entire database table. 
+#' 
+#' \code{db_read_table} is a wrapper for \code{DBI::dbReadTable}. 
+#' 
+#' @param con Database connection. 
+#' @param table Table to read
+#' 
+#' @export
+db_read_table <- function (con, table) DBI::dbReadTable(con, table)

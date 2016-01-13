@@ -4,10 +4,10 @@
 \alias{db_contents}
 \title{Function to quickly return tables, variables, and values in a database.}
 \usage{
-db_contents(db, limit = 1)
+db_contents(con, limit = 1)
 }
 \arguments{
-\item{db}{Database connection}
+\item{con}{Database connection.}
 
 \item{limit}{Maximum number rows to return in each table. Default is 1. Use 
 \code{NA} to read entire table; use with caution.}
@@ -24,10 +24,10 @@ or permissions, the table name is returned with a single variable of \code{NA}.
 \examples{
 \dontrun{
 # Only one value will be returned
-data_single_value <- db_contents(db)
+data_single_value <- db_contents(con)
 
 # Entire tables will be returned
-data_entire_contents <- db_contents(db, limit = NA)
+data_entire_contents <- db_contents(con, limit = NA)
 }
 
 }

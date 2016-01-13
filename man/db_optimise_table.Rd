@@ -5,9 +5,9 @@
 \alias{db_optimise_table}
 \title{Functions to optimise MySQL tables.}
 \usage{
-db_optimise_table(db, table, clear = TRUE)
+db_optimise_table(con, table, clear = TRUE)
 
-db_optimise_all_tables(db, progress = "text")
+db_optimise_all_tables(con, progress = "text")
 }
 \description{
 \code{db_optimise_table} uses MySQL's \code{OPTIMIZE TABLE} function to 

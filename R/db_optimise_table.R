@@ -8,7 +8,7 @@
 #' @author Stuart K. Grange
 #' 
 #' @export
-db_optimise_table <- function (db, table, clear = TRUE) {
+db_optimise_table <- function (con, table, clear = TRUE) {
   
   # Catch the reserved verbs
   table <- stringr::str_c("`", table, "`")
@@ -17,11 +17,11 @@ db_optimise_table <- function (db, table, clear = TRUE) {
   statement <- stringr::str_c("OPTIMIZE TABLE ", table)
   
   # Use statement
-  DBI::dbSendQuery(db, statement)
+  DBI::dbSendQuery(con, statement)
   
   # Clear results
   if (clear) {
-    DBI::dbClearResult(dbListResults(db)[[1]])
+    DBI::dbClearResult(dbListResults(con)[[1]])
   }
   
   # No return
@@ -31,13 +31,13 @@ db_optimise_table <- function (db, table, clear = TRUE) {
 
 #' @rdname db_optimise_table
 #' @export
-db_optimise_all_tables <- function (db, progress = "text") {
+db_optimise_all_tables <- function (con, progress = "text") {
   
   # Get a vector of all tables in database
-  tables <- DBI::dbListTables(db)
+  tables <- DBI::dbListTables(con)
   
   # Optimise all tables
-  plyr::l_ply(tables, db_optimise_table, db = db, .progress = progress)
+  plyr::l_ply(tables, db_optimise_table, con = con, .progress = progress)
   
   # No return
   
