@@ -4,12 +4,15 @@
 \alias{round_date_interval}
 \title{Function to round dates to arbitrary time intervals.}
 \usage{
-round_date_interval(date, interval = "5 min")
+round_date_interval(date, interval = "5 min", f = round)
 }
 \arguments{
 \item{date}{A vector of dates to be rounded.}
 
 \item{interval}{The time-interval the date is to be rounded to.}
+
+\item{f}{Rounding function to use: \code{\link{round}}, \code{\link{floor}}, 
+or \code{\link{ceiling}}. Note that \code{f} is not quoted.}
 }
 \description{
 \code{round_date_interval} can be useful when a date, or a vector of dates, 
@@ -37,22 +40,21 @@ The \code{interval} argument must include a number and a unit (for example:
 ambiguity about the units which the date is to be rounded to.
 }
 \examples{
-
 \dontrun{
 # A messy date vector
-date.vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
+date_vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
                  "2015-04-09 07:02:27", "2015-04-09 07:50:40")
 
 # Parse dates
-date.vector <- lubridate::ymd_hms(date.vector)
+date_vector <- lubridate::ymd_hms(date_vector)
 
 # Round dates to 15 minute intervals
-round_date_interval(date.vector, "15 min")
+round_date_interval(date_vector, "15 min")
 "2015-04-09 06:30:00 UTC" "2015-04-09 06:45:00 UTC" "2015-04-09 07:00:00 UTC"
 "2015-04-09 07:45:00 UTC"
 
 # Round dates to 5 minute intervals
-round_date_interval(date.vector, "5 mins")
+round_date_interval(date_vector, "5 mins")
 "2015-04-09 06:25:00 UTC" "2015-04-09 06:40:00 UTC" "2015-04-09 07:00:00 UTC"
 "2015-04-09 07:50:00 UTC"
 
@@ -76,6 +78,7 @@ round_date_interval(date, "30 sec")
 Stuart K. Grange
 }
 \seealso{
-See \code{\link{time_pad}}, \code{\link{round_date}}
+See \code{\link{time_pad}}, \code{\link{round_date}}, 
+\code{\link{round_any}}
 }
 

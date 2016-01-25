@@ -27,7 +27,7 @@ five years from the current day.
 \examples{
 
 \dontrun{
-# Get exhange rate of the New Zealand Dollar to the British Pound
+# Get exchange rate of the New Zealand Dollar to the British Pound
 nzd_to_gbp <- get_exchange_rates("NZD/GBP")
 
 # On 2015-07-08

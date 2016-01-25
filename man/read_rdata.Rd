@@ -15,7 +15,6 @@ If a single object needs to be saved in R's native format, use
 \dontrun{
 # Load an RData file with standard assignment. 
 data_air <- read_rdata("ADA16_2015.RData")
-
 }
 
 }

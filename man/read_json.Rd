@@ -2,11 +2,11 @@
 % Please edit documentation in R/read_json.R
 \name{read_json}
 \alias{read_json}
-\title{Function to read JSON files to a data frame.}
+\title{Function to read JSON files.}
 \usage{
 read_json(file, flatten = TRUE)
 }
 \description{
-Function to read JSON files to a data frame.
+Function to read JSON files.
 }
 

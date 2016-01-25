@@ -15,7 +15,6 @@ Only numeric variables are currently returned.
 \examples{
 \dontrun{
 data_summary <- tidy_summary(data_air)
-
 }
 
 }

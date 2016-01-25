@@ -26,6 +26,7 @@ weekdays()
 weekdays(5)
 }
 
+No export
 }
 \author{
 Stuart K. Grange

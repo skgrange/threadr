@@ -23,10 +23,8 @@ JSON's \code{null} value.}
 \code{write_json} uses \code{jsonlite} as the data frame to JSON parser.
 }
 \examples{
-
 \dontrun{
 write_json(data_car_identifiers, "car_identifiers.json")
-
 }
 
 }

@@ -6,8 +6,8 @@
 #' data frame rather than a list of data frames which is usually what is 
 #' desired. 
 #' 
-#' @param character Is \code{url} a character string? This is useful when the 
-#' HTML has been read and stored previously before being used by this function. 
+#' @param character Should the content of the url be downloaded as a character
+#' string for processing? Default is \code{TRUE}. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -26,13 +26,11 @@
 #' }
 #' 
 #' @export 
-read_html_tables <- function (url, n = NA, character = FALSE) {
+read_html_tables <- function (url, n = NA, character = TRUE) {
   
   # Get text/characters, works with https and with many proxy servers
-  if (character) {
-    url <- readLines(url, warn = FALSE)
-  }
-  
+  if (character) url <- readLines(url, warn = FALSE)
+    
   # Parse html
   document <- XML::htmlTreeParse(url, ignoreBlanks = FALSE, 
                                  useInternalNodes = TRUE, trim = FALSE)

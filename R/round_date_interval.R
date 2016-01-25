@@ -24,29 +24,33 @@
 #' ambiguity about the units which the date is to be rounded to. 
 #' 
 #' @param date A vector of dates to be rounded.
+#' 
 #' @param interval The time-interval the date is to be rounded to. 
+#' 
+#' @param f Rounding function to use: \code{\link{round}}, \code{\link{floor}}, 
+#' or \code{\link{ceiling}}. Note that \code{f} is not quoted. 
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso See \code{\link{time_pad}}, \code{\link{round_date}}
+#' @seealso See \code{\link{time_pad}}, \code{\link{round_date}}, 
+#' \code{\link{round_any}}
 #' 
 #' @examples
-#' 
 #' \dontrun{
 #' # A messy date vector
-#' date.vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
+#' date_vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
 #'                  "2015-04-09 07:02:27", "2015-04-09 07:50:40")
 #' 
 #' # Parse dates
-#' date.vector <- lubridate::ymd_hms(date.vector)
+#' date_vector <- lubridate::ymd_hms(date_vector)
 #' 
 #' # Round dates to 15 minute intervals
-#' round_date_interval(date.vector, "15 min")
+#' round_date_interval(date_vector, "15 min")
 #' "2015-04-09 06:30:00 UTC" "2015-04-09 06:45:00 UTC" "2015-04-09 07:00:00 UTC"
 #' "2015-04-09 07:45:00 UTC"
 #' 
 #' # Round dates to 5 minute intervals
-#' round_date_interval(date.vector, "5 mins")
+#' round_date_interval(date_vector, "5 mins")
 #' "2015-04-09 06:25:00 UTC" "2015-04-09 06:40:00 UTC" "2015-04-09 07:00:00 UTC"
 #' "2015-04-09 07:50:00 UTC"
 #' 
@@ -66,9 +70,12 @@
 #' }
 #' 
 #' @export
-round_date_interval <- function (date, interval = "5 min") {
+round_date_interval <- function (date, interval = "5 min", f = round) {
   
   # Parse argument into numeric value which represents second-multiple
+  # Character catching
+  interval <- stringr::str_replace_all(interval, "-|_|\\.", " ")
+  
   interval <- switch(interval,
                      "1 sec"  =, "1 second" =, "sec" = 1, 
                      "2 sec"  =, "2 secs" =, "2 seconds" = 2, 
@@ -87,31 +94,10 @@ round_date_interval <- function (date, interval = "5 min") {
                      "60 min" =, "60 mins" =, "60 minutes" =, "hour" = 60 * 60)
   
   # If interval is different than switch, stop
-  if (is.null(interval)) {
-    stop("'interval' is not supported.")
-  }
+  if (is.null(interval)) stop("'interval' is not supported.")
   
-  # Floor round date to hour, 0 minutes and seconds, an origin
-  date_floor <- lubridate::floor_date(date, "hour")
-  
-  # Pull out the pieces of the date
-  # Minutes
-  minutes <- lubridate::minute(date)
-  
-  # Minutes as seconds
-  minutes <- minutes * 60
-  
-  # Seconds
-  seconds <- lubridate::second(date)
-  
-  # Add minutes and seconds of date
-  seconds_sum <- minutes + seconds
-  
-  # Round to nearest interval multiple of the second-interval
-  second_rounded <- interval * round(seconds_sum / interval)
-  
-  # Add rounded seconds to floor rounded date
-  date <- date_floor + lubridate::seconds(second_rounded)
+  # Use plyr, 
+  date <- plyr::round_any(date, accuracy = interval, f = f)
   
   # Return
   date

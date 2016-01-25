@@ -95,7 +95,79 @@ db_get <- function (con, statement) DBI::dbGetQuery(con, statement)
 #' \code{db_read_table} is a wrapper for \code{DBI::dbReadTable}. 
 #' 
 #' @param con Database connection. 
-#' @param table Table to read
+#' @param table Table to read. 
 #' 
 #' @export
 db_read_table <- function (con, table) DBI::dbReadTable(con, table)
+
+
+#' Function to list all variables/columns/fields in a database table. 
+#' 
+#' \code{db_list_variables} is a wrapper for \code{DBI::dbListFields}. 
+#' 
+#' @param con Database connection. 
+#' @param table Table to list variables/columns/fields. 
+#' 
+#' @export
+db_list_variables <- function (con, table) DBI::dbListFields(con, table)
+
+
+#' Function to get a table's status from a MySQL database. 
+#' 
+#' \code{db_table_status} queries a MySQL database for a table's status. 
+#' See \url{https://dev.mysql.com/doc/refman/5.1/en/show-table-status.html} for 
+#' the variables which are returned. 
+#'
+#' @param con MySQL database connection. 
+#' 
+#' @param table Database table. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @export 
+db_table_status <- function (con, table) {
+  
+  # Build statement
+  statement <- stringr::str_c("SHOW TABLE STATUS WHERE `name` = '", table, "'")
+  
+  # Get status
+  df <- DBI::dbGetQuery(con, statement)
+   
+  # Return
+  df
+  
+}
+
+
+#' Function to get the names of database table and produce a data frame with 
+#' zero rows. 
+#' 
+#' \code{db_table_names} is useful when preparing a data frame for a SQL insert.
+#' If a database table is empty, this function can fail on some databases. To-do:
+#' catch this. 
+#' 
+#' @param con Database connection.
+#' 
+#' @param table Database table.
+#' 
+#' @seealso \code{\link{dbWriteTable}}, \code{\link{rbind.fill}}
+#'
+#' @author Stuart K. Grange
+#'
+#' @export
+db_table_names <- function (con, table) {
+  
+  # Get database table names with one observation
+  # Returning data too because some database connections return nothing when
+  # LIMIT = 0
+  suppressWarnings(
+    df <- dbGetQuery(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
+  )
+  
+  # Remove data
+  df <- df[-1, ]
+  
+  # Return
+  df
+  
+}

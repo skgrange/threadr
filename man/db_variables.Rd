@@ -16,7 +16,6 @@ the table name is returned with a single variable of \code{NA}.
 \examples{
 \dontrun{
 table_variables <- db_variables(con)
-
 }
 
 }

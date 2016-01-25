@@ -31,7 +31,7 @@ MySQL and PostgreSQL connections are currently supported.
 db <- db_connect("connections.json", "air_quality")
 
 
-# Use a json confg file which looks similar to this
+# Use a json confg file which looks similar to this:
 string <- '
 {
   "driver": "MySQL",
@@ -44,7 +44,6 @@ string <- '
 # Connect, no need for second argument when one connection is present in 
 # configuration file
 db_seven <- db_connect(string)
-
 }
 
 }

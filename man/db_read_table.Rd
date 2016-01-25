@@ -9,7 +9,7 @@ db_read_table(con, table)
 \arguments{
 \item{con}{Database connection.}
 
-\item{table}{Table to read}
+\item{table}{Table to read.}
 }
 \description{
 \code{db_read_table} is a wrapper for \code{DBI::dbReadTable}.

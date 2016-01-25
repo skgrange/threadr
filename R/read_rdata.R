@@ -10,7 +10,6 @@
 #' \dontrun{
 #' # Load an RData file with standard assignment. 
 #' data_air <- read_rdata("ADA16_2015.RData")
-#' 
 #' }
 #' 
 #' @export

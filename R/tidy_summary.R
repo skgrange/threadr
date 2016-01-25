@@ -9,7 +9,6 @@
 #' @examples 
 #' \dontrun{
 #' data_summary <- tidy_summary(data_air)
-#'
 #' }
 #' 
 #' @export

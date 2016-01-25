@@ -1,4 +1,4 @@
-#' Function to read JSON files to a data frame. 
+#' Function to read JSON files. 
 #' 
 read_json <- function (file, flatten = TRUE) {
   
@@ -6,9 +6,7 @@ read_json <- function (file, flatten = TRUE) {
   df <- jsonlite::fromJSON(file, flatten)
   
   # If only one observation
-  if (length(df) == 1) {
-    df <- data.frame(df)
-  }
+  if (!is.data.frame(df)) df <- data.frame(df)
   
   # Return
   df

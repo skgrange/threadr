@@ -1,18 +1,32 @@
 context("Date things")
 
 test_that("round_date_interval at different intervals", {
+  
+  # An example date
   x <- lubridate::ymd_hms("2015-06-03 16:06:08")
   
   expect_identical(round_date_interval(x, "min"), 
                    lubridate::ymd_hms("2015-06-03 16:06:00"))
   
+  expect_identical(round_any(x, 60), 
+                   lubridate::ymd_hms("2015-06-03 16:06:00"))
+  
   expect_identical(round_date_interval(x, "2 min"), 
+                   lubridate::ymd_hms("2015-06-03 16:06:00"))
+  
+  expect_identical(round_any(x, 120), 
                    lubridate::ymd_hms("2015-06-03 16:06:00"))
   
   expect_identical(round_date_interval(x, "5 min"), 
                    lubridate::ymd_hms("2015-06-03 16:05:00"))
   
+  expect_identical(round_any(x, 60 * 5), 
+                   lubridate::ymd_hms("2015-06-03 16:05:00"))
+  
   expect_identical(round_date_interval(x, "10 min"), 
+                   lubridate::ymd_hms("2015-06-03 16:10:00"))
+  
+  expect_identical(round_any(x, 60 * 10), 
                    lubridate::ymd_hms("2015-06-03 16:10:00"))
   
   expect_identical(round_date_interval(x, "15 min"), 

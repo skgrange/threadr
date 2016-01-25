@@ -2,11 +2,11 @@
 % Please edit documentation in R/write_xml.R
 \name{write_xml}
 \alias{write_xml}
-\title{Function to write data frame to XML document.}
+\title{Function to write a data frame to an XML document.}
 \usage{
-write_xml(data, file)
+write_xml(df, file, name = "observation")
 }
 \description{
-Function to write data frame to XML document.
+\code{write_xml} is not suitable for large data frames.
 }
 
