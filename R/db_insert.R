@@ -101,9 +101,6 @@ db_read_table <- function (con, table) DBI::dbReadTable(con, table)
 db_list_variables <- function (con, table) DBI::dbListFields(con, table)
 
 
-
-
-
 #' Function to get the names of database table and produce a data frame with 
 #' zero rows. 
 #' 
@@ -136,4 +133,3 @@ db_table_names <- function (con, table) {
   df
   
 }
-

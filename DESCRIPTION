@@ -16,14 +16,14 @@ Imports:
     ggplot2,
     jsonlite,
     RCurl,
-    dygraphs
+    dygraphs,
+    XML
 Suggests:
     openair,
     quantmod,
     RSQLite,
     RMySQL,
-    RPostgreSQL,
-    XML
+    RPostgreSQL
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 5.0.1
