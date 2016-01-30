@@ -8,11 +8,11 @@ The development version: `devtools::install_github("skgrange/threadr")`
 
 ## To-do: 
 
-  1. Do some unit testing
+  1. Do some more unit testing
   2. Work on documentation
   3. Get package on CRAN
   
-## A glance
+## At a glance
 
   - Utilities:
     - Write JSON files with `write_json`. 
@@ -24,7 +24,7 @@ The development version: `devtools::install_github("skgrange/threadr")`
       
   - Date functions
     - Pad time-series to different intervals with `time_pad`. 
-    - Make a irregular time-series regular with `time_pad_irregular`. 
+    - Make an irregular time-series regular with `time_pad_irregular`. 
     - Round dates to arbitrary time intervals such as 5-seconds, 5-minutes, 15-minutes, 2-minutes, 30-minutes (etc.) with `round_date_interval`.
     
   - Data frame functions: 
@@ -34,7 +34,7 @@ The development version: `devtools::install_github("skgrange/threadr")`
     - `drop_na_columns`
     - `rm_na_rows`
     
-  - Database functions:
+  - Wrappers for database functions:
     - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`. 
 
 ## Some examples

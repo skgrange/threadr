@@ -10,22 +10,21 @@ download_ftp_file(file, credentials = "", directory = NA, curl = TRUE,
 }
 \arguments{
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
-\code{credentials} if the server does not require authentication.}
+\code{credentials} if the server does not require authentication. 
+\code{credentials} take the format: \code{"username:password"}.}
 
 \item{directory}{Directory where the files are to be downloaded to.}
 
-\item{curl}{Should RCurl be used to download the files or base R's 
+\item{curl}{Should \strong{RCurl} be used to download the files or base R's 
 \code{download.file}? Default is \code{TRUE}.}
 
-\item{url.}{The url(s) of the file(s) which is to be downloaded.}
+\item{url.}{The url(s) of the file(s) which are to be downloaded.}
 }
 \description{
 Functions to download files from an FTP or SFTP server.
 }
 \examples{
-
 \dontrun{
-
 # Set credentials in this format
 credentials <- "username:password"
 
@@ -45,6 +44,6 @@ list_files_ftp("ftp://195.174.23.76/test", credentials)
 Stuart K. Grange
 }
 \seealso{
-\code{RCurl}
+\strong{RCurl}
 }
 

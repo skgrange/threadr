@@ -5,7 +5,7 @@
 \title{Function to insert a data frame into/as a database table.}
 \usage{
 db_insert(con, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
-  fill = FALSE, increment_reset = FALSE)
+  fill = FALSE)
 }
 \arguments{
 \item{con}{Database connection.}
@@ -23,12 +23,9 @@ db_insert(con, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
 
 \item{fill}{Should \code{df} be forced to have the same columns and order as
 \code{table}?}
-
-\item{increment_reset}{Should the auto-increment column in \code{table} be
-reset before insert? Default is \code{FALSE}.}
 }
 \description{
-\code{db_insert} is a wrapper for \code{DBI::dbWriteTable} but uses different 
+\code{db_insert} is a wrapper for \code{DBI::dbWriteTable}, but uses different 
 defaults and has a few enhancements which can be helpful.
 }
 \details{

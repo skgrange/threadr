@@ -29,21 +29,14 @@ data_frame_to_xml <- function (df, name = "observation") {
     xml$addTag("document", close = TRUE)
   )
   
-  # pb <- txtProgressBar(min = 0, max = nrow(df), style = 3)
-  
   # 
   for (i in 1:nrow(df)) {
     
     xml$addTag("observation", close = FALSE)
     
-    for (j in names(df)) {
-      xml$addTag(j, df[i, j])
-      
-    }
-    
+    for (j in names(df)) xml$addTag(j, df[i, j])
+        
     xml$closeTag()
-    
-    # setTxtProgressBar(pb, i)
     
   }
   
@@ -53,3 +46,4 @@ data_frame_to_xml <- function (df, name = "observation") {
   xml
   
 }
+

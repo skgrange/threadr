@@ -1,6 +1,6 @@
 #' Function to insert a data frame into/as a database table.
 #'
-#' \code{db_insert} is a wrapper for \code{DBI::dbWriteTable} but uses different 
+#' \code{db_insert} is a wrapper for \code{DBI::dbWriteTable}, but uses different 
 #' defaults and has a few enhancements which can be helpful. 
 #'
 #' \code{db_insert} will not overwrite data or include a "row.names" variable by
@@ -24,26 +24,15 @@
 #' @param fill Should \code{df} be forced to have the same columns and order as
 #' \code{table}? 
 #'
-#' @param increment_reset Should the auto-increment column in \code{table} be
-#' reset before insert? Default is \code{FALSE}. 
-#' 
 #' @export
 db_insert <- function (con, table, df, append = TRUE, overwrite = FALSE,
-                       rows = FALSE, fill = FALSE, 
-                       increment_reset = FALSE) {
+                       rows = FALSE, fill = FALSE) {
                          
   # Catch dplyr's data table
   df <- base_df(df)
   
-  # Reset auto increment
-  if (increment_reset) {
-    DBI::dbSendQuery(con, stringr::str_c("ALTER TABLE ", table, " AUTO_INCREMENT = 1"))
-  }
-  
   # Reorder and fill the columns
-  if (fill) {
-    df <- plyr::rbind.fill(db_table_names(con, table), df)
-  }
+  if (fill) df <- plyr::rbind.fill(db_table_names(con, table), df)
   
   # Write data frame to database
   # Do not display cat output
@@ -112,31 +101,7 @@ db_read_table <- function (con, table) DBI::dbReadTable(con, table)
 db_list_variables <- function (con, table) DBI::dbListFields(con, table)
 
 
-#' Function to get a table's status from a MySQL database. 
-#' 
-#' \code{db_table_status} queries a MySQL database for a table's status. 
-#' See \url{https://dev.mysql.com/doc/refman/5.1/en/show-table-status.html} for 
-#' the variables which are returned. 
-#'
-#' @param con MySQL database connection. 
-#' 
-#' @param table Database table. 
-#' 
-#' @author Stuart K. Grange
-#' 
-#' @export 
-db_table_status <- function (con, table) {
-  
-  # Build statement
-  statement <- stringr::str_c("SHOW TABLE STATUS WHERE `name` = '", table, "'")
-  
-  # Get status
-  df <- DBI::dbGetQuery(con, statement)
-   
-  # Return
-  df
-  
-}
+
 
 
 #' Function to get the names of database table and produce a data frame with 
@@ -171,3 +136,4 @@ db_table_names <- function (con, table) {
   df
   
 }
+

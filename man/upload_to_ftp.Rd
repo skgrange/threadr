@@ -2,11 +2,11 @@
 % Please edit documentation in R/download_ftp_file.R
 \name{upload_to_ftp}
 \alias{upload_to_ftp}
-\title{Function to upload a file to an ftp or stpf server.}
+\title{Function to upload a files to an FTP or SFTP server.}
 \usage{
 upload_to_ftp(file, url, credentials = "", progress = "text")
 }
 \description{
-Function to upload a file to an ftp or stpf server.
+Function to upload a files to an FTP or SFTP server.
 }
 

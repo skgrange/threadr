@@ -70,3 +70,4 @@ uuid <- function(uppercase = FALSE, sep = "-") {
 #' 
 #' @export
 uuid_rowwise <- function (df) replicate(nrow(df), uuid())
+

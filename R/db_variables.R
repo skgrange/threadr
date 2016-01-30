@@ -135,3 +135,4 @@ table_reader <- function (table, con, limit = NA) {
   df
   
 }
+
