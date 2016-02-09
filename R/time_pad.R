@@ -53,7 +53,7 @@
 #' 
 #' @export
 time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
-                      do = FALSE) {
+                      do = TRUE) {
   
   if (is.na(by[1])) {
     # No group-by needed
@@ -135,12 +135,15 @@ padder <- function (df, interval, by, round, merge) {
   }
   
   # Create the sequence of dates
-  date_sequence <- data.frame(date = seq(date_start, date_end, by = interval))
+  date_sequence <- seq(date_start, date_end, by = interval)
   
   # Remove final observation if ceiling rounded
   if (!is.na(round)) {
-    date_sequence <- date_sequence[-nrow(date_sequence), ]
+    date_sequence <- date_sequence[-length(date_sequence)]
   }
+  
+  # To data frame
+  date_sequence <- data.frame(date = date_sequence)
   
   # Do the padding
   if (merge) {

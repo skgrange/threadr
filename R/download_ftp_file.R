@@ -1,6 +1,6 @@
 #' Functions to download files from an FTP or SFTP server. 
 #' 
-#' @param url. The url(s) of the file(s) which are to be downloaded. 
+#' @param url The url(s) of the file(s) which are to be downloaded. 
 #' 
 #' @param credentials Credentials for a FTP or SFTP server. Do not use 
 #' \code{credentials} if the server does not require authentication. 

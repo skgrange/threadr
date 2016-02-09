@@ -14,7 +14,8 @@
 #' @export
 tidy_summary <- function (df, round = 3) {
   
-  # Select only numeric variables
+  # Select only numeric and date variables
+  # df <- df[ , sapply(df, function (x) is.numeric(x) | lubridate::is.POSIXt(x))]
   df <- df[ , sapply(df, is.numeric)]
   
   # Summarise
@@ -46,7 +47,7 @@ tidy_summary <- function (df, round = 3) {
   df_summary <- rbind(df_summary, df_sd, df_variance)
   
   # Remove NAs
-  df_summary <- df_summary[!is.na(df_summary$summary_variable), ]
+  # df_summary <- df_summary[!is.na(df_summary$summary_variable), ]
   
   # Transform
   # Values

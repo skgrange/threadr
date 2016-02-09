@@ -18,7 +18,7 @@ download_ftp_file(file, credentials = "", directory = NA, curl = TRUE,
 \item{curl}{Should \strong{RCurl} be used to download the files or base R's 
 \code{download.file}? Default is \code{TRUE}.}
 
-\item{url.}{The url(s) of the file(s) which are to be downloaded.}
+\item{url}{The url(s) of the file(s) which are to be downloaded.}
 }
 \description{
 Functions to download files from an FTP or SFTP server.

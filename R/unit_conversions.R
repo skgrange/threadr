@@ -8,7 +8,7 @@ miles_to_km <- function (x) x * 1.609344
 
 #' @rdname miles_to_km
 #' @export
-km_to_miles <- function (x) miles_to_km(x) / 1
+km_to_miles <- function (x) x / miles_to_km(1)
 
 #' @rdname miles_to_km
 #' @export
@@ -142,7 +142,7 @@ psi_to_bar <- function (x) x / bar_to_psi(1)
 # Temperatures
 #' @export
 #' @rdname miles_to_km
-fahrenheit_to_celsius <- function (x) (x - 32) / (9 / 5)
+fahrenheit_to_celsius <- function (x) (x - 32) * (5 / 9)
 
 #' @export
 #' @rdname miles_to_km

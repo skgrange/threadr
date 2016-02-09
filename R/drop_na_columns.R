@@ -8,5 +8,3 @@
 #' 
 #' @export
 drop_na_columns <- function (df) df[, colSums(is.na(df)) < nrow(df)]
-    
-

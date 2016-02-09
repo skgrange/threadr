@@ -5,7 +5,7 @@
 \title{Function to pad time-series.}
 \usage{
 time_pad(df, interval = "hour", by = NA, round = NA, merge = FALSE,
-  do = FALSE)
+  do = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
