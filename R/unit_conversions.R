@@ -16,7 +16,7 @@ n_mile_to_km <- function (x) x * 1.852
 
 #' @rdname miles_to_km
 #' @export
-km_to_nmile <- function (x) x / n_mile_to_km(1)
+km_to_n_mile <- function (x) x / n_mile_to_km(1)
 
 #' @rdname miles_to_km
 #' @export

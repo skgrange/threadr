@@ -2,14 +2,27 @@
 % Please edit documentation in R/decimal_count.R
 \name{decimal_count}
 \alias{decimal_count}
-\title{Function to count the number of digits on the right of a decimal point (the
-mantissa).}
+\title{Function to count the number of digits on the right of a decimal point (
+sometimes called the mantissa).}
 \usage{
-decimal_count(x)
+decimal_count(value)
+}
+\arguments{
+\item{value}{A numeric vector.}
 }
 \description{
-Function to count the number of digits on the right of a decimal point (the
-mantissa).
+Function to count the number of digits on the right of a decimal point (
+sometimes called the mantissa).
+}
+\examples{
+\dontrun{
+decimal_count(5.89)
+# [1] 2
+
+decimal_count(c(5.89, 2, 56.454545, 5.1))
+# [1] 2 0 6 1
+}
+
 }
 \author{
 Stuart K. Grange

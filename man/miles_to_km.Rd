@@ -18,7 +18,7 @@
 \alias{km_h_to_min_km}
 \alias{km_h_to_ms}
 \alias{km_to_miles}
-\alias{km_to_nmile}
+\alias{km_to_n_mile}
 \alias{kw_to_hp}
 \alias{l_100_km_to_km_l}
 \alias{l_100km_to_mpg}
@@ -47,7 +47,7 @@ km_to_miles(x)
 
 n_mile_to_km(x)
 
-km_to_nmile(x)
+km_to_n_mile(x)
 
 ms_to_km_h(x)
 
