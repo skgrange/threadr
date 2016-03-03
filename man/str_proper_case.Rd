@@ -4,6 +4,7 @@
 \alias{str_chop}
 \alias{str_date}
 \alias{str_drop_xml_tags}
+\alias{str_extract_digits}
 \alias{str_proper_case}
 \alias{str_rm_brackets_and_contents}
 \alias{str_rm_non_ascii}
@@ -33,6 +34,8 @@ str_chop(string, n)
 str_drop_xml_tags(string)
 
 str_rm_brackets_and_contents(x)
+
+str_extract_digits(x, as.numeric = TRUE)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string. 
@@ -61,6 +64,9 @@ string.
 
 \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
 and characters within them.
+
+\code{str_extract_digits} will extract digits/numbers from a string and convert
+to a numeric data class if desired.
 }
 \author{
 Stuart K. Grange

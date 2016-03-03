@@ -1,8 +1,10 @@
 #' Function to generate a sequence of weekdays. 
 #' 
 #' @param n Number of days for the sequence to return. 
+#' 
 #' @param monday Should the sequence start on a Monday? Default is \code{TRUE} 
 #' and set to \code{FALSE} if the sequence should start on Sunday. 
+#' 
 #' @param factor Should the return be an ordered factor? Default is \code{TRUE}.
 #' 
 #' @author Stuart K. Grange
@@ -24,18 +26,22 @@ weekdays <- function (n = 7, monday = TRUE, factor = TRUE) {
   
   # Create ordered factors
   if (factor) {
+    
     # Order
     if (monday) {
+      
       days <- ordered(days, levels = c("Monday", "Tuesday", "Wednesday", 
         "Thursday", "Friday", "Saturday", "Sunday"))
       
     } else {
+      
       days <- ordered(days, levels = c("Sunday", "Monday", "Tuesday", 
         "Wednesday", "Thursday", "Friday", "Saturday"))
       
     }
     
   } else {
+    
     # Make character vector
     days <- as.character(days)
     

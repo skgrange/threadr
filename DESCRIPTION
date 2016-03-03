@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.2.36
-Date: 2016-02-10
+Version: 0.3.0
+Date: 2016-03-03
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: A collection of utility functions threading processes together. 
@@ -17,7 +17,8 @@ Imports:
     jsonlite,
     RCurl,
     dygraphs,
-    XML
+    XML,
+    readxl
 Suggests:
     openair,
     quantmod,

@@ -23,16 +23,9 @@ data frame. \code{strings_to_observations} is useful for making data tidy.
 }
 \examples{
 \dontrun{
-# Load data
-french_verbs
-
 # Make tidy data
 data_tidy <- string_to_observations(french_verbs, variable = "subject", 
                                     pattern = ",")
-
-# Print
-data_tidy
-
 }
 
 }

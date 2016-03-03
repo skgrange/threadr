@@ -6,10 +6,11 @@
 \code{openair::timePlot}.}
 \usage{
 time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
-  step = FALSE, points = FALSE, fill = FALSE, color = colour)
+  step = FALSE, points = FALSE, fill = FALSE, color = colour,
+  ylab = NA, legend_width = 400, mouse_label = NA, tz = "UTC")
 }
 \arguments{
-\item{df}{Data frame with a variable/column named "date".}
+\item{df}{Data frame with a variable/column named \code{"date"}.}
 
 \item{variable}{Variable in \code{df} to plot.}
 
@@ -22,6 +23,15 @@ time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
 \item{fill}{Should the plot fill between the x-axis and the geometry?}
 
 \item{color}{Color of plotted geometry.}
+
+\item{ylab}{String for y-axis label.}
+
+\item{legend_width}{Width of legend in pixels. Default is 400.}
+
+\item{mouse_label}{String for legend label. If not used, label will be 
+\code{variable}.}
+
+\item{tz}{Override for timezone.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to

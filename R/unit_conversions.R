@@ -1,5 +1,7 @@
 #' Functions to convert unit systems. 
 #' 
+#' No rounding is ever done. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @rdname miles_to_km
@@ -56,59 +58,37 @@ metre_to_foot <- function (x) x / foot_to_metre(1)
 
 
 # Volume
-# Should be a single function
 #' @rdname miles_to_km
 #' @export
-imperial_gallon_to_litres <- function (x) x * 4.54609
+gallon_to_litre <- function (x, type = "imperial") {
+  
+  if (type == "imperial")
+    x <- x * 4.54609
+  
+  if (type == "us") 
+    x <- x * 3.785411784
+  
+  # Return
+  x
+  
+}
 
 #' @rdname miles_to_km
 #' @export
-litres_to_imperial_gallon <- function (x) imperial_gallon_to_litres(x) / 1
-
-# US
-#' @rdname miles_to_km
-#' @export
-us_gallon_to_litres <- function (x) x * 3.785411784
-
-#' @rdname miles_to_km
-#' @export
-litres_to_us_gallon <- function (x) us_gallon_to_litres(x) / 1
+litre_to_gallon <- function (x, type = "imperial") 
+  x / gallon_to_litre(1, type = type)
 
 
 # Fuel consumption
-#' @rdname miles_to_km
 #' @export
-mpg_to_l_100_km <- function (mpg, type = "imperial") {
-  
-  if (type == "imperial") {
-    metric <- 100 / (mpg * miles_to_km(1) / imperial_gallon_to_litres(1))
-  }
-  
-  if (type == "us") {
-    metric <- 100 / (mpg * miles_to_km(1) / us_gallon_to_litres(1))
-  }
-  
-  # Return
-  metric
-  
-} 
+#' @rdname miles_to_km
+mpg_to_km_l <- function (x, type = "imperial") 
+  x * miles_to_km(1) / gallon_to_litre(1, type = type)
 
 #' @export
 #' @rdname miles_to_km
-mpg_to_km_l <- function (mpg, type = "imperial") {
-  
-  if (type == "imperial") {
-    metric <-  mpg * miles_to_km(1) / imperial_gallon_to_litres(1)
-  }
-  
-  if (type == "us") {
-    metric <-  mpg * miles_to_km(1) / us_gallon_to_litres(1)
-  }
-  
-  # Return
-  metric
-
-}
+mpg_to_l_100_km <- function (x, type = "imperial")
+  100 / mpg_to_km_l(x, type)
 
 #' @export
 #' @rdname miles_to_km
@@ -138,6 +118,14 @@ bar_to_psi <- function (x) x * 14.5037738007
 #' @rdname miles_to_km
 psi_to_bar <- function (x) x / bar_to_psi(1)
 
+#' @export
+#' @rdname miles_to_km
+inch_hg_to_mb <- function (x) x * 33.8638866667
+
+#' @export
+#' @rdname miles_to_km
+mb_to_inch_hg <- function (x) x / inch_hg_to_mb(1)
+
 
 # Temperatures
 #' @export
@@ -154,15 +142,13 @@ celsius_to_fahrenheit <- function (x) x * 9 / 5 + 32
 #' @rdname miles_to_km
 heat_index <- function (temp, rh, unit = "c") {
   
-  if (unit == "c") {
+  if (unit == "c") 
     temp <- celsius_to_fahrenheit(temp)
-  }
   
   heat.index <- mapply(heat_index_calculation, temp, rh)
   
-  if (unit == "c") {
+  if (unit == "c")
     heat.index <- fahrenheit_to_celsius(heat.index)
-  }
   
   # Return
   heat.index
@@ -227,11 +213,15 @@ heat_index_calculation <- function (t = NA, rh = NA) {
 kw_to_hp <- function (x, metric = FALSE) {
   
   if (metric) {
+    
     # Mechanical horse power
     y <- x * 1 / 0.74569987158227
+    
   } else {
+    
     # "Metric" horse power, PS auf Deutsch
     y <- x * 1 / 0.73549875
+    
   }
   
   # Return

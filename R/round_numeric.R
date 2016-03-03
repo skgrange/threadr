@@ -27,7 +27,22 @@ round_numeric <- function (df, round = 1) {
   index <- sapply(df, is.numeric)
   
   # Apply function to all the numeric variables in data frame
-  df[index] <- lapply(df[index], function(x) round(x, round))
+  df[index] <- lapply(df[index], function (x) round(x, round))
+  
+  # Return
+  df
+  
+}
+
+
+#' @export
+factor_coerce <- function (df) {
+  
+  # Get index
+  index <- sapply(df, is.factor)
+  
+  # Apply function to all the numeric variables in data frame
+  df[index] <- lapply(df[index], as.character)
   
   # Return
   df

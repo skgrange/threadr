@@ -8,9 +8,10 @@
 \alias{fahrenheit_to_celsius}
 \alias{foot_pound_to_newton_meter}
 \alias{foot_to_metre}
+\alias{gallon_to_litre}
 \alias{heat_index}
 \alias{hp_to_kw}
-\alias{imperial_gallon_to_litres}
+\alias{inch_hg_to_mb}
 \alias{inch_to_mm}
 \alias{kg_to_pound}
 \alias{kg_to_stone}
@@ -23,8 +24,8 @@
 \alias{l_100_km_to_km_l}
 \alias{l_100km_to_mpg}
 \alias{lb_to_kg}
-\alias{litres_to_imperial_gallon}
-\alias{litres_to_us_gallon}
+\alias{litre_to_gallon}
+\alias{mb_to_inch_hg}
 \alias{metre_to_foot}
 \alias{miles_to_km}
 \alias{min_km_to_km_h}
@@ -38,7 +39,6 @@
 \alias{pound_to_kg}
 \alias{psi_to_bar}
 \alias{stone_to_kg}
-\alias{us_gallon_to_litres}
 \title{Functions to convert unit systems.}
 \usage{
 miles_to_km(x)
@@ -67,17 +67,13 @@ foot_to_metre(x)
 
 metre_to_foot(x)
 
-imperial_gallon_to_litres(x)
+gallon_to_litre(x, type = "imperial")
 
-litres_to_imperial_gallon(x)
+litre_to_gallon(x, type = "imperial")
 
-us_gallon_to_litres(x)
+mpg_to_km_l(x, type = "imperial")
 
-litres_to_us_gallon(x)
-
-mpg_to_l_100_km(mpg, type = "imperial")
-
-mpg_to_km_l(mpg, type = "imperial")
+mpg_to_l_100_km(x, type = "imperial")
 
 l_100_km_to_km_l(x)
 
@@ -90,6 +86,10 @@ cubic_centimetres_to_cubic_inches(x)
 bar_to_psi(x)
 
 psi_to_bar(x)
+
+inch_hg_to_mb(x)
+
+mb_to_inch_hg(x)
 
 fahrenheit_to_celsius(x)
 
@@ -118,7 +118,7 @@ stone_to_kg(x)
 kg_to_stone(x)
 }
 \description{
-Functions to convert unit systems.
+No rounding is ever done.
 }
 \author{
 Stuart K. Grange

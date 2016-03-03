@@ -6,8 +6,10 @@
 #' data frame. \code{strings_to_observations} is useful for making data tidy. 
 #' 
 #' @param df Data frame which contains a delimited string variable. 
+#' 
 #' @param variable Name of variable in \code{df} which is, or contains delimited 
 #' strings. 
+#' 
 #' @param pattern Delimiter to split the string. Common values are \code{","} and
 #' \code{"/"}. 
 #' 
@@ -15,16 +17,9 @@
 #' 
 #' @examples
 #' \dontrun{
-#' # Load data
-#' french_verbs
-#' 
 #' # Make tidy data
 #' data_tidy <- string_to_observations(french_verbs, variable = "subject", 
 #'                                     pattern = ",")
-#' 
-#' # Print
-#' data_tidy
-#' 
 #' }
 #'
 #' @export
@@ -34,6 +29,7 @@ strings_to_observations <- function (df, variable, pattern) {
   df <- base_df(df)
   
   # Store string for renaming after transformation
+  variable_index <- grep(variable, names(df))
   variable_string <- variable
   
   # Store extra variables
@@ -59,9 +55,7 @@ strings_to_observations <- function (df, variable, pattern) {
   df <- cbind(variable, df_extra)
   
   # For when there is only one extra variable, it is a matrix
-  if (class(df) == "matrix"){
-    df <- data.frame(df)
-  }
+  if (class(df) == "matrix") df <- data.frame(df)
   
   # Rename variable to input
   names(df) <- stringr::str_replace(names(df), "variable", variable_string)
@@ -70,4 +64,3 @@ strings_to_observations <- function (df, variable, pattern) {
   df
   
 }
-

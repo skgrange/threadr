@@ -26,6 +26,9 @@
 #' to? This allows the padded time-series to begin and end at a "nice place". 
 #' Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.
 #' 
+#' @param warn Should the function give a warning when dates are duplicated? 
+#' Default is \code{TRUE}. 
+#' 
 #' @param merge Should the base function \code{merge} be used rather than 
 #' \strong{dplyr}'s \code{left_join}. Not really a useful option, maintained to 
 #' track performance. 
@@ -52,16 +55,18 @@
 #' }
 #' 
 #' @export
-time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
-                      do = TRUE) {
+time_pad <- function (df, interval = "hour", by = NA, round = NA, warn = TRUE, 
+                      merge = FALSE, do = TRUE) {
   
   if (is.na(by[1])) {
+    
     # No group-by needed
-    df <- padder(df, interval, by, round, merge)
+    df <- padder(df, interval, by, round, merge, warn)
     
   } else {
     
     if (do) {
+      
       # Use dplyr
       # Get around non-standard evaluation
       list_dots <- lapply(by, as.symbol)
@@ -73,12 +78,14 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
                   interval = interval, 
                   by = by,
                   round = round, 
+                  warn = warn,
                   merge = merge))
       
     } else {
+      
       # Use plyr
       df <- plyr::ddply(df, plyr::as.quoted(by), padder, interval = interval, 
-                        by = by, round = round, merge = merge)
+                        by = by, round = round, warn = warn, merge = merge)
       
     }
     
@@ -93,26 +100,24 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, merge = FALSE,
 # The worker
 # 
 # No export
-padder <- function (df, interval, by, round, merge) {
+padder <- function (df, interval, by, round, merge, warn) {
   
   # Check if input has a date variable
-  if (!"date" %in% names(df)) {
-    stop("Data frame must contain a date variable/column and must be named `date`.",
+  if (!"date" %in% names(df))
+    stop("Data frame must contain a date variable/column and must be named 'date'.",
          call. = FALSE)
-  }
   
   # NA check
-  if (any(is.na(df$date))) {
-    stop("`date` must not contain missing (NA) values.", call. = FALSE)
-  }
+  if (any(is.na(df$date)))
+    stop("'date' must not contain missing (NA) values.", call. = FALSE)
   
   # Check class
-  if (!lubridate::is.POSIXt(df$date)) {
-    stop("`date` must be a parsed date. ", call. = FALSE)
-  }
+  if (!lubridate::is.POSIXt(df$date)) 
+    stop("'date' must be a parsed date. ", call. = FALSE)
   
   # Get identifiers
   if (!is.na(by[1])) {
+    
     # Get identifiers
     data_by <- get_identifiers(df, by = by)
     
@@ -123,11 +128,13 @@ padder <- function (df, interval, by, round, merge) {
   
   # Find the start and end of the date sequence
   if (is.na(round)) {
+    
     # No date rounding, use date values in df
     date_start <- min(df$date)
     date_end <- max(df$date)
     
   } else {
+    
     # Date rounding
     date_start <- lubridate::floor_date(min(df$date), round)
     date_end <- lubridate::ceiling_date(max(df$date), round)
@@ -138,33 +145,36 @@ padder <- function (df, interval, by, round, merge) {
   date_sequence <- seq(date_start, date_end, by = interval)
   
   # Remove final observation if ceiling rounded
-  if (!is.na(round)) {
-    date_sequence <- date_sequence[-length(date_sequence)]
-  }
+  if (!is.na(round)) date_sequence <- date_sequence[-length(date_sequence)]
   
   # To data frame
   date_sequence <- data.frame(date = date_sequence)
   
   # Do the padding
   if (merge) {
+    
     # Base function
     df <- merge(date_sequence, df, by = "date", all = TRUE)
     
   } else{
-    # Use dplyr, it is faster
+    
+    # Use dplyr, it is much faster
     df <- dplyr::left_join(date_sequence, df, by = "date")
     
   }
   
   # Overwrite identifiers
-  if (!is.na(by[1])) {
+  if (!is.na(by[1]))
     df <- cbind(df, data_by)
-  }
   
   # Message
-  if (any(duplicated(df$date))) {
-    warning("Duplicated dates detected.", call. = FALSE)
+  if (warn) {
+    
+    if (any(duplicated(df$date))) 
+      warning("Duplicated dates detected.", call. = FALSE)
+    
   }
+  
   
   # Return
   df
@@ -179,6 +189,7 @@ get_identifiers <- function (df, by) {
   df <- base_df(df)
   
   if (length(by) == 1) {
+    
     # Single row
     data_by <- df[, by][1]
     
@@ -187,8 +198,10 @@ get_identifiers <- function (df, by) {
     names(data_by) <- by
     
   } else {
+    
     # Selecting vector
-    by_collapse <- stringr::str_c(stringr::str_c("\\b", by, "\\b"), collapse = "|")
+    by_collapse <- stringr::str_c(
+      stringr::str_c("\\b", by, "\\b"), collapse = "|")
     
     # Get first row
     data_by <- df[, grep(by_collapse, names(df))][1, ]

@@ -51,21 +51,21 @@ time_pad_irregular <- function (df, interval, by = NA, na.rm = FALSE) {
   names(df) <- stringr::str_replace(names(df), "\\bdate.end\\b", "date_end")
   
   # Check if variables exist
-  if (!all(c("date", "date_end") %in% names(df))) {
+  if (!all(c("date", "date_end") %in% names(df)))
     stop("Data frame must include `date` and `date_end` variables.", 
          call. = FALSE)
-  }
   
   # Check interval
-  if (!interval %in% c("sec", "min", "hour", "day")) {
+  if (!interval %in% c("sec", "min", "hour", "day"))
     stop("Interval must be `sec`, `min`, `hour`, or `day`.", call. = FALSE)
-  }
   
   if (is.na(by[1])) {
+    
     # No group-by needed
     df <- irregular_padder(df, interval, by, na.rm)
     
   } else {
+    
     # Apply function to all site combinations
     # Get around non-standard evaluation
     list_dots <- lapply(by, as.symbol)
@@ -92,11 +92,8 @@ time_pad_irregular <- function (df, interval, by = NA, na.rm = FALSE) {
 irregular_padder <- function (df, interval, by = NA, na.rm) {
   
   # Get identifiers
-  if (!is.na(by[1])) {
-    # Get identifiers
-    data_by <- get_identifiers(df, by = by)
-  }
-  
+  if (!is.na(by[1])) data_by <- get_identifiers(df, by = by)
+
   # Get indices
   # Numeric variables
   index_numeric <- sapply(df, is.numeric)
@@ -130,12 +127,14 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   # If start and end dates are identical, push end date back a unit so there are
   # no duplicate dates in the time series
   if (interval == "day") {
+    
     df$date <- ifelse(df$date_type == "date_end" & 
       df$date == df$date_ahead, df$date - lubridate::days(1), df$date)
     
   }
   
   if (interval == "hour") {
+    
     df$date <- ifelse(df$date_type == "date_end" & 
       df$date == df$date_ahead, df$date - lubridate::hours(1), df$date)
 
@@ -148,6 +147,7 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   }
   
   if (interval == "sec") {
+    
     df$date <- ifelse(df$date_type == "date_end" & 
       df$date == df$date_ahead, df$date - lubridate::seconds(1), df$date)
     
@@ -159,6 +159,7 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   
   # Store NAs as strings so they are not pushed forwards
   if (!na.rm) {
+    
     # Get numeric index
     index_numeric <- sapply(df, is.numeric)
     index_numeric["row_number"] <- FALSE
@@ -176,24 +177,32 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   
   # Push observations forwards, ifs avoid warnings
   if (ncol(df) == 2) {
+    
     df[, 2] <- locf(df[, 2])
+    
   } else {
+    
     df[, -1] <- lapply(df[, -1], locf)
+    
   }
   
   # Case conversion if numeric variables were pushed to characters
   if (!na.rm) {
+    
     if (ncol(df) == 2) {
+      
       df[, 2] <- type.convert(df[, 2], as.is = TRUE)
+      
     } else {
+      
       df[, -1] <- lapply(df[, -1], function (x) type.convert(x, as.is = TRUE))
+      
     }
+    
   }
   
   # Add identifiers after padding
-  if (!is.na(by[1])) {
-    df <- cbind(df, data_by)
-  }
+  if (!is.na(by[1])) df <- cbind(df, data_by)
   
   # Return
   df

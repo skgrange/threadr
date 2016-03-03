@@ -98,9 +98,6 @@ test_that("Test hexidecimal to integer function", {
 
 
 test_that("Test Two's Complement function", {
-  
-  x <- 1048397
-  expect_identical(threadr::twos_complement(x), -179)
-  
+  expect_identical(twos_complement(1048397), -179)
 })
 

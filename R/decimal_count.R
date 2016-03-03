@@ -19,6 +19,7 @@
 #' @export
 decimal_count <- function (value) sapply(value, counter)
 
+
 # The worker
 counter <- function (x) {
   # Check
@@ -26,16 +27,20 @@ counter <- function (x) {
   
   # If NA, return NA
   if (is.na(x)) {
+    
     x <- NA
     
   } else {
+    
     # If contains a period
     if (grepl("\\.", x)) {
+      
       x <- str_replace(x, "0+$", "")
       x <- str_replace(x, "^.+[.]","")
       x <- str_length(x)
       
     } else {
+      
       # Otherwise return zero
       x <- 0
       

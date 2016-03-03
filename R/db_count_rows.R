@@ -21,7 +21,7 @@ db_count_rows <- function (con, table = NA, progress = FALSE) {
   progress <- switch_progress(progress)
   
   # Only some tables
-  df <- plyr::ldply(table, counter, con, .progress = progress)
+  df <- plyr::ldply(table, row_counter, con, .progress = progress)
   
   # Return
   df
@@ -30,7 +30,7 @@ db_count_rows <- function (con, table = NA, progress = FALSE) {
 
 
 # Function to get the row counts
-counter <- function (table, con) {
+row_counter <- function (table, con) {
   
   # Create statement
   statement <- stringr::str_c("SELECT COUNT(*) AS row_count 

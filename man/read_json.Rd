@@ -6,7 +6,15 @@
 \usage{
 read_json(file, flatten = TRUE)
 }
+\arguments{
+\item{file}{File name of JSON file.}
+
+\item{flatten}{Should the JSON file be flattened? Default is \code{TRUE}.}
+}
 \description{
-Function to read JSON files.
+Very simple wrapper for \code{jsonlite::fromJSON}.
+}
+\author{
+Stuart K. Grange
 }
 

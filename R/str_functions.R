@@ -27,6 +27,9 @@
 #' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
 #' and characters within them. 
 #' 
+#' \code{str_extract_digits} will extract digits/numbers from a string and convert
+#' to a numeric data class if desired. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -62,15 +65,15 @@ str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
     
     # Add time zone to string
     if (!is.na(time_zone)) {
+      
       date <- paste(date, time_zone)
+      
     }
     
   }
   
   # Useful for file names
-  if (underscore) {
-    date <- stringr::str_replace_all(date, " |:|-|/", "_")
-  }
+  if (underscore) date <- stringr::str_replace_all(date, " |:|-|/", "_")
   
   # Return 
   date
@@ -81,13 +84,7 @@ str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
 #' @rdname str_proper_case
 #'
 #' @export
-str_rm_non_ascii <- function (x) {
-  
-  # Remove non-ASCII characters
-  x <- stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
-  x
-  
-}
+str_rm_non_ascii <- function (x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
 
 
 #' @rdname str_proper_case
@@ -103,10 +100,8 @@ str_trim_length <- function (string, length) {
 }
 
 # Function which does the string trimming
-trim <- function (string, length) {
-  string <- ifelse(!is.na(length), strtrim(string, length), string)
-  string
-}
+trim <- function (string, length) 
+  ifelse(!is.na(length), strtrim(string, length), string)
 
 
 #' @rdname str_proper_case
@@ -153,12 +148,8 @@ str_underscore <- function (x) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_trim_many_spaces <- function (x) {
+str_trim_many_spaces <- function (x) stringr::str_replace_all(x, "\\s+", " ")
 
-  x <- stringr::str_replace_all(x, "\\s+", " ")
-  x
-
-}
 
 
 # http://stackoverflow.com/questions/2247045/chopping-a-string-into-a-vector-of-fixed-width-character-elements
@@ -188,13 +179,22 @@ str_drop_xml_tags <- function (string) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_rm_brackets_and_contents <- function (x) {
-  x <- stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
-  x
-}
+str_rm_brackets_and_contents <- function (x) 
+  stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
 
-# 
-# #' @rdname str_proper_case
-# #' 
-# #' @export
-# str_extract_digits <- function (x) stringr::str_extract(x, "[[:digit:]]+")
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_extract_digits <- function (x, as.numeric = TRUE) {
+  
+  # Replace characters
+  x <- stringr::str_replace_all(x, "[[:alpha:]]", "")
+  
+  # Numeric class
+  if (as.numeric) x <- as.numeric(x)
+  
+  # Return
+  x
+  
+}

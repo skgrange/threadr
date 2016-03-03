@@ -75,3 +75,7 @@ db_connect <- function (file, database) {
   con
   
 }
+
+
+#' @export
+db_disconnect <- function (con) DBI::dbDisconnect(con)
