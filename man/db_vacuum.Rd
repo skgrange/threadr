@@ -15,8 +15,9 @@ db_optimise(con, table)
 \item{table}{Database table.}
 }
 \description{
-The PostgreSQL statement uses \code{VACUUM (VERBOSE)} and the MySQL statement
-uses \code{OPTIMIZE}.
+The PostgreSQL statement uses \code{VACUUM (VERBOSE)}, the MySQL statement
+uses \code{OPTIMIZE}, and the SQLite statement uses \code{VACUUM} and the 
+\code{table} argument is not used.
 }
 \examples{
 \dontrun{

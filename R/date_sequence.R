@@ -17,31 +17,30 @@
 #' @author Stuart K. Grange
 #'
 #' @examples
+#' \dontrun{
+#' 
 #' # Make a date sequence of the last three days and today
 #' pattern <- date_sequence(days = -3)
-#'
-#' # Display
-#' pattern
 #' 
-#' "2015-06-22" "2015-06-23" "2015-06-24" "2015-06-25"
+#' }
 #'
 #' @export
 date_sequence <- function (days = -1, character = TRUE, today = TRUE, sep = "-") {
   
   # If character is not a hyphen, then the dates will always be characters
-  if (sep != "-") {
-    character <- TRUE
-  }
+  if (sep != "-") character <- TRUE
   
   # Get system date
   date_system <- lubridate::ymd(Sys.Date())
   
   if (days < 0) {
+    
     # Get past dates
     date_sequence <- seq(date_system + lubridate::days(days), date_system, 
                          by = "days")
     
   } else {
+    
     # Get future dates
     date_sequence <- seq(date_system, date_system + lubridate::days(days),
                          by = "days")
@@ -49,18 +48,12 @@ date_sequence <- function (days = -1, character = TRUE, today = TRUE, sep = "-")
   }
   
   # Remove today's date
-  if (!today) {
-    date_sequence <- date_sequence[!date_sequence %in% date_system]
-  }
+  if (!today) date_sequence <- date_sequence[!date_sequence %in% date_system]
   
   # Make a character
-  if (character) {
-    date_sequence <- as.character(date_sequence)
-  }
+  if (character) date_sequence <- as.character(date_sequence)
   
-  if (sep != "-") {
-    date_sequence <- stringr::str_replace_all(date_sequence, "-", sep)
-  }
+  if (sep != "-") date_sequence <- stringr::str_replace_all(date_sequence, "-", sep)
   
   # Return
   date_sequence

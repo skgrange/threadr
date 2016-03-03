@@ -23,13 +23,12 @@ returned vector will always be a character.}
 \code{date_sequence} is useful for generating patterns which match file names.
 }
 \examples{
+\dontrun{
+
 # Make a date sequence of the last three days and today
 pattern <- date_sequence(days = -3)
 
-# Display
-pattern
-
-"2015-06-22" "2015-06-23" "2015-06-24" "2015-06-25"
+}
 
 }
 \author{

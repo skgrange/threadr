@@ -15,7 +15,7 @@
 week_monday <- function (date, floor = FALSE) {
   
   # If date, not POSIXct
-  if (class(date) == "Date") date <- lubridate::ymd(date)
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
   
   # Only days needed
   date <- lubridate::floor_date(date, "day")
@@ -37,8 +37,8 @@ week_monday <- function (date, floor = FALSE) {
 monday_week_table <- function (date, floor) {
   
   # Round to contain all years days
-  date_start <- lubridate::floor_date(min(date), "year")
-  date_end <- lubridate::ceiling_date(max(date), "year")
+  date_start <- lubridate::floor_date(min(date, na.rm = TRUE), "year")
+  date_end <- lubridate::ceiling_date(max(date, na.rm = TRUE), "year")
   
   # Create day sequence and add year
   df_days <- data.frame(date = seq(date_start, date_end, by = "days")) %>% 
@@ -89,7 +89,7 @@ monday_week_table <- function (date, floor) {
 week_financial <- function (date, start = "july", floor = TRUE) {
   
   # If date, not POSIXct
-  if (class(date) == "Date") date <- lubridate::ymd(date)
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
   
   # Only days needed
   date <- lubridate::floor_date(date, "day")
@@ -114,14 +114,14 @@ financial_week_table <- function (date, start, floor) {
   start_month <- stringr::str_to_lower(start)
   
   # Subtract a year so start of financial year is always present
-  date_start <- min(date) - lubridate::years(1)
+  date_start <- min(date, na.rm = TRUE) - lubridate::years(1)
   
   if (start_month == "july")
     # Get start of financial year for date range, floor rounding
     date_start <- lubridate::ymd(stringr::str_c(lubridate::year(date_start), "-07-01"))
   
   # Get max date in vector
-  date_end <- max(date)
+  date_end <- max(date, na.rm = TRUE)
   
   # Create day sequence and add financial year
   df_days <- data.frame(date = seq(date_start, date_end, "days")) %>% 
@@ -129,7 +129,6 @@ financial_week_table <- function (date, start, floor) {
   
   # Calculate financial weeks
   # Start day is Saturday
-  
   df_days <- df_days %>% 
     group_by(year_financial) %>% 
     mutate(weekday = lubridate::wday(date), 
