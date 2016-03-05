@@ -165,7 +165,7 @@ padder <- function (df, interval, by, round, merge, warn) {
   
   # Overwrite identifiers
   if (!is.na(by[1]))
-    df <- cbind(df, data_by)
+    df <- cbind(data_by, df)
   
   # Message
   if (warn) {

@@ -18,7 +18,8 @@ Imports:
     RCurl,
     dygraphs,
     XML,
-    readxl
+    readxl,
+    testthat
 Suggests:
     openair,
     quantmod,
