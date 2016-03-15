@@ -5,7 +5,7 @@
 \title{Functions to transform a delimited string into observations (rows) in a data
 frame.}
 \usage{
-strings_to_observations(df, variable, pattern)
+strings_to_observations(df, variable, pattern, trim = FALSE, reset = TRUE)
 }
 \arguments{
 \item{df}{Data frame which contains a delimited string variable.}
@@ -15,6 +15,12 @@ strings.}
 
 \item{pattern}{Delimiter to split the string. Common values are \code{","} and
 \code{"/"}.}
+
+\item{trim}{Should the new vector be trimmed so there is no leading or 
+trailing whitespace? Default is \code{FALSE}.}
+
+\item{reset}{Should the \code{row.names} of the data frame be reset after 
+replicating rows. Default is \code{TRUE}.}
 }
 \description{
 \code{strings_to_observations} works by first splitting a string variable by a 
@@ -24,8 +30,8 @@ data frame. \code{strings_to_observations} is useful for making data tidy.
 \examples{
 \dontrun{
 # Make tidy data
-data_tidy <- string_to_observations(french_verbs, variable = "subject", 
-                                    pattern = ",")
+data_tidy <- strings_to_observations(french_verbs, variable = "subject", 
+                                     pattern = ",")
 }
 
 }

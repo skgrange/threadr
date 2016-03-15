@@ -24,8 +24,8 @@
 #' 
 #' \code{str_drop_xml_tags} removes XML tags from strings. 
 #' 
-#' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
-#' and characters within them. 
+#' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)}
+#' or \code{[} and \code{]}) and characters within them. 
 #' 
 #' \code{str_extract_digits} will extract digits/numbers from a string and convert
 #' to a numeric data class if desired. 
@@ -179,8 +179,19 @@ str_drop_xml_tags <- function (string) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_rm_brackets_and_contents <- function (x) 
-  stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
+str_rm_brackets_and_contents <- function (x, type = "round") {
+  
+  if (type == "round") 
+    x <- stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
+  
+  if (type == "square")
+    x <- stringr::str_replace(x, "\\[.+?\\]\\s*", "")
+  
+  # Return
+  x
+  
+}
+  
 
 
 #' @rdname str_proper_case

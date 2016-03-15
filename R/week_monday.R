@@ -153,11 +153,20 @@ financial_week_table <- function (date, start, floor) {
 #' @param date Vector of parsed dates
 #' 
 #' @param start The starting month of the financial year. Currently, the only
-#' option is \code{"july"}. 
+#' option is \code{"july"}.
+#' 
+#' @author Stuart K. Grange 
 #' 
 #' @return Integer vector. 
 #' 
-#' @seealso \code{\link{wday}}, \code{\link{week_financial}}, 
+#' @seealso \code{\link{year}}, \code{\link{week_financial}}
+#' 
+#' @examples
+#' \dontrun{
+#' 
+#' year_financial(data_hours$date)
+#' 
+#' }
 #' 
 #' @export
 year_financial <- function (date, start = "july") {
@@ -171,5 +180,54 @@ year_financial <- function (date, start = "july") {
   
   # Return
   as.integer(year)
+  
+}
+
+
+#' Function to transform date into financial period (a month with an offset).  
+#' 
+#' @param date Vector of parsed dates
+#' 
+#' @param start The starting month of the financial year. Currently, the only
+#' option is \code{"july"}. 
+#' 
+#' @author Stuart K. Grange 
+#' 
+#' @return Integer vector. 
+#' 
+#' @seealso \code{\link{wday}}, \code{\link{week_financial}}, \code{\link{month}}
+#' 
+#' @examples
+#' \dontrun{
+#' 
+#' period_financial(data_hours$date)
+#' 
+#' }
+#' 
+#' @export
+period_financial <- function (date, start = "july") {
+  
+  # If date, not POSIXct
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
+  
+  # Transform date vector to data frame for joining
+  df <- data.frame(date) %>% 
+    mutate(month = lubridate::month(date))
+  
+  # Build look-up table
+  if (start == "july"){
+    
+    # Build look up table
+    df_look <- data.frame(month = seq(1, 12),
+                          period = c(seq(7, 12), seq(1, 6)))
+    
+  }
+  
+  # Join period
+  df <- df %>% 
+    left_join(df_look, "month")
+  
+  # Return vector
+  as.integer(df$period)
   
 }

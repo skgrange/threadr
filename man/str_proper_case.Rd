@@ -33,7 +33,7 @@ str_chop(string, n)
 
 str_drop_xml_tags(string)
 
-str_rm_brackets_and_contents(x)
+str_rm_brackets_and_contents(x, type = "round")
 
 str_extract_digits(x, as.numeric = TRUE)
 }
@@ -62,8 +62,8 @@ string.
 
 \code{str_drop_xml_tags} removes XML tags from strings.
 
-\code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)})
-and characters within them.
+\code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)}
+or \code{[} and \code{]}) and characters within them.
 
 \code{str_extract_digits} will extract digits/numbers from a string and convert
 to a numeric data class if desired.

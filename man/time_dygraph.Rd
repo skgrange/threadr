@@ -7,7 +7,8 @@
 \usage{
 time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
-  ylab = NA, legend_width = 400, mouse_label = NA, tz = "UTC")
+  ylab = NA, legend_width = 400, mouse_label = NA, tz = "UTC",
+  window = NULL)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
@@ -32,6 +33,8 @@ time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
 \code{variable}.}
 
 \item{tz}{Override for timezone.}
+
+\item{window}{Default range window. Uses a date vector with a length of two.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to

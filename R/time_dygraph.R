@@ -23,6 +23,8 @@
 #' \code{variable}. 
 #' 
 #' @param tz Override for timezone. 
+#' 
+#' @param window Default range window. Uses a date vector with a length of two. 
 #'
 #' @seealso \link{openair::timePlot}
 #' 
@@ -32,7 +34,7 @@
 time_dygraph <- function (df, variable = "no2", colour = "red", 
                           range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
                           color = colour, ylab = NA, legend_width = 400,
-                          mouse_label = NA, tz = "UTC") {
+                          mouse_label = NA, tz = "UTC", window = NULL) {
   
   # Catch dplyr's table data frame
   df <- base_df(df)
@@ -54,7 +56,7 @@ time_dygraph <- function (df, variable = "no2", colour = "red",
   if (range) {
     
     plot <- plot %>% 
-      dygraphs::dyRangeSelector()
+      dygraphs::dyRangeSelector(dateWindow = window)
     
   }
   
