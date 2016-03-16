@@ -2,7 +2,7 @@ context("Time padder")
 
 test_that("Test time padder with single site", {
   
-  df <- readRDS(system.file("data_extra/data_airbase_single_sampled.rds", 
+  df <- readRDS(system.file("extdata/data_airbase_single_sampled.rds", 
                             package = "threadr"))
   
   # Simple usage
@@ -24,7 +24,7 @@ test_that("Test time padder with single site", {
 
 test_that("Test time padder with multiple sites", {
   
-  df <- readRDS(system.file("data_extra/data_airbase_sampled.rds", 
+  df <- readRDS(system.file("extdata/data_airbase_sampled.rds", 
                             package = "threadr"))
   
   expect_equal(nrow(time_pad(df, interval = "hour", by = "site")), 14226)
@@ -34,23 +34,3 @@ test_that("Test time padder with multiple sites", {
     14226)
   
 })
-
-
-# benchmark <- microbenchmark(
-#   
-#   do = time_pad(data_uk_sampled, by = c("site", "country", "site_type"),
-#                 interval = "min"),
-#   
-#   do_merge = time_pad(data_uk_sampled, by = c("site", "country", "site_type"), 
-#                       merge = TRUE, interval = "min"),
-#   
-#   plyr = time_pad(data_uk_sampled, by = c("site", "country", "site_type"), 
-#                   do = FALSE, interval = "min"),
-#   
-#   plyr_merge = time_pad(data_uk_sampled, by = c("site", "country", "site_type"), 
-#                         merge = TRUE, do = FALSE, interval = "min"),
-#   
-#   times = 10
-# )
-# 
-# autoplot(benchmark)

@@ -82,7 +82,6 @@ str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
 
 
 #' @rdname str_proper_case
-#'
 #' @export
 str_rm_non_ascii <- function (x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
 

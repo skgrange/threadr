@@ -11,15 +11,20 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' # Get all weekdays
-#' weekdays()
 #' 
-#' # Only weekdays
-#' weekdays(5)
+#' # Generate weekday sequence as ordered factors
+#' weekday_sequence()
+#' 
+#' # Ordered factors starting on Sunday
+#' weekday_sequence(monday = FALSE)
+#' 
+#' # As characters
+#' weekday_sequence(factor = FALSE)
+#'  
 #' }
 #' 
-#' No export
-weekdays <- function (n = 7, monday = TRUE, factor = TRUE) {
+#' @export
+weekday_sequence <- function (n = 7, monday = TRUE, factor = TRUE) {
   
   # Create sequence
   days <- factor(weekdays(as.Date(seq(n), origin = "1950-01-01")))
