@@ -1,5 +1,7 @@
 # **threadr**
 
+[![Build Status](https://travis-ci.org/skgrange/threadr.svg?branch=master)](https://travis-ci.org/skgrange/threadr)
+
 **threadr** is a collection of R utility functions to link pieces of analysis together. **threadr** is not a focused, single-unit package, rather a collection of functions which I use to glue many processes together.
 
 ## To install:
