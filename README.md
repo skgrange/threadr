@@ -6,7 +6,10 @@
 
 ## To install:
 
-The development version: `devtools::install_github("skgrange/threadr")`
+```
+# Development version
+devtools::install_github("skgrange/threadr")
+```
 
 ## To-do: 
 
@@ -20,7 +23,7 @@ The development version: `devtools::install_github("skgrange/threadr")`
     - Write JSON files with `write_json`. 
     - `download_ftp_file` and `upload_to_ftp`. 
     - `str_*` functions. Do things with strings which **stringr** does not. 
-      - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`. 
+      - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`. 
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
       
@@ -43,7 +46,7 @@ The development version: `devtools::install_github("skgrange/threadr")`
 
 ### Padding time-series
 
-When dealing with time-series data, often one of the most important things to do is to ensure that the time-series is uniform, *i.e.* all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that. There are also helpful extensions such as starting the time-series at the beginning of a hour/day/month/year, and ensuring that identifying variables are added to the data after time-padding has occurred.
+When dealing with time-series data, often an important thing to do is to ensure that the time-series is uniform or regular, *i.e.* check if all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that. There are also helpful extensions such as starting the time-series at the beginning of a hour/day/month/year, and ensuring that identifying variables are added to the data after time-padding has occurred.
 
 ```
 # Set-up
@@ -55,9 +58,9 @@ data_air <- read.csv("oxford_road_air_quality_data.csv")
 # Parse dates
 data_air$date <- ymd_hms(data_air$date)
 
-# Pad time-series
-data_air_pad <- time_pad(
-  data_air, interval = "hour", by = c("site", "site_name"), round = "day")
+# Pad time-series by groups
+data_air_pad <- time_pad(data_air, interval = "hour", by = c("site", "site_name"), 
+                         round = "day")
 ```
 
 ### Round dates to arbitrary time intervals

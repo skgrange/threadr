@@ -2,20 +2,23 @@
 % Please edit documentation in R/ggplot2_colours.R
 \name{ggplot2_colours}
 \alias{ggplot2_colours}
-\title{Function to generate a vector of colours which emulate ggplot2's 
-colours. 
- 
-http://stackoverflow.com/questions/8197559/emulate-ggplot2-default-color-palette}
+\title{Function to generate a vector of colours which emulate ggplot2's colours.}
 \usage{
 ggplot2_colours(n = 2)
 }
+\arguments{
+\item{n}{Number of colours.}
+}
+\value{
+Vector of hex colours.
+}
 \description{
-Function to generate a vector of colours which emulate ggplot2's 
-colours. 
- 
-http://stackoverflow.com/questions/8197559/emulate-ggplot2-default-color-palette
+Function to generate a vector of colours which emulate ggplot2's colours.
 }
 \author{
 John Colby
+}
+\seealso{
+\url{http://stackoverflow.com/questions/8197559/emulate-ggplot2-default-color-palette}
 }
 

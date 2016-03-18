@@ -9,14 +9,16 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' table_variables <- db_variables(con)
+#' 
 #' }
 #'
 #' @export
-db_variables <- function (con) {
+db_variables <- function(con) {
   
   # Get table names
-  tables <- DBI::dbListTables(con)
+  tables <- db_list_variables(con)
   
   # Get all table's names
   df <- plyr::ldply(tables, get_names, con)
@@ -36,11 +38,19 @@ db_variables <- function (con) {
 get_names <- function (table, con) {
   
   # Get vector of variables from database table
-  variables <- tryCatch(DBI::dbListFields(con, table), 
-                        error = function(e) NA)
+  variables <- tryCatch({
+    
+    db_list_variables(con, table) 
+    
+  }, error = function(e) {
+    
+    NA
+    
+  })
   
   # Make data frame
-  df <- data.frame(table = table, variable = variables)
+  df <- data.frame(table = table, 
+                   variable = variables)
   
   # Return
   df
@@ -74,10 +84,10 @@ get_names <- function (table, con) {
 #' }
 #'
 #' @export
-db_contents <- function (con, limit = 1) {
+db_contents <- function(con, limit = 1) {
   
   # Get tables
-  tables <- DBI::dbListTables(con)
+  tables <- db_list_tables(con)
   
   # Apply function
   df <- plyr::ldply(tables, table_reader, con, limit = limit, .progress = "text")
@@ -91,7 +101,7 @@ db_contents <- function (con, limit = 1) {
 # The function which does the work
 # 
 # No export
-table_reader <- function (table, con, limit = NA) {
+table_reader <- function(table, con, limit = NA) {
   
   if (is.na(limit)) {
     
@@ -135,4 +145,3 @@ table_reader <- function (table, con, limit = NA) {
   df
   
 }
-

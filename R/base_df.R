@@ -6,18 +6,17 @@
 #'
 #' @author Stuart K. Grange
 #'
-#' @param tbl_df \code{tbl_df} to be converted into a standard data frame. 
+#' @param df A \code{tbl_df} to be converted into a standard data frame. 
 #'
 #' @export
-base_df <- function (df) {
+base_df <- function(df) {
   
   # Collapse class vector
   class <- stringr::str_c(class(df), collapse = " ")
   
-  # Convert if dplyr tbl
-  if (grepl("grouped_df|tbl_df|tbl", class)) {
+  # Convert if a dplyr tbl
+  if (grepl("grouped_df|tbl_df|tbl", class))
     df <- data.frame(df)
-  }
   
   # Return
   df

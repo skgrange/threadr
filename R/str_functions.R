@@ -2,14 +2,12 @@
 #' \code{stringr}. 
 #' 
 #' \code{str_proper_case} capitalises the first letter of every word in a string. 
-#' \code{str_proper_case} is a wrapper for \code{stringi::stri_trans_totitle}. 
 #' 
 #' \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 #' 
-#' \code{str_date} returns the system's idea of the date as a character string. 
+#' \code{str_date} returns the system's idea of the date as a character string.
 #' 
-#' \code{str_trim_length} trims strings to a certain length, for example 30 
-#' characters. 
+#' \code{str_trim_length} trims strings to a certain length of characters. 
 #' 
 #' \code{str_sentence_case} capitalises the first letter in a string and makes
 #' all other characters lowercase. This is different than \code{str_proper_case}. 
@@ -33,13 +31,13 @@
 #' @author Stuart K. Grange
 #'
 #' @export
-str_proper_case <- function (x) stringi::stri_trans_totitle(x)
+str_proper_case <- function(x) stringi::stri_trans_totitle(x)
 
 
 #' @rdname str_proper_case
 #' 
 #' @export
-str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
+str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   
   # tz argument is redundant if time is set to FALSE
   tz <- ifelse(!time, FALSE, tz)
@@ -83,13 +81,13 @@ str_date <- function (time = TRUE, tz = TRUE, underscore = FALSE) {
 
 #' @rdname str_proper_case
 #' @export
-str_rm_non_ascii <- function (x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
+str_rm_non_ascii <- function(x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
 
 
 #' @rdname str_proper_case
 #' 
 #' @export
-str_trim_length <- function (string, length) {
+str_trim_length <- function(string, length) {
   
   # Vectorise the trimming function
   string <- lapply(string, function (x) trim(x, length))
@@ -99,14 +97,14 @@ str_trim_length <- function (string, length) {
 }
 
 # Function which does the string trimming
-trim <- function (string, length) 
+trim <- function(string, length) 
   ifelse(!is.na(length), strtrim(string, length), string)
 
 
 #' @rdname str_proper_case
 #' 
 #' @export
-str_sentence_case <- function (x) {
+str_sentence_case <- function(x) {
   
   # Get first character
   first <- substring(x, 1, 1)
@@ -130,7 +128,7 @@ str_sentence_case <- function (x) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_underscore <- function (x) {
+str_underscore <- function(x) {
   
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
@@ -147,7 +145,7 @@ str_underscore <- function (x) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_trim_many_spaces <- function (x) stringr::str_replace_all(x, "\\s+", " ")
+str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
 
 
 
@@ -155,18 +153,14 @@ str_trim_many_spaces <- function (x) stringr::str_replace_all(x, "\\s+", " ")
 #' @rdname str_proper_case
 #' 
 #' @export
-str_chop <- function (string, n) {
-  
-  vector <- substring(string, seq(1, nchar(string), n), seq(n, nchar(string), n))
-  vector
-  
-}
+str_chop <- function(string, n)
+  substring(string, seq(1, nchar(string), n), seq(n, nchar(string), n))
 
 
 #' @rdname str_proper_case
 #' 
 #' @export
-str_drop_xml_tags <- function (string) {
+str_drop_xml_tags <- function(string) {
   
   string <- stringr::str_replace_all(string, "<.*?>", "")
   string <- stringr::str_trim(string)
@@ -178,7 +172,7 @@ str_drop_xml_tags <- function (string) {
 #' @rdname str_proper_case
 #' 
 #' @export
-str_rm_brackets_and_contents <- function (x, type = "round") {
+str_rm_brackets_and_contents <- function(x, type = "round") {
   
   if (type == "round") 
     x <- stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
@@ -192,11 +186,10 @@ str_rm_brackets_and_contents <- function (x, type = "round") {
 }
   
 
-
 #' @rdname str_proper_case
 #'
 #' @export
-str_extract_digits <- function (x, as.numeric = TRUE) {
+str_extract_digits <- function(x, as.numeric = TRUE) {
   
   # Replace characters
   x <- stringr::str_replace_all(x, "[[:alpha:]]", "")

@@ -3,7 +3,7 @@
 #' \code{write_xml} is not suitable for large data frames.
 #' 
 #' @import XML
-write_xml <- function (df, file, name = "observation") {
+write_xml <- function(df, file, name = "observation") {
   
   # Create an xml object
   xml <- data_frame_to_xml(df, name)
@@ -20,7 +20,7 @@ write_xml <- function (df, file, name = "observation") {
 
 
 # 
-data_frame_to_xml <- function (df, name = "observation") {
+data_frame_to_xml <- function(df, name = "observation") {
   
   # Create xml object
   xml <- xmlTree()
@@ -28,6 +28,9 @@ data_frame_to_xml <- function (df, name = "observation") {
   suppressWarnings(
     xml$addTag("document", close = TRUE)
   )
+  
+  # Set-up progress bar
+  bar <- txtProgressBar(min = 1, max = nrow(df), style = 3)
   
   # 
   for (i in 1:nrow(df)) {
@@ -38,7 +41,13 @@ data_frame_to_xml <- function (df, name = "observation") {
         
     xml$closeTag()
     
+    # Update progress bar
+    setTxtProgressBar(bar, i)
+    
   }
+  
+  # Close progress bar
+  close(bar)
   
   xml$closeTag()
   

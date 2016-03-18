@@ -38,16 +38,14 @@ str_rm_brackets_and_contents(x, type = "round")
 str_extract_digits(x, as.numeric = TRUE)
 }
 \description{
-\code{str_proper_case} capitalises the first letter of every word in a string. 
-\code{str_proper_case} is a wrapper for \code{stringi::stri_trans_totitle}.
+\code{str_proper_case} capitalises the first letter of every word in a string.
 }
 \details{
 \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 
 \code{str_date} returns the system's idea of the date as a character string.
 
-\code{str_trim_length} trims strings to a certain length, for example 30 
-characters.
+\code{str_trim_length} trims strings to a certain length of characters.
 
 \code{str_sentence_case} capitalises the first letter in a string and makes
 all other characters lowercase. This is different than \code{str_proper_case}.

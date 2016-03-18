@@ -11,12 +11,11 @@
 #' \code{FALSE}.
 #' 
 #' @export
-db_count_rows <- function (con, table = NA, progress = FALSE) {
+db_count_rows <- function(con, table = NA, progress = FALSE) {
   
   # If no table is selected, do them all
-  if (is.na(table[1])) {
+  if (is.na(table[1]))
     table <- DBI::dbListTables(con)
-  } 
   
   progress <- switch_progress(progress)
   
@@ -30,16 +29,23 @@ db_count_rows <- function (con, table = NA, progress = FALSE) {
 
 
 # Function to get the row counts
-row_counter <- function (table, con) {
+row_counter <- function(table, con) {
   
   # Create statement
   statement <- stringr::str_c("SELECT COUNT(*) AS row_count 
                                FROM ", table)
   
   # Use statement
-  df <- tryCatch(DBI::dbGetQuery(con, statement),
-                 error = function(e) data.frame(row_count = NA))
-  
+  df <- tryCatch({
+    
+    DBI::dbGetQuery(con, statement)
+    
+  }, error = function(e) {
+    
+    data.frame(row_count = NA)
+    
+  })
+
   # Add table and order variables
   df <- data.frame(table, row_count = df$row_count)
   
@@ -50,13 +56,15 @@ row_counter <- function (table, con) {
 
 
 # Function to switch logical progress to a string for plyr
-switch_progress <- function (logical, type = "text") {
+switch_progress <- function(logical, type = "text") {
   
   # Switch logical to type
   if (logical) {
+    
     string <- type
     
   } else {
+    
     string <- "none"
     
   }

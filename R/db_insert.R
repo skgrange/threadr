@@ -25,8 +25,8 @@
 #' \code{table}? 
 #'
 #' @export
-db_insert <- function (con, table, df, append = TRUE, overwrite = FALSE,
-                       rows = FALSE, fill = FALSE) {
+db_insert <- function(con, table, df, append = TRUE, overwrite = FALSE,
+                      rows = FALSE, fill = FALSE) {
                          
   # Catch dplyr's data table
   df <- base_df(df)
@@ -50,7 +50,7 @@ db_insert <- function (con, table, df, append = TRUE, overwrite = FALSE,
 # Function to catch \code{cat} messages and make them invisible. 
 # 
 #' @export
-quiet <- function (x) {
+quiet <- function(x) {
   sink(tempfile())
   on.exit(sink())
   invisible(force(x))
@@ -65,7 +65,7 @@ quiet <- function (x) {
 #' @param statement Statement to send to \code{con}. 
 #' 
 #' @export
-db_send <- function (con, statement) DBI::dbSendQuery(con, statement)
+db_send <- function(con, statement) DBI::dbSendQuery(con, statement)
 
 
 #' Function to get/fetch data from a database with a statement. 
@@ -76,7 +76,7 @@ db_send <- function (con, statement) DBI::dbSendQuery(con, statement)
 #' @param statement Statement to send to \code{con}. 
 #' 
 #' @export
-db_get <- function (con, statement) DBI::dbGetQuery(con, statement)
+db_get <- function(con, statement) DBI::dbGetQuery(con, statement)
 
 
 #' Function to read an entire database table. 
@@ -87,7 +87,7 @@ db_get <- function (con, statement) DBI::dbGetQuery(con, statement)
 #' @param table Table to read. 
 #' 
 #' @export
-db_read_table <- function (con, table) DBI::dbReadTable(con, table)
+db_read_table <- function(con, table) DBI::dbReadTable(con, table)
 
 
 #' Function to list all variables/columns/fields in a database table. 
@@ -98,7 +98,7 @@ db_read_table <- function (con, table) DBI::dbReadTable(con, table)
 #' @param table Table to list variables/columns/fields. 
 #' 
 #' @export
-db_list_variables <- function (con, table) DBI::dbListFields(con, table)
+db_list_variables <- function(con, table) DBI::dbListFields(con, table)
 
 
 #' Function to get the names of database table and produce a data frame with 
@@ -117,7 +117,7 @@ db_list_variables <- function (con, table) DBI::dbListFields(con, table)
 #' @author Stuart K. Grange
 #'
 #' @export
-db_table_names <- function (con, table) {
+db_table_names <- function(con, table) {
   
   # Get database table names with one observation
   # Returning data too because some database connections return nothing when

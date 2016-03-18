@@ -1,22 +1,28 @@
-#' Functions to download files from an FTP or SFTP server. 
+#' Function to download files from an FTP or SFTP server. 
 #' 
 #' @param url The url(s) of the file(s) which are to be downloaded. 
 #' 
 #' @param credentials Credentials for a FTP or SFTP server. Do not use 
 #' \code{credentials} if the server does not require authentication. 
-#' \code{credentials} take the format: \code{"username:password"}. 
+#' \code{credentials} takes the format: \code{"username:password"}. 
 #' 
-#' @param directory Directory where the files are to be downloaded to.
+#' @param directory Directory where the files are to be downloaded to. If 
+#' \code{directory} does not exist, it will be created. 
 #' 
 #' @param curl Should \strong{RCurl} be used to download the files or base R's 
 #' \code{download.file}? Default is \code{TRUE}. 
 #' 
-#' @seealso \strong{RCurl}
+#' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
+#' \code{"none"}. 
+#' 
+#' @seealso \strong{\link{RCurl}}, \code{\link{list_files_ftp}}, 
+#' \code{\link{upload_ftp_file}}
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @examples 
+#' @examples
 #' \dontrun{
+#' 
 #' # Set credentials in this format
 #' credentials <- "username:password"
 #' 
@@ -31,10 +37,9 @@
 #' 
 #' }
 #' 
-#' @aliases download_ftp_files
 #' @export
-download_ftp_file <- function (file, credentials = "", directory = NA, 
-                               curl = TRUE, progress = "text") {
+download_ftp_file <- function(file, credentials = "", directory = NA, 
+                              curl = TRUE, progress = "text") {
   
   # Apply function over files
   plyr::l_ply(file, downloader, credentials, directory, curl, 
@@ -43,8 +48,10 @@ download_ftp_file <- function (file, credentials = "", directory = NA,
 }
 
 
-downloader <- function (url, credentials = "", directory = NA, curl = TRUE) {
+# No export
+downloader <- function(url, credentials = "", directory = NA, curl = TRUE) {
   
+  # If not directory is used
   if (is.na(directory)) directory <- getwd()
   
   # Create file name
@@ -57,6 +64,7 @@ downloader <- function (url, credentials = "", directory = NA, curl = TRUE) {
   file_name <- file.path(directory, file_name)
   
   if (curl) {
+  
     # Download the file as a binary object
     data_bin <- RCurl::getBinaryURL(url, userpwd = credentials, 
                                     ftp.use.epsv = FALSE)
@@ -65,6 +73,7 @@ downloader <- function (url, credentials = "", directory = NA, curl = TRUE) {
     writeBin(data_bin, file_name)
     
   } else {
+  
     download.file(url, file_name, quiet = TRUE)
     
   }
@@ -76,14 +85,35 @@ downloader <- function (url, credentials = "", directory = NA, curl = TRUE) {
 
 #' Function to list files on an FTP or SFTP server. 
 #' 
+#' @param url The url of remote directory. 
+#' 
+#' @param credentials Credentials for a FTP or SFTP server. Do not use 
+#' \code{credentials} if the server does not require authentication. 
+#' \code{credentials} takes the format: \code{"username:password"}. 
+#' 
+#' @seealso \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
+#' \code{\link{upload_ftp_file}}
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @examples
+#' \dontrun{
+#' 
+#' # Set credentials in this format
+#' credentials <- "username:password"
+#'
+#' # List files on a ftp server
+#' list_files_ftp("ftp://195.174.23.76/test", credentials)
+#' 
+#' }
+#' 
 #' @export
-list_files_ftp <- function (url, credentials = "") {
+list_files_ftp <- function(url, credentials = "") {
   
   # url must be prefixed with ftp or sftp
-  if (!grepl("^ftp://|^sftp://", url)) {
+  if (!grepl("^ftp://|^sftp://", url))
     stop("URL must be prefixed with 'ftp://' or 'sftp://'", call. = FALSE)
-  }
-  
+
   # Ensure the directory has a trailing separator
   url <- stringr::str_c(url, .Platform$file.sep)
   
@@ -104,8 +134,38 @@ list_files_ftp <- function (url, credentials = "") {
 
 #' Function to upload a files to an FTP or SFTP server. 
 #' 
+#' \code{upload_to_ftp} will create directories if necessary. 
+#' 
+#' @param url The url of remote directory. 
+#' 
+#' @param credentials Credentials for a FTP or SFTP server. Do not use 
+#' \code{credentials} if the server does not require authentication. 
+#' \code{credentials} takes the format: \code{"username:password"}. 
+#' 
+#' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
+#' \code{"none"}. 
+#' 
+#' @seealso \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
+#' \code{\link{list_files_ftp}}
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @examples 
+#' \dontrun{
+#' 
+#' # Get file list
+#' file_list <- list.files(recursive = TRUE, full.names = TRUE)
+#' 
+#' # Exclude some files
+#' file_list <- grep("cache|.Rmd$", file_list, value = TRUE, invert = TRUE)
+#' 
+#' # Upload files to server
+#' upload_to_ftp(file_list, url, "user:pass")
+#' 
+#' }
+#' 
 #' @export
-upload_to_ftp <- function (file, url, credentials = "", progress = "text") {
+upload_to_ftp <- function(file, url, credentials = "", progress = "text") {
   
   # Apply function to length of file
   plyr::l_ply(file, uploader, url = url, credentials = credentials, 
@@ -114,23 +174,23 @@ upload_to_ftp <- function (file, url, credentials = "", progress = "text") {
 }
 
 
-uploader <- function (file, url, credentials) {
+# No export
+uploader <- function(file, url, credentials) {
   
   # url must be prefixed with ftp or sftp
-  if (!grepl("^ftp://|^sftp://", url)) {
+  if (!grepl("^ftp://|^sftp://", url))
     stop("URL must be prefixed with 'ftp://' or 'sftp://'", call. = FALSE)
-  }
   
   # Ensure the directory has a trailing separator
   url <- stringr::str_c(url, .Platform$file.sep)
   
   # Add file name to url
-  url <- stringr::str_c(url, basename(file))
+  url <- stringr::str_c(url, file)
   
-  # Upload
-  RCurl::ftpUpload(file, url, userpwd = credentials)
+  # Upload, will create directories if needed
+  RCurl::ftpUpload(file, url, userpwd = credentials, 
+                   .opts = list(ftp.create.missing.dirs = TRUE))
   
   # No return
   
 }
-

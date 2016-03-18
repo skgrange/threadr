@@ -31,19 +31,13 @@
 #' }
 #' 
 #' @export 
-as_binary <- function (x, n = 32) {
-  
-  # Vectorise the function
-  x <- unlist(lapply(x, function (x) integer_to_binary(x, n)))
-  # Return
-  x
-  
-}
+as_binary <- function(x, n = 32)
+  unlist(lapply(x, function(x) integer_to_binary(x, n)))
 
 
-# Main function to convert integers to binary
+  # Main function to convert integers to binary
 # No export
-integer_to_binary <- function (x, n) {
+integer_to_binary <- function(x, n) {
   
   # Convert to a vector of integers
   x <- intToBits(x)

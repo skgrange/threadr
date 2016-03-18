@@ -20,6 +20,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' # Connect to an air quality database
 #' db <- db_connect("connections.json", "air_quality")
 #' 
@@ -37,21 +38,21 @@
 #' # Connect, no need for second argument when one connection is present in 
 #' # configuration file
 #' db_seven <- db_connect(string)
+#' 
 #' }
 #' 
 #' @export
-db_connect <- function (file, database) {
+db_connect <- function(file, database) {
   
   # Load configuration file
   json <- jsonlite::fromJSON(file)
   
   # If json file has many database connection details, filter with argument
-  if (class(json) == "data.frame") {
+  if (class(json) == "data.frame")
     json <- json[json[, "database_name"] == database, ]
-  } 
   
   # Create connection based on driver type
-  if (json$driver == "MySQL") {
+  if (grepl("mysql", json$driver, ignore.case = TRUE)) {
     
     con <- DBI::dbConnect(RMySQL::MySQL(), 
                           host = json$host, 
@@ -61,7 +62,7 @@ db_connect <- function (file, database) {
     
   }
   
-  if (json$driver == "PostgreSQL") {
+  if (grepl("postgres", json$driver, ignore.case = TRUE)) {
     
     con <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
                           host = json$host, 
@@ -78,4 +79,4 @@ db_connect <- function (file, database) {
 
 
 #' @export
-db_disconnect <- function (con) DBI::dbDisconnect(con)
+db_disconnect <- function(con) DBI::dbDisconnect(con)

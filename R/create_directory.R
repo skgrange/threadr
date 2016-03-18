@@ -20,19 +20,18 @@
 #' }
 #' 
 #' @export
-create_directory <- function (directory) {
+create_directory <- function(directory) {
   # Vectorise function
   plyr::l_ply(directory, create)
   
 }
 
+
 # The actual function
-create <- function (x) {
+create <- function(x){
+
   # Create if does not exist
-  if (!dir.exists(x)) {
+  if (!dir.exists(x))
     dir.create(x, recursive = TRUE)
-  }
-  
-  # No return
-  
+
 }

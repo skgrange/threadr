@@ -9,19 +9,21 @@
 #' 
 #' @examples 
 #' \dontrun{
+#' 
 #' decimal_count(5.89)
 #' # [1] 2
 #' 
 #' decimal_count(c(5.89, 2, 56.454545, 5.1))
 #' # [1] 2 0 6 1
+#' 
 #' }
 #' 
 #' @export
-decimal_count <- function (value) sapply(value, counter)
+decimal_count <- function(value) sapply(value, decimal_counter)
 
 
 # The worker
-counter <- function (x) {
+decimal_counter <- function(x) {
   # Check
   stopifnot(class(x) == "numeric")
   
@@ -35,9 +37,9 @@ counter <- function (x) {
     # If contains a period
     if (grepl("\\.", x)) {
       
-      x <- str_replace(x, "0+$", "")
-      x <- str_replace(x, "^.+[.]","")
-      x <- str_length(x)
+      x <- stringr::str_replace(x, "0+$", "")
+      x <- stringr::str_replace(x, "^.+[.]", "")
+      x <- stringr::str_length(x)
       
     } else {
       

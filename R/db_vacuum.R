@@ -7,16 +7,19 @@
 #' @author Stuart K. Grange
 #' 
 #' @param con Database connection. 
+#' 
 #' @param table Database table. 
 #' 
 #' @examples 
 #' \dontrun{
+#' 
 #' db_vacuum_analyse(con, "hysplit_data")
 #' db_optimise(con, "malta_data")
+#' 
 #' }
 #' 
 #' @export
-db_vacuum <- function (con, table) {
+db_vacuum <- function(con, table) {
   
   # PostgreSQL databases
   if (grepl("postgresql", class(con), ignore.case = TRUE))
@@ -37,7 +40,7 @@ db_vacuum <- function (con, table) {
   
   # SQLite
   if (grepl("sqlite", class(con), ignore.case = TRUE))
-    quiet(dbSendQuery(con, "VACUUM"))
+    quiet(db_send(con, "VACUUM"))
   
   # No return
   

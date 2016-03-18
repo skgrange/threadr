@@ -8,7 +8,7 @@ to a standard/base data frame.}
 base_df(df)
 }
 \arguments{
-\item{tbl_df}{\code{tbl_df} to be converted into a standard data frame.}
+\item{df}{A \code{tbl_df} to be converted into a standard data frame.}
 }
 \description{
 The different type of data frame in \code{dplyr} can cause failures for some 

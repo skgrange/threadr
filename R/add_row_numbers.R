@@ -21,7 +21,7 @@
 #' }
 #' 
 #' @export
-add_row_numbers <- function (df, name = "row_number") {
+add_row_numbers <- function(df, name = "row_number") {
   
   # Create sequence of integers
   sequence <- seq(1, to = nrow(df))

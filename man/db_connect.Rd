@@ -27,6 +27,7 @@ MySQL and PostgreSQL connections are currently supported.
 }
 \examples{
 \dontrun{
+
 # Connect to an air quality database
 db <- db_connect("connections.json", "air_quality")
 
@@ -44,6 +45,7 @@ string <- '
 # Connect, no need for second argument when one connection is present in 
 # configuration file
 db_seven <- db_connect(string)
+
 }
 
 }

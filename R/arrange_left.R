@@ -19,7 +19,7 @@
 #' }
 #' 
 #' @export
-arrange_left <- function (df, variable) {
+arrange_left <- function(df, variable) {
   
   # Bound strings
   variable <- stringr::str_c("\\b", variable, "\\b")

@@ -35,8 +35,8 @@ is \code{TRUE} and should not need to be altered. Not really a useful option,
 maintained to track performance.}
 }
 \description{
-\code{time_pad} use is similar to \code{\link{timeAverage}}. However, the
-aggregation of values does not occur. \code{time_pad} does not drop 
+\code{time_pad} use is similar to \strong{openair}'s \code{timeAverage}, but
+the aggregation of values does not occur. \code{time_pad} does not drop 
 non-numerical variables, can include identifiers post-pad, and can start and
 end a padded time-series at a "nice place", for example, at the beginning of
 an hour or day.

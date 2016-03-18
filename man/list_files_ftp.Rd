@@ -6,7 +6,33 @@
 \usage{
 list_files_ftp(url, credentials = "")
 }
+\arguments{
+\item{url}{The url of remote directory.}
+
+\item{credentials}{Credentials for a FTP or SFTP server. Do not use 
+\code{credentials} if the server does not require authentication. 
+\code{credentials} takes the format: \code{"username:password"}.}
+}
 \description{
 Function to list files on an FTP or SFTP server.
+}
+\examples{
+\dontrun{
+
+# Set credentials in this format
+credentials <- "username:password"
+
+# List files on a ftp server
+list_files_ftp("ftp://195.174.23.76/test", credentials)
+
+}
+
+}
+\author{
+Stuart K. Grange
+}
+\seealso{
+\strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
+\code{\link{upload_ftp_file}}
 }
 

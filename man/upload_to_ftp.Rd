@@ -6,7 +6,39 @@
 \usage{
 upload_to_ftp(file, url, credentials = "", progress = "text")
 }
+\arguments{
+\item{url}{The url of remote directory.}
+
+\item{credentials}{Credentials for a FTP or SFTP server. Do not use 
+\code{credentials} if the server does not require authentication. 
+\code{credentials} takes the format: \code{"username:password"}.}
+
+\item{progress}{Progress bar type. Default is \code{"text"}, for no bar, use
+\code{"none"}.}
+}
 \description{
-Function to upload a files to an FTP or SFTP server.
+\code{upload_to_ftp} will create directories if necessary.
+}
+\examples{
+\dontrun{
+
+# Get file list
+file_list <- list.files(recursive = TRUE, full.names = TRUE)
+
+# Exclude some files
+file_list <- grep("cache|.Rmd$", file_list, value = TRUE, invert = TRUE)
+
+# Upload files to server
+upload_to_ftp(file_list, url, "user:pass")
+
+}
+
+}
+\author{
+Stuart K. Grange
+}
+\seealso{
+\strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
+\code{\link{list_files_ftp}}
 }
 

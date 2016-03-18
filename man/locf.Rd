@@ -6,17 +6,25 @@
 \usage{
 locf(x, na.rm = FALSE)
 }
-\description{
-Used to replace each \code{NA} with the most recent non-\code{NA} prior to it.
+\arguments{
+\item{x}{Input vector.}
+
+\item{na.rm}{Should leading NAs be removed? Default is \code{FALSE}.}
 }
-\details{
-A simple wrapper for \code{zoo::na.locf} with \code{na.rm} defaulting to 
-\code{FALSE}
+\value{
+Vector of same data-type and length of \code{x}.
+}
+\description{
+Used to replace each \code{NA} with the most recent non-\code{NA} prior to 
+it. \code{locf} is a simple wrapper for \code{zoo::na.locf} with \code{na.rm}
+defaulting to \code{FALSE}.
 }
 \examples{
 \dontrun{
-# Push observations forwards
+
+# Push observations forwards, in a data frame
 data_income$income_chunk <- locf(data_income$income_chunk)
+
 }
 
 }

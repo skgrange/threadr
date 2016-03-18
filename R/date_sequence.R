@@ -25,7 +25,7 @@
 #' }
 #'
 #' @export
-date_sequence <- function (days = -1, character = TRUE, today = TRUE, sep = "-") {
+date_sequence <- function(days = -1, character = TRUE, today = TRUE, sep = "-") {
   
   # If character is not a hyphen, then the dates will always be characters
   if (sep != "-") character <- TRUE
