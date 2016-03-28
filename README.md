@@ -27,12 +27,12 @@ devtools::install_github("skgrange/threadr")
       - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`. 
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
+    - Test if a vector is within one or many ranges `within_range`.
 
   - Date functions
     - Pad time-series to different intervals with `time_pad`. 
     - Make an irregular time-series regular with `time_pad_irregular`. 
     - Round dates to arbitrary time intervals such as 5-seconds, 5-minutes, 15-minutes, 2-minutes, 30-minutes (etc.) with `round_date_interval`.
-    - Test if a date is within a vector of intervals with `%within_vector%`. 
     - Get Monday-based weeks of the year with `week_monday`. 
     
   - Data frame functions: 
