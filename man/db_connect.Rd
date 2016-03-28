@@ -4,7 +4,7 @@
 \alias{db_connect}
 \title{Function to create a database connection with a JSON configuration file.}
 \usage{
-db_connect(file, database)
+db_connect(file, database, config = TRUE)
 }
 \arguments{
 \item{file}{\code{JSON} file or string containing database connection 
@@ -13,6 +13,10 @@ details.}
 \item{database}{The name of the database within \code{file} to use to create
 a database connection to. If only one entry is in \code{file}, this argument 
 is not needed and will be ignored if used.}
+
+\item{config}{A logical to skip the \code{JSON} file configuration and just
+attempt to connect to \code{file} directly. This is useful for \code{SQLite}
+databases which require no configuration.}
 }
 \description{
 \code{db_connect} uses a \code{JSON} configuration file to create a database
@@ -45,6 +49,10 @@ string <- '
 # Connect, no need for second argument when one connection is present in 
 # configuration file
 db_seven <- db_connect(string)
+
+
+# A SQLite connection with no config needed
+con <- db_connect("../databases/air_quality_data.sqlite", config = FALSE)
 
 }
 

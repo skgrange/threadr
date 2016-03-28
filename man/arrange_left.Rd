@@ -13,10 +13,12 @@ arrange_left(df, variable)
 }
 \description{
 \code{arrange_left} is useful when some variables/columns want to be moved to
-the left-side of a data frame.
+the left-side of a data frame. \code{arrange_left} will silently skip 
+variables if they do not have a match in \code{names(df)}.
 }
 \examples{
 \dontrun{
+
 # Move a single variable to the first position
 data_ozone <- arrange_left(data_ozone, "date")
 

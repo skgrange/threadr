@@ -92,7 +92,7 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, warn = TRUE,
   }
 
   # Return 
-  df
+  base_df(df)
   
 }
 

@@ -1,7 +1,8 @@
 #' Function to arrange variables to the left of a data frame.
 #' 
 #' \code{arrange_left} is useful when some variables/columns want to be moved to
-#' the left-side of a data frame. 
+#' the left-side of a data frame. \code{arrange_left} will silently skip 
+#' variables if they do not have a match in \code{names(df)}. 
 #' 
 #' @param df Data frame which is to be transformed. 
 #' @param variable Variable(s) to be moved to the left side of \code{df}. 
@@ -10,6 +11,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' # Move a single variable to the first position
 #' data_ozone <- arrange_left(data_ozone, "date")
 #' 
@@ -25,7 +27,10 @@ arrange_left <- function(df, variable) {
   variable <- stringr::str_c("\\b", variable, "\\b")
  
   # Create index
-  index <- sapply(variable, function (x) grep(x, names(df)), USE.NAMES = FALSE)
+  index <- lapply(variable, function(x) grep(x, names(df)))
+  # Remove non-matches
+  index <- index[lapply(index, length) > 0]
+  index <- unlist(index)
   
   # Rearrange
   df <- df[, c(c(index), (1:ncol(df))[-index])]

@@ -8,6 +8,8 @@ tidy_summary(df, round = 3)
 }
 \arguments{
 \item{df}{Data frame for descriptives to be calculated for.}
+
+\item{round}{Rounding precision of descriptives. Default is \code{3}.}
 }
 \description{
 Only numeric variables are currently returned.

@@ -4,6 +4,8 @@
 #' 
 #' @param df Data frame for descriptives to be calculated for.  
 #' 
+#' @param round Rounding precision of descriptives. Default is \code{3}. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 

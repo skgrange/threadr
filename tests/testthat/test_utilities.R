@@ -103,3 +103,17 @@ test_that("Test Two's Complement function", {
   
 })
 
+
+test_that("Test unnest function", {
+  
+  # Load data
+  df <- read.csv(system.file("extdata/french_verbs.csv", package = "threadr"),
+                 skip = 1, stringsAsFactors = FALSE)
+  
+  # Unnest variable
+  df_tidy <- unnest(df, "subject", pattern = "/")
+  
+  # Test
+  expect_equal(nrow(df_tidy), 9)
+  
+})

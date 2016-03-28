@@ -9,9 +9,11 @@
 \alias{str_rm_brackets_and_contents}
 \alias{str_rm_non_ascii}
 \alias{str_sentence_case}
+\alias{str_sql_quote}
 \alias{str_trim_length}
 \alias{str_trim_many_spaces}
 \alias{str_underscore}
+\alias{str_unique}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -36,6 +38,10 @@ str_drop_xml_tags(string)
 str_rm_brackets_and_contents(x, type = "round")
 
 str_extract_digits(x, as.numeric = TRUE)
+
+str_sql_quote(x, collapse = TRUE)
+
+str_unique(x)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string.
@@ -65,6 +71,11 @@ or \code{[} and \code{]}) and characters within them.
 
 \code{str_extract_digits} will extract digits/numbers from a string and convert
 to a numeric data class if desired.
+
+\code{str_sql_quote} will add single quotes can collapse string vectors, a 
+common step for building SQL statements.
+
+\code{str_unique} will find unique characters in a string.
 }
 \author{
 Stuart K. Grange

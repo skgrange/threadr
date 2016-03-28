@@ -28,6 +28,11 @@
 #' \code{str_extract_digits} will extract digits/numbers from a string and convert
 #' to a numeric data class if desired. 
 #' 
+#' \code{str_sql_quote} will add single quotes can collapse string vectors, a 
+#' common step for building SQL statements. 
+#' 
+#' \code{str_unique} will find unique characters in a string. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -201,3 +206,26 @@ str_extract_digits <- function(x, as.numeric = TRUE) {
   x
   
 }
+
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_sql_quote <- function(x, collapse = TRUE) {
+  
+  # Quote strings
+  x <- stringr::str_c("'", x, "'")
+  
+  # Make single element
+  if (collapse) x <- stringr::str_c(x, collapse = ",")
+  
+  # Return
+  x
+  
+}
+
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_unique <- function(x) unique(strsplit(x, "")[[1]])

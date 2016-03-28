@@ -123,7 +123,7 @@ db_table_names <- function(con, table) {
   # Returning data too because some database connections return nothing when
   # LIMIT = 0
   suppressWarnings(
-    df <- dbGetQuery(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
+    df <- DBI::dbGetQuery(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
   )
   
   # Remove data

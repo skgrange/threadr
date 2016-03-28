@@ -28,7 +28,7 @@
 #' @export 
 read_html_tables <- function (url, n = NA, character = TRUE) {
   
-  # Get text/characters, works with https and with many proxy servers
+  # Get text/characters, works with https and some proxy servers
   if (character) url <- readLines(url, warn = FALSE)
     
   # Parse html
@@ -36,11 +36,13 @@ read_html_tables <- function (url, n = NA, character = TRUE) {
                                  useInternalNodes = TRUE, trim = FALSE)
   
   if (is.na(n)) {
+  
     # All tables as a list
     table <- XML::readHTMLTable(document, ignoreBlanks = FALSE, trim = FALSE,
                                 stringsAsFactors = FALSE)
     
   } else {
+  
     # Get table nodes
     nodes <- XML::getNodeSet(document, "//table")
     

@@ -16,6 +16,10 @@
 #' a database connection to. If only one entry is in \code{file}, this argument 
 #' is not needed and will be ignored if used. 
 #' 
+#' @param config A logical to skip the \code{JSON} file configuration and just
+#' attempt to connect to \code{file} directly. This is useful for \code{SQLite}
+#' databases which require no configuration. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples
@@ -39,36 +43,49 @@
 #' # configuration file
 #' db_seven <- db_connect(string)
 #' 
+#' 
+#' # A SQLite connection with no config needed
+#' con <- db_connect("../databases/air_quality_data.sqlite", config = FALSE)
+#' 
 #' }
 #' 
 #' @export
-db_connect <- function(file, database) {
+db_connect <- function(file, database, config = TRUE) {
   
-  # Load configuration file
-  json <- jsonlite::fromJSON(file)
-  
-  # If json file has many database connection details, filter with argument
-  if (class(json) == "data.frame")
-    json <- json[json[, "database_name"] == database, ]
-  
-  # Create connection based on driver type
-  if (grepl("mysql", json$driver, ignore.case = TRUE)) {
+  if (config) {
     
-    con <- DBI::dbConnect(RMySQL::MySQL(), 
-                          host = json$host, 
-                          dbname = json$database_name,
-                          user = json$user, 
-                          password = json$password)
+    # Load configuration file
+    json <- jsonlite::fromJSON(file)
     
-  }
-  
-  if (grepl("postgres", json$driver, ignore.case = TRUE)) {
+    # If json file has many database connection details, filter with argument
+    if (class(json) == "data.frame")
+      json <- json[json[, "database_name"] == database, ]
     
-    con <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
-                          host = json$host, 
-                          dbname = json$database_name,
-                          user = json$user, 
-                          password = json$password)
+    # Create connection based on driver type
+    if (grepl("mysql", json$driver, ignore.case = TRUE)) {
+      
+      con <- DBI::dbConnect(RMySQL::MySQL(), 
+                            host = json$host, 
+                            dbname = json$database_name,
+                            user = json$user, 
+                            password = json$password)
+      
+    }
+    
+    if (grepl("postgres", json$driver, ignore.case = TRUE)) {
+      
+      con <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
+                            host = json$host, 
+                            dbname = json$database_name,
+                            user = json$user, 
+                            password = json$password)
+      
+    }
+    
+  } else {
+    
+    # sqlite databases, only need a path
+    con <- DBI::dbConnect(RSQLite::SQLite(), file)
     
   }
   
@@ -79,4 +96,4 @@ db_connect <- function(file, database) {
 
 
 #' @export
-db_disconnect <- function(con) DBI::dbDisconnect(con)
+db_disconnect <- function(con) quiet(DBI::dbDisconnect(con))
