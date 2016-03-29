@@ -125,6 +125,7 @@ table_reader <- function(table, con, limit = NA) {
   
   # A catch if the table cannot be accessed, e.g. PostGIS extensions
   if (nrow(df) == 0) {
+    
     df <- data.frame(table = table, 
                      variable = NA, 
                      value = NA)
@@ -145,3 +146,10 @@ table_reader <- function(table, con, limit = NA) {
   df
   
 }
+
+
+#' Function to get first \emph{n} rows of a database table. 
+#' 
+#' @export
+db_head <- function(con, table, n = 5)
+  db_get(con, stringr::str_c("SELECT * FROM ", table, " LIMIT ", n))

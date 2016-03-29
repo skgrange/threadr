@@ -7,6 +7,9 @@
 #' 
 #' @param directory Name or path of directory to be created if id does not exist. 
 #' 
+#' @param quiet Should the function give a message when a directory is created? 
+#' Default is \code{FALSE}. 
+#' 
 #' \code{directory} can take many values and is recursive. 
 #' 
 #' @examples
@@ -20,18 +23,21 @@
 #' }
 #' 
 #' @export
-create_directory <- function(directory) {
-  # Vectorise function
-  plyr::l_ply(directory, create)
-  
-}
+create_directory <- function(directory, quiet = TRUE)
+  plyr::l_ply(directory, directory_creator, quiet)
 
 
 # The actual function
-create <- function(x){
-
-  # Create if does not exist
-  if (!dir.exists(x))
+directory_creator <- function(x, quiet) {
+  
+  if (!dir.exists(x)) {
+    
+    # Create
     dir.create(x, recursive = TRUE)
+    
+    # Message
+    if (!quiet) message(stringr::str_c("Created '", x, "' directory."))
+    
+  }
 
 }

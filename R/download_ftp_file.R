@@ -194,3 +194,72 @@ uploader <- function(file, url, credentials) {
   # No return
   
 }
+
+
+
+#' Function to download many files to a directory. 
+#' 
+#' \code{download_file} uses \code{download.file} but can download many files 
+#' and write them to a single directory. \code{download_file} will create the
+#' destination directory if it does not exist. 
+#'
+#' @param file File name/URL of files to download. 
+#' 
+#' @param directory Name of destination directory where files are to be downloaded
+#' to. If \code{directory} is not used, the current working directory will be 
+#' the destination. 
+#' 
+#' @param quiet Should \code{download.file}'s messages be suppressed? Default is
+#' \code{TRUE}. 
+#' 
+#' @param progress Type of progress bar to display. Default is none, but it can
+#' be \code{"text"} or \code{"time"} too. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @examples 
+#' \dontrun{
+#' 
+#' # Download a single file
+#' url <- "http://cdr.eionet.europa.eu/lv/eu/aqd/d/envvfk_0q/REP_D-LV_LEGMC_20150911_D-001.xml"
+#' download_file(url, "downloaded/")
+#' 
+#' # Download many files with information
+#' url <- c("http://cdr.eionet.europa.eu/lv/eu/aqd/d/envvfk_0q/REP_D-LV_LEGMC_20150911_D-001.xml",
+#'          "http://cdr.eionet.europa.eu/lv/eu/aqd/g/envvnkijg/REP_D-LV_LEGMC_20151222_G-001.xml")
+#'          
+#' download_file(url, "downloaded/", quiet = FALSE)
+#' 
+#' }
+#'
+#' @export 
+download_file <- function(file, directory = NA, quiet = TRUE, progress = "none") {
+  
+  if (is.na(directory)) directory <- getwd()
+  
+  # Create directory if needed
+  create_directory(directory, quiet)
+  
+  # Download multiple files
+  plyr::l_ply(file, download_to_directory, directory, quiet, .progress = progress)
+  
+  # No return
+  
+}
+
+
+download_to_directory <- function(file, directory, quiet) {
+  
+  # Get basename
+  file_basename <- basename(file)
+  
+  # Add directory
+  file_destination <- file.path(directory, file_basename)
+  
+  # Download file
+  download.file(file, file_destination, quiet = quiet)
+  
+  # No return
+  
+}
+

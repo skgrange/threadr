@@ -14,7 +14,7 @@
 #' }
 #' 
 #' @export
-replicate_rows <- function (df, n, reset = TRUE) {
+replicate_rows <- function(df, n, reset = TRUE) {
   
   # Reset row names
   row.names(df) <- NULL
@@ -23,9 +23,7 @@ replicate_rows <- function (df, n, reset = TRUE) {
   df <- df[rep(seq_len(nrow(df)), each = n), ]
   
   # Reset row numbers
-  if (reset) {
-    row.names(df) <- NULL
-  }
+  if (reset) row.names(df) <- NULL
   
   # Return
   df

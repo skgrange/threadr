@@ -4,10 +4,13 @@
 \alias{create_directory}
 \title{Function to create directories if they are not present.}
 \usage{
-create_directory(directory)
+create_directory(directory, quiet = TRUE)
 }
 \arguments{
-\item{directory}{Name or path of directory to be created if id does not exist. 
+\item{directory}{Name or path of directory to be created if id does not exist.}
+
+\item{quiet}{Should the function give a message when a directory is created? 
+Default is \code{FALSE}. 
 
 \code{directory} can take many values and is recursive.}
 }
