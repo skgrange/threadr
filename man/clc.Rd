@@ -7,7 +7,7 @@
 clc()
 }
 \description{
-Found here: \url{http://stackoverflow.com/questions/14260340/function-to-clear-the-console-in-r}
+Function to clear the R console.
 }
 \examples{
 \dontrun{
@@ -22,5 +22,8 @@ threadr::clc()
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+\url{http://stackoverflow.com/questions/14260340/function-to-clear-the-console-in-r}{stackoverflow.com}
 }
 

@@ -1,23 +1,23 @@
 #' Function to create a database connection with a JSON configuration file. 
 #' 
 #' \code{db_connect} uses a \code{JSON} configuration file to create a database
-#' connection. This configuration file will generally exist outside a code 
-#' package so database credentials are not accidentally transmitted or shared. 
+#' connection. This configuration file will often exist outside a code package 
+#' so database credentials are not accidentally transmitted or shared. 
 #' 
 #' If only one entry is in the \code{JSON} file, the \code{database} argument is
 #' not needed.
 #'
-#' MySQL and PostgreSQL connections are currently supported. 
+#' MySQL, PostgreSQL, and SQLite connections are currently supported. 
 #' 
 #' @param file \code{JSON} file or string containing database connection 
-#' details. 
+#' details. For SQLite databases, use the database's file path. 
 #' 
 #' @param database The name of the database within \code{file} to use to create
 #' a database connection to. If only one entry is in \code{file}, this argument 
 #' is not needed and will be ignored if used. 
 #' 
 #' @param config A logical to skip the \code{JSON} file configuration and just
-#' attempt to connect to \code{file} directly. This is useful for \code{SQLite}
+#' attempt to connect to \code{file} directly. This is used for \code{SQLite}
 #' databases which require no configuration. 
 #' 
 #' @author Stuart K. Grange
@@ -29,7 +29,7 @@
 #' db <- db_connect("connections.json", "air_quality")
 #' 
 #' 
-#' # Use a json confg file which looks similar to this:
+#' # Use a json config file which looks similar to this:
 #' string <- '
 #' {
 #'   "driver": "MySQL",
@@ -72,7 +72,7 @@ db_connect <- function(file, database, config = TRUE) {
       
     }
     
-    if (grepl("postgres", json$driver, ignore.case = TRUE)) {
+    if (grepl("postg", json$driver, ignore.case = TRUE)) {
       
       con <- DBI::dbConnect(RPostgreSQL::PostgreSQL(), 
                             host = json$host, 

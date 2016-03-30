@@ -7,7 +7,7 @@
 object_size(object, unit = "Mb")
 }
 \arguments{
-\item{object}{A R object.}
+\item{object}{An R object.}
 
 \item{unit}{Units of size. See \link{object.size} for options. Defaults to 
 \code{"Mb"} for megabytes.}

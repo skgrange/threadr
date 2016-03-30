@@ -18,7 +18,9 @@ Function to replicate rows in a data frame.
 }
 \examples{
 \dontrun{
+
 data_replicated <- replicate_rows(data_test, 10)
+
 }
 
 }

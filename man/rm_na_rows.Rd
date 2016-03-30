@@ -20,8 +20,10 @@ wide data frames.
 }
 \examples{
 \dontrun{
+
 Remove rows which contain only NAs in all but the first two columns
-data.clean <- rm_na_rows(data, -1:-2)
+data_clean <- rm_na_rows(data, -1:-2)
+
 }
 
 }

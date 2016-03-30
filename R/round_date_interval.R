@@ -70,7 +70,7 @@
 #' }
 #' 
 #' @export
-round_date_interval <- function (date, interval = "5 min", f = round) {
+round_date_interval <- function(date, interval = "5 min", f = round) {
   
   # Parse argument into numeric value which represents second-multiple
   # Character catching

@@ -21,6 +21,5 @@
 #' }
 #' 
 #' @export
-locf <- function (x, na.rm = FALSE)
-  zoo::na.locf(x, na.rm = na.rm)
+locf <- function (x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
 

@@ -4,7 +4,8 @@
 \alias{upload_to_ftp}
 \title{Function to upload a files to an FTP or SFTP server.}
 \usage{
-upload_to_ftp(file, url, credentials = "", progress = "text")
+upload_to_ftp(file, url, credentials = "", basename = FALSE,
+  progress = "text")
 }
 \arguments{
 \item{url}{The url of remote directory.}
@@ -12,6 +13,10 @@ upload_to_ftp(file, url, credentials = "", progress = "text")
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
 \code{credentials} if the server does not require authentication. 
 \code{credentials} takes the format: \code{"username:password"}.}
+
+\item{basename}{Should only the basename be used for transferring the files? This is
+useful when files to be uploaded are outside of the working directory, but the
+directory structure will be lost on the remote server.}
 
 \item{progress}{Progress bar type. Default is \code{"text"}, for no bar, use
 \code{"none"}.}

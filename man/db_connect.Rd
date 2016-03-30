@@ -8,26 +8,26 @@ db_connect(file, database, config = TRUE)
 }
 \arguments{
 \item{file}{\code{JSON} file or string containing database connection 
-details.}
+details. For SQLite databases, use the database's file path.}
 
 \item{database}{The name of the database within \code{file} to use to create
 a database connection to. If only one entry is in \code{file}, this argument 
 is not needed and will be ignored if used.}
 
 \item{config}{A logical to skip the \code{JSON} file configuration and just
-attempt to connect to \code{file} directly. This is useful for \code{SQLite}
+attempt to connect to \code{file} directly. This is used for \code{SQLite}
 databases which require no configuration.}
 }
 \description{
 \code{db_connect} uses a \code{JSON} configuration file to create a database
-connection. This configuration file will generally exist outside a code 
-package so database credentials are not accidentally transmitted or shared.
+connection. This configuration file will often exist outside a code package 
+so database credentials are not accidentally transmitted or shared.
 }
 \details{
 If only one entry is in the \code{JSON} file, the \code{database} argument is
 not needed.
 
-MySQL and PostgreSQL connections are currently supported.
+MySQL, PostgreSQL, and SQLite connections are currently supported.
 }
 \examples{
 \dontrun{
@@ -36,7 +36,7 @@ MySQL and PostgreSQL connections are currently supported.
 db <- db_connect("connections.json", "air_quality")
 
 
-# Use a json confg file which looks similar to this:
+# Use a json config file which looks similar to this:
 string <- '
 {
   "driver": "MySQL",

@@ -142,6 +142,10 @@ list_files_ftp <- function(url, credentials = "") {
 #' \code{credentials} if the server does not require authentication. 
 #' \code{credentials} takes the format: \code{"username:password"}. 
 #' 
+#' @param basename Should only the basename be used for transferring the files? This is
+#' useful when files to be uploaded are outside of the working directory, but the
+#' directory structure will be lost on the remote server.
+#' 
 #' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
 #' \code{"none"}. 
 #' 
@@ -165,21 +169,25 @@ list_files_ftp <- function(url, credentials = "") {
 #' }
 #' 
 #' @export
-upload_to_ftp <- function(file, url, credentials = "", progress = "text") {
+upload_to_ftp <- function(file, url, credentials = "", basename = FALSE, 
+                          progress = "text") {
   
   # Apply function to length of file
   plyr::l_ply(file, uploader, url = url, credentials = credentials, 
-              .progress = progress)
+              basename = basename, .progress = progress)
   
 }
 
 
 # No export
-uploader <- function(file, url, credentials) {
+uploader <- function(file, url, credentials, basename) {
   
   # url must be prefixed with ftp or sftp
   if (!grepl("^ftp://|^sftp://", url))
     stop("URL must be prefixed with 'ftp://' or 'sftp://'", call. = FALSE)
+  
+  # Trim to last element
+  if (basename) file <- basename(file)
   
   # Ensure the directory has a trailing separator
   url <- stringr::str_c(url, .Platform$file.sep)
@@ -235,6 +243,7 @@ uploader <- function(file, url, credentials) {
 #' @export 
 download_file <- function(file, directory = NA, quiet = TRUE, progress = "none") {
   
+  # Use working directory by default
   if (is.na(directory)) directory <- getwd()
   
   # Create directory if needed

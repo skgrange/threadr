@@ -2,21 +2,23 @@
 % Please edit documentation in R/add_row_numbers.R
 \name{add_row_numbers}
 \alias{add_row_numbers}
-\title{Function to add a row number variable.}
+\title{Function to add a row number variable to a data frame.}
 \usage{
 add_row_numbers(df, name = "row_number")
 }
 \arguments{
 \item{df}{Data frame to be transformed.}
 
-\item{name}{Name of variable to use.}
+\item{name}{Name of variable to use. \code{add_row_numbers} will silently 
+drop an existing variable of the same name if present in \code{df}.}
 }
 \description{
-Convert row numbers to a variable which is an integer, unlike 
+Row numbers will be a variable which is an integer, unlike 
 \code{dplyr::add_rownames} which adds a character variable.
 }
 \examples{
 \dontrun{
+
 # Add row numbers
 data_zones <- add_row_numbers(data_zones)
 
@@ -30,6 +32,6 @@ data_zones <- add_row_numbers(data_zones, name = "order")
 Stuart K. Grange
 }
 \seealso{
-\link{dplyr::add_rownames}
+\link{add_rownames}
 }
 

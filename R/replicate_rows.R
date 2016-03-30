@@ -10,14 +10,16 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' data_replicated <- replicate_rows(data_test, 10)
+#' 
 #' }
 #' 
 #' @export
 replicate_rows <- function(df, n, reset = TRUE) {
   
   # Reset row names
-  row.names(df) <- NULL
+  if (reset) row.names(df) <- NULL
   
   # Replicate
   df <- df[rep(seq_len(nrow(df)), each = n), ]

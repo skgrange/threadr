@@ -6,6 +6,7 @@
 #' wide data frames.
 #' 
 #' @param df Data frame to be filtered.
+#' 
 #' @param index Column index of \code{df} to be evaluated for \code{NA} testing. 
 #' \code{index} usually takes multiple values and handles negative indices. 
 #' 
@@ -13,17 +14,17 @@
 #' 
 #' @examples 
 #' \dontrun{
+#' 
 #' Remove rows which contain only NAs in all but the first two columns
-#' data.clean <- rm_na_rows(data, -1:-2)
+#' data_clean <- rm_na_rows(data, -1:-2)
+#' 
 #' }
 #' 
 #' @export 
-rm_na_rows <- function (df, index = NA) {
+rm_na_rows <- function(df, index = NA) {
   
   # If no index is given, default to all rows
-  if (is.na(index[1])) {
-    index <- 1:ncol(df)
-  }
+  if (is.na(index[1])) index <- 1:ncol(df)
   
   if (length(index) == 1) {
     
@@ -33,7 +34,7 @@ rm_na_rows <- function (df, index = NA) {
   } else {
     
     # The indices of rows with NAs
-    indices <- apply(df[, index], 1, function (x) all(is.na(x)))
+    indices <- apply(df[, index], 1, function(x) all(is.na(x)))
     
     # Filter the rows
     df <- df[!indices, ]
