@@ -215,12 +215,3 @@ get_identifiers <- function (df, by) {
   data_by
   
 }
-
-
-#' Function to extract time-zone from a POSIXct date.  
-#' 
-#' @author Stuart K. Grange
-#' 
-#' @export
-time_zone <- function(x) attr(x, "tzone")
-

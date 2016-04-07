@@ -2,12 +2,35 @@
 % Please edit documentation in R/excel_read.R
 \name{excel_read}
 \alias{excel_read}
-\title{Function to wrap \code{readxl::read_excel} and then do some header cleaning.}
+\title{Function to wrap \code{readxl::read_excel} and then do some formating.}
 \usage{
 excel_read(file, sheet = 1, col_names = TRUE, col_types = NULL, na = "",
   skip = 0, clean = TRUE, convert = FALSE)
 }
+\arguments{
+\item{file}{File name of \code{.xls} or \code{.xlsx} file.}
+
+\item{sheet}{Sheet within \code{file} to read. \code{sheet} can be a name or 
+an integer position.}
+
+\item{col_names}{Use the first row as the data frame names?}
+
+\item{col_types}{Data-types of columns.}
+
+\item{na}{Missing value.}
+
+\item{skip}{Number of rows to skip before reading any data.}
+
+\item{clean}{Should the names of the returned data frame be cleaned? Default
+is \code{TRUE} and will return lower-case and underscore seperated names.}
+
+\item{convert}{Should \code{type.convert} be run on the returned data frame? 
+This can help to get correct data-types.}
+}
 \description{
-Function to wrap \code{readxl::read_excel} and then do some header cleaning.
+Function to wrap \code{readxl::read_excel} and then do some formating.
+}
+\author{
+Stuart K. Grange
 }
 

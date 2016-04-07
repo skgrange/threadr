@@ -53,39 +53,6 @@ test_that("round_date_interval at different intervals", {
 })
 
 
-test_that("Unix time correct-ness", {
-  
-  # Get an example of unix time
-  # as.numeric(Sys.time())
-  date_unix <- 1437896406
-  # This is 2015-07-26 07:40:06 UTC
-  
-  # Parse the unix time into dates with tz info
-  date_london <- as.POSIXct(date_unix, origin = "1970-01-01", tz = "Europe/London")
-  date_utc <- as.POSIXct(date_unix, origin = "1970-01-01", tz = "UTC")
-  date_nz <- as.POSIXct(date_unix, origin = "1970-01-01", tz = "Pacific/Auckland")
-  
-  # How I parse dates
-  date_normal <- lubridate::ymd_hms("2015-07-26 07:40:06")
-  
-  # Only testing the base as.numeric function
-  expect_equal(unix_time(date_london), date_unix)
-  expect_equal(unix_time(date_utc), date_unix)
-  expect_equal(unix_time(date_nz), date_unix)
-  expect_equal(unix_time(date_normal), date_unix)
-  
-  
-  # Check the tz handling
-  expect_equal(date_normal, as.POSIXct(date_unix, origin = "1970-01-01"))
-  
-  # Time zone change for function
-  expect_equal(unix_time(date_normal, tz = "Europe/London"), 1437892806)
-  expect_equal(unix_time(date_normal, tz = "UTC"), 1437896406)
-  expect_equal(unix_time(date_normal, tz = "Pacific/Auckland"), 1437853206)
-  
-})
-
-
 context("Test the low-level utility functions")
 
 test_that("Test hexidecimal to integer function", {
