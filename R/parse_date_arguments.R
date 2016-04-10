@@ -20,6 +20,8 @@ parse_date_arguments <- function(date, type) {
       
       # Catch for when years are used as dates
       if (stringr::str_count(date) == 4) date <- stringr::str_c(date, "-01-01")
+      # And year and months
+      # if (stringr::str_count(date) == 7) date <- stringr::str_c(date, "-01")
       
       # Round
       date <- ifelse(is.na(date), 
@@ -30,6 +32,7 @@ parse_date_arguments <- function(date, type) {
     # End of year
     if (type == "end") {
       
+      # Catch for when years are used as dates
       if (stringr::str_count(date) == 4) date <- stringr::str_c(date, "-12-31")
       
       # Round

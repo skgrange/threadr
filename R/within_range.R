@@ -1,4 +1,6 @@
-#' Function to test if a vector is within one or many ranges. 
+#' Function to test if a vector is within one, or many ranges. 
+#' 
+#' \code{within_range} works well for testing unix time dates.  
 #' 
 #' @param vector Vector to test. 
 #' @param begin Start of range. 
@@ -47,7 +49,7 @@ within_range <- function(vector, start, end) {
   
   # Make a vector
   logical <- do.call("rbind", logical_list)
-  logical <- apply(logical, 2, function (x) any(x))
+  logical <- apply(logical, 2, function(x) any(x))
   
   # Return
   logical

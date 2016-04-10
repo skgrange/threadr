@@ -25,8 +25,8 @@ db_insert(con, table, df, append = TRUE, overwrite = FALSE, rows = FALSE,
 \code{table}?}
 }
 \description{
-\code{db_insert} is a wrapper for \code{DBI::dbWriteTable}, but uses different 
-defaults and has a few enhancements which can be helpful.
+\code{db_insert} is a wrapper for \code{\link{DBI::dbWriteTable}}, but uses 
+different defaults and has a few enhancements which can be helpful.
 }
 \details{
 \code{db_insert} will not overwrite data or include a "row.names" variable by
@@ -34,5 +34,9 @@ default.
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+\code{\link{DBI::dbWriteTable}}, \code{\link{db_list_variables}},
+\code{\link{db_table_names}}
 }
 

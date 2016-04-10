@@ -14,8 +14,7 @@
 db_count_rows <- function(con, table = NA, progress = FALSE) {
   
   # If no table is selected, do them all
-  if (is.na(table[1]))
-    table <- DBI::dbListTables(con)
+  if (is.na(table[1])) table <- DBI::dbListTables(con)
   
   progress <- switch_progress(progress)
   
@@ -32,13 +31,12 @@ db_count_rows <- function(con, table = NA, progress = FALSE) {
 row_counter <- function(table, con) {
   
   # Create statement
-  statement <- stringr::str_c("SELECT COUNT(*) AS row_count 
-                               FROM ", table)
+  sql <- stringr::str_c("SELECT COUNT(*) AS row_count FROM ", table)
   
   # Use statement
   df <- tryCatch({
     
-    DBI::dbGetQuery(con, statement)
+    DBI::dbGetQuery(con, sql)
     
   }, error = function(e) {
     
@@ -59,16 +57,8 @@ row_counter <- function(table, con) {
 switch_progress <- function(logical, type = "text") {
   
   # Switch logical to type
-  if (logical) {
-    
-    string <- type
-    
-  } else {
-    
-    string <- "none"
-    
-  }
-  
+  if (logical) string <- type else string <- "none"
+
   # Return
   string
   

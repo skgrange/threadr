@@ -22,8 +22,8 @@ uses \code{OPTIMIZE}, and the SQLite statement uses \code{VACUUM} and the
 \examples{
 \dontrun{
 
-db_vacuum_analyse(con, "hysplit_data")
-db_optimise(con, "malta_data")
+db_vacuum_analyse(con, "model_data")
+db_optimise(con, "air_quality_data")
 
 }
 

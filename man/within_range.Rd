@@ -2,7 +2,7 @@
 % Please edit documentation in R/within_range.R
 \name{within_range}
 \alias{within_range}
-\title{Function to test if a vector is within one or many ranges.}
+\title{Function to test if a vector is within one, or many ranges.}
 \usage{
 within_range(vector, start, end)
 }
@@ -17,7 +17,7 @@ within_range(vector, start, end)
 Logical vector of length of \code{vector}.
 }
 \description{
-Function to test if a vector is within one or many ranges.
+\code{within_range} works well for testing unix time dates.
 }
 \examples{
 \dontrun{

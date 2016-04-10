@@ -44,7 +44,7 @@
 #' db_seven <- db_connect(string)
 #' 
 #' 
-#' # A SQLite connection with no config needed
+#' # A SQLite connection needs no configuration
 #' con <- db_connect("../databases/air_quality_data.sqlite", config = FALSE)
 #' 
 #' }

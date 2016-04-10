@@ -1,10 +1,13 @@
 #' Function to insert a data frame into/as a database table.
 #'
-#' \code{db_insert} is a wrapper for \code{DBI::dbWriteTable}, but uses different 
-#' defaults and has a few enhancements which can be helpful. 
+#' \code{db_insert} is a wrapper for \code{\link{DBI::dbWriteTable}}, but uses 
+#' different defaults and has a few enhancements which can be helpful. 
 #'
 #' \code{db_insert} will not overwrite data or include a "row.names" variable by
 #' default. 
+#' 
+#' @seealso \code{\link{DBI::dbWriteTable}}, \code{\link{db_list_variables}},
+#' \code{\link{db_table_names}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -54,7 +57,7 @@ quiet <- function(x) {
   sink(tempfile())
   on.exit(sink())
   invisible(force(x))
-} 
+}
 
 
 #' Function to send a statement to a database. 
@@ -123,7 +126,7 @@ db_table_names <- function(con, table) {
   # Returning data too because some database connections return nothing when
   # LIMIT = 0
   suppressWarnings(
-    df <- DBI::dbGetQuery(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
+    df <- db_get(con, stringr::str_c("SELECT * FROM ", table, " LIMIT 1"))
   )
   
   # Remove data
