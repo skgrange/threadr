@@ -5,15 +5,15 @@
 \title{Function for plotting interactive time-series plots in a similar way to
 \code{openair::timePlot}.}
 \usage{
-time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
+time_dygraph(df, variable = "value", colour = "red", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
-  ylab = NA, legend_width = 400, mouse_label = NA, tz = "UTC",
+  ylab = NA, legend_width = 400, mouse_label = NA, tz = NA,
   window = NULL)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
 
-\item{variable}{Variable in \code{df} to plot.}
+\item{variable}{Variable in \code{df} to plot. Default is \code{"value"}.}
 
 \item{range}{Should a range selector be plotted?}
 
@@ -32,7 +32,8 @@ time_dygraph(df, variable = "no2", colour = "red", range = TRUE,
 \item{mouse_label}{String for legend label. If not used, label will be 
 \code{variable}.}
 
-\item{tz}{Override for timezone.}
+\item{tz}{Timezone to display plot with. If not used, \code{tz} will use the
+time-zone of the \code{df}'s \code{"date"} variable.}
 
 \item{window}{Default range window. Uses a date vector with a length of two.}
 }
@@ -44,6 +45,6 @@ Function for plotting interactive time-series plots in a similar way to
 Stuart K. Grange
 }
 \seealso{
-\link{openair::timePlot}
+\code{\link{openair::timePlot}}
 }
 

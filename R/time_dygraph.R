@@ -3,7 +3,7 @@
 #' 
 #' @param df Data frame with a variable/column named \code{"date"}.
 #' 
-#' @param variable Variable in \code{df} to plot. 
+#' @param variable Variable in \code{df} to plot. Default is \code{"value"}. 
 #' 
 #' @param color Color of plotted geometry. 
 #' 
@@ -22,24 +22,26 @@
 #' @param mouse_label String for legend label. If not used, label will be 
 #' \code{variable}. 
 #' 
-#' @param tz Override for timezone. 
+#' @param tz Timezone to display plot with. If not used, \code{tz} will use the
+#' time-zone of the \code{df}'s \code{"date"} variable. 
 #' 
 #' @param window Default range window. Uses a date vector with a length of two. 
 #'
-#' @seealso \link{openair::timePlot}
+#' @seealso \code{\link{openair::timePlot}}
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @export
-time_dygraph <- function (df, variable = "no2", colour = "red", 
+time_dygraph <- function (df, variable = "value", colour = "red", 
                           range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
                           color = colour, ylab = NA, legend_width = 400,
-                          mouse_label = NA, tz = "UTC", window = NULL) {
+                          mouse_label = NA, tz = NA, window = NULL) {
   
   # Catch dplyr's table data frame
   df <- base_df(df)
   
   if (is.na(mouse_label)) mouse_label <- variable
+  if (is.na(tz)) tz <- time_zone(df[, "date"])
   
   # Create timeseries object
   time_series <- xts::xts(df[, variable], df[, "date"], order.by = df[, "date"], 
