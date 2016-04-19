@@ -46,30 +46,23 @@ date_vector <- c("2015-04-09 06:25:23", "2015-04-09 06:41:27",
                  "2015-04-09 07:02:27", "2015-04-09 07:50:40")
 
 # Parse dates
-date_vector <- lubridate::ymd_hms(date_vector)
+date_vector <- lubridate::ymd_hms(date_vector, tz = "UTC")
 
 # Round dates to 15 minute intervals
 round_date_interval(date_vector, "15 min")
-"2015-04-09 06:30:00 UTC" "2015-04-09 06:45:00 UTC" "2015-04-09 07:00:00 UTC"
-"2015-04-09 07:45:00 UTC"
 
 # Round dates to 5 minute intervals
 round_date_interval(date_vector, "5 mins")
-"2015-04-09 06:25:00 UTC" "2015-04-09 06:40:00 UTC" "2015-04-09 07:00:00 UTC"
-"2015-04-09 07:50:00 UTC"
-
 
 # Round a single date to various second-intervals
 # Parse
-date <- lubridate::ymd_hms("2013-09-13 08:03:37")
+date <- lubridate::ymd_hms("2013-09-13 08:03:37", tz = "UTC")
 
 # 10 seconds
 round_date_interval(date, "10 sec")
-"2013-09-13 08:03:40 UTC"
 
 # 30 seconds
 round_date_interval(date, "30 sec")
-"2013-09-13 08:03:30 UTC"
 
 }
 

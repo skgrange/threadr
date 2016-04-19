@@ -11,10 +11,8 @@
 #' \dontrun{
 #' 
 #' decimal_count(5.89)
-#' # [1] 2
 #' 
 #' decimal_count(c(5.89, 2, 56.454545, 5.1))
-#' # [1] 2 0 6 1
 #' 
 #' }
 #' 
@@ -24,6 +22,7 @@ decimal_count <- function(value) sapply(value, decimal_counter)
 
 # The worker
 decimal_counter <- function(x) {
+  
   # Check
   stopifnot(class(x) == "numeric")
   

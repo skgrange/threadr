@@ -2,42 +2,42 @@
 #' 
 #' @param date Date string to be parsed. 
 #' @param type Type of date: \code{"start"} or \code{"end"}. 
+#' @param tz Time-zone, defaults to \code{"UTC"}. 
 #' 
 #' @author Stuart K. Grrange
 #'
 #' @export 
-parse_date_arguments <- function(date, type) {
+parse_date_arguments <- function(date, type, tz = "UTC") {
   
-  # If no date used just used system date, deos not matter what type
+  # If no date used just used system date, does not matter what type
   if (is.na(date)) {
     
-    date <- lubridate::ymd(Sys.Date())
+    date <- lubridate::ymd(Sys.Date(), tz = tz)
     
   } else {
     
-    # Start of year
+    # Get system date for future rounding
+    date_system <- lubridate::ymd(Sys.Date(), tz = tz)
+    
     if (type == "start") {
       
       # Catch for when years are used as dates
       if (stringr::str_count(date) == 4) date <- stringr::str_c(date, "-01-01")
-      # And year and months
-      # if (stringr::str_count(date) == 7) date <- stringr::str_c(date, "-01")
-      
-      # Round
-      date <- ifelse(is.na(date), 
-                     as.character(lubridate::floor_date(Sys.Date(), "year")), date)
+
+      # Round to start of year
+      date <- ifelse(
+        is.na(date), as.character(lubridate::floor_date(date_system, "year")), date)
       
     }
     
-    # End of year
     if (type == "end") {
       
       # Catch for when years are used as dates
       if (stringr::str_count(date) == 4) date <- stringr::str_c(date, "-12-31")
       
-      # Round
+      # Round to end of year
       date <- ifelse(
-        is.na(date), as.character(lubridate::ceiling_date(Sys.Date(), "year")), date)
+        is.na(date), as.character(lubridate::ceiling_date(date_system, "year")), date)
       
     }
     

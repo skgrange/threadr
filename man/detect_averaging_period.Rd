@@ -4,7 +4,7 @@
 \alias{detect_averaging_period}
 \title{Function to determine averaging period in a date vector.}
 \usage{
-detect_averaging_period(date, skip = 0, n = 100)
+detect_averaging_period(date, skip = 1, n = 100)
 }
 \description{
 Function to determine averaging period in a date vector.

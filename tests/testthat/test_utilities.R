@@ -46,9 +46,10 @@ test_that("round_date_interval at different intervals", {
     lubridate::ymd_hms("2015-06-03 16:02:30"), "5 min"), 
     lubridate::ymd_hms("2015-06-03 16:00:00"))
   
-  expect_less_than(round_date_interval(
+  # Behaviour changed, 2016-04-16
+  expect_identical(round_date_interval(
     lubridate::ymd_hms("2015-06-03 16:02:30"), "5 min"), 
-    lubridate::ymd_hms("2015-06-03 16:05:00"))
+    lubridate::ymd_hms("2015-06-03 16:00:00"))
   
 })
 

@@ -39,9 +39,15 @@ db_vacuum <- function(con, table) {
   }
   
   # SQLite
-  if (grepl("sqlite", class(con), ignore.case = TRUE))
+  if (grepl("sqlite", class(con), ignore.case = TRUE)) {
+    
     quiet(db_send(con, "VACUUM"))
-  
+    
+    # Clear results
+    quiet(DBI::dbClearResult(DBI::dbListResults(con)[[1]]))
+    
+  }
+    
   # No return
   
 }

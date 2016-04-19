@@ -9,4 +9,7 @@ db_head(con, table, n = 5)
 \description{
 Function to get first \emph{n} rows of a database table.
 }
+\author{
+Stuart K. Grange
+}
 

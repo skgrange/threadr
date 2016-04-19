@@ -3,7 +3,7 @@
 \name{time_dygraph}
 \alias{time_dygraph}
 \title{Function for plotting interactive time-series plots in a similar way to
-\code{openair::timePlot}.}
+\code{\link{timePlot}}.}
 \usage{
 time_dygraph(df, variable = "value", colour = "red", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
@@ -13,9 +13,11 @@ time_dygraph(df, variable = "value", colour = "red", range = TRUE,
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
 
-\item{variable}{Variable in \code{df} to plot. Default is \code{"value"}.}
+\item{variable}{Variable(s) in \code{df} to plot. Default is \code{"value"}.}
 
-\item{range}{Should a range selector be plotted?}
+\item{colour}{Coluor of plotted geometry.}
+
+\item{range}{Should a range selector be plotted? Default is \code{TRUE}.}
 
 \item{step}{Should the plot take a stepped look?}
 
@@ -23,14 +25,12 @@ time_dygraph(df, variable = "value", colour = "red", range = TRUE,
 
 \item{fill}{Should the plot fill between the x-axis and the geometry?}
 
-\item{color}{Color of plotted geometry.}
-
 \item{ylab}{String for y-axis label.}
 
-\item{legend_width}{Width of legend in pixels. Default is 400.}
+\item{legend_width}{Width of legend in pixels. Default is \code{400}.}
 
-\item{mouse_label}{String for legend label. If not used, label will be 
-\code{variable}.}
+\item{mouse_label}{String for legend label. If not used, label will take the
+name of \code{variable}.}
 
 \item{tz}{Timezone to display plot with. If not used, \code{tz} will use the
 time-zone of the \code{df}'s \code{"date"} variable.}
@@ -39,12 +39,12 @@ time-zone of the \code{df}'s \code{"date"} variable.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to
-\code{openair::timePlot}.
+\code{\link{timePlot}}.
 }
 \author{
 Stuart K. Grange
 }
 \seealso{
-\code{\link{openair::timePlot}}
+\code{\link{timePlot}}
 }
 

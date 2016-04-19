@@ -4,12 +4,14 @@
 \alias{parse_date_arguments}
 \title{Function to parse date arguments for other functions.}
 \usage{
-parse_date_arguments(date, type)
+parse_date_arguments(date, type, tz = "UTC")
 }
 \arguments{
 \item{date}{Date string to be parsed.}
 
 \item{type}{Type of date: \code{"start"} or \code{"end"}.}
+
+\item{tz}{Time-zone, defaults to \code{"UTC"}.}
 }
 \description{
 Function to parse date arguments for other functions.

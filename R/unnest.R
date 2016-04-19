@@ -33,7 +33,6 @@
 #' 
 #' }
 #'
-#' @export
 unnest <- function (df, variable, pattern, trim = FALSE, reset = TRUE,
                     convert = FALSE) {
   
@@ -69,4 +68,3 @@ unnest <- function (df, variable, pattern, trim = FALSE, reset = TRUE,
   df
   
 }
-
