@@ -4,14 +4,18 @@
 \alias{download_file}
 \title{Function to download many files to a directory.}
 \usage{
-download_file(file, directory = NA, quiet = TRUE, progress = "none")
+download_file(url, directory = NA, file_output = NA, quiet = TRUE,
+  progress = "none")
 }
 \arguments{
-\item{file}{File name/URL of files to download.}
+\item{url}{URL/file name of file to download.}
 
-\item{directory}{Name of destination directory where files are to be downloaded
-to. If \code{directory} is not used, the current working directory will be 
+\item{directory}{Name of destination directory where files are to be 
+downloaded to. If \code{directory} is not used, the working directory will be
 the destination.}
+
+\item{file_output}{Name of downloaded files. \code{file_output} should be the
+same length as \code{url}. If not used, the \code{url} basename will be used.}
 
 \item{quiet}{Should \code{download.file}'s messages be suppressed? Default is
 \code{TRUE}.}
@@ -31,11 +35,19 @@ destination directory if it does not exist.
 url <- "http://cdr.eionet.europa.eu/lv/eu/aqd/d/envvfk_0q/REP_D-LV_LEGMC_20150911_D-001.xml"
 download_file(url, "downloaded/")
 
+
 # Download many files with information
 url <- c("http://cdr.eionet.europa.eu/lv/eu/aqd/d/envvfk_0q/REP_D-LV_LEGMC_20150911_D-001.xml",
          "http://cdr.eionet.europa.eu/lv/eu/aqd/g/envvnkijg/REP_D-LV_LEGMC_20151222_G-001.xml")
          
 download_file(url, "downloaded/", quiet = FALSE)
+
+
+# Use a vector for filenames
+file_names <- c("file_one.xml", "file_two.xml")
+
+# Download
+download_file(url, "downloaded/", file_names, quiet = FALSE)
 
 }
 

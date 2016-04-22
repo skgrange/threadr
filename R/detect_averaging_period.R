@@ -5,8 +5,8 @@
 #' @export
 detect_averaging_period <- function(date, skip = 1, n = 100) {
   
-  if (!lubridate::is.POSIXt(date)) stop("'date' must be a POSIXt date.", 
-                                        call. = FALSE)
+  if (!lubridate::is.POSIXt(date))
+    stop("'date' must be a POSIXt date.", call. = FALSE)
   
   # Get vectors
   # Skip if needed

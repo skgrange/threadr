@@ -42,7 +42,7 @@ parse_date_arguments <- function(date, type, tz = "UTC") {
     }
     
     # Parse date
-    date <- lubridate::parse_date_time(date, c("ymd", "dmy"))
+    date <- lubridate::parse_date_time(date, c("ymd", "dmy"), tz = tz)
     
   }
   
