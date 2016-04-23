@@ -61,3 +61,42 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
   x
   
 }
+
+
+#' Function to parse Microsoft Excel's numeric date. 
+#' 
+#' Depending on what version of Microsoft Excel, there are two origins used. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param x Numeric vector. 
+#' @param tz Time-zone. Default is \code{"UTC"}. 
+#' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
+#' \code{"os_x_2007"}. 
+#' 
+#' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow}
+#' 
+#' @export
+parse_excel_date <- function(x, tz = "UTC", type = "windows") {
+  
+  # Check again
+  type <- stringr::str_to_lower(type)
+  type <- stringr::str_replace_all(type, "\\.| ", "_")
+  
+  if (!type %in% c("windows", "os_x_2007")) 
+    stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  
+  # To numeric
+  if (!class(x) == "numeric") x <- as.numeric(x)
+  
+  # To unix time, different origins depending on version
+  if (type == "windows") x <- (x - 25569) * 86400
+  if (type == "os_x_2007") x <- (x - 24107) * 86400
+  
+  # To POSIXct
+  x <- parse_unix_time(x, tz = tz)
+  
+  # Return
+  x
+  
+}

@@ -31,7 +31,7 @@ date_sequence <- function(days = -1, character = TRUE, today = TRUE, sep = "-") 
   if (sep != "-") character <- TRUE
   
   # Get system date
-  date_system <- lubridate::ymd(Sys.Date())
+  date_system <- lubridate::ymd(Sys.Date(), tz = "UTC")
   
   if (days < 0) {
     
@@ -53,7 +53,8 @@ date_sequence <- function(days = -1, character = TRUE, today = TRUE, sep = "-") 
   # Make a character
   if (character) date_sequence <- as.character(date_sequence)
   
-  if (sep != "-") date_sequence <- stringr::str_replace_all(date_sequence, "-", sep)
+  if (sep != "-") 
+    date_sequence <- stringr::str_replace_all(date_sequence, "-", sep)
   
   # Return
   date_sequence

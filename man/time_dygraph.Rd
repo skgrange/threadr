@@ -5,7 +5,7 @@
 \title{Function for plotting interactive time-series plots in a similar way to
 \code{\link{timePlot}}.}
 \usage{
-time_dygraph(df, variable = "value", colour = "red", range = TRUE,
+time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
   ylab = NA, legend_width = 400, mouse_label = NA, tz = NA,
   window = NULL)
@@ -15,7 +15,7 @@ time_dygraph(df, variable = "value", colour = "red", range = TRUE,
 
 \item{variable}{Variable(s) in \code{df} to plot. Default is \code{"value"}.}
 
-\item{colour}{Coluor of plotted geometry.}
+\item{colour}{Colour of plotted geometry.}
 
 \item{range}{Should a range selector be plotted? Default is \code{TRUE}.}
 

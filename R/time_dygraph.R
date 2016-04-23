@@ -5,7 +5,7 @@
 #' 
 #' @param variable Variable(s) in \code{df} to plot. Default is \code{"value"}. 
 #' 
-#' @param colour Coluor of plotted geometry. 
+#' @param colour Colour of plotted geometry. 
 #' 
 #' @param range Should a range selector be plotted? Default is \code{TRUE}.
 #' 
@@ -32,7 +32,7 @@
 #' @author Stuart K. Grange
 #' 
 #' @export
-time_dygraph <- function (df, variable = "value", colour = "red", 
+time_dygraph <- function (df, variable = "value", colour = "dodgerblue", 
                           range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
                           color = colour, ylab = NA, legend_width = 400,
                           mouse_label = NA, tz = NA, window = NULL) {
@@ -43,7 +43,7 @@ time_dygraph <- function (df, variable = "value", colour = "red",
   if (is.na(mouse_label) & length(mouse_label) == 1) mouse_label <- variable
   if (is.na(tz)) tz <- time_zone(df[, "date"])
   
-  # Create timeseries objects
+  # Create time-series objects
   if (length(variable) == 1) {
     
     # Single variable
