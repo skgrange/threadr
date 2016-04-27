@@ -13,17 +13,20 @@ time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
 
-\item{variable}{Variable(s) in \code{df} to plot. Default is \code{"value"}.}
+\item{variable}{Variable in \code{df} to plot. Default is \code{"value"}. 
+\code{variable} can be a vector but faceting is not yet supported.}
 
-\item{colour}{Colour of plotted geometry.}
+\item{colour}{Colour of plotted geometry. Default is \code{"dodgerblue"}.}
 
 \item{range}{Should a range selector be plotted? Default is \code{TRUE}.}
 
-\item{step}{Should the plot take a stepped look?}
+\item{step}{Should the plot take a stepped look? Default is \code{FALSE}.}
 
-\item{points}{Should the plot include points where observations are recorded?}
+\item{points}{Should the plot include points where observations are recorded? 
+Default is \code{FALSE}.}
 
-\item{fill}{Should the plot fill between the x-axis and the geometry?}
+\item{fill}{Should the plot fill between the x-axis and the geometry? Default
+is \code{FALSE}.}
 
 \item{ylab}{String for y-axis label.}
 
@@ -35,7 +38,8 @@ name of \code{variable}.}
 \item{tz}{Timezone to display plot with. If not used, \code{tz} will use the
 time-zone of the \code{df}'s \code{"date"} variable.}
 
-\item{window}{Default range window. Uses a date vector with a length of two.}
+\item{window}{An optional range window. Uses a date vector with a length of 
+two.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to

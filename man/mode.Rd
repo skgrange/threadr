@@ -4,16 +4,18 @@
 \alias{mode}
 \title{Function to calculate mode of a vector}
 \usage{
-mode(x)
+mode(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{Input vector.}
+
+\item{na.rm}{Should \code{NA}s be omitted? Deafult is \code{FALSE}.}
 }
 \description{
 Function to calculate mode of a vector
 }
 \author{
-Ken Williams
+Ken Williams with enhancement by Stuart K. Grange
 }
 \seealso{
 \href{http://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode}{stackoverflow}

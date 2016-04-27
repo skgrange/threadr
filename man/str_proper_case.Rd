@@ -5,6 +5,7 @@
 \alias{str_date}
 \alias{str_drop_xml_tags}
 \alias{str_extract_digits}
+\alias{str_nth_character}
 \alias{str_proper_case}
 \alias{str_rm_brackets_and_contents}
 \alias{str_rm_non_ascii}
@@ -42,6 +43,8 @@ str_extract_digits(x, as.numeric = TRUE)
 str_sql_quote(x, collapse = TRUE)
 
 str_unique(x)
+
+str_nth_character(x, n)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string.
@@ -76,6 +79,9 @@ to a numeric data class if desired.
 common step for building SQL statements.
 
 \code{str_unique} will find unique characters in a string.
+
+\code{str_nth_character} will return a single character(s) from position(s) 
+for a string.
 }
 \author{
 Stuart K. Grange

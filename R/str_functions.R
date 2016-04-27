@@ -33,6 +33,9 @@
 #' 
 #' \code{str_unique} will find unique characters in a string. 
 #' 
+#' \code{str_nth_character} will return a single character(s) from position(s) 
+#' for a string. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -229,3 +232,9 @@ str_sql_quote <- function(x, collapse = TRUE) {
 #'
 #' @export
 str_unique <- function(x) unique(strsplit(x, "")[[1]])
+
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_nth_character <- function(x, n) stringr::str_sub(x, start = n, end = n)
