@@ -9,7 +9,7 @@ str_system_date <- function(tz = TRUE) {
   
   if (.Platform$OS.type == "windows") {
     
-    # Use R for Windows
+    # Use R for Windows. To-do: fix if someone asks. 
     date <- as.character(Sys.time())
     
   } else {
@@ -26,6 +26,31 @@ str_system_date <- function(tz = TRUE) {
     }
     
   }
+  
+  # Return
+  date
+  
+}
+
+
+#' Function to get system date as an numeric/integer value representing unix 
+#' time.
+#' 
+#' @param integer Should the date be represented as an integer rather than a 
+#' numeric value. Default is \code{FALSE}. 
+#' 
+#' @return Numeric or integer vector with a length of one. 
+#' 
+#' @author Stuart K. Grange 
+#' 
+#' @export
+sys_unix_time <- function(integer = FALSE) {
+  
+  # Get system time
+  date <- Sys.time()
+  
+  # To something else
+  if (integer) date <- as.integer(date) else date <- as.numeric(date)
   
   # Return
   date
