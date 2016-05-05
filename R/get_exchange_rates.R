@@ -16,9 +16,12 @@
 #' renamed as a generic "exchange_rate" rather than the currency pair string?
 #' Default is \code{TRUE}.  
 #' 
+#' @return Numeric vector with a length of one or a data frame. 
+#' 
 #' @examples
 #' 
 #' \dontrun{
+#' 
 #' # Get exchange rate of the New Zealand Dollar to the British Pound
 #' nzd_to_gbp <- get_exchange_rates("NZD/GBP")
 #' 
@@ -26,15 +29,8 @@
 #' nzd_to_gbp
 #' 0.4289
 #' 
-#' 
 #' # Get exchange rates since 2015-07-08
 #' data_exchange_rates <- get_exchange_rates("NZD/GBP", from = "2015-07-08")
-#' 
-#' head(data_exchange_rates, 3)
-#'       date exchange_rate
-#' 2015-07-08        0.4289
-#' 2015-07-09        0.4339
-#' 2015-07-10        0.4375
 #' }
 #' 
 #' @export
@@ -42,8 +38,10 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
 
   # Parse
   currencies <- stringr::str_to_upper(currencies)
+  currencies <- stringr::str_replace(currencies, "_|\\.", "/")
   
   if (is.na(from)) {
+    
     # Try system's date
     suppressWarnings(
       exchange_rate <- quantmod::getFX(
@@ -52,18 +50,21 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
     
     # If today is not available, get yesterday's
     if (length(exchange_rate) == 0) {
+      
       suppressWarnings(
         exchange_rate <- quantmod::getFX(
           currencies, from = Sys.Date() - lubridate::days(1), auto.assign = FALSE)
       )
+      
     }
     
   } else {
+    
     # Check date range, then give message if needed
-    if (lubridate::ymd(from) + lubridate::years(5) <= lubridate::ymd(Sys.Date())) {
+    if (lubridate::ymd(from, tz = "UTC") + lubridate::years(5) <= 
+        lubridate::ymd(Sys.Date(), tz = "UTC"))
       warning("This function returns a maximum of five years worth of data.", 
               call. = FALSE)
-    }
     
     # Use argument when it is used
     suppressWarnings(
@@ -75,15 +76,17 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
   
   # The returning
   if (length(exchange_rate) == 1) {
+    
     # For a single day
     exchange_rate <- as.vector(exchange_rate)
     
   } else {
+    
     # For multiple days
     # Make data frame
     exchange_rate <- data.frame(exchange_rate)
     # Get dates
-    exchange_rate$date <- lubridate::ymd(row.names(exchange_rate))
+    exchange_rate$date <- lubridate::ymd(row.names(exchange_rate), tz = "UTC")
     # Drop row names
     row.names(exchange_rate) <- NULL
     
@@ -91,10 +94,8 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
     exchange_rate <- exchange_rate[c(2, 1)]
     
     # Rename to generic variable
-    if (rename) {
-      names(exchange_rate)[2] <- "exchange_rate"
-    }
-      
+    if (rename) names(exchange_rate)[2] <- "exchange_rate"
+    
   }
   
   # Return

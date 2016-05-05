@@ -16,6 +16,9 @@ format should be \code{yyyy-mm-dd}.}
 renamed as a generic "exchange_rate" rather than the currency pair string?
 Default is \code{TRUE}.}
 }
+\value{
+Numeric vector with a length of one or a data frame.
+}
 \description{
 \code{get_exchange_rates} is a simple wrapper for \code{quantmod::getFX}. In
 default usage, \code{get_exchange_rates} returns a single numeric value for
@@ -27,6 +30,7 @@ five years from the current day.
 \examples{
 
 \dontrun{
+
 # Get exchange rate of the New Zealand Dollar to the British Pound
 nzd_to_gbp <- get_exchange_rates("NZD/GBP")
 
@@ -34,15 +38,8 @@ nzd_to_gbp <- get_exchange_rates("NZD/GBP")
 nzd_to_gbp
 0.4289
 
-
 # Get exchange rates since 2015-07-08
 data_exchange_rates <- get_exchange_rates("NZD/GBP", from = "2015-07-08")
-
-head(data_exchange_rates, 3)
-      date exchange_rate
-2015-07-08        0.4289
-2015-07-09        0.4339
-2015-07-10        0.4375
 }
 
 }

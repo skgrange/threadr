@@ -74,12 +74,13 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
 #' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
 #' \code{"os_x_2007"}. 
 #' 
-#' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow}
+#' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow},
+#' \code{\link{unix_time_to_excel_date}}
 #' 
 #' @export
 parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   
-  # Check again
+  # Check
   type <- stringr::str_to_lower(type)
   type <- stringr::str_replace_all(type, "\\.| ", "_")
   
@@ -100,3 +101,44 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   x
   
 }
+
+
+#' Function to convert unix time to a Microsoft Excel date. 
+#' 
+#' Depending on what version of Microsoft Excel, there are two origins used. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param x Numeric vector. 
+#' @param tz Time-zone. Default is \code{"UTC"}. 
+#' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
+#' \code{"os_x_2007"}. 
+#' 
+#' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow},
+#' \code{\link{parse_excel_date}}
+#' 
+#' @export
+unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
+  
+  # Check
+  type <- stringr::str_to_lower(type)
+  type <- stringr::str_replace_all(type, "\\.| ", "_")
+  
+  if (!type %in% c("windows", "os_x_2007")) 
+    stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  
+  # To numeric, why is this giving warnings? To-do figure out why.
+  suppressWarnings(
+    if (!class(x) == "numeric") x <- as.numeric(x)
+  )
+  
+  # To Excel date, different origins depending on version
+  if (type == "windows") x <- (x / 86400) + 25569
+  if (type == "os_x_2007") x <- (x / 86400) + 24107
+  
+  # Return
+  x
+  
+}
+
+
