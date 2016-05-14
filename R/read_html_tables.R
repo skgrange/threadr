@@ -28,7 +28,7 @@
 #' @export 
 read_html_tables <- function (url, n = NA, character = TRUE) {
   
-  # Get text/characters, works with https and some proxy servers
+  # Get text/characters, helps with https and some proxy servers
   if (character) url <- readLines(url, warn = FALSE)
     
   # Parse html
@@ -40,6 +40,9 @@ read_html_tables <- function (url, n = NA, character = TRUE) {
     # All tables as a list
     table <- XML::readHTMLTable(document, ignoreBlanks = FALSE, trim = FALSE,
                                 stringsAsFactors = FALSE)
+    
+    # If a single table, return as data frame
+    if (length(table) == 1) table <- table[[1]]
     
   } else {
   

@@ -78,3 +78,27 @@ excel_sheets <- function(file, quiet = FALSE) {
   x
   
 }
+
+
+#' Function to read all sheets in a Microsoft Excel workbook. 
+#' 
+#' \code{excel_read_all} will only work well if the sheets have a consistent 
+#' structure. 
+#' 
+#' @export
+excel_read_all <- function(file, sheet = NA, convert = FALSE) {
+  
+  # Get sheet vector
+  sheets <- excel_sheets(file)
+  
+  # Load all sheets into a list
+  list_file <- plyr::llply(sheets, function(x) 
+    excel_read(file, sheet = x, convert = convert))
+  
+  # Give list elements names
+  names(list_file) <- sheets
+  
+  # Return
+  list_file
+  
+}

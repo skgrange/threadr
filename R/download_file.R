@@ -94,7 +94,15 @@ download_to_directory <- function(df_map, quiet) {
 }
 
 
-# No export
+#' Function to download a file to R's temporary directory. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param url URL of a file to download. 
+#' @param quiet Should the function be quiet about its activities? Default is 
+#' \code{TRUE}. 
+#' 
+#' @export
 download_to_temporary <- function(url, quiet = TRUE) {
   
   # Get temp directory
