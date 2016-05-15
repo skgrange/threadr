@@ -4,8 +4,7 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", by = NA, round = NA, warn = TRUE,
-  merge = FALSE, do = TRUE)
+time_pad(df, interval = "hour", by = NA, round = NA, warn = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
@@ -50,6 +49,7 @@ the input data frame and the missing values are represented as \code{NA}.
 \examples{
 
 \dontrun{
+
 # Pad time-series so every minute is present
 data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 

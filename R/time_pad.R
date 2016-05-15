@@ -29,14 +29,6 @@
 #' @param warn Should the function give a warning when dates are duplicated? 
 #' Default is \code{TRUE}. 
 #' 
-#' @param merge Should the base function \code{merge} be used rather than 
-#' \strong{dplyr}'s \code{left_join}. Not really a useful option, maintained to 
-#' track performance. 
-#' 
-#' @param do Should \strong{dplyr} be used for the group-by operations? Default
-#' is \code{TRUE} and should not need to be altered. Not really a useful option, 
-#' maintained to track performance. 
-#' 
 #' @seealso See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
 #' \code{\link{round_date}}, \code{\link{left_join}}
 #' 
@@ -45,6 +37,7 @@
 #' @examples
 #' 
 #' \dontrun{
+#' 
 #' # Pad time-series so every minute is present
 #' data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 #' 
@@ -55,44 +48,39 @@
 #' }
 #' 
 #' @export
-time_pad <- function (df, interval = "hour", by = NA, round = NA, warn = TRUE, 
-                      merge = FALSE, do = TRUE) {
+time_pad <- function(df, interval = "hour", by = NA, round = NA, warn = TRUE) {
+  
+  # Get variable order
+  variables <- names(df)
   
   if (is.na(by[1])) {
     
     # No group-by needed
-    df <- padder(df, interval, by, round, merge, warn)
+    df <- padder(df, interval, by, round, merge, warn) %>% 
+      arrange_left(variables)
     
   } else {
     
-    if (do) {
-      
-      # Use dplyr
-      # Get around non-standard evaluation
-      list_dots <- lapply(by, as.symbol)
-      
-      # Pad by group
-      df <- df %>% 
-        group_by_(.dots = list_dots) %>%
-        do(padder(., 
-                  interval = interval, 
-                  by = by,
-                  round = round, 
-                  warn = warn,
-                  merge = merge))
-      
-    } else {
-      
-      # Use plyr
-      df <- plyr::ddply(df, plyr::as.quoted(by), padder, interval = interval, 
-                        by = by, round = round, warn = warn, merge = merge)
-      
-    }
+    # Get around non-standard evaluation
+    list_dots <- lapply(by, as.symbol)
+    
+    # Pad by group
+    df <- df %>% 
+      group_by_(.dots = list_dots) %>%
+      do(padder(., 
+                interval = interval, 
+                by = by,
+                round = round, 
+                warn = warn)) %>% 
+      arrange_left(variables)
     
   }
+  
+  # Drop dplyr's tbl df
+  df <- base_df(df)
 
   # Return 
-  base_df(df)
+  df
   
 }
 
@@ -100,7 +88,7 @@ time_pad <- function (df, interval = "hour", by = NA, round = NA, warn = TRUE,
 # The worker
 # 
 # No export
-padder <- function (df, interval, by, round, merge, warn) {
+padder <- function(df, interval, by, round, merge, warn) {
   
   # Check if input has a date variable
   if (!"date" %in% names(df))
@@ -113,7 +101,7 @@ padder <- function (df, interval, by, round, merge, warn) {
   
   # Check class
   if (!lubridate::is.POSIXt(df$date)) 
-    stop("'date' must be a parsed date. ", call. = FALSE)
+    stop("'date' must be a parsed date.", call. = FALSE)
   
   # Get identifiers
   if (!is.na(by[1])) {
@@ -151,21 +139,11 @@ padder <- function (df, interval, by, round, merge, warn) {
   date_sequence <- data.frame(date = date_sequence)
   
   # Do the padding
-  if (merge) {
-    
-    # Base function
-    df <- merge(date_sequence, df, by = "date", all = TRUE)
-    
-  } else{
-    
-    # Use dplyr, it is much faster
-    df <- dplyr::left_join(date_sequence, df, by = "date")
-    
-  }
-  
+  # Use dplyr, it is much faster
+  df <- dplyr::left_join(date_sequence, df, by = "date")
+
   # Overwrite identifiers
-  if (!is.na(by[1]))
-    df <- cbind(data_by, df)
+  if (!is.na(by[1])) df <- cbind(data_by, df)
   
   # Message
   if (warn) {
@@ -175,7 +153,6 @@ padder <- function (df, interval, by, round, merge, warn) {
     
   }
   
-  
   # Return
   df
   
@@ -183,7 +160,7 @@ padder <- function (df, interval, by, round, merge, warn) {
 
 
 # Function to get identifiers from a data frame
-get_identifiers <- function (df, by) {
+get_identifiers <- function(df, by) {
   
   # Catch dplyr's table so indexing works as expected
   df <- base_df(df)
