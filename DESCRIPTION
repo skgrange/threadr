@@ -1,12 +1,13 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.3.25
-Date: 2016-05-15
+Version: 0.3.26
+Date: 2016-05-16
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: A collection of utility functions threading processes together. 
 License: GPL (>= 2)
+ByteCompile: true
 Depends:
     stringr,
     lubridate,
@@ -26,7 +27,6 @@ Suggests:
     RMySQL,
     RPostgreSQL,
     openair
-ByteCompile: true
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 5.0.1

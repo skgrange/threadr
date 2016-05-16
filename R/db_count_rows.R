@@ -14,7 +14,7 @@
 db_count_rows <- function(con, table = NA, progress = FALSE) {
   
   # If no table is selected, do them all
-  if (is.na(table[1])) table <- DBI::dbListTables(con)
+  if (is.na(table[1])) table <- db_list_tables(con)
   
   progress <- switch_progress(progress)
   
@@ -36,7 +36,7 @@ row_counter <- function(table, con) {
   # Use statement
   df <- tryCatch({
     
-    DBI::dbGetQuery(con, sql)
+    db_get(con, sql)
     
   }, error = function(e) {
     

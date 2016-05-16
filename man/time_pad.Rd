@@ -24,14 +24,6 @@ Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
 
 \item{warn}{Should the function give a warning when dates are duplicated? 
 Default is \code{TRUE}.}
-
-\item{merge}{Should the base function \code{merge} be used rather than 
-\strong{dplyr}'s \code{left_join}. Not really a useful option, maintained to 
-track performance.}
-
-\item{do}{Should \strong{dplyr} be used for the group-by operations? Default
-is \code{TRUE} and should not need to be altered. Not really a useful option, 
-maintained to track performance.}
 }
 \description{
 \code{time_pad} use is similar to \strong{openair}'s \code{timeAverage}, but
