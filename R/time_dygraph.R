@@ -30,16 +30,19 @@
 #' 
 #' @param window An optional range window. Uses a date vector with a length of 
 #' two. 
+#' 
+#' @param group An optional grouping string for when multiple plots are to be 
+#' connected when rendered in an HTML document. 
 #'
-#' @seealso \code{\link{timePlot}}
+#' @seealso \code{\link{timePlot}}, \code{\link{dygraph}}
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @export
-time_dygraph <- function (df, variable = "value", colour = "dodgerblue", 
-                          range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
-                          color = colour, ylab = NA, legend_width = 400,
-                          mouse_label = NA, tz = NA, window = NULL) {
+time_dygraph <- function(df, variable = "value", colour = "dodgerblue", 
+                         range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
+                         color = colour, ylab = NA, legend_width = 400,
+                         mouse_label = NA, tz = NA, window = NULL, group = NULL) {
   
   # Check
   if (nrow(df) == 0) stop("No data to plot.", call. = FALSE)
@@ -81,7 +84,7 @@ time_dygraph <- function (df, variable = "value", colour = "dodgerblue",
   }
   
   # Plot
-  plot <- dygraphs::dygraph(time_series) %>%  
+  plot <- dygraphs::dygraph(time_series, group = group) %>%  
     dygraphs::dyOptions(colors = colour, stepPlot = step, fillGraph = fill, 
                         useDataTimezone = TRUE) %>% 
     dygraphs::dySeries(label = mouse_label, drawPoints = points) %>% 

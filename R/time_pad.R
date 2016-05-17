@@ -34,6 +34,8 @@
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @import dplyr
+#' 
 #' @examples
 #' 
 #' \dontrun{

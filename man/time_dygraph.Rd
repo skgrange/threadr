@@ -8,7 +8,7 @@
 time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
   ylab = NA, legend_width = 400, mouse_label = NA, tz = NA,
-  window = NULL)
+  window = NULL, group = NULL)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
@@ -40,6 +40,9 @@ time-zone of the \code{df}'s \code{"date"} variable.}
 
 \item{window}{An optional range window. Uses a date vector with a length of 
 two.}
+
+\item{group}{An optional grouping string for when multiple plots are to be 
+connected when rendered in an HTML document.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to
@@ -49,6 +52,6 @@ Function for plotting interactive time-series plots in a similar way to
 Stuart K. Grange
 }
 \seealso{
-\code{\link{timePlot}}
+\code{\link{timePlot}}, \code{\link{dygraph}}
 }
 
