@@ -49,6 +49,6 @@ devtools::install_github("skgrange/threadr")
   - Wrappers for database functions:
     - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`. 
     
-  - Wrappers for Microsoft Excel reading functions (from *readxl*)
+  - Wrappers for Microsoft Excel reading functions (from **readxl**)
     - `excel_read`, `excel_sheets`, and `excel_read_all`
 
