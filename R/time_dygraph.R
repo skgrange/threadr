@@ -66,7 +66,7 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
     df <- df[, c("date", variable)]
     
     # Promote
-    list_ts <- data_frame_to_timeseries(df)
+    list_ts <- data_frame_to_timeseries(df, tz = tz)
     
     # Bind
     time_series <- do.call(cbind, list_ts)

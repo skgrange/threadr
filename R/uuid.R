@@ -28,6 +28,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' # Get a single identifier
 #' identifier <- uuid()
 #' 
@@ -39,25 +40,27 @@
 #' data_ozone$uuid <- uuid_rowwise(data_ozone)
 #' 
 #' }
+#' 
+#' @import stringr
 #'
 #' @export
 uuid <- function(uppercase = FALSE, sep = "-") {
   
   # Generate hexadecimal symbols
   hex_digits <- c(as.character(0:9), letters[1:6])
-  hex_digits <- if (uppercase) toupper(hex_digits) else hex_digits
+  hex_digits <- if (uppercase) str_to_upper(hex_digits) else hex_digits
   
   # 
   y_digits <- hex_digits[9:12]
   
-  string <- stringr::str_c(
-    stringr::str_c(sample(hex_digits, 8, replace = TRUE), collapse = ""),
-    stringr::str_c(sample(hex_digits, 4, replace = TRUE), collapse = ""),
-    stringr::str_c("4", stringr::str_c(sample(hex_digits, 3, replace = TRUE), 
-                     collapse = ""), collapse = ""),
-    stringr::str_c(sample(y_digits, 1), stringr::str_c(sample(hex_digits, 3, replace = TRUE), 
+  string <- str_c(
+    str_c(sample(hex_digits, 8, replace = TRUE), collapse = ""),
+    str_c(sample(hex_digits, 4, replace = TRUE), collapse = ""),
+    str_c("4", str_c(sample(hex_digits, 3, replace = TRUE), collapse = ""), 
+          collapse = ""),
+    str_c(sample(y_digits, 1), str_c(sample(hex_digits, 3, replace = TRUE), 
                                      collapse = ""), collapse = ""),
-    stringr::str_c(sample(hex_digits, 12, replace = TRUE), collapse = ""),
+    str_c(sample(hex_digits, 12, replace = TRUE), collapse = ""),
     sep = sep)
   
   # Return
@@ -70,4 +73,3 @@ uuid <- function(uppercase = FALSE, sep = "-") {
 #' 
 #' @export
 uuid_rowwise <- function(df) replicate(nrow(df), uuid())
-

@@ -35,6 +35,7 @@ in a data frame with unique uuids can be generated conveniently.
 }
 \examples{
 \dontrun{
+
 # Get a single identifier
 identifier <- uuid()
 

@@ -24,16 +24,20 @@ devtools::install_github("skgrange/threadr")
     - FTP/SFTP functions. 
       - `list_files_ftp`, `download_ftp_file`, and `upload_to_ftp`.
     - `str_*` functions. Do things with strings which **stringr** does not. 
-      - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`. 
+      - `str_proper_case`, `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
     - Test if a vector is within one or many ranges `within_range`.
+    - Enhanced downloading functions (`download_file` and `download_to_temporary`). 
+    - Create UUIDs with `uuid`. 
 
   - Date functions
     - Pad time-series to different intervals with `time_pad`. 
     - Make an irregular time-series regular with `time_pad_irregular`. 
     - Round dates to arbitrary time intervals such as 5-seconds, 5-minutes, 15-minutes, 2-minutes, 30-minutes (etc.) with `round_date_interval`.
     - Get Monday-based weeks of the year with `week_monday`. 
+    - Get time-zone from date vector with `time_zone`
+    - Parse numerical date formats easily with `parse_unix_time` and `parse_excel_date`
     
   - Data frame functions: 
     - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged and joined easier. 
@@ -44,48 +48,7 @@ devtools::install_github("skgrange/threadr")
     
   - Wrappers for database functions:
     - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`. 
+    
+  - Wrappers for Microsoft Excel reading functions (from *readxl*)
+    - `excel_read`, `excel_sheets`, and `excel_read_all`
 
-## Some examples
-
-### Padding time-series
-
-When dealing with time-series data, often an important thing to do is to ensure that the time-series is uniform or regular, *i.e.* check if all dates which occurred during the period of observation are present. `time_pad` is a robust function which does exactly that. There are also helpful extensions such as starting the time-series at the beginning of a hour/day/month/year, and ensuring that identifying variables are added to the data after time-padding has occurred.
-
-```
-# Set-up
-library(threadr)
-
-# Load data
-data_air <- read.csv("oxford_road_air_quality_data.csv")
-
-# Parse dates
-data_air$date <- ymd_hms(data_air$date)
-
-# Pad time-series by groups
-data_air_pad <- time_pad(data_air, interval = "hour", by = c("site", "site_name"), 
-                         round = "day")
-```
-
-### Round dates to arbitrary time intervals
-
-Dealing with multiple data sources which have observations at different time intervals can be frustrating. More frustration can occur when the different data sources begin at an unhelpful times such as `2015-07-10 09:21:42`. `round_time_interval` allows issues likes these to be resolved to allow for future joining or aggregation of values from different sources.
-
-```
-# Set-up
-library(threadr)
-
-# Load data
-data_gps <- read.csv("gps_track_data.csv")
-data_sensor <- read.csv("co2_sensor_data.csv")
-
-# Parse dates
-data_gps$date <- ymd_hms(data_gps$date)
-data_sensor$date <- ymd_hms(data_sensor$date)
-
-# Round both data sources to 5-second intervals
-data_gps_clean$date <- round_date_interval(data_gps_clean$date, "5 sec")
-data_sensor_clean$date <- round_date_interval(data_gps_sensor$date, "5 sec")
-
-# Join data
-data_join <- merge(data_gps_clean, data_sensor_clean, by = "date", all = TRUE)
-```
