@@ -80,6 +80,11 @@ download_file <- function(url, directory = NA, file_output = NA, quiet = TRUE,
 }
 
 
+#' @rdname download_file
+#' @export
+download_files <- download_file
+
+
 # No export
 download_to_directory <- function(df_map, quiet) {
   

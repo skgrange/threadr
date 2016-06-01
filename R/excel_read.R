@@ -50,10 +50,14 @@ excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL,
     
   }
   
-  # Data types
-  if (convert) 
+  # Data types, let R do the work
+  if (convert) {
+    
+    df[] <- lapply(df, function(x) ifelse(x == "NA", NA, x))
     df[] <- lapply(df, function(x) type.convert(as.character(x), as.is = TRUE))
-  
+    
+  }
+    
   # Return
   df
   

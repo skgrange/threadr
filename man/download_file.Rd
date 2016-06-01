@@ -2,9 +2,13 @@
 % Please edit documentation in R/download_file.R
 \name{download_file}
 \alias{download_file}
+\alias{download_files}
 \title{Function to download many files to a directory.}
 \usage{
 download_file(url, directory = NA, file_output = NA, quiet = TRUE,
+  progress = "none")
+
+download_files(url, directory = NA, file_output = NA, quiet = TRUE,
   progress = "none")
 }
 \arguments{
