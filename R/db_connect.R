@@ -20,6 +20,10 @@
 #' attempt to connect to \code{file} directly. This is used for \code{SQLite}
 #' databases which require no configuration. 
 #' 
+#' @param foreign_keys A logical for SQLite databases where foreign keys should 
+#' be enforced. Default is \code{TRUE}. For other database types, this will be 
+#' ignored. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples
@@ -50,7 +54,7 @@
 #' }
 #' 
 #' @export
-db_connect <- function(file, database, config = TRUE) {
+db_connect <- function(file, database, config = TRUE, foreign_keys = TRUE) {
   
   if (config) {
     
@@ -86,6 +90,9 @@ db_connect <- function(file, database, config = TRUE) {
     
     # sqlite databases, only need a path
     con <- DBI::dbConnect(RSQLite::SQLite(), file)
+    
+    # Add support for foreign keys
+    if (foreign_keys) db_send(con, "PRAGMA foreign_keys = 1")
     
   }
   
