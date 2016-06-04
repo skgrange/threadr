@@ -33,4 +33,3 @@ grepl_all <- function(df, pattern, ignore.case = FALSE) {
   logical_vector
   
 }
-
