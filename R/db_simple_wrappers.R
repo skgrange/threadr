@@ -62,5 +62,4 @@ db_clear_results <- function(con) DBI::dbClearResult(db_list_results(con))
 #' 
 #' @param con Database connection.
 #' 
-#' @export
 db_commit <- function(con) DBI::dbCommit(con)

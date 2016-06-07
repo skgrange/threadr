@@ -4,7 +4,7 @@
 \alias{db_connect}
 \title{Function to create a database connection with a JSON configuration file.}
 \usage{
-db_connect(file, database, config = TRUE, foreign_keys = TRUE)
+db_connect(file, database, config = TRUE, foreign_keys = FALSE)
 }
 \arguments{
 \item{file}{\code{JSON} file or string containing database connection 
@@ -19,7 +19,7 @@ attempt to connect to \code{file} directly. This is used for \code{SQLite}
 databases which require no configuration.}
 
 \item{foreign_keys}{A logical for SQLite databases where foreign keys should 
-be enforced. Default is \code{TRUE}. For other database types, this will be 
+be enforced. Default is \code{FALSE}. For other database types, this will be 
 ignored.}
 }
 \description{

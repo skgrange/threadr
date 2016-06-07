@@ -2,25 +2,27 @@
 % Please edit documentation in R/split_nrow.R
 \name{split_nrow}
 \alias{split_nrow}
-\title{Function to split a data frame into a list with \emph{n} elements based on 
-number of rows.}
+\title{Function to split a data frames and vectors into lists with \emph{n} elements
+based on number of rows or length.}
 \usage{
 split_nrow(df, rows)
 }
 \arguments{
-\item{df}{Data frame to be split.}
+\item{df}{Data frame to be split. \code{df} can also be a vector.}
 
-\item{rows}{Number of rows for \code{df} to be split by.}
+\item{rows}{Number of rows for \code{df} to be split by. In the case of a 
+vector, \code{rows} is length.}
 }
 \value{
 list with \emph{n} elements.
 }
 \description{
-Function to split a data frame into a list with \emph{n} elements based on 
-number of rows.
+Function to split a data frames and vectors into lists with \emph{n} elements
+based on number of rows or length.
 }
 \examples{
 \dontrun{
+
 # Split a large data frame into chunks
 data_large_list <- split_nrow(data_large, 500000)
 

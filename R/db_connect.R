@@ -21,7 +21,7 @@
 #' databases which require no configuration. 
 #' 
 #' @param foreign_keys A logical for SQLite databases where foreign keys should 
-#' be enforced. Default is \code{TRUE}. For other database types, this will be 
+#' be enforced. Default is \code{FALSE}. For other database types, this will be 
 #' ignored. 
 #' 
 #' @author Stuart K. Grange
@@ -54,7 +54,7 @@
 #' }
 #' 
 #' @export
-db_connect <- function(file, database, config = TRUE, foreign_keys = TRUE) {
+db_connect <- function(file, database, config = TRUE, foreign_keys = FALSE) {
   
   if (config) {
     
