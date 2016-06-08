@@ -1,7 +1,7 @@
 #' Function to convert integers to binary strings. 
 #' 
-#' \code{as_binary} converts integers to their binary representation. 
-#' \code{as_binary} is vectorised.
+#' \code{as_binary} converts integers to their binary representation and is 
+#' vectorised.
 #'
 #' \code{as_binary} does not work for integers which are larger than 32 bit. 
 #' To-do: Fix this. 
@@ -35,7 +35,7 @@ as_binary <- function(x, n = 32)
   unlist(lapply(x, function(x) integer_to_binary(x, n)))
 
 
-  # Main function to convert integers to binary
+# Main function to convert integers to binary
 # No export
 integer_to_binary <- function(x, n) {
   
