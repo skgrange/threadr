@@ -36,6 +36,8 @@
 #' \code{str_nth_character} will return a single character(s) from position(s) 
 #' for a string. 
 #' 
+#' \code{str_create_na} will convert "NA" and "" into \code{NA}. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -98,7 +100,7 @@ str_rm_non_ascii <- function(x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", ""
 str_trim_length <- function(string, length) {
   
   # Vectorise the trimming function
-  string <- lapply(string, function (x) trim(x, length))
+  string <- lapply(string, function(x) trim(x, length))
   string <- unlist(string)
   string
   
@@ -117,12 +119,12 @@ str_sentence_case <- function(x) {
   # Get first character
   first <- substring(x, 1, 1)
   # Capitialise
-  first <- toupper(first)
+  first <- stringr::str_to_upper(first)
   
   # Get other characters
   other_characters <- substring(x, 1 + 1)
   # Lower case
-  other_characters <- tolower(other_characters)
+  other_characters <- stringr::str_to_lower(other_characters)
   
   # Combine again
   x <- stringr::str_c(first, other_characters)
@@ -238,3 +240,9 @@ str_unique <- function(x) unique(strsplit(x, "")[[1]])
 #'
 #' @export
 str_nth_character <- function(x, n) stringr::str_sub(x, start = n, end = n)
+
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_create_na <- function(x) ifelse(x %in% c("NA", ""), NA, x)

@@ -7,7 +7,7 @@
 #' 
 #' @author Ken Williams with enhancement by Stuart K. Grange
 #' 
-#' @export
+#' No export
 mode <- function(x, na.rm = FALSE) {
   
   if (na.rm) x <- na.omit(x)

@@ -2,6 +2,7 @@
 % Please edit documentation in R/str_functions.R
 \name{str_proper_case}
 \alias{str_chop}
+\alias{str_create_na}
 \alias{str_date}
 \alias{str_drop_xml_tags}
 \alias{str_extract_digits}
@@ -45,6 +46,8 @@ str_sql_quote(x, collapse = TRUE)
 str_unique(x)
 
 str_nth_character(x, n)
+
+str_create_na(x)
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string.
@@ -82,6 +85,8 @@ common step for building SQL statements.
 
 \code{str_nth_character} will return a single character(s) from position(s) 
 for a string.
+
+\code{str_create_na} will convert "NA" and "" into \code{NA}.
 }
 \author{
 Stuart K. Grange

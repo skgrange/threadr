@@ -12,8 +12,8 @@ as_binary(x, n = 32)
 \item{n}{Number of digits/bits to return. Default is 32.}
 }
 \description{
-\code{as_binary} converts integers to their binary representation. 
-\code{as_binary} is vectorised.
+\code{as_binary} converts integers to their binary representation and is 
+vectorised.
 }
 \details{
 \code{as_binary} does not work for integers which are larger than 32 bit. 

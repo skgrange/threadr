@@ -30,8 +30,8 @@ db_count_rows <- function(con, table = NA, progress = FALSE) {
 # Function to get the row counts
 row_counter <- function(table, con) {
   
-  # Create statement
-  sql <- stringr::str_c("SELECT COUNT(*) AS row_count FROM ", table)
+  # Create statement, use text so 32 bit integers are not a limitation
+  sql <- stringr::str_c("SELECT CAST(COUNT(*) AS TEXT) AS row_count FROM ", table)
   
   # Use statement
   df <- tryCatch({
