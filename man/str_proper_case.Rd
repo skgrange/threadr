@@ -12,6 +12,7 @@
 \alias{str_rm_non_ascii}
 \alias{str_sentence_case}
 \alias{str_sql_quote}
+\alias{str_thousands_separator}
 \alias{str_trim_length}
 \alias{str_trim_many_spaces}
 \alias{str_underscore}
@@ -48,6 +49,8 @@ str_unique(x)
 str_nth_character(x, n)
 
 str_create_na(x)
+
+str_thousands_separator(x, sep = " ")
 }
 \description{
 \code{str_proper_case} capitalises the first letter of every word in a string.
@@ -87,6 +90,9 @@ common step for building SQL statements.
 for a string.
 
 \code{str_create_na} will convert "NA" and "" into \code{NA}.
+
+\code{str_thousands_separator} will add thousands separators to a string or 
+numeric vector.
 }
 \author{
 Stuart K. Grange

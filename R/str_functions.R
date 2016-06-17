@@ -38,6 +38,9 @@
 #' 
 #' \code{str_create_na} will convert "NA" and "" into \code{NA}. 
 #' 
+#' \code{str_thousands_separator} will add thousands separators to a string or 
+#' numeric vector. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -246,3 +249,10 @@ str_nth_character <- function(x, n) stringr::str_sub(x, start = n, end = n)
 #'
 #' @export
 str_create_na <- function(x) ifelse(x %in% c("NA", ""), NA, x)
+
+
+#' @rdname str_proper_case
+#'
+#' @export
+str_thousands_separator <- function(x, sep = " ") 
+  format(x, big.mark = sep, scientific = FALSE)
