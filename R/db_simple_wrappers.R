@@ -1,14 +1,3 @@
-#' Function to send a statement to a database. 
-#' 
-#' \code{db_send} is a wrapper for \code{DBI::dbSendQuery}. 
-#' 
-#' @param con Database connection. 
-#' @param statement Statement to send to \code{con}. 
-#' 
-#' @export
-db_send <- function(con, statement) DBI::dbSendQuery(con, statement)
-
-
 #' Function to get/fetch data from a database with a statement. 
 #' 
 #' \code{db_get} is a wrapper for \code{DBI::dbGetQuery}. 

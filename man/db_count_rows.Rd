@@ -4,7 +4,7 @@
 \alias{db_count_rows}
 \title{Function to get row counts from database tables.}
 \usage{
-db_count_rows(con, table = NA, progress = FALSE)
+db_count_rows(con, table = NA, progress = "none")
 }
 \arguments{
 \item{con}{Database connection}
@@ -12,11 +12,11 @@ db_count_rows(con, table = NA, progress = FALSE)
 \item{table}{Table name in \code{con}. If \code{table} is unknown, all tables
 in \code{con} will be queried.}
 
-\item{progress}{Progress bar. Should a progress bar be shown? Default is 
-\code{FALSE}.}
+\item{progress}{Type of progress bar to display. Default is \code{"none"}.}
 }
 \description{
-Function to get row counts from database tables.
+The \code{row_count} variable will be a string rather than an integer to 
+avoid integer overflow issues.
 }
 \author{
 Stuart K. Grange

@@ -254,5 +254,5 @@ str_create_na <- function(x) ifelse(x %in% c("NA", ""), NA, x)
 #' @rdname str_proper_case
 #'
 #' @export
-str_thousands_separator <- function(x, sep = " ") 
-  format(x, big.mark = sep, scientific = FALSE)
+str_thousands_separator <- function(x, sep = " ")
+  format(as.numeric(x), big.mark = sep, scientific = FALSE)

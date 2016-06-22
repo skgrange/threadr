@@ -19,6 +19,9 @@
 #' @param convert Should \code{type.convert} be run on the returned data frame? 
 #' This can help to get correct data-types. 
 #' 
+#' @param comment_character A single character which marks observations (rows)
+#' which should be dropped. 
+#' 
 #' @param quiet Should the the reader's \code{cat} output be discarded?
 #' 
 #' @author Stuart K. Grange
@@ -26,7 +29,7 @@
 #' @export
 excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL, 
                        na = "", skip = 0, clean = TRUE, convert = FALSE,
-                       quiet = FALSE) {
+                       comment_character = NULL, quiet = FALSE) {
   
   # Read sheet
   if (quiet) {
@@ -55,6 +58,17 @@ excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL,
     
     df[] <- lapply(df, function(x) ifelse(x == "NA", NA, x))
     df[] <- lapply(df, function(x) type.convert(as.character(x), as.is = TRUE))
+    
+  }
+  
+  # Remove commented observations
+  if (!is.null(comment_character)) {
+    
+    # Get index of commented observations
+    index <- grepl(stringr::str_c("^", comment_character), df[, 1])
+    
+    # Remove
+    df <- df[!index, ]
     
   }
     

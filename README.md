@@ -40,15 +40,14 @@ devtools::install_github("skgrange/threadr")
     - Parse numerical date formats easily with `parse_unix_time` and `parse_excel_date`.
     
   - Data frame functions: 
-    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged and joined easier. 
+    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged, joined, and plotted easier. 
     - `arrange_left`. Move variables/columns to the left of a data frame. 
     - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases and using data frame indexing. 
     - `drop_na_columns` and `rm_na_rows`.
     - `grepl_all`
     
   - Wrappers for database functions:
-    - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`, `db_vacuum`. 
+    - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`, `db_vacuum`, `db_head`, `db_list_variables`, `db_vacuum`, `db_read_table`, `db_insert`, `read_sql` and `db_use_sql`. 
     
   - Wrappers for Microsoft Excel reading functions (from **readxl**)
     - `excel_read`, `excel_sheets`, and `excel_read_all`.
-
