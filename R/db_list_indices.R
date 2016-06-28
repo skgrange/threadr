@@ -17,13 +17,17 @@ db_list_indices <- function(con, table = NA) {
   if (grepl("sqlite", class(con), ignore.case = TRUE))
     df <- plyr::ldply(tables, function(x) index_query_er(con, x))
   
+  # Postgres
+  if (grepl("postgres", class(con), ignore.case = TRUE))
+    df <- db_get(con, "SELECT * FROM pg_indexes")
+  
   # Return
   df
   
 }
 
 
-# Only for SQLite at the moment
+# For SQLite
 # No export
 index_query_er <- function(con, table) {
   

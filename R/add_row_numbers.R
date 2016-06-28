@@ -32,6 +32,8 @@ add_row_numbers <- function(df, name = "row_number") {
   # Create sequence of integers
   sequence <- seq.int(1, to = nrow(df))
   
+  # if (start != 1) sequence <- sequence + start
+  
   # Add sequence to data frame
   df[, name] <- sequence
   

@@ -12,6 +12,9 @@ db_table_names(con, table)
 
 \item{table}{Database table.}
 }
+\value{
+Data frame with no observations, only headers.
+}
 \description{
 \code{db_table_names} is useful when preparing a data frame for a SQL insert.
 If a database table is empty, this function can fail on some databases. To-do:
