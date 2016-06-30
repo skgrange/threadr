@@ -1,12 +1,12 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.3.41
-Date: 2016-06-28
+Version: 0.4.0
+Date: 2016-06-30
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
-Description: A collection of utility functions threading processes together. 
+Description: A collection of utility functions to thread processes together. 
 License: GPL (>= 2)
 ByteCompile: true
 Depends:
@@ -16,17 +16,13 @@ Depends:
     dplyr
 Imports:
     jsonlite,
-    RCurl,
     dygraphs,
+    RCurl,
     XML,
     readxl,
     testthat,
-    quantmod,
-    DBI
+    quantmod
 Suggests:
-    RSQLite,
-    RMySQL,
-    RPostgreSQL,
     openair
 LazyLoad: yes
 LazyData: true

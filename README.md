@@ -46,8 +46,8 @@ devtools::install_github("skgrange/threadr")
     - `drop_na_columns` and `rm_na_rows`.
     - `grepl_all`
     
-  - Wrappers for database functions:
-    - `db_connect`, `db_send`, `db_get`, `db_insert`, `db_contents`, `db_count_rows`, `db_vacuum`, `db_head`, `db_list_variables`, `db_vacuum`, `db_read_table`, `db_insert`, `read_sql` and `db_use_sql`. 
-    
   - Wrappers for Microsoft Excel reading functions (from **readxl**)
     - `excel_read`, `excel_sheets`, and `excel_read_all`.
+
+  - **threadr** originally contained many database functions. These function were pulled from the package from version 0.4.0 onwards and can now be found in [**databaser**](https://github.com/skgrange/databaser).  
+

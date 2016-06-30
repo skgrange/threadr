@@ -35,18 +35,35 @@
 #' 
 #' @export
 get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
-
+  
   # Parse
   currencies <- stringr::str_to_upper(currencies)
   currencies <- stringr::str_replace(currencies, "_|\\.", "/")
   
   if (is.na(from)) {
     
-    # Try system's date
-    suppressWarnings(
-      exchange_rate <- quantmod::getFX(
-        currencies, from = Sys.Date(), auto.assign = FALSE)
-    )
+    exchange_rate <- tryCatch({
+      
+      suppressWarnings(
+        quantmod::getFX(currencies, from = Sys.Date(), auto.assign = FALSE)
+      )
+      
+    }, error = function(e) {
+      
+      # getFX can fail on the command line due to an issue with libcurl-
+      # Get original
+      option_download <- options()$download.file.method
+      
+      # Set
+      options(download.file.method = "wget")
+      
+      # Try the function again
+      # Return
+      suppressWarnings(
+        quantmod::getFX(currencies, from = Sys.Date(), auto.assign = FALSE)
+      )
+      
+    })
     
     # If today is not available, get yesterday's
     if (length(exchange_rate) == 0) {
@@ -97,6 +114,9 @@ get_exchange_rates <- function (currencies, from = NA, rename = TRUE) {
     if (rename) names(exchange_rate)[2] <- "exchange_rate"
     
   }
+  
+  # Set download method again
+  if (exists("option_download")) options(download.file.method = option_download)
   
   # Return
   exchange_rate

@@ -248,7 +248,7 @@ str_nth_character <- function(x, n) stringr::str_sub(x, start = n, end = n)
 #' @rdname str_proper_case
 #'
 #' @export
-str_create_na <- function(x) ifelse(x %in% c("NA", ""), NA, x)
+str_create_na <- function(x) ifelse(x %in% c("NA", "", " "), NA, x)
 
 
 #' @rdname str_proper_case

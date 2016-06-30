@@ -92,7 +92,21 @@ download_to_directory <- function(df_map, quiet) {
   file <- file.path(df_map$directory, df_map$file_output)
   
   # Download file
-  download.file(df_map$url, file, quiet = quiet)
+  tryCatch({
+    
+    download.file(df_map$url, file, quiet = quiet)  
+    
+  }, warning = function(w) {
+    
+    # Make errors only warnings
+    warning(stringr::str_c(df_map$url, " was not found."), call. = FALSE)
+    
+  }, error = function(e) {
+    
+    # Errors will not stop function
+    invisible()
+    
+  })
   
   # No return
   
