@@ -4,13 +4,7 @@
 \alias{uuid}
 \alias{uuid_rowwise}
 \title{Function to generate randomly generated universally unique identifiers 
-(UUIDs). 
- 
-A UUID is usually considered 32 lowercase hexadecimal digits displayed in 
-five groups separated by hyphens (a total of 36 characters). The number of 
-characters in the five groups are 8-4-4-4-12. There are about 3.4 x 10 ^ 38 
-possible UUID combinations, therefore it is unlikely that two UUIDs will be 
-identical.}
+(UUIDs).}
 \usage{
 uuid(uppercase = FALSE, sep = "-")
 
@@ -26,10 +20,16 @@ Default is hyphens (-).}
 \item{df}{Input data frame for row-wise transformation.}
 }
 \description{
-\code{base::sample} is used as the random number generator. Random-base 
-UUIDs are sometimes called version 4 UUIDs.
+A UUID is usually considered 32 lowercase hexadecimal digits displayed in 
+five groups separated by hyphens (a total of 36 characters). The number of 
+characters in the five groups are 8-4-4-4-12. There are about 3.4 x 10 ^ 38 
+possible UUID combinations, therefore it is unlikely that two UUIDs will be 
+identical.
 }
 \details{
+\code{base::sample} is used as the random number generator. Random-base 
+UUIDs are sometimes called version 4 UUIDs.
+
 The \code{uuid_rowwise} function uses \code{replicate} so a variable/column
 in a data frame with unique uuids can be generated conveniently.
 }

@@ -219,13 +219,13 @@ str_extract_digits <- function(x, as.numeric = TRUE) {
 #' @rdname str_proper_case
 #'
 #' @export
-str_sql_quote <- function(x, collapse = TRUE) {
+str_sql_quote <- function(x, collapse = ",") {
   
   # Quote strings
   x <- stringr::str_c("'", x, "'")
   
   # Make single element
-  if (collapse) x <- stringr::str_c(x, collapse = ",")
+  if (!is.na(collapse)) x <- stringr::str_c(x, collapse = collapse)
   
   # Return
   x

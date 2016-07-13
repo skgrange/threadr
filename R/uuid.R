@@ -1,6 +1,6 @@
 #' Function to generate randomly generated universally unique identifiers 
 #' (UUIDs). 
-#'  
+#' 
 #' A UUID is usually considered 32 lowercase hexadecimal digits displayed in 
 #' five groups separated by hyphens (a total of 36 characters). The number of 
 #' characters in the five groups are 8-4-4-4-12. There are about 3.4 x 10 ^ 38 

@@ -42,7 +42,7 @@ str_rm_brackets_and_contents(x, type = "round")
 
 str_extract_digits(x, as.numeric = TRUE)
 
-str_sql_quote(x, collapse = TRUE)
+str_sql_quote(x, collapse = ",")
 
 str_unique(x)
 
