@@ -12,6 +12,22 @@ test_that("Gas conversions", {
   
   expect_equal(gas_mass_to_volume(6.966383, gas = "no2"), 3.394, tolerance = 0.001)
   
+  # CO, use the unit switches
+  co_mg_m3 <- 0.479359
+  
+  expect_equal(
+    gas_mass_to_volume(co_mg_m3, gas = "co", unit_input = "mg_m3", 
+                       temperature = 20, unit_output = "ppm"), 
+    ppb_to_ppm(411.618),
+    tolerance = 0.0001
+  )
+  
+  expect_equal(
+    gas_mass_to_volume(co_mg_m3, gas = "co", unit_input = "mg_m3", 
+                       temperature = 20, unit_output = "ppb"), 411.618,
+    tolerance = 0.0001
+  )
+  
 })
 
 

@@ -17,10 +17,10 @@ gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
 \item{gas}{A string such as \code{"o3"}, \code{"co"}, or \code{"co2"} which 
 represents the input gas. This is used to find the molecular mass of a gas. 
 Every gas-species will never be supported, therefore, use the 
-\code{molecular_mass} argument if this needs to be overridden.}
+\code{molecular_mass} argument if your gas is not implmented.}
 
 \item{molecular_mass}{Molecular mass of gas in g mol-1. For example, for 
-ozone, this is 48.}
+ozone, this is 48 and for carbon monoxide this is 28.01.}
 
 \item{unit_input}{Input unit.}
 
@@ -35,29 +35,35 @@ or 25 degrees Celsius are often used.}
 }
 \description{
 Use \code{gas_volume_to_mass} when a gas concentration is in ppb or ppm and 
-ug m-3 or mg m-3 is desired.
+ug m-3 or mg m-3 is desired. Use \code{gas_mass_to_volume} when a gas 
+concentration is in ug m-3 or mg m-3 and ppb or ppm is desired.
 }
 \details{
-Use \code{gas_mass_to_volume} when a gas concentration is in ug m-3 or mg m-3
-and ppb or ppm is desired.
-
 These functions allow for input of temperatures and pressures which change 
-the coefficients used for the conversion between the unit systems.
-
-To-do: Clean-up documentation.
+the coefficients used for the conversion between the unit systems, they do
+not use published conversion factors.
 }
 \examples{
 \dontrun{
+
 # Ozone
+# From ppb
 gas_volume_to_mass(400, "o3")
+
+# To ug m-3
 gas_mass_to_volume(800, "o3")
 
-# From a monitoring site in Europe where conversions are done at 20 degreees
+# For monitoring sites in Europe where conversions are done at 20 degreees
 gas_mass_to_volume(2.24, "no", temperature = 20, unit_output = "ppb")
 gas_mass_to_volume(24.53, "no2", temperature = 20, unit_output = "ppb")
 gas_mass_to_volume(37.74, "o3", temperature = 20, unit_output = "ppb")
 
-gas_volume_to_mass(14.64, "nox", temperature = 20, unit_input = "ppb")
+# CO usually uses different units
+gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temperature = 20, 
+                   unit_output = "ppb")
+
+# NOx as NO2
+gas_volume_to_mass(14.64, "no2", temperature = 20, unit_input = "ppb")
 }
 
 }
