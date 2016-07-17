@@ -8,7 +8,7 @@
 time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
   ylab = NA, legend_width = 400, mouse_label = NA, tz = NA,
-  window = NULL, group = NULL)
+  window = NULL, group = NULL, x_reference = NA)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
@@ -43,6 +43,8 @@ two.}
 
 \item{group}{An optional grouping string for when multiple plots are to be 
 connected when rendered in an HTML document.}
+
+\item{x_reference}{Location of a x-axis reference line.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to

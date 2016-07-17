@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.4.4
-Date: 2016-07-13
+Version: 0.4.5
+Date: 2016-07-16
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -20,8 +20,7 @@ Imports:
     RCurl,
     XML,
     readxl,
-    testthat,
-    quantmod
+    testthat
 Suggests:
     openair
 LazyLoad: yes

@@ -158,7 +158,14 @@ get_fixer_codes <- function(lower = TRUE) {
   
   df <- get_fixer_latest(lower = lower)
   
+  # As vector
   x <- df$to
+  
+  # Add usd too
+  if (lower) extra <- "usd" else extra <- "USD"
+  
+  # Add 
+  x <- c(extra, x)
   
   # Return
   x

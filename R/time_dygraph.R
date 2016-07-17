@@ -33,6 +33,8 @@
 #' 
 #' @param group An optional grouping string for when multiple plots are to be 
 #' connected when rendered in an HTML document. 
+#' 
+#' @param x_reference Location of a x-axis reference line. 
 #'
 #' @seealso \code{\link{timePlot}}, \code{\link{dygraph}}
 #' 
@@ -42,7 +44,8 @@
 time_dygraph <- function(df, variable = "value", colour = "dodgerblue", 
                          range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
                          color = colour, ylab = NA, legend_width = 400,
-                         mouse_label = NA, tz = NA, window = NULL, group = NULL) {
+                         mouse_label = NA, tz = NA, window = NULL, group = NULL,
+                         x_reference = NA) {
   
   # Check
   if (nrow(df) == 0) stop("No data to plot.", call. = FALSE)
@@ -98,10 +101,19 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
     
   }
   
+  # Label for y-axis
   if (!is.na(ylab)) {
     
     plot <- plot %>% 
       dygraphs::dyAxis("y", label = ylab)
+    
+  }
+  
+  # Reference line
+  if (!is.na(x_reference)[1]) {
+    
+    plot <- plot %>% 
+      dygraphs::dyLimit(x_reference)
     
   }
   
