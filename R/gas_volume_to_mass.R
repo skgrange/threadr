@@ -6,7 +6,7 @@
 #' 
 #' These functions allow for input of temperatures and pressures which change 
 #' the coefficients used for the conversion between the unit systems, they do
-#' not use published conversion factors. 
+#' not use conversion factors. 
 #' 
 #' @param volume Gas concentration in ppb or ppm. 
 #' 
@@ -15,7 +15,7 @@
 #' @param gas A string such as \code{"o3"}, \code{"co"}, or \code{"co2"} which 
 #' represents the input gas. This is used to find the molecular mass of a gas. 
 #' Every gas-species will never be supported, therefore, use the 
-#' \code{molecular_mass} argument if your gas is not implmented. 
+#' \code{molecular_mass} argument if your gas is not implemented. 
 #' 
 #' @param molecular_mass Molecular mass of gas in g mol-1. For example, for 
 #' ozone, this is 48 and for carbon monoxide this is 28.01. 
@@ -52,6 +52,7 @@
 #' 
 #' # NOx as NO2
 #' gas_volume_to_mass(14.64, "no2", temperature = 20, unit_input = "ppb")
+#' 
 #' }
 #' 
 #' @export
@@ -173,20 +174,30 @@ gas_string_to_mass <- function(gas) {
   
   if (gas == "benzene") mass <- 78.11
   
+  if (gas %in% c("ch4", "methane")) mass <- 16.01
+  
+  # Oxygen O or O2? Use O2 here
+  if (gas == "o2") mass <- 31.9988
+  
   # Return
   mass
   
 }
 
 
+#' @rdname gas_volume_to_mass
 #' @export
 milligram_to_microgram <- function(x) x * 1000
 
+#' @rdname gas_volume_to_mass
 #' @export
 microgram_to_milligram <- function(x) x / milligram_to_microgram(1)
 
+#' @rdname gas_volume_to_mass
 #' @export
 ppb_to_ppm <- function(x) x / 1000
 
+#' @rdname gas_volume_to_mass
 #' @export
 ppm_to_ppb <- function(x) x / ppb_to_ppm(1)
+

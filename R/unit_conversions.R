@@ -302,3 +302,4 @@ marathon <- function() 42.195
 #' @export
 #' @rdname miles_to_km
 half_marathon <- function() marathon() / 2
+

@@ -11,10 +11,8 @@ parse_elapsed_time(time)
 }
 \description{
 \code{parse_elapsed_time} parses strings such as \code{"01:24:05"} (hour-
-minute-second) and \code{"54:11"} (minute-second). Useful for sports.
-}
-\details{
-To-do: Parse strings without hour, but with fractional seconds.
+minute-second) and \code{"54:11"} (minute-second). \code{parse_elapsed_time} 
+is useful for sports.
 }
 \examples{
 \dontrun{
@@ -27,6 +25,7 @@ parse_elapsed_time("54:11")
 
 # Fractional seconds are preserved
 parse_elapsed_time("01:12:11.889")
+parse_elapsed_time("20:53.25")
 
 }
 

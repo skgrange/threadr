@@ -1,8 +1,6 @@
 #' Functions to preform string operations which do not currently exist in
 #' \code{stringr}. 
 #' 
-#' \code{str_proper_case} capitalises the first letter of every word in a string. 
-#' 
 #' \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 #' 
 #' \code{str_date} returns the system's idea of the date as a character string.
@@ -10,7 +8,7 @@
 #' \code{str_trim_length} trims strings to a certain length of characters. 
 #' 
 #' \code{str_sentence_case} capitalises the first letter in a string and makes
-#' all other characters lowercase. This is different than \code{str_proper_case}. 
+#' all other characters lowercase.
 #' 
 #' \code{str_underscore} converts CamelCase and period.separated strings to
 #' lower-case underscore_separated strings. 
@@ -23,7 +21,7 @@
 #' \code{str_drop_xml_tags} removes XML tags from strings. 
 #' 
 #' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)}
-#' or \code{[} and \code{]}) and characters within them. 
+#' or \code{[} and \code{]}) and the characters within them. 
 #' 
 #' \code{str_extract_digits} will extract digits/numbers from a string and convert
 #' to a numeric data class if desired. 
@@ -33,22 +31,17 @@
 #' 
 #' \code{str_unique} will find unique characters in a string. 
 #' 
-#' \code{str_nth_character} will return a single character(s) from position(s) 
+#' \code{str_nth_character} will return single character(s) from position(s) 
 #' for a string. 
 #' 
-#' \code{str_create_na} will convert "NA" and "" into \code{NA}. 
+#' \code{str_create_na} will convert \code{"NA"}, \code{""}, and \code{" "} into
+#' \code{NA}. 
 #' 
 #' \code{str_thousands_separator} will add thousands separators to a string or 
 #' numeric vector. 
 #' 
 #' @author Stuart K. Grange
 #'
-#' @export
-str_proper_case <- function(x) stringi::stri_trans_totitle(x)
-
-
-#' @rdname str_proper_case
-#' 
 #' @export
 str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   
@@ -92,13 +85,12 @@ str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' @export
 str_rm_non_ascii <- function(x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", "")
 
 
-#' @rdname str_proper_case
-#' 
+#' @rdname str_date
 #' @export
 str_trim_length <- function(string, length) {
   
@@ -114,7 +106,7 @@ trim <- function(string, length)
   ifelse(!is.na(length), strtrim(string, length), string)
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_sentence_case <- function(x) {
@@ -138,7 +130,7 @@ str_sentence_case <- function(x) {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_underscore <- function(x) {
@@ -155,7 +147,7 @@ str_underscore <- function(x) {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
@@ -163,14 +155,14 @@ str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
 
 
 # http://stackoverflow.com/questions/2247045/chopping-a-string-into-a-vector-of-fixed-width-character-elements
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_chop <- function(string, n)
   substring(string, seq(1, nchar(string), n), seq(n, nchar(string), n))
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_drop_xml_tags <- function(string) {
@@ -182,7 +174,7 @@ str_drop_xml_tags <- function(string) {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #' 
 #' @export
 str_rm_brackets_and_contents <- function(x, type = "round") {
@@ -199,7 +191,7 @@ str_rm_brackets_and_contents <- function(x, type = "round") {
 }
   
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_extract_digits <- function(x, as.numeric = TRUE) {
@@ -216,7 +208,7 @@ str_extract_digits <- function(x, as.numeric = TRUE) {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_sql_quote <- function(x, collapse = ",") {
@@ -233,25 +225,25 @@ str_sql_quote <- function(x, collapse = ",") {
 }
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_unique <- function(x) unique(strsplit(x, "")[[1]])
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_nth_character <- function(x, n) stringr::str_sub(x, start = n, end = n)
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_create_na <- function(x) ifelse(x %in% c("NA", "", " "), NA, x)
 
 
-#' @rdname str_proper_case
+#' @rdname str_date
 #'
 #' @export
 str_thousands_separator <- function(x, sep = " ")

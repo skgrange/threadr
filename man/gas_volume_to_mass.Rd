@@ -3,6 +3,10 @@
 \name{gas_volume_to_mass}
 \alias{gas_mass_to_volume}
 \alias{gas_volume_to_mass}
+\alias{microgram_to_milligram}
+\alias{milligram_to_microgram}
+\alias{ppb_to_ppm}
+\alias{ppm_to_ppb}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
@@ -10,6 +14,14 @@ gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
 
 gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
   unit_output = "ppb", temperature = 0, pressure = 101325)
+
+milligram_to_microgram(x)
+
+microgram_to_milligram(x)
+
+ppb_to_ppm(x)
+
+ppm_to_ppb(x)
 }
 \arguments{
 \item{volume}{Gas concentration in ppb or ppm.}
@@ -17,7 +29,7 @@ gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
 \item{gas}{A string such as \code{"o3"}, \code{"co"}, or \code{"co2"} which 
 represents the input gas. This is used to find the molecular mass of a gas. 
 Every gas-species will never be supported, therefore, use the 
-\code{molecular_mass} argument if your gas is not implmented.}
+\code{molecular_mass} argument if your gas is not implemented.}
 
 \item{molecular_mass}{Molecular mass of gas in g mol-1. For example, for 
 ozone, this is 48 and for carbon monoxide this is 28.01.}
@@ -41,7 +53,7 @@ concentration is in ug m-3 or mg m-3 and ppb or ppm is desired.
 \details{
 These functions allow for input of temperatures and pressures which change 
 the coefficients used for the conversion between the unit systems, they do
-not use published conversion factors.
+not use conversion factors.
 }
 \examples{
 \dontrun{
@@ -64,6 +76,7 @@ gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temperature = 20,
 
 # NOx as NO2
 gas_volume_to_mass(14.64, "no2", temperature = 20, unit_input = "ppb")
+
 }
 
 }
