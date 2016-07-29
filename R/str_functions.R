@@ -10,8 +10,8 @@
 #' \code{str_sentence_case} capitalises the first letter in a string and makes
 #' all other characters lowercase.
 #' 
-#' \code{str_underscore} converts CamelCase and period.separated strings to
-#' lower-case underscore_separated strings. 
+#' \code{str_to_underscore} converts CamelCase and period.separated strings to
+#' lowercase underscore_separated strings. 
 #' 
 #' \code{str_trim_many_spaces} will remove excess spaces between words in a 
 #' string. 
@@ -133,7 +133,7 @@ str_sentence_case <- function(x) {
 #' @rdname str_date
 #' 
 #' @export
-str_underscore <- function(x) {
+str_to_underscore <- function(x) {
   
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)

@@ -1,9 +1,9 @@
 #' Function to test if a vector is within one, or many ranges. 
 #' 
-#' \code{within_range} works well for testing unix time dates.  
+#' \code{within_range} works well for testing unix time dates too.  
 #' 
 #' @param vector Vector to test. 
-#' @param begin Start of range. 
+#' @param start Start of range. 
 #' @param end End of range.
 #' 
 #' @return Logical vector of length of \code{vector}. 

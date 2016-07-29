@@ -9,15 +9,15 @@ within_range(vector, start, end)
 \arguments{
 \item{vector}{Vector to test.}
 
-\item{end}{End of range.}
+\item{start}{Start of range.}
 
-\item{begin}{Start of range.}
+\item{end}{End of range.}
 }
 \value{
 Logical vector of length of \code{vector}.
 }
 \description{
-\code{within_range} works well for testing unix time dates.
+\code{within_range} works well for testing unix time dates too.
 }
 \examples{
 \dontrun{

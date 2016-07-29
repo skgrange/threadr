@@ -12,9 +12,9 @@
 \alias{str_sentence_case}
 \alias{str_sql_quote}
 \alias{str_thousands_separator}
+\alias{str_to_underscore}
 \alias{str_trim_length}
 \alias{str_trim_many_spaces}
-\alias{str_underscore}
 \alias{str_unique}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
@@ -27,7 +27,7 @@ str_trim_length(string, length)
 
 str_sentence_case(x)
 
-str_underscore(x)
+str_to_underscore(x)
 
 str_trim_many_spaces(x)
 
@@ -60,8 +60,8 @@ str_thousands_separator(x, sep = " ")
 \code{str_sentence_case} capitalises the first letter in a string and makes
 all other characters lowercase.
 
-\code{str_underscore} converts CamelCase and period.separated strings to
-lower-case underscore_separated strings.
+\code{str_to_underscore} converts CamelCase and period.separated strings to
+lowercase underscore_separated strings.
 
 \code{str_trim_many_spaces} will remove excess spaces between words in a 
 string.
