@@ -24,7 +24,7 @@ devtools::install_github("skgrange/threadr")
     - FTP/SFTP functions. 
       - `list_files_ftp`, `download_ftp_file`, and `upload_to_ftp`.
     - `str_*` functions. Do things with strings which **stringr** does not. 
-      - `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`.
+      - `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_to_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`.
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
     - Test if a vector is within one or many ranges `within_range`.

@@ -64,7 +64,7 @@ scraper <- function (file) {
   df <- jsonlite::fromJSON(string)
   
   # If there are duplicated variables, append a suffix
-  names(df) <- threadr::str_underscore(names(df))
+  names(df) <- str_to_underscore(names(df))
   # names(df) <- stringr::str_to_lower(names(df))
   names(df) <- make.names(names(df), unique = TRUE)
   
