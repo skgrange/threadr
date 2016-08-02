@@ -2,16 +2,17 @@
 % Please edit documentation in R/file_metadata.R
 \name{file_metadata}
 \alias{file_metadata}
-\title{Function to extract file metadata with \code{exiftool} and store it within a 
-data frame.}
+\title{Function to extract file metadata with \code{exiftool}.}
 \usage{
-file_metadata(file, progress = "time")
+file_metadata(file, json = FALSE, progress = "none")
 }
 \arguments{
-\item{file}{The file to extract metadata from.}
+\item{json}{Should the return be a pretty printed JSON string?}
 
 \item{progress}{What type of progress bar should the funciton display? Default
-is \code{"time"}, use \code{"none"} for none.}
+is \code{"none"}.}
+
+\item{files}{A vector of files to extract metadata from.}
 }
 \description{
 \code{file_metadata} uses Phil Harvey's Perl \code{exiftool} to extract a 

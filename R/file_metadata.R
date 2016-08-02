@@ -1,5 +1,4 @@
-#' Function to extract file metadata with \code{exiftool} and store it within a 
-#' data frame. 
+#' Function to extract file metadata with \code{exiftool}.
 #' 
 #' \code{file_metadata} uses Phil Harvey's Perl \code{exiftool} to extract a 
 #' file's metadata and then formats the output into a table which can be 
@@ -17,10 +16,12 @@
 #' present. Watch out for very large numbers of variables when imputing large
 #' XML or JSON documents with a large numbers of nested elements.
 #' 
-#' @param file The file to extract metadata from. 
+#' @param files A vector of files to extract metadata from. 
+#' 
+#' @param json Should the return be a pretty printed JSON string? 
 #' 
 #' @param progress What type of progress bar should the funciton display? Default
-#' is \code{"time"}, use \code{"none"} for none. 
+#' is \code{"none"}. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -32,10 +33,18 @@
 #' }
 #'
 #' @export
-file_metadata <- function (file, progress = "time") {
+file_metadata <- function (file, json = FALSE, progress = "none") {
+  
+  # Ensure path is expanded, sometimes in necessary
+  file <- path.expand(file)
   
   # Vectorise function
-  df <- plyr::ldply(file, scraper, .progress = progress)
+  df <- plyr::ldply(file, file_metadata_worker, .progress = progress)
+  
+  # To json
+  if (json) df <- jsonlite::toJSON(df, pretty = TRUE)
+  
+  # Return
   df
   
 }
@@ -44,12 +53,12 @@ file_metadata <- function (file, progress = "time") {
 # The function which does the work
 #
 # No export 
-scraper <- function (file) {
+file_metadata_worker <- function (file) {
 
   # Get file basename
   file_basename <- basename(file)
   
-  # Escape for bash
+  # Escape characters for bash
   file <- gsub("$", "\\$", file, fixed = TRUE)
   file <- gsub("`", "\\`", file, fixed = TRUE)
 
@@ -65,7 +74,6 @@ scraper <- function (file) {
   
   # If there are duplicated variables, append a suffix
   names(df) <- str_to_underscore(names(df))
-  # names(df) <- stringr::str_to_lower(names(df))
   names(df) <- make.names(names(df), unique = TRUE)
   
   # Return
