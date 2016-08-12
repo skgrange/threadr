@@ -27,5 +27,6 @@ type_convert <- function(x) {
 }
 
 
-# No export
+#' @export
+#' @rdname type_convert
 type_converter <- function(x) type.convert(as.character(x), as.is = TRUE)

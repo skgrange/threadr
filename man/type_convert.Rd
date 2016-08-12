@@ -2,9 +2,12 @@
 % Please edit documentation in R/type_convert.R
 \name{type_convert}
 \alias{type_convert}
+\alias{type_converter}
 \title{Function to quickly apply \code{type.convert} to objects.}
 \usage{
 type_convert(x)
+
+type_converter(x)
 }
 \arguments{
 \item{df}{Data frame to apply \code{type.convert} to every variable/column.}

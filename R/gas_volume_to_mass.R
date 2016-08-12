@@ -27,6 +27,8 @@
 #' @param temperature Default is 0 degrees Celsius. However, values such as 20
 #' or 25 degrees Celsius are often used.  
 #' 
+#' @param temp Identical to \code{temperature}. 
+#' 
 #' @param pressure Default is 101325 Pa (1 standard atmosphere). 
 #' 
 #' @author Stuart K. Grange
@@ -58,7 +60,8 @@
 #' @export
 gas_volume_to_mass <- function(volume, gas, molecular_mass = NA, 
                                unit_input = "ppb", unit_output = "ug_m3",
-                               temperature = 0, pressure = 101325) {
+                               temperature = 0, pressure = 101325,
+                               temp = temperature) {
   
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)
@@ -101,7 +104,8 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
 #' @export
 gas_mass_to_volume <- function(mass, gas, molecular_mass = NA, 
                                unit_input = "ug_m3", unit_output = "ppb",
-                               temperature = 0, pressure = 101325) {
+                               temperature = 0, pressure = 101325, 
+                               temp = temperature) {
   
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)

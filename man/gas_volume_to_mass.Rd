@@ -10,10 +10,12 @@
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
-  unit_output = "ug_m3", temperature = 0, pressure = 101325)
+  unit_output = "ug_m3", temperature = 0, pressure = 101325,
+  temp = temperature)
 
 gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
-  unit_output = "ppb", temperature = 0, pressure = 101325)
+  unit_output = "ppb", temperature = 0, pressure = 101325,
+  temp = temperature)
 
 milligram_to_microgram(x)
 
@@ -42,6 +44,8 @@ ozone, this is 48 and for carbon monoxide this is 28.01.}
 or 25 degrees Celsius are often used.}
 
 \item{pressure}{Default is 101325 Pa (1 standard atmosphere).}
+
+\item{temp}{Identical to \code{temperature}.}
 
 \item{mass}{Gas concentration in µg m-3 or mg m-3.}
 }
