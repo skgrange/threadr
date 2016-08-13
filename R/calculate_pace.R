@@ -20,6 +20,7 @@
 #' 
 #' }
 #' 
+#' @export
 calculate_pace <- function(time, distance) {
   
   # Pace minute
@@ -42,3 +43,5 @@ calculate_pace <- function(time, distance) {
   pace
   
 }
+
+
