@@ -103,7 +103,7 @@ padder <- function(df, interval, by, round, merge, warn) {
   
   # Check class
   if (!lubridate::is.POSIXt(df$date)) 
-    stop("'date' must be a parsed date.", call. = FALSE)
+    stop("'date' must be a parsed POSIXt date.", call. = FALSE)
   
   # Get identifiers
   if (!is.na(by[1])) {

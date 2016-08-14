@@ -12,10 +12,10 @@
 #' @seealso \code{\link{wday}}, \code{\link{week_financial}}
 #' 
 #' @export
-week_monday <- function (date, floor = FALSE) {
+week_monday <- function(date, floor = FALSE) {
   
   # If date, not POSIXct
-  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date, tz = "UTC")
   
   # Only days needed
   date <- lubridate::floor_date(date, "day")
@@ -42,7 +42,7 @@ monday_week_table <- function (date, floor) {
   
   # Create day sequence and add year
   df_days <- data.frame(date = seq(date_start, date_end, by = "days")) %>% 
-    mutate(year = year(date))
+    mutate(year = lubridate::year(date))
   
   # Calculate Monday weeks
   df_days <- df_days %>% 
@@ -53,10 +53,14 @@ monday_week_table <- function (date, floor) {
            week_monday = week_monday + 1) %>% 
     ungroup()
   
-  if (floor) 
+  if (floor) {
+    
     # No 53 rd week
     df_days$week_monday <- ifelse(
-	    df_days$week_monday >= 52, 52, df_days$week_monday)
+      df_days$week_monday >= 52, 52, df_days$week_monday)
+    
+  }
+    
   
   # Return
   df_days
@@ -89,7 +93,7 @@ monday_week_table <- function (date, floor) {
 week_financial <- function (date, start = "july", floor = TRUE) {
   
   # If date, not POSIXct
-  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date, tz = "UTC")
   
   # Only days needed
   date <- lubridate::floor_date(date, "day")
@@ -205,10 +209,10 @@ year_financial <- function (date, start = "july") {
 #' }
 #' 
 #' @export
-period_financial <- function (date, start = "july") {
+period_financial <- function(date, start = "july") {
   
   # If date, not POSIXct
-  if (class(date)[1] == "Date") date <- lubridate::ymd(date)
+  if (class(date)[1] == "Date") date <- lubridate::ymd(date, tz = "UTC")
   
   # Transform date vector to data frame for joining
   df <- data.frame(date) %>% 
@@ -218,8 +222,10 @@ period_financial <- function (date, start = "july") {
   if (start == "july"){
     
     # Build look up table
-    df_look <- data.frame(month = seq(1, 12),
-                          period = c(seq(7, 12), seq(1, 6)))
+    df_look <- data.frame(
+      month = seq(1, 12),
+      period = c(seq(7, 12), seq(1, 6))
+    )
     
   }
   

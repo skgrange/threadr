@@ -4,13 +4,13 @@
 \alias{calculate_pace}
 \title{Function for calculating pace in min km-1.}
 \usage{
-calculate_pace(time, distance)
+calculate_pace(seconds, metres)
 }
 \arguments{
-\item{time}{Numeric vector of time in seconds.}
+\item{seconds}{Numeric vector of time in seconds.}
 
-\item{distance}{Numeric vector of kilometers covered within the time period 
-in \code{time}.}
+\item{metres}{Numeric vector of metres covered within the time period 
+in \code{seconds}.}
 }
 \value{
 Numeric vector of pace in min km-1.
@@ -23,7 +23,7 @@ Function for calculating pace in min km-1.
 \dontrun{
 
 # Trasform time and distance to pace in a data frame
-df$pace <- calculate_pace(time, distance)
+df$pace <- calculate_pace(df$seconds, df$distance)
 
 }
 

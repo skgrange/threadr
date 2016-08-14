@@ -1,9 +1,9 @@
 #' Function for calculating pace in min km-1. 
 #' 
-#' @param time Numeric vector of time in seconds. 
+#' @param seconds Numeric vector of time in seconds. 
 #' 
-#' @param distance Numeric vector of kilometers covered within the time period 
-#' in \code{time}.
+#' @param metres Numeric vector of metres covered within the time period 
+#' in \code{seconds}.
 #' 
 #' @return Numeric vector of pace in min km-1.
 #' 
@@ -16,32 +16,23 @@
 #' \dontrun{
 #' 
 #' # Trasform time and distance to pace in a data frame
-#' df$pace <- calculate_pace(time, distance)
+#' df$pace <- calculate_pace(df$seconds, df$distance)
 #' 
 #' }
 #' 
 #' @export
-calculate_pace <- function(time, distance) {
+calculate_pace <- function(seconds, metres) {
   
-  # Pace minute
-  pace_minute <- time / distance / 60
-  pace_minute <- floor(pace_minute)
+  # Calculate speed in m s-1
+  x <- metres / seconds
   
-  # Pace seconds
-  pace_seconds <- round((time / distance) %% 60, 0)
+  # Transform to km h-1
+  x <- ms_to_km_h(x)
   
-  # Pad with a zero if needed
-  pace_seconds <- stringr::str_pad(pace_seconds, width = 2, pad = "0")
-  
-  # Combine minute and seconds
-  pace <- stringr::str_c(pace_minute, pace_seconds, sep = ".")
-  
-  # Type convert
-  pace <- as.numeric(pace)
+  # Then to pace
+  x <- km_h_to_min_km(x)
   
   # Return
-  pace
+  x
   
 }
-
-
