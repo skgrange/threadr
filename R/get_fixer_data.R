@@ -16,8 +16,10 @@
 get_fixer_data <- function(from, to, start = NA, end = NA, lower = TRUE, 
                            progress = "none") {
   
+  if (length(from) != 1) stop("'from' must have a length of 1.", call. = FALSE)
+  
   # Use inputs to build urls for the api
-  urls <- build_fixer_urls(start = start, end = end, from = from, to = to)  
+  urls <- build_fixer_urls(start = start, end = end, from = from, to = to)
   
   # Get JSON requests
   list_json <- plyr::llply(urls, fixer_rates_worker, .progress = progress)
@@ -36,13 +38,14 @@ get_fixer_data <- function(from, to, start = NA, end = NA, lower = TRUE,
   # Make tidy data
   df <- tidyr::gather(df, to, value, -date, -base)
   
-  # Transform and order
+  # Transform, order, and remove nas occurs when from = to
   df <- df %>% 
     mutate(date = lubridate::ymd(date, tz = "UTC")) %>% 
     select(date, 
            from = base, 
            to, 
-           value)
+           value) %>% 
+    filter(!is.na(value))
   
   if (lower) {
     
@@ -94,6 +97,9 @@ fixer_rates_worker <- function(url) {
   
   # Overwrite
   json$date <- date_url
+  
+  # Catch empty rates when to = from
+  # if (length(json$rates) == 0) json$rates <- NA
   
   # Return
   json

@@ -105,6 +105,12 @@ padder <- function(df, interval, by, round, merge, warn) {
   if (!lubridate::is.POSIXt(df$date)) 
     stop("'date' must be a parsed POSIXt date.", call. = FALSE)
   
+  # Switch interval
+  interval <- stringr::str_trim(interval)
+  interval <- ifelse(interval %in% c("minute", "minutes"), "min", interval)
+  interval <- ifelse(interval %in% c("second", "seconds"), "sec", interval)
+  interval <- ifelse(interval == "hours", "hour", interval)
+  
   # Get identifiers
   if (!is.na(by[1])) {
     
