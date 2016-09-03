@@ -95,14 +95,14 @@ str_rm_non_ascii <- function(x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", ""
 str_trim_length <- function(string, length) {
   
   # Vectorise the trimming function
-  string <- lapply(string, function(x) trim(x, length))
+  string <- lapply(string, function(x) trim_worker(x, length))
   string <- unlist(string)
   string
   
 }
 
 # Function which does the string trimming
-trim <- function(string, length) 
+trim_worker <- function(string, length) 
   ifelse(!is.na(length), strtrim(string, length), string)
 
 
@@ -139,9 +139,11 @@ str_to_underscore <- function(x) {
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub(":", "_", x, fixed = TRUE)
   x <- gsub("\\$", "_", x)
+  x <- gsub(" ", "_", x)
   x <- gsub("__", "_", x)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   x <- tolower(x)
+  x <- trimws(x)
   x
   
 }
@@ -151,7 +153,6 @@ str_to_underscore <- function(x) {
 #' 
 #' @export
 str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
-
 
 
 # http://stackoverflow.com/questions/2247045/chopping-a-string-into-a-vector-of-fixed-width-character-elements
@@ -177,18 +178,15 @@ str_drop_xml_tags <- function(string) {
 #' @rdname str_date
 #' 
 #' @export
-str_rm_brackets_and_contents <- function(x, type = "round") {
-  
-  if (type == "round") 
-    x <- stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
-  
-  if (type == "square")
-    x <- stringr::str_replace(x, "\\[.+?\\]\\s*", "")
-  
-  # Return
-  x
-  
-}
+str_rm_round_brackets <- function(x) 
+  stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
+
+
+#' @rdname str_date
+#' 
+#' @export
+str_rm_square_brackets <- function(x)
+  stringr::str_replace_all(x, "\\[[^\\]]*\\]", "")
   
 
 #' @rdname str_date

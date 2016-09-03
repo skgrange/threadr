@@ -7,8 +7,9 @@
 \alias{str_drop_xml_tags}
 \alias{str_extract_digits}
 \alias{str_nth_character}
-\alias{str_rm_brackets_and_contents}
 \alias{str_rm_non_ascii}
+\alias{str_rm_round_brackets}
+\alias{str_rm_square_brackets}
 \alias{str_sentence_case}
 \alias{str_sql_quote}
 \alias{str_thousands_separator}
@@ -35,7 +36,9 @@ str_chop(string, n)
 
 str_drop_xml_tags(string)
 
-str_rm_brackets_and_contents(x, type = "round")
+str_rm_round_brackets(x)
+
+str_rm_square_brackets(x)
 
 str_extract_digits(x, as.numeric = TRUE)
 
