@@ -7,7 +7,7 @@ test_that("Gas conversions", {
   expect_equal(gas_mass_to_volume(800, gas = "o3"), 373.5)
   
   expect_equal(gas_volume_to_mass(3.52734, gas = "nox"), 7.240, tolerance = 0.002)
-  expect_equal(gas_volume_to_mass(3.52734, gas = "nox", temperature = 20), 
+  expect_equal(gas_volume_to_mass(3.52734, gas = "nox", temp = 20), 
                3.52734 * 1.912, tolerance = 0.003)
   
   expect_equal(gas_mass_to_volume(6.966383, gas = "no2"), 3.394, tolerance = 0.001)
@@ -17,14 +17,14 @@ test_that("Gas conversions", {
   
   expect_equal(
     gas_mass_to_volume(co_mg_m3, gas = "co", unit_input = "mg_m3", 
-                       temperature = 20, unit_output = "ppm"), 
+                       temp = 20, unit_output = "ppm"), 
     ppb_to_ppm(411.618),
     tolerance = 0.0001
   )
   
   expect_equal(
     gas_mass_to_volume(co_mg_m3, gas = "co", unit_input = "mg_m3", 
-                       temperature = 20, unit_output = "ppb"), 
+                       temp = 20, unit_output = "ppb"), 
     411.618,
     tolerance = 0.0001
   )
@@ -34,21 +34,21 @@ test_that("Gas conversions", {
   
   expect_equal(
     gas_volume_to_mass(co_ppm, "co", unit_input = "ppm", unit_output = "ug_m3",
-                       temperature = 20),
+                       temp = 20),
     9246.7,
     tolerance = 0.35
   )
   
   expect_equal(
     gas_volume_to_mass(co_ppm, "co", unit_input = "ppm", unit_output = "mg_m3",
-                       temperature = 20), 
+                       temp = 20), 
     9.2467,
     tolerance = 0.0004
   )
   
   # Could also do this for co:  
   # co_ppb <- ppm_to_ppb(co_ppm)
-  # co_ug_m3 <- gas_volume_to_mass(co_ppb, "co", temperature = 0)
+  # co_ug_m3 <- gas_volume_to_mass(co_ppb, "co", temp = 0)
   # co_mg_m3 <- microgram_to_milligram(co_ug_m3)
   
 })

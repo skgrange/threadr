@@ -24,10 +24,8 @@
 #' 
 #' @param unit_output Output unit. 
 #' 
-#' @param temperature Default is 0 degrees Celsius. However, values such as 20
-#' or 25 degrees Celsius are often used.  
-#' 
-#' @param temp Identical to \code{temperature}. 
+#' @param temp Default is 0 degrees Celsius. However, values such as 20 or 25 
+#' degrees Celsius are often used.  
 #' 
 #' @param pressure Default is 101325 Pa (1 standard atmosphere). 
 #' 
@@ -44,24 +42,23 @@
 #' gas_mass_to_volume(800, "o3")
 #' 
 #' # For monitoring sites in Europe where conversions are done at 20 degreees
-#' gas_mass_to_volume(2.24, "no", temperature = 20, unit_output = "ppb")
-#' gas_mass_to_volume(24.53, "no2", temperature = 20, unit_output = "ppb")
-#' gas_mass_to_volume(37.74, "o3", temperature = 20, unit_output = "ppb")
+#' gas_mass_to_volume(2.24, "no", temp = 20, unit_output = "ppb")
+#' gas_mass_to_volume(24.53, "no2", temp = 20, unit_output = "ppb")
+#' gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 #' 
 #' # CO usually uses different units
-#' gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temperature = 20, 
+#' gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temp = 20, 
 #'                    unit_output = "ppb")
 #' 
 #' # NOx as NO2
-#' gas_volume_to_mass(14.64, "no2", temperature = 20, unit_input = "ppb")
+#' gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
 #' 
 #' }
 #' 
 #' @export
 gas_volume_to_mass <- function(volume, gas, molecular_mass = NA, 
                                unit_input = "ppb", unit_output = "ug_m3",
-                               temperature = 0, pressure = 101325,
-                               temp = temperature) {
+                               temp = 0, pressure = 101325) {
   
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)
@@ -86,7 +83,7 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
   }
   
   # Get coefficient
-  molecular_volume <- calculate_molecular_volume(temperature, pressure)
+  molecular_volume <- calculate_molecular_volume(temp, pressure)
   
   # The conversion
   mass <- volume * molecular_mass / molecular_volume
@@ -104,8 +101,7 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
 #' @export
 gas_mass_to_volume <- function(mass, gas, molecular_mass = NA, 
                                unit_input = "ug_m3", unit_output = "ppb",
-                               temperature = 0, pressure = 101325, 
-                               temp = temperature) {
+                               temp = 0, pressure = 101325) {
   
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)
@@ -131,7 +127,7 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
   }
   
   # Get coefficient
-  molecular_volume <- calculate_molecular_volume(temperature, pressure)
+  molecular_volume <- calculate_molecular_volume(temp, pressure)
   
   # The conversion
   volume <- mass / (molecular_mass / molecular_volume)
@@ -147,8 +143,8 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
 
 
 # No export
-calculate_molecular_volume <- function(temperature, pressure)
-  22.41 * (273.15 + temperature) / 273.15 *  101325 / pressure
+calculate_molecular_volume <- function(temp, pressure)
+  22.41 * (273.15 + temp) / 273.15 *  101325 / pressure
 
 
 # No export
@@ -206,4 +202,3 @@ ppb_to_ppm <- function(x) x / 1000
 #' @rdname gas_volume_to_mass
 #' @export
 ppm_to_ppb <- function(x) x / ppb_to_ppm(1)
-

@@ -36,7 +36,7 @@
 #' 
 #' 
 #' @export
-calculate_pace_splits <- function(distance, time, interval = 1) {
+calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   
   # http://www.coolrunning.com/engine/4/4_1/96.shtml
   
@@ -56,14 +56,14 @@ calculate_pace_splits <- function(distance, time, interval = 1) {
   speed_km_h <- ms_to_km_h(speed_ms)
   
   # Create distance sequence
-  distance_sequence = seq(interval_metres, distance_metres, by = interval_metres)
+  distance_sequence <- seq(interval_metres, distance_metres, by = interval_metres)
   distance_sequence_final <- tail(distance_sequence, 1)
   
   # Get extra element of distance
   distance_final <- floor(distance_sequence_final)
   
   # Append the vector if needed
-  if (distance_sequence_final != distance_final) {
+  if (distance_sequence_final != distance_metres) {
     
     distance_extra <- distance_metres - distance_final
     distance_extra <- distance_final + distance_extra
@@ -85,15 +85,23 @@ calculate_pace_splits <- function(distance, time, interval = 1) {
   # Back to km
   distance_sequence <- distance_sequence / 1000
   
+  # Add min km-1
+  pace_min_km <- km_h_to_min_km(speed_km_h)
+  pace_min_km <- decimal_minute_to_string(pace_min_km)
+  
   # Create data frame
   df <- data_frame(
     distance,
     time, 
     speed_ms,
     speed_km_h,
+    pace_min_km,
     distance_split = distance_sequence,
     time_split = time_elapsed
   )
+  
+  # Round
+  df <- round_numeric(df, round = round)
   
   # Return, standard data frame
   data.frame(df)

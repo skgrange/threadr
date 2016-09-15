@@ -2,13 +2,12 @@
 % Please edit documentation in R/write_json.R
 \name{write_json}
 \alias{write_json}
-\title{Function to write a data frame to a JSON file with usage analogous to 
-\code{write.table}.}
+\title{Function to write an R object to a JSON file.}
 \usage{
-write_json(df, file, pretty = TRUE, na = FALSE)
+write_json(x, file, pretty = TRUE, na = FALSE, auto_unbox = FALSE)
 }
 \arguments{
-\item{df}{Data frame to be written as a JSON file.}
+\item{x}{R object to be written as a JSON file.}
 
 \item{file}{JSON file name.}
 
@@ -18,13 +17,18 @@ write_json(df, file, pretty = TRUE, na = FALSE)
 \item{na}{Should \code{NA} values be kept in the JSON file? Default is 
 \code{FALSE}. If \code{na} is \code{TRUE} then \code{NA}s will transformed to
 JSON's \code{null} value.}
+
+\item{auto_unbox}{Should vectors with the length of \code{1} be represented 
+as atomic, single element arrays?}
 }
 \description{
 \code{write_json} uses \code{jsonlite} as the data frame to JSON parser.
 }
 \examples{
 \dontrun{
+
 write_json(data_car_identifiers, "car_identifiers.json")
+
 }
 
 }

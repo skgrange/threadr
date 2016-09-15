@@ -10,12 +10,10 @@
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
-  unit_output = "ug_m3", temperature = 0, pressure = 101325,
-  temp = temperature)
+  unit_output = "ug_m3", temp = 0, pressure = 101325)
 
 gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
-  unit_output = "ppb", temperature = 0, pressure = 101325,
-  temp = temperature)
+  unit_output = "ppb", temp = 0, pressure = 101325)
 
 milligram_to_microgram(x)
 
@@ -40,12 +38,10 @@ ozone, this is 48 and for carbon monoxide this is 28.01.}
 
 \item{unit_output}{Output unit.}
 
-\item{temperature}{Default is 0 degrees Celsius. However, values such as 20
-or 25 degrees Celsius are often used.}
+\item{temp}{Default is 0 degrees Celsius. However, values such as 20 or 25 
+degrees Celsius are often used.}
 
 \item{pressure}{Default is 101325 Pa (1 standard atmosphere).}
-
-\item{temp}{Identical to \code{temperature}.}
 
 \item{mass}{Gas concentration in µg m-3 or mg m-3.}
 }
@@ -70,16 +66,16 @@ gas_volume_to_mass(400, "o3")
 gas_mass_to_volume(800, "o3")
 
 # For monitoring sites in Europe where conversions are done at 20 degreees
-gas_mass_to_volume(2.24, "no", temperature = 20, unit_output = "ppb")
-gas_mass_to_volume(24.53, "no2", temperature = 20, unit_output = "ppb")
-gas_mass_to_volume(37.74, "o3", temperature = 20, unit_output = "ppb")
+gas_mass_to_volume(2.24, "no", temp = 20, unit_output = "ppb")
+gas_mass_to_volume(24.53, "no2", temp = 20, unit_output = "ppb")
+gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 
 # CO usually uses different units
-gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temperature = 20, 
+gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temp = 20, 
                    unit_output = "ppb")
 
 # NOx as NO2
-gas_volume_to_mass(14.64, "no2", temperature = 20, unit_input = "ppb")
+gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
 
 }
 

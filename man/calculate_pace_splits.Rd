@@ -4,7 +4,7 @@
 \alias{calculate_pace_splits}
 \title{Function to calculate splits for a running or cycling event.}
 \usage{
-calculate_pace_splits(distance, time, interval = 1)
+calculate_pace_splits(distance, time, interval = 1, round = 2)
 }
 \arguments{
 \item{distance}{Target distance in kilometres.}

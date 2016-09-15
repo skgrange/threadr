@@ -11,6 +11,8 @@
 #' 
 #' @return Tidy data frame
 #' 
+#' @import dplyr
+#' 
 #' @export
 file_information <- function(files, drop = FALSE) {
   
@@ -18,7 +20,7 @@ file_information <- function(files, drop = FALSE) {
   df <- file.info(files)
   
   # Tidy a little
-  df <- add_rownames(df, "file") %>% 
+  df <- tibble::rownames_to_column(df, "file") %>% 
     mutate(file_basename = basename(file)) %>% 
     arrange_left(c("file", "file_basename"))
   
