@@ -16,6 +16,9 @@ desired.}
 \item{character}{Should the content of the url be downloaded as a character
 string for processing? Default is \code{TRUE}.}
 }
+\value{
+Named list containing data frames or a data frame.
+}
 \description{
 Function to read HTML tables from an URL.
 }

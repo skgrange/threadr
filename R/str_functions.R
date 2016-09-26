@@ -40,6 +40,12 @@
 #' \code{str_thousands_separator} will add thousands separators to a string or 
 #' numeric vector. 
 #' 
+#' \code{str_note_to_title} will format a normalised note such as 
+#' \code{"meeting_in_auckland"} to a note with title-case. 
+#' 
+#' \code{str_to_general} will make a "general" string and will transliterate 
+#' special characters to avoid issues such as matching for a \code{join}. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -246,3 +252,22 @@ str_create_na <- function(x) ifelse(x %in% c("NA", "", " "), NA, x)
 #' @export
 str_thousands_separator <- function(x, sep = " ")
   format(as.numeric(x), big.mark = sep, scientific = FALSE)
+
+
+#' @rdname str_date
+#'
+#' @export
+str_note_to_title <- function(x, sep = "_") {
+  
+  x <- stringr::str_to_lower(x)
+  x <- stringr::str_replace_all(x, sep, " ")
+  x <- stringr::str_to_title(x)
+  x
+  
+}
+
+
+#' @rdname str_date
+#'
+#' @export
+str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")

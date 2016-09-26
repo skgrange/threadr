@@ -6,6 +6,7 @@
 \alias{str_date}
 \alias{str_drop_xml_tags}
 \alias{str_extract_digits}
+\alias{str_note_to_title}
 \alias{str_nth_character}
 \alias{str_rm_non_ascii}
 \alias{str_rm_round_brackets}
@@ -13,6 +14,7 @@
 \alias{str_sentence_case}
 \alias{str_sql_quote}
 \alias{str_thousands_separator}
+\alias{str_to_general}
 \alias{str_to_underscore}
 \alias{str_trim_length}
 \alias{str_trim_many_spaces}
@@ -51,6 +53,10 @@ str_nth_character(x, n)
 str_create_na(x)
 
 str_thousands_separator(x, sep = " ")
+
+str_note_to_title(x, sep = "_")
+
+str_to_general(x)
 }
 \description{
 \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
@@ -92,6 +98,12 @@ for a string.
 
 \code{str_thousands_separator} will add thousands separators to a string or 
 numeric vector.
+
+\code{str_note_to_title} will format a normalised note such as 
+\code{"meeting_in_auckland"} to a note with title-case.
+
+\code{str_to_general} will make a "general" string and will transliterate 
+special characters to avoid issues such as matching for a \code{join}.
 }
 \author{
 Stuart K. Grange

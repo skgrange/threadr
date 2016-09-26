@@ -11,6 +11,8 @@
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @return Named list containing data frames or a data frame. 
+#' 
 #' @examples 
 #' \dontrun{
 #' # A url
@@ -26,20 +28,24 @@
 #' }
 #' 
 #' @export 
-read_html_tables <- function (url, n = NA, character = TRUE) {
+read_html_tables <- function(url, n = NA, character = TRUE) {
   
   # Get text/characters, helps with https and some proxy servers
   if (character) url <- readLines(url, warn = FALSE)
     
   # Parse html
   document <- XML::htmlTreeParse(url, ignoreBlanks = FALSE, 
-                                 useInternalNodes = TRUE, trim = FALSE)
+    useInternalNodes = TRUE, trim = FALSE)
   
   if (is.na(n)) {
   
     # All tables as a list
     table <- XML::readHTMLTable(document, ignoreBlanks = FALSE, trim = FALSE,
                                 stringsAsFactors = FALSE)
+    
+    # If names are null, give names
+    if (unique(names(table))[1] == "NULL")
+      names(table) <- stringr::str_c("table_", 1:length(table))
     
     # If a single table, return as data frame
     if (length(table) == 1) table <- table[[1]]
