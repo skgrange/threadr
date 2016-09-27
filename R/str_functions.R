@@ -7,7 +7,7 @@
 #' 
 #' \code{str_trim_length} trims strings to a certain length of characters. 
 #' 
-#' \code{str_sentence_case} capitalises the first letter in a string and makes
+#' \code{str_to_sentence} capitalises the first letter in a string and makes
 #' all other characters lowercase.
 #' 
 #' \code{str_to_underscore} converts CamelCase and period.separated strings to
@@ -42,6 +42,10 @@
 #' 
 #' \code{str_note_to_title} will format a normalised note such as 
 #' \code{"meeting_in_auckland"} to a note with title-case. 
+#' 
+#' \code{str_note_to_sentence} will format a normalised note such as 
+#' \code{"testing_the_things"} to a note with the first character capitalised
+#' with all other characters lower-case. 
 #' 
 #' \code{str_to_general} will make a "general" string and will transliterate 
 #' special characters to avoid issues such as matching for a \code{join}. 
@@ -115,15 +119,17 @@ trim_worker <- function(string, length)
 #' @rdname str_date
 #' 
 #' @export
-str_sentence_case <- function(x) {
+str_to_sentence <- function(x) {
   
   # Get first character
-  first <- substring(x, 1, 1)
+  first <- stringr::str_sub(x, 1, 1)
+  
   # Capitialise
   first <- stringr::str_to_upper(first)
   
   # Get other characters
-  other_characters <- substring(x, 1 + 1)
+  other_characters <- stringr::str_sub(x, 2)
+  
   # Lower case
   other_characters <- stringr::str_to_lower(other_characters)
   
@@ -262,6 +268,19 @@ str_note_to_title <- function(x, sep = "_") {
   x <- stringr::str_to_lower(x)
   x <- stringr::str_replace_all(x, sep, " ")
   x <- stringr::str_to_title(x)
+  x
+  
+}
+
+
+#' @rdname str_date
+#'
+#' @export
+str_note_to_sentence <- function(x, sep = "_") {
+  
+  x <- stringr::str_to_lower(x)
+  x <- stringr::str_replace_all(x, sep, " ")
+  x <- str_sentence_case(x)
   x
   
 }

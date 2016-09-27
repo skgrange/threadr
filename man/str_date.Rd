@@ -6,15 +6,16 @@
 \alias{str_date}
 \alias{str_drop_xml_tags}
 \alias{str_extract_digits}
+\alias{str_note_to_sentence}
 \alias{str_note_to_title}
 \alias{str_nth_character}
 \alias{str_rm_non_ascii}
 \alias{str_rm_round_brackets}
 \alias{str_rm_square_brackets}
-\alias{str_sentence_case}
 \alias{str_sql_quote}
 \alias{str_thousands_separator}
 \alias{str_to_general}
+\alias{str_to_sentence}
 \alias{str_to_underscore}
 \alias{str_trim_length}
 \alias{str_trim_many_spaces}
@@ -28,7 +29,7 @@ str_rm_non_ascii(x)
 
 str_trim_length(string, length)
 
-str_sentence_case(x)
+str_to_sentence(x)
 
 str_to_underscore(x)
 
@@ -56,6 +57,8 @@ str_thousands_separator(x, sep = " ")
 
 str_note_to_title(x, sep = "_")
 
+str_note_to_sentence(x, sep = "_")
+
 str_to_general(x)
 }
 \description{
@@ -66,7 +69,7 @@ str_to_general(x)
 
 \code{str_trim_length} trims strings to a certain length of characters.
 
-\code{str_sentence_case} capitalises the first letter in a string and makes
+\code{str_to_sentence} capitalises the first letter in a string and makes
 all other characters lowercase.
 
 \code{str_to_underscore} converts CamelCase and period.separated strings to
@@ -101,6 +104,10 @@ numeric vector.
 
 \code{str_note_to_title} will format a normalised note such as 
 \code{"meeting_in_auckland"} to a note with title-case.
+
+\code{str_note_to_sentence} will format a normalised note such as 
+\code{"testing_the_things"} to a note with the first character capitalised
+with all other characters lower-case.
 
 \code{str_to_general} will make a "general" string and will transliterate 
 special characters to avoid issues such as matching for a \code{join}.
