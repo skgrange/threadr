@@ -4,10 +4,13 @@
 \alias{read_bibtex}
 \title{Function to load a BibTeX file to a data frame.}
 \usage{
-read_bibtex(file, progress = "none")
+read_bibtex(file, article = NA, progress = "none")
 }
 \arguments{
 \item{file}{File name of a BibTeX file.}
+
+\item{article}{A vector of BibTeX keys to filter \code{file} to. If not used,
+all entries will be returned.}
 
 \item{progress}{Progress bar to display.}
 }

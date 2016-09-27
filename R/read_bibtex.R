@@ -2,6 +2,9 @@
 #' 
 #' @param file File name of a BibTeX file. 
 #' 
+#' @param article A vector of BibTeX keys to filter \code{file} to. If not used,
+#' all entries will be returned. 
+#' 
 #' @param progress Progress bar to display. 
 #' 
 #' @author Stuart K. Grange
@@ -11,11 +14,10 @@
 #' @import stringr
 #' 
 #' @export
-read_bibtex <- function(file, progress = "none") {
+read_bibtex <- function(file, article = NA, progress = "none") {
   
   # Load file
   text <- readLines(file)
-  # text <- text[!text == ""]
   
   # Create mapping table to get ranges of articles
   keys <- grep("@", text)
@@ -34,6 +36,12 @@ read_bibtex <- function(file, progress = "none") {
   
   # Drop
   df_map <- df_map[!grepl("jabref", df_map$id, ignore.case = TRUE), ]
+  
+  # 
+  df_map$end <- ifelse(is.na(df_map$end), length(text), df_map$end)
+  
+  # Filter to article if argument is used
+  if (!is.na(article[1])) df_map <- df_map[df_map$id %in% c(article), ]
   
   # Split text into list
   list_text <- plyr::alply(df_map, 1, function(x) split_bibtex_text(text, x))
@@ -55,6 +63,7 @@ split_bibtex_text <- function(text, df_map) text[df_map$start:df_map$end]
 extract_bibtex_variables <- function(observation) {
   
   # Prepare
+  observation <- str_trim(observation)
   observation <- observation[!observation %in% c("", "}")]
   
   bibtex_key <- grep("@", observation, value = TRUE)
