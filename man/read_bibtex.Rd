@@ -2,25 +2,51 @@
 % Please edit documentation in R/read_bibtex.R
 \name{read_bibtex}
 \alias{read_bibtex}
-\title{Function to load a BibTeX file to a data frame.}
+\alias{read_bibtex_aux}
+\title{Function to load a \code{BibTeX} file to a data frame.}
 \usage{
-read_bibtex(file, article = NA, progress = "none")
+read_bibtex(file, skip = 0, article = NA, progress = "none")
+
+read_bibtex_aux(file)
 }
 \arguments{
-\item{file}{File name of a BibTeX file.}
+\item{file}{File name of a \code{BibTeX} file. URLs work too.}
 
-\item{article}{A vector of BibTeX keys to filter \code{file} to. If not used,
-all entries will be returned.}
+\item{article}{A vector of \code{BibTeX} keys to filter \code{file} to. If 
+not used, all entries will be returned.}
 
 \item{progress}{Progress bar to display.}
+
+\item{file}{File name of a \code{BibTeX} \code{.aux} file.}
 }
 \value{
 Data frame.
+
+Character vector.
 }
 \description{
-Function to load a BibTeX file to a data frame.
+Function to load a \code{BibTeX} file to a data frame.
+
+\code{read_bibtex_aux} reads \code{.aux} files created by \code{BibTeX} and 
+\code{BibLaTeX}.
+}
+\examples{
+\dontrun{
+
+# A file from the web
+url <- "http://www.andy-roberts.net/res/writing/latex/sample.bib"
+data_bib <- read_bibtex(url)
+
+# To json
+to_json(data_bib)
+
+
+}
+
 }
 \author{
+Stuart K. Grange
+
 Stuart K. Grange
 }
 
