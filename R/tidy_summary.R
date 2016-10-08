@@ -1,82 +1,100 @@
 #' Function to create tidy data descriptives from a data frame. 
-#'
-#' Only numeric variables are currently returned. 
 #' 
-#' @param df Data frame for descriptives to be calculated for.  
+#' @param df Data frame for descriptives to be calculated for.
 #' 
 #' @param round Rounding precision of descriptives. Default is \code{3}. 
 #' 
+#' @param json Should the return be a pretty JSON array? 
+#' 
 #' @author Stuart K. Grange
+#' 
+#' @return Data frame or pretty printed JSON. 
 #' 
 #' @examples 
 #' \dontrun{
+#' 
+#' # Calcuate summaries
 #' data_summary <- tidy_summary(data_air)
+#' 
 #' }
 #' 
 #' @export
-tidy_summary <- function (df, round = 3) {
-  
-  # Select only numeric and date variables
-  # df <- df[ , sapply(df, function (x) is.numeric(x) | lubridate::is.POSIXt(x))]
-  df <- df[ , sapply(df, is.numeric)]
+tidy_summary <- function (df, round = 3, json = FALSE) {
   
   # Summarise
-  df_summary <- data.frame(summary(df))
+  table <- summary(df)
   
-  # Also calculate sd
-  sd <- lapply(df, sd, na.rm = TRUE)
-  df_sd <- data.frame(data_variable = names(sd), 
-                      summary_variable = "sd",
-                      value = unlist(unname(lapply(sd, '[[', 1))))
+  # To data frame
+  df <- data.frame(table, stringsAsFactors = FALSE)
   
-  # and variance
-  variance <- lapply(df, var, na.rm = TRUE)
-  df_variance <- data.frame(data_variable = names(variance), 
-                            summary_variable = "variance",
-                            value = unlist(unname(lapply(variance, '[[', 1))))
-  
-  # Drop
-  df_summary[, 1] <- NULL
+  # Drop and filter
+  df[, 1] <- NULL
+  df <- df[!is.na(df[, 2]), ]
   
   # Useful names
-  names(df_summary) <- c("data_variable", "output")
+  names(df) <- c("variable", "output")
   
   # Separate variables
-  df_summary <- tidyr::separate(
-    df_summary, output, c("summary_variable", "value"), sep = ":")
+  output_split <- stringr::str_split_fixed(df$output, pattern = ":", n = 2)
+  output_split <- apply(output_split, 2, stringr::str_trim)
+  
+  df$descriptive <- output_split[, 1]
+  df$value <- output_split[, 2]
+  
+  # Drop variable
+  df$output <- NULL
+
+  # Calculate extras
+  suppressWarnings(
+    sd <- lapply(df, sd, na.rm = TRUE)
+  )
+  
+  df_sd <- data.frame(
+    variable = names(sd),
+    descriptive = "sd",
+    value = as.character(unlist(unname(lapply(sd, "[[", 1)))),
+    stringsAsFactors = FALSE
+  )
+  
+  # and variance
+  suppressWarnings(
+    variance <- lapply(df, var, na.rm = TRUE)
+  )
+  
+  df_variance <- data.frame(
+    variable = names(variance),
+    descriptive = "variance",
+    value = as.character(unlist(unname(lapply(variance, "[[", 1)))),
+    stringsAsFactors = FALSE
+  )
   
   # Bind summaries together
-  df_summary <- rbind(df_summary, df_sd, df_variance)
+  df <- dplyr::bind_rows(df, df_sd, df_variance)
   
-  # Remove NAs
-  # df_summary <- df_summary[!is.na(df_summary$summary_variable), ]
+  # String processing
+  df$variable <- stringr::str_trim(df$variable)
   
-  # Transform
-  # Values
-  df_summary$value <- as.numeric(df_summary$value)
-  df_summary$value <- round(df_summary$value, round)
+  df$descriptive <- stringr::str_to_lower(df$descriptive)
+  df$descriptive <- stringr::str_replace(df$descriptive, " ", "_")
+  df$descriptive <- stringr::str_replace_all(df$descriptive, "\\.$|'", "")
   
-  # Variables
-  df_summary$summary_variable <- stringr::str_to_lower(df_summary$summary_variable)
-  df_summary$summary_variable <- stringr::str_trim(df_summary$summary_variable)
+  # Name changes
+  df$descriptive <- stringr::str_replace(df$descriptive, "_qu", "_quartile")
+  df$descriptive <- stringr::str_replace(df$descriptive, "1st", "first")
+  df$descriptive <- stringr::str_replace(df$descriptive, "3rd", "third")
   
-  df_summary$summary_variable <- stringr::str_replace_all(
-    df_summary$summary_variable, "\\.|'", "")
+  # Reshape
+  df <- tidyr::spread(df, descriptive, value, convert = TRUE)
   
-  df_summary$summary_variable <- stringr::str_replace_all(
-    df_summary$summary_variable, " ", "_")
+  # Arrange
+  df <- arrange_left(df, 
+    c("variable", "class", "length", "mean", "median", "min", "max", "mode", 
+      "sd", "variance", "first_quartile", "third_quartile", "nas"))
   
-  df_summary$data_variable <- stringr::str_trim(df_summary$data_variable)
-  
-  # Make tidy data
-  df_tidy <- tidyr::spread(df_summary, summary_variable, value)
-  
-  # Replace name
-  # To-do, clean up
-  names(df_tidy) <- stringr::str_replace(names(df_tidy), "\\bdata_variable\\b", 
-                                         "variable")
+  # To json
+  if (json) df <- to_json(df)
   
   # Return
-  df_tidy
+  df
 
 }

@@ -12,10 +12,13 @@ read_bibtex_aux(file)
 \arguments{
 \item{file}{File name of a \code{BibTeX} file. URLs work too.}
 
+\item{skip}{How many lines to skip before starting reading? This is useful
+if \code{file} contains a non-commented preamble.}
+
 \item{article}{A vector of \code{BibTeX} keys to filter \code{file} to. If 
 not used, all entries will be returned.}
 
-\item{progress}{Progress bar to display.}
+\item{progress}{Progress bar to display, only useful for large files.}
 
 \item{file}{File name of a \code{BibTeX} \code{.aux} file.}
 }
@@ -39,7 +42,6 @@ data_bib <- read_bibtex(url)
 
 # To json
 to_json(data_bib)
-
 
 }
 

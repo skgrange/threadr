@@ -2,10 +2,13 @@
 #' 
 #' @param file File name of a \code{BibTeX} file. URLs work too. 
 #' 
+#' @param skip How many lines to skip before starting reading? This is useful
+#' if \code{file} contains a non-commented preamble. 
+#' 
 #' @param article A vector of \code{BibTeX} keys to filter \code{file} to. If 
 #' not used, all entries will be returned. 
 #' 
-#' @param progress Progress bar to display. 
+#' @param progress Progress bar to display, only useful for large files. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -21,7 +24,6 @@
 #' # To json
 #' to_json(data_bib)
 #' 
-#' 
 #' }
 #' 
 #' @import stringr
@@ -30,43 +32,44 @@
 read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
   
   # Load file
-  text <- readLines(file)
-  text <- str_trim(text)
+  text <- readLines(file, warn = FALSE)
   
+  # Drop top
   if (skip >= 1) text <- text[-1:-skip]
   
-  # Drop comments
-  text <- grep("^%", text, value = TRUE, invert = TRUE)
+  # Drop white space
+  text <- str_trim(text)
+  
+  # Drop all comments, latex and jabred
+  text <- grep("^%|^@comment", text, value = TRUE, invert = TRUE)
+  
+  # Drop empty lines
+  text <- text[!ifelse(text == "", TRUE, FALSE)]
+  
+  # Get article keys
+  index_keys <- grep("@", text)
+  article_key <- text[index_keys]
+  article_key <- clean_bibtex_article_key(article_key)
   
   # Create mapping table to get ranges of articles
-  keys <- grep("@", text)
-  
-  article_key <- text[keys]
-  article_key <- grep("@", article_key, value = TRUE)
-  article_key <- str_split_fixed(article_key, "\\{", 2)[, 2]
-  article_key <- str_replace(article_key, ",$", "")
-  
   df_map <- data.frame(
-    id = article_key,
-    start = keys,
-    end = dplyr::lead(keys - 1),
+    article_key = article_key,
+    start = index_keys,
+    end = dplyr::lead(index_keys - 1),
     stringsAsFactors = FALSE
   )
   
-  # Drop, will have to change this
-  df_map <- df_map[!grepl("jabref", df_map$id, ignore.case = TRUE), ]
-  
-  # 
+  # Final observation
   df_map$end <- ifelse(is.na(df_map$end), length(text), df_map$end)
   
   # Filter to article if argument is used
-  if (!is.na(article[1])) df_map <- df_map[df_map$id %in% c(article), ]
+  if (!is.na(article[1])) df_map <- df_map[df_map$article_key %in% c(article), ]
   
   # Split text into list
   list_text <- plyr::alply(df_map, 1, function(x) split_bibtex_text(text, x))
   attributes(list_text) <- NULL
   
-  # Rip out data
+  # Extract data for each article
   df <- plyr::ldply(list_text, extract_bibtex_variables, .progress = progress)
   
   # Remove double quotes
@@ -80,27 +83,49 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
 }
 
 
+clean_bibtex_article_key <- function(x) {
+  
+  x <- str_split_fixed(x, "\\{", 2)[, 2]
+  x <- str_replace(x, ",$", "")
+  x
+  
+}
+
+
+clean_bibtex_article_type <- function(x) {
+  
+  x <- str_replace(x, "^@", "")
+  x <- str_split_fixed(x, "\\{", 2)[, 1]
+  x <- str_to_lower(x)
+  x
+  
+}
+
+
 split_bibtex_text <- function(text, df_map) text[df_map$start:df_map$end]
 
 
 extract_bibtex_variables <- function(observation) {
   
   # Prepare
-  observation <- str_trim(observation)
   observation <- observation[!observation %in% c("", "}", "},")]
   
-  bibtex_key <- grep("@", observation, value = TRUE)
-  bibtex_key <- str_split_fixed(bibtex_key, "\\{", 2)[, 2]
-  bibtex_key <- str_replace(bibtex_key, ",$", "")
+  # Get article key
+  bibtex_type_and_key <- grep("@", observation, value = TRUE)
   
-  article_type <- grep("@", observation, value = TRUE)
-  article_type <- str_replace(article_type, "^@", "")
-  article_type <- str_split_fixed(article_type, "\\{", 2)[, 1]
-  article_type <- str_to_lower(article_type)
+  # Clean key
+  bibtex_key <- clean_bibtex_article_key(bibtex_type_and_key)
   
+  # Clean article type
+  article_type <- clean_bibtex_article_type(bibtex_type_and_key)
+  
+  # Get the data
   variables <- grep("@", observation, value = TRUE, invert = TRUE)
+  
+  # Split by =
   variables <- str_split_fixed(variables, "=", 2)
   
+  # Isolate the key and values
   key <- variables[, 1]
   key <- str_trim(key)
   key <- str_to_underscore(key)
@@ -109,16 +134,20 @@ extract_bibtex_variables <- function(observation) {
   value <- str_replace_all(value, "\\{|\\}|,$", "")
   value <- str_trim(value)
   
+  # Add the extras
   value <- c(bibtex_key, article_type, value)
   
-  # Named character
+  # Build named character
   names(value) <- c("bibtex_key", "article_type", key)
   
   # Leading : in file variable, ifelse drops names
   # value <- ifelse(names(value) == "file", str_replace(value, "^:", ""), value)
   
   # Create data frame
-  df <- data.frame(t(value), stringsAsFactors = FALSE)
+  df <- data.frame(
+    t(value), 
+    stringsAsFactors = FALSE
+  )
   
   # Return
   df
