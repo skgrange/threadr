@@ -9,6 +9,9 @@
 #' 
 #' @param name Name of variable to use. \code{add_row_numbers} will silently 
 #' drop an existing variable of the same name if present in \code{df}. 
+#' 
+#' @param zero_based Should the numbering start at \code{0} rather than \code{1}? 
+#' Default is \code{FALSE}. 
 #'
 #' @seealso \link{add_rownames}
 #' 
@@ -21,10 +24,13 @@
 #' # Or change the name
 #' data_zones <- add_row_numbers(data_zones, name = "order")
 #' 
+#' # Use zero-based numbering
+#' data_zones <- add_row_numbers(data_zones, name = "id", zero_based = TRUE)
+#' 
 #' }
 #' 
 #' @export
-add_row_numbers <- function(df, name = "row_number") {
+add_row_numbers <- function(df, name = "row_number", zero_based = FALSE) {
   
   # Drop variable if exists
   if (name %in% names(df)) df[, name] <- NULL
@@ -32,7 +38,7 @@ add_row_numbers <- function(df, name = "row_number") {
   # Create sequence of integers
   sequence <- seq.int(1, to = nrow(df))
   
-  # if (start != 1) sequence <- sequence + start
+  if (zero_based) sequence <- sequence - 1L
   
   # Add sequence to data frame
   df[, name] <- sequence

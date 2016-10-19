@@ -280,7 +280,7 @@ str_note_to_sentence <- function(x, sep = "_") {
   
   x <- stringr::str_to_lower(x)
   x <- stringr::str_replace_all(x, sep, " ")
-  x <- str_sentence_case(x)
+  x <- str_to_sentence(x)
   x
   
 }
