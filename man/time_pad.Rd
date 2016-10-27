@@ -4,7 +4,8 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", by = NA, round = NA, warn = TRUE)
+time_pad(df, interval = "hour", by = NA, round = NA, full = FALSE,
+  warn = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must
@@ -21,6 +22,9 @@ multiples such as \code{"5 min"} work too.}
 \item{round}{What date-unit should the first and last observations be rounded
 to? This allows the padded time-series to begin and end at a "nice place". 
 Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
+
+\item{full}{Should the date joining use the \code{full_join} function? If 
+\code{TRUE}, no input dates will be lost but the default is \code{FALSE}.}
 
 \item{warn}{Should the function give a warning when dates are duplicated? 
 Default is \code{TRUE}.}

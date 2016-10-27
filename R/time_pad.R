@@ -26,6 +26,9 @@
 #' to? This allows the padded time-series to begin and end at a "nice place". 
 #' Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.
 #' 
+#' @param full Should the date joining use the \code{full_join} function? If 
+#' \code{TRUE}, no input dates will be lost but the default is \code{FALSE}. 
+#' 
 #' @param warn Should the function give a warning when dates are duplicated? 
 #' Default is \code{TRUE}. 
 #' 
@@ -50,7 +53,8 @@
 #' }
 #' 
 #' @export
-time_pad <- function(df, interval = "hour", by = NA, round = NA, warn = TRUE) {
+time_pad <- function(df, interval = "hour", by = NA, round = NA, 
+                     full = FALSE, warn = TRUE) {
   
   # Get variable order
   variables <- names(df)
@@ -58,7 +62,7 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA, warn = TRUE) {
   if (is.na(by[1])) {
     
     # No group-by needed
-    df <- padder(df, interval, by, round, merge, warn) %>% 
+    df <- padder(df, interval, by, round, merge, full, warn) %>% 
       arrange_left(variables)
     
   } else {
@@ -73,6 +77,7 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA, warn = TRUE) {
                 interval = interval, 
                 by = by,
                 round = round, 
+                full = full,
                 warn = warn)) %>% 
       arrange_left(variables)
     
@@ -90,7 +95,7 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA, warn = TRUE) {
 # The worker
 # 
 # No export
-padder <- function(df, interval, by, round, merge, warn) {
+padder <- function(df, interval, by, round, merge, full, warn) {
   
   # Check if input has a date variable
   if (!"date" %in% names(df))
@@ -148,7 +153,15 @@ padder <- function(df, interval, by, round, merge, warn) {
   
   # Do the padding
   # Use dplyr, it is much faster
-  df <- dplyr::left_join(date_sequence, df, by = "date")
+  if (full) {
+    
+    df <- full_join(date_sequence, df, by = "date")
+    
+  } else {
+    
+    df <- left_join(date_sequence, df, by = "date")
+    
+  }
 
   # Overwrite identifiers
   if (!is.na(by[1])) df <- cbind(data_by, df)
