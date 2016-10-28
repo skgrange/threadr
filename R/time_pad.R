@@ -156,6 +156,7 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   if (full) {
     
     df <- full_join(date_sequence, df, by = "date")
+    df <- arrange(df, date)
     
   } else {
     
