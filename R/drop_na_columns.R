@@ -7,4 +7,29 @@
 #' @author teucer
 #' 
 #' @export
-drop_na_columns <- function (df) df[, colSums(is.na(df)) < nrow(df)]
+drop_na_columns <- function(df) {
+  
+  # Test variables for missing-ness
+  index <- colSums(is.na(df)) < nrow(df)
+  
+  # Drop
+  df <- df[, index]
+  
+  # If subsetting has simplified object, make data frame again
+  if (class(df) != "data.frame") {
+    
+    # Make data frame again
+    df <- data.frame(
+      df, 
+      stringsAsFactors = FALSE
+    )
+    
+    # Give names
+    names(df) <- names(index[index])
+    
+  }
+  
+  # Return
+  df
+  
+}
