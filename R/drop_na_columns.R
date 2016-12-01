@@ -16,7 +16,7 @@ drop_na_columns <- function(df) {
   df <- df[, index]
   
   # If subsetting has simplified object, make data frame again
-  if (class(df) != "data.frame") {
+  if (any(grepl("data.frame", class(df)))) {
     
     # Make data frame again
     df <- data.frame(

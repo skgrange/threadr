@@ -78,11 +78,7 @@ str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
     time_zone <- Sys.timezone(location = TRUE)
     
     # Add time zone to string
-    if (!is.na(time_zone)) {
-      
-      date <- paste(date, time_zone)
-      
-    }
+    if (!is.na(time_zone)) date <- paste(date, time_zone)
     
   }
   
@@ -155,6 +151,7 @@ str_to_underscore <- function(x) {
   x <- gsub("__", "_", x)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   x <- tolower(x)
+  # Quite a new base function
   x <- trimws(x)
   x
   

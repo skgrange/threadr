@@ -54,7 +54,7 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
   # A switch for my common usage
   if (tz == "nz") tz <- "Etc/GMT-12"
   
-  # Parse/promote
+  # Parse
   x <- as.POSIXct(x, tz = tz, origin = origin)
   
   # Return
