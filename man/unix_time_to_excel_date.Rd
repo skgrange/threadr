@@ -17,11 +17,10 @@ unix_time_to_excel_date(x, tz = "UTC", type = "windows")
 \description{
 Depending on what version of Microsoft Excel, there are two origins used.
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow},
 \code{\link{parse_excel_date}}
 }
-
+\author{
+Stuart K. Grange
+}

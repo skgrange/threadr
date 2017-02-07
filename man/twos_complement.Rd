@@ -31,4 +31,3 @@ twos_complement(integer)
 \author{
 Stuart K. Grange
 }
-

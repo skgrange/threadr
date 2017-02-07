@@ -35,4 +35,3 @@ data_join <- left_join_range(data_urban, data_urban_class,
 \author{
 Stuart K. Grange
 }
-

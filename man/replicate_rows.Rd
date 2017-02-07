@@ -27,4 +27,3 @@ data_replicated <- replicate_rows(data_test, 10)
 \author{
 Stuart K. Grange
 }
-

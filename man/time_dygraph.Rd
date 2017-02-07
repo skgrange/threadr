@@ -50,10 +50,9 @@ connected when rendered in an HTML document.}
 Function for plotting interactive time-series plots in a similar way to
 \code{\link{timePlot}}.
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{timePlot}}, \code{\link{dygraph}}
 }
-
+\author{
+Stuart K. Grange
+}

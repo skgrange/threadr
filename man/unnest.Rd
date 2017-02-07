@@ -38,10 +38,9 @@ data_tidy <- unnest(french_verbs, variable = "subject", pattern = ",")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \link{tidyr}
 }
-
+\author{
+Stuart K. Grange
+}

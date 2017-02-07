@@ -18,4 +18,3 @@ Function to quickly use \code{jsonlite::toJSON}.
 \author{
 Stuart K. Grange
 }
-

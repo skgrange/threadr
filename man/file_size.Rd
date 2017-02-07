@@ -17,4 +17,3 @@ Function to get file size.
 \author{
 Stuart K. Grange
 }
-

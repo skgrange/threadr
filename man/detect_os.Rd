@@ -12,4 +12,3 @@ Function to get operating system type.
 \author{
 Stuart K. Grange
 }
-

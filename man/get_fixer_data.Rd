@@ -26,4 +26,3 @@ Function to get exchange rates from \href{http://fixer.io/}{Fixer.io}.
 \author{
 Stuart K. Grange
 }
-

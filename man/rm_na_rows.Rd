@@ -30,4 +30,3 @@ data_clean <- rm_na_rows(data, -1:-2)
 \author{
 Stuart K. Grange
 }
-

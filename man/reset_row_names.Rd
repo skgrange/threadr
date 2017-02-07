@@ -9,4 +9,3 @@ reset_row_names(df)
 \author{
 Stuart K. Grange
 }
-

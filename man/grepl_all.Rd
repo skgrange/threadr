@@ -23,4 +23,3 @@ and can be used for filtering.
 \author{
 Stuart K. Grange
 }
-

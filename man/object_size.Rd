@@ -19,4 +19,3 @@ object_size(object, unit = "Mb")
 \author{
 Stuart K. Grange
 }
-

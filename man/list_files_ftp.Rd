@@ -28,11 +28,10 @@ list_files_ftp("ftp://195.174.23.76/test", credentials)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
 \code{\link{upload_ftp_file}}
 }
-
+\author{
+Stuart K. Grange
+}

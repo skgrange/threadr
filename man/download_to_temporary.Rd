@@ -18,4 +18,3 @@ Function to download a file to R's temporary directory.
 \author{
 Stuart K. Grange
 }
-

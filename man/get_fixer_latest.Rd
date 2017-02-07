@@ -14,4 +14,3 @@ Function to get lastest exchange rate data from
 \author{
 Stuart K. Grange
 }
-

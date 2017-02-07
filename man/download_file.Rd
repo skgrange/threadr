@@ -59,4 +59,3 @@ download_file(url, "downloaded/", file_names, quiet = FALSE)
 \author{
 Stuart K. Grange
 }
-

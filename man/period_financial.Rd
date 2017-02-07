@@ -26,10 +26,9 @@ period_financial(data_hours$date)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{wday}}, \code{\link{week_financial}}, \code{\link{month}}
 }
-
+\author{
+Stuart K. Grange
+}

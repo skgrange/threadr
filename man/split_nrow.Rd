@@ -32,4 +32,3 @@ data_large_list <- split_nrow(data_large, 500000)
 \author{
 Stuart K. Grange
 }
-

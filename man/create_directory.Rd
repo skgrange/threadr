@@ -32,4 +32,3 @@ create_directory(c("data_dump", "new_directory"))
 \author{
 Stuart K. Grange
 }
-

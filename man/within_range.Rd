@@ -42,10 +42,9 @@ within_range(vector, look_up$start, look_up$end)
 }
  
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{which}}
 }
-
+\author{
+Stuart K. Grange
+}

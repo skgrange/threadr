@@ -36,4 +36,3 @@ Vector of file names or paths.
 \author{
 Stuart K. Grange
 }
-

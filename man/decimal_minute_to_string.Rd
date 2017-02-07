@@ -38,4 +38,3 @@ decimal_minute_to_string(5.954226, hour = FALSE)
 \author{
 Stuart K. Grange
 }
-

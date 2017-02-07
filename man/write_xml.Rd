@@ -9,4 +9,3 @@ write_xml(df, file, name = "observation")
 \description{
 \code{write_xml} is not suitable for large data frames.
 }
-

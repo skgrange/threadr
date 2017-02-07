@@ -35,4 +35,3 @@ oil_ratio(ratio = c("50:1", "100:1"), volume_fuel = c(5, 10))
 \author{
 Stuart K. Grange
 }
-

@@ -20,10 +20,9 @@ data_standardise <- standardise(data_csv)
 }
 
 }
-\author{
-and Stuart K. Grange
-}
 \seealso{
 \link{scale}
 }
-
+\author{
+and Stuart K. Grange
+}

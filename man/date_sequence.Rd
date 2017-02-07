@@ -34,4 +34,3 @@ pattern <- date_sequence(days = -3)
 \author{
 Stuart K. Grange
 }
-

@@ -31,4 +31,3 @@ data_tidy_integer <- round_numeric(data_tidy, round = 0)
 \author{
 Stuart K. Grange
 }
-

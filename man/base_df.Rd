@@ -17,4 +17,3 @@ functions. \code{base_df} degrades a \code{tbl_df} to a base data frame.
 \author{
 Stuart K. Grange
 }
-

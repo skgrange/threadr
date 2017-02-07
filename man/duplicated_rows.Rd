@@ -21,4 +21,3 @@ duplicated_rows(df, variable, invert = FALSE)
 \author{
 Stuart K. Grange
 }
-

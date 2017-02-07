@@ -31,4 +31,3 @@ data_summary <- tidy_summary(data_air)
 \author{
 Stuart K. Grange
 }
-

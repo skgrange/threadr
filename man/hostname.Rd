@@ -15,4 +15,3 @@ Function to find system's hostname.
 \author{
 Stuart K. Grange
 }
-

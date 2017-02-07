@@ -15,4 +15,3 @@ Function to format \strong{lubridate} periods into a \code{HH:MM:SS} format.
 \author{
 Stuart K Grange
 }
-

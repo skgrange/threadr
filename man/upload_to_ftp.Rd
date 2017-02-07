@@ -39,11 +39,10 @@ upload_to_ftp(file_list, url, "user:pass")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
 \code{\link{list_files_ftp}}
 }
-
+\author{
+Stuart K. Grange
+}

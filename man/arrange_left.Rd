@@ -31,4 +31,3 @@ data_ozone <- arrange_left(data_ozone, c("date", "site", "site_name", "sensor"))
 \author{
 Stuart K. Grange
 }
-

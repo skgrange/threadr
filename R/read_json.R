@@ -8,6 +8,4 @@
 #' @author Stuart K. Grange
 #' 
 #' @export
-read_json <- function (file, flatten = TRUE) {
-  jsonlite::fromJSON(file, flatten)
-}
+read_json <- function(file, flatten = TRUE) jsonlite::fromJSON(file, flatten)

@@ -38,4 +38,3 @@ parse_unix_time(unix_time_vector, tz = "Europe/Berlin")
 \author{
 Stuart K. Grange
 }
-

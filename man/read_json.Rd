@@ -17,4 +17,3 @@ Very simple wrapper for \code{jsonlite::fromJSON}.
 \author{
 Stuart K. Grange
 }
-

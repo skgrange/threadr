@@ -39,4 +39,3 @@ Function to wrap \code{readxl::read_excel} and then do some formating.
 \author{
 Stuart K. Grange
 }
-

@@ -35,4 +35,3 @@ weekday_sequence(factor = FALSE)
 \author{
 Stuart K. Grange
 }
-

@@ -31,4 +31,3 @@ data_income$income_chunk <- locf(data_income$income_chunk)
 \author{
 Stuart K. Grange
 }
-

@@ -15,10 +15,9 @@ Vector of hex colours.
 \description{
 Function to generate a vector of colours which emulate ggplot2's colours.
 }
-\author{
-John Colby
-}
 \seealso{
 \url{http://stackoverflow.com/questions/8197559/emulate-ggplot2-default-color-palette}
 }
-
+\author{
+John Colby
+}

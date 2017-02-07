@@ -24,4 +24,3 @@ Function to smooth an \emph{x}-\emph{y} pair with loess (local regression).
 \author{
 Stuart K. Grange
 }
-

@@ -20,4 +20,3 @@ Function to determine averaging period in a date vector.
 \author{
 Stuart K. Grange
 }
-

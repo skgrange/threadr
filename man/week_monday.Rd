@@ -18,10 +18,9 @@ Integer vector.
 \description{
 Function to get Monday-based week number of a date.
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{wday}}, \code{\link{week_financial}}
 }
-
+\author{
+Stuart K. Grange
+}

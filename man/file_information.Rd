@@ -22,4 +22,3 @@ frame a little.
 \author{
 Stuart K. Grange
 }
-

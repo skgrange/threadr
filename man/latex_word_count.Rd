@@ -22,4 +22,3 @@ document.
 \author{
 Stuart K. Grange
 }
-

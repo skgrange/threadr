@@ -21,10 +21,9 @@ right-aligned? Default is \code{"center"}.}
 \description{
 Function to apply rolling mean to a vector.
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{mean}}, \code{\link{rollapply}}, \code{\link{rollmean}}
 }
-
+\author{
+Stuart K. Grange
+}

@@ -22,4 +22,3 @@ Function to wrap \code{\link{readLines}} with different defaults.
 \author{
 Stuart K. Grange
 }
-

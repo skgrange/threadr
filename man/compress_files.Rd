@@ -21,4 +21,3 @@ Function to compress files.
 \author{
 Stuart K. Grange
 }
-

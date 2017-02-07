@@ -10,4 +10,3 @@ excel_read_all(file, sheet = NA, convert = FALSE)
 \code{excel_read_all} will only work well if the sheets have a consistent 
 structure.
 }
-

@@ -34,10 +34,9 @@ data_zones <- add_row_numbers(data_zones, name = "id", zero_based = TRUE)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \link{add_rownames}
 }
-
+\author{
+Stuart K. Grange
+}

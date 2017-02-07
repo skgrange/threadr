@@ -18,4 +18,3 @@ Function to quickly apply \code{type.convert} to objects.
 \author{
 Stuart K. Grange
 }
-

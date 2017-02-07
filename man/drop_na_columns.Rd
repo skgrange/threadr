@@ -12,10 +12,9 @@ drop_na_columns(df)
 \description{
 Function to drop columns in a data frame which only contain \code{NA}.
 }
-\author{
-teucer
-}
 \seealso{
 \href{http://stackoverflow.com/questions/2643939/remove-columns-from-dataframe-where-all-values-are-na}{stackoverflow.com}
 }
-
+\author{
+teucer
+}

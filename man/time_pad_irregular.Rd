@@ -47,11 +47,10 @@ data_benzene_continuous <- time_pad_irregular(data_benzene, "day")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{na.locf}}, \code{\link{round_date_interval}}, 
 \code{\link{time_pad}}, \code{\link{timeAverage}}, \code{\link{round_date}}
 }
-
+\author{
+Stuart K. Grange
+}

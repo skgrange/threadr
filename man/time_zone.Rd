@@ -30,4 +30,3 @@ time_zone(data_test$date)
 \author{
 Stuart K. Grange
 }
-

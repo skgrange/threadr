@@ -24,4 +24,3 @@ model (GAM).
 \author{
 Stuart K. Grange
 }
-

@@ -67,11 +67,10 @@ round_date_interval(date, "30 sec")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 See \code{\link{time_pad}}, \code{\link{round_date}}, 
 \code{\link{round_any}}
 }
-
+\author{
+Stuart K. Grange
+}

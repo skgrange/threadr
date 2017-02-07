@@ -15,4 +15,3 @@ Function to get system time with sytem calls.
 \author{
 Stuart K. Grange
 }
-

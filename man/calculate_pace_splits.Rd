@@ -45,4 +45,3 @@ calculate_pace_splits(5, "18:15")
 \author{
 Stuart K. Grange
 }
-

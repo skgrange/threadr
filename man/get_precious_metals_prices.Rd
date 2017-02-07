@@ -23,4 +23,3 @@ data_metals <- get_precious_metals_prices()
 \author{
 Stuart K. Grange
 }
-

@@ -19,4 +19,3 @@ Function to parse date arguments for other functions.
 \author{
 Stuart K. Grrange
 }
-

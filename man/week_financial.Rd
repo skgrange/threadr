@@ -27,10 +27,9 @@ data_hours$week <- week_financial(data_hours$date)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{wday}}, \code{\link{week_monday}}
 }
-
+\author{
+Stuart K. Grange
+}

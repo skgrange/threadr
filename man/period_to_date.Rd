@@ -15,4 +15,3 @@ Function convert a lubridate period to a POSIXct date.
 \author{
 Stuart K. Grange
 }
-

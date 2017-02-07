@@ -49,11 +49,10 @@ data_ozone$uuid <- uuid_rowwise(data_ozone)
 }
 
 }
+\seealso{
+\code{\link{sample}}, \code{\link{replicate}}
+}
 \author{
 Christopher Bare, modified by Stuart K. Grange
 Originally from: \url{http://gist.github.com/cbare/5979354}
 }
-\seealso{
-\code{\link{sample}}, \code{\link{replicate}}
-}
-

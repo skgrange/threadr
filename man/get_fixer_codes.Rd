@@ -12,4 +12,3 @@ Function to get Fixer.io currency codes.
 \author{
 Stuart K. Grange
 }
-

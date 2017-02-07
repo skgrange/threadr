@@ -40,4 +40,3 @@ df <- read_html_tables(url, n = 1)
 \author{
 Stuart K. Grange
 }
-

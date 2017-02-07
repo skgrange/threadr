@@ -56,11 +56,10 @@ data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour",
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
 \code{\link{round_date}}, \code{\link{left_join}}
 }
-
+\author{
+Stuart K. Grange
+}

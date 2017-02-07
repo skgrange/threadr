@@ -21,4 +21,3 @@ data_air <- read_rdata("ADA16_2015.RData")
 \author{
 Stuart K. Grange
 }
-

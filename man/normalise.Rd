@@ -17,10 +17,9 @@ Numeric vector with the length of \code{x}.
 \description{
 Function to normalise a numeric vector's range to 0--1.
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \href{http://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range}{stackexchange}
 }
-
+\author{
+Stuart K. Grange
+}

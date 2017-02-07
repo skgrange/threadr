@@ -38,10 +38,9 @@ data_metadata <- file_metadata("music.mp3")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \link{http://www.sno.phy.queensu.ca/~phil/exiftool/}
 }
-
+\author{
+Stuart K. Grange
+}

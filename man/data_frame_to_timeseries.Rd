@@ -21,4 +21,3 @@ Function to promote a data frame to a time-series object.
 \author{
 Stuart K. Grange
 }
-

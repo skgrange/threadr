@@ -19,7 +19,7 @@ write_json(x, file, pretty = TRUE, na = FALSE, auto_unbox = FALSE)
 JSON's \code{null} value.}
 
 \item{auto_unbox}{Should vectors with the length of \code{1} be represented 
-as atomic, single element arrays?}
+as atomic, single element arrays? Default is \code{FALSE}.}
 }
 \description{
 \code{write_json} uses \code{jsonlite} as the data frame to JSON parser.
@@ -27,6 +27,7 @@ as atomic, single element arrays?}
 \examples{
 \dontrun{
 
+# Export a data frame
 write_json(data_car_identifiers, "car_identifiers.json")
 
 }
@@ -35,4 +36,3 @@ write_json(data_car_identifiers, "car_identifiers.json")
 \author{
 Stuart K. Grange
 }
-

@@ -14,13 +14,14 @@
 #' JSON's \code{null} value. 
 #' 
 #' @param auto_unbox Should vectors with the length of \code{1} be represented 
-#' as atomic, single element arrays?
+#' as atomic, single element arrays? Default is \code{FALSE}. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @examples
 #' \dontrun{
 #' 
+#' # Export a data frame
 #' write_json(data_car_identifiers, "car_identifiers.json")
 #' 
 #' }

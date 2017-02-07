@@ -27,10 +27,9 @@ as_binary(sample(1L:1000L, 1000))
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \href{http://stackoverflow.com/questions/6614283/converting-decimal-to-binary-in-r}{stackoverflow}
 }
-
+\author{
+Stuart K. Grange
+}

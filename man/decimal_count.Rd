@@ -24,10 +24,9 @@ decimal_count(c(5.89, 2, 56.454545, 5.1))
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \url{http://stackoverflow.com/questions/5173692/how-to-return-number-of-decimal-places-in-r}
 }
-
+\author{
+Stuart K. Grange
+}
