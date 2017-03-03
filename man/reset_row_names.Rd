@@ -6,6 +6,9 @@
 \usage{
 reset_row_names(df)
 }
+\description{
+\code{reset_row_names} can be used with magrittr's pipe (\code{\%>\%}).
+}
 \author{
 Stuart K. Grange
 }

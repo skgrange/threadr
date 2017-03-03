@@ -21,6 +21,11 @@ must be a \code{POSIXct} date class.}
 \item{summary}{What summary function should be applied for the aggregation? 
 Default is the \code{mean}.}
 
+\item{threshold}{What data capture threshold is needed to create a valid 
+aggregation. This is an value between \code{0} and \code{1}. Zero would mean 
+any number of values will be valid but \code{0.75} would mean \code{75 \%} of
+values are needed for a valid average.}
+
 \item{round}{Should the aggregations be rounded? Default is no but \code{3} 
 would round to three decimal places.}
 }
