@@ -5,12 +5,13 @@
 \title{Function to aggregate time-series data by dates.}
 \usage{
 aggregate_by_date(df, interval = "hour", by = NA, summary = "mean",
-  threshold = 0, round = NA)
+  threshold = 0, round = NA, verbose = FALSE)
 }
 \arguments{
 \item{df}{Input data frame to be aggregated. \code{df} must contain 
-\code{"date"} and \code{"value"} variables and the \code{"date"} variable 
-must be a \code{POSIXct} date class.}
+\code{"date"} and \code{"value"} variables. the \code{"date"} variable 
+must be a \code{POSIXct} date class and the value must be a \code{numeric} or
+\code{integer} data type.}
 
 \item{interval}{What interval should the aggregation be? Default is 
 \code{"hour"}.}
@@ -28,6 +29,8 @@ values are needed for a valid average.}
 
 \item{round}{Should the aggregations be rounded? Default is no but \code{3} 
 would round to three decimal places.}
+
+\item{verbose}{Should the function give messages?}
 }
 \value{
 Data frame.

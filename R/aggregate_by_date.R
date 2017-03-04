@@ -5,8 +5,9 @@
 #' to perform on "longer" data which is often encountered. 
 #' 
 #' @param df Input data frame to be aggregated. \code{df} must contain 
-#' \code{"date"} and \code{"value"} variables and the \code{"date"} variable 
-#' must be a \code{POSIXct} date class. 
+#' \code{"date"} and \code{"value"} variables. the \code{"date"} variable 
+#' must be a \code{POSIXct} date class and the value must be a \code{numeric} or
+#' \code{integer} data type. 
 #' 
 #' @param interval What interval should the aggregation be? Default is 
 #' \code{"hour"}.
@@ -25,6 +26,8 @@
 #' @param round Should the aggregations be rounded? Default is no but \code{3} 
 #' would round to three decimal places. 
 #' 
+#' @param verbose Should the function give messages? 
+#' 
 #' @return Data frame. 
 #' 
 #' @author Stuart K. Grange
@@ -32,6 +35,8 @@
 #' @seealso \code{\link{timeAverage}}, \code{\link{time_pad}}
 #' 
 #' @import dplyr
+#' @importFrom lubridate floor_date
+#' @importFrom lubridate ceiling_date
 #' 
 #' @examples 
 #' \dontrun{
@@ -43,19 +48,20 @@
 #' 
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
-                              threshold = 0, round = NA) {
+                              threshold = 0, round = NA, verbose = FALSE) {
   
   # Check a few things
   if (!any(c("date", "value") %in% names(df)))
     stop("Input must contain 'date' and 'value' variables.", call. = FALSE)
   
+  # Check data type
+  if (!class(df$value) %in% c("numeric", "integer"))
+    stop("'value' must be of numeric or integer class.", call. = FALSE)
+  
   if (!threshold <= 1 & threshold >= 0) 
     stop("Threshold must be between 0 and 1.", call. = FALSE)
   
-  # 
-  date_end_addition <- ifelse(interval == "day", 86399, NA)
-  date_end_addition <- ifelse(interval == "hour", 3599, date_end_addition)
-  
+  # For grouping
   if (is.na(by)[1]) {
     
     list_dots <- list(as.symbol("date"))
@@ -72,19 +78,68 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Create groups
   df <- df %>% 
-    mutate(date = lubridate::floor_date(date, unit = interval)) %>% 
+    mutate(date = floor_date(date, unit = interval)) %>% 
     group_by_(.dots = list_dots)
   
-  # Do the aggregation
+  # Wind direction processing, logic used more than once
+  wind_direction_detected <- ifelse("wd" %in% unique(df$variable), TRUE, FALSE)
+  
+  if (wind_direction_detected) {
+    
+    if (verbose) message("Wind direction ('wd') detected...")
+    
+    # Get wind direction
+    df_wd <- df %>% 
+      filter(variable == "wd")
+    
+    # Drop from orignal data frame
+    df <- df %>% 
+      filter(variable != "wd")
+    
+    # Do the aggregation
+    df_wd <- df_wd %>% 
+      summarise_(value = lazyeval::interp(
+        ~date_aggregator(x, summary = summary, threshold = threshold, wd = wd), 
+        x = as.name("value"), 
+        summary = summary,
+        threshold = threshold,
+        wd = TRUE))
+    
+  }
+  
+  # Do the aggregation, non-standard evaluation is a mess!
   df <- df %>% 
-    summarise(value = date_aggregator(
-      value, summary = summary, threshold = threshold)) %>% 
+    summarise_(value = lazyeval::interp(
+      ~date_aggregator(x, summary = summary, threshold = threshold), 
+      x = as.name("value"), 
+      summary = summary,
+      threshold = threshold))
+  
+  # Bind wind direction too
+  if (wind_direction_detected) {
+    
+    df <- df %>% 
+      bind_rows(df_wd)
+    
+  }
+  
+  # Add date end
+  df <- df %>% 
     ungroup() %>% 
-    mutate(date_end = date + date_end_addition) %>% 
-    # select_("date",
-    #         "date_end",
-    #         .dots = list_dots,
-    #         "value") %>%
+    mutate(date_end = ceiling_date(
+      date, unit = interval, change_on_boundary = TRUE),
+      date_end = date_end - 1)
+  
+  # Do some post aggregation cleaning
+  
+  # Variable order
+  names_vector <- c("date", "date_end", by, "value")
+  # No NA when by is NA
+  names_vector <- names_vector[!is.na(names_vector)]
+  
+  # 
+  df <- df %>% 
+    select_(.dots = names_vector) %>%
     arrange_(.dots = rev(list_dots))
   
   # Round
@@ -96,40 +151,114 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
 }
 
 
-date_aggregator <- function(x, summary, threshold) {
+date_aggregator <- function(x, summary, threshold, wd = FALSE) {
   
-  if (threshold == 0) {
+  if (wd) {
     
-    aggregation <- mean(x, na.rm = TRUE)
-    
-  } else {
-    
-    # Calculate data capture
-    count_all <- length(x)
-    count_valid <- sum(!is.na(x))
-    data_capture <- count_valid / count_all
-    
-    if (threshold <= data_capture) {
+    if (threshold == 0) {
       
-      aggregation <- mean(x, na.rm = TRUE)
+      # Use trigonometry
+      x <- wind_direction_aggregator(x)
       
     } else {
       
-      # Invalid summary
-      aggregation <- NA
+      # Calculate data capture
+      data_capture <- calculate_data_capture(x)
+      
+      if (threshold <= data_capture) {
+        
+        x <- wind_direction_aggregator(x)
+        
+      } else {
+        
+        # Invalid summary
+        x <- NA
+        
+      }
+      
+    }
+    
+  } else {
+    
+    # Get function to use
+    aggregation_function <- aggregation_function_type(summary)
+    
+    if (threshold == 0) {
+      
+      x <- aggregation_function(x, na.rm = TRUE)
+      
+    } else {
+      
+      # Calculate data capture
+      data_capture <- calculate_data_capture(x)
+      
+      if (threshold <= data_capture) {
+        
+        x <- aggregation_function(x, na.rm = TRUE)
+        
+      } else {
+        
+        # Invalid summary
+        x <- NA
+        
+      }
       
     }
     
   }
   
   # Return
-  aggregation
+  x
   
 }
 
 
-# wind_direction_averager <- function(x) {
-#   
-#   
-#   
-# }
+calculate_data_capture <- function(x) {
+  
+  # Calculate data capture
+  count_all <- length(x)
+  count_valid <- sum(!is.na(x))
+  data_capture <- count_valid / count_all
+  data_capture
+  
+}
+
+
+wind_direction_aggregator <- function(x) {
+  
+  # Calculate wind components, watch the negation
+  wind_u <- - sin(2 * pi * x / 360)
+  wind_v <- - cos(2 * pi * x / 360)
+  
+  # Mean wind components
+  x_u <- mean(wind_u, na.rm = TRUE)
+  x_v <- mean(wind_v, na.rm = TRUE)
+  
+  # Average wind speed
+  x <- atan2(x_u, x_v) * 360 / 2 / pi + 180
+  
+  # Return
+  x
+  
+}
+
+
+aggregation_function_type <- function(type) {
+  
+  # Switch
+  if (type == "mean") f <- mean
+  if (type == "median") f <- median
+  if (type %in% c("max", "maximum")) f <- max
+  if (type %in% c("min", "minumum")) f <- min
+  if (type == "sum") f <- sum
+  
+  # Parse na.rm for consistency
+  if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
+  
+  if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
+  if (type == "mode") f <- mode_average
+  
+  # Return
+  f
+  
+}

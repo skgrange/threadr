@@ -149,7 +149,7 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   if (!is.na(round)) date_sequence <- date_sequence[-length(date_sequence)]
   
   # To data frame
-  date_sequence <- data.frame(date = date_sequence)
+  date_sequence <- data_frame(date = date_sequence)
   
   # Do the padding
   # Use dplyr, it is much faster
@@ -209,6 +209,9 @@ get_identifiers <- function(df, by) {
     row.names(data_by) <- NULL
     
   }
+  
+  # No factors bitte
+  data_by <- factor_coerce(data_by)
   
   # Return
   data_by
