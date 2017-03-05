@@ -49,7 +49,7 @@
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
                               threshold = 0, round = NA, verbose = FALSE) {
-  
+
   # Check a few things
   if (!any(c("date", "value") %in% names(df)))
     stop("Input must contain 'date' and 'value' variables.", call. = FALSE)
@@ -73,6 +73,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   }
   
   # Pad time series first
+  if (verbose) message("Padding time-series...")
+  
   df <- time_pad(df, interval = interval, by = by, full = TRUE, round = interval,
                  warn = FALSE)
   
@@ -108,6 +110,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   }
   
   # Do the aggregation, non-standard evaluation is a mess!
+  if (verbose) message("Aggregating...")
+  
   df <- df %>% 
     summarise_(value = lazyeval::interp(
       ~date_aggregator(x, summary = summary, threshold = threshold), 
@@ -123,6 +127,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
   }
   
+  if (verbose) message("Final clean-up and arranging...")
+  
   # Add date end
   df <- df %>% 
     ungroup() %>% 
@@ -137,7 +143,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # No NA when by is NA
   names_vector <- names_vector[!is.na(names_vector)]
   
-  # 
+  # Format table
   df <- df %>% 
     select_(.dots = names_vector) %>%
     arrange_(.dots = rev(list_dots))
