@@ -42,14 +42,15 @@ download_ftp_file <- function(file, credentials = "", directory = NA,
                               curl = TRUE, progress = "text") {
   
   # Apply function over files
-  plyr::l_ply(file, downloader, credentials, directory, curl, 
+  plyr::l_ply(file, download_ftp_file_worker, credentials, directory, curl, 
               .progress = progress)
   
 }
 
 
 # No export
-downloader <- function(url, credentials = "", directory = NA, curl = TRUE) {
+download_ftp_file_worker <- function(url, credentials = "", directory = NA, 
+                                     curl = TRUE) {
   
   # If not directory is used
   if (is.na(directory)) directory <- getwd()
@@ -109,6 +110,21 @@ downloader <- function(url, credentials = "", directory = NA, curl = TRUE) {
 #' 
 #' @export
 list_files_ftp <- function(url, credentials = "") {
+  
+  # For each url
+  list_files <- plyr::llply(urls, list_files_ftp_worker, 
+                            credentials = credentials)
+  
+  # Just a vector bitte
+  list_files <- unlist(list_files)
+  
+  # Return
+  list_files
+  
+}
+
+
+list_files_ftp_worker <- function(url, credentials) {
   
   # url must be prefixed with ftp or sftp
   if (!grepl("^ftp://|^sftp://", url))
@@ -173,14 +189,14 @@ upload_to_ftp <- function(file, url, credentials = "", basename = FALSE,
                           progress = "text") {
   
   # Apply function to length of file
-  plyr::l_ply(file, uploader, url = url, credentials = credentials, 
+  plyr::l_ply(file, upload_to_ftp_worker, url = url, credentials = credentials, 
               basename = basename, .progress = progress)
   
 }
 
 
 # No export
-uploader <- function(file, url, credentials, basename) {
+upload_to_ftp_worker <- function(file, url, credentials, basename) {
   
   # url must be prefixed with ftp or sftp
   if (!grepl("^ftp://|^sftp://", url))
