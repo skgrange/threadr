@@ -21,6 +21,9 @@ test_that("Test date aggregator", {
   # Monthly
   expect_equal(nrow(aggregate_by_date(df, interval = "month")), 10)
 
+  # No padding, incorrect in this example
+  expect_equal(nrow(aggregate_by_date(df, interval = "month", pad = FALSE)), 4)
+  
   # Different summary functions
   expect_equal(
     nrow(aggregate_by_date(df, interval = "month", summary = "median")),

@@ -26,6 +26,10 @@
 #' @param round Should the aggregations be rounded? Default is no but \code{3} 
 #' would round to three decimal places. 
 #' 
+#' @param pad Should the time-series be padded before aggregation? Almost always
+#' this will be \code{TRUE} but if you want to speed the function up and have done
+#' this previously, it can be set to \code{FALSE}. 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @return Data frame. 
@@ -48,7 +52,8 @@
 #' 
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
-                              threshold = 0, round = NA, verbose = FALSE) {
+                              threshold = 0, round = NA, pad = TRUE, 
+                              verbose = FALSE) {
 
   # Check a few things
   if (!any(c("date", "value") %in% names(df)))
@@ -73,10 +78,13 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   }
   
   # Pad time series first
-  if (verbose) message("Padding time-series...")
-  
-  df <- time_pad(df, interval = interval, by = by, full = TRUE, round = interval,
-                 warn = FALSE)
+  if (pad) {
+    
+    if (verbose) message("Padding time-series...")
+    df <- time_pad(df, interval = interval, by = by, full = TRUE, round = interval,
+                   warn = FALSE)
+    
+  }
   
   # Create groups
   df <- df %>% 
