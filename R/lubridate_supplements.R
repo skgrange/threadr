@@ -140,3 +140,21 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
   x
   
 }
+
+
+#' Function to test if dates are during the weekend or not. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param x Date vector.
+#' 
+#' @return Logical vector.
+#' 
+#' @export
+weekend <- function(x) {
+  
+  x <- lubridate::wday(x)
+  x <- ifelse(x %in% c(1, 7), TRUE, FALSE)
+  x
+  
+}

@@ -112,7 +112,7 @@ download_ftp_file_worker <- function(url, credentials = "", directory = NA,
 list_files_ftp <- function(url, credentials = "") {
   
   # For each url
-  list_files <- plyr::llply(urls, list_files_ftp_worker, 
+  list_files <- plyr::llply(url, list_files_ftp_worker, 
                             credentials = credentials)
   
   # Just a vector bitte
