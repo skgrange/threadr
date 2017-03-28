@@ -4,7 +4,7 @@
 \alias{detect_date_interval}
 \title{Function to determine averaging period in a date vector.}
 \usage{
-detect_date_interval(date, skip = 1, n = 100)
+detect_date_interval(date, skip = 1, n = 100, text_return = FALSE)
 }
 \arguments{
 \item{date}{A date vector.}
@@ -13,6 +13,9 @@ detect_date_interval(date, skip = 1, n = 100)
 interval.}
 
 \item{n}{Number of elements in \code{date} to evaluate to detect the interval.}
+
+\item{text_return}{Should the date interval be evaluated and a friendly text-
+based return be attempted?}
 }
 \description{
 Function to determine averaging period in a date vector.

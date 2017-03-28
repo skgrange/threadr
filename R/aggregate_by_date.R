@@ -77,7 +77,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
   }
   
-  # Pad time series first
+  # Pad time series first, can be the bottle-neck
   if (pad) {
     
     if (verbose) message("Padding time-series...")
@@ -92,7 +92,9 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     group_by_(.dots = list_dots)
   
   # Wind direction processing, logic used more than once
-  wind_direction_detected <- ifelse("wd" %in% unique(df$variable), TRUE, FALSE)
+  # Double && will break out of test if FALSE, no warnings
+  wind_direction_detected <- ifelse(
+    "variable" %in% names(df) && "wd" %in% unique(df$variable), TRUE, FALSE)
   
   if (wind_direction_detected) {
     
