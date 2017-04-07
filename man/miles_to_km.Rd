@@ -47,6 +47,7 @@
 \alias{metre_to_acre}
 \alias{marathon}
 \alias{half_marathon}
+\alias{absolute_zero}
 \title{Functions to convert unit systems.}
 \usage{
 miles_to_km(x)
@@ -140,6 +141,8 @@ metre_to_acre(x)
 marathon()
 
 half_marathon()
+
+absolute_zero()
 }
 \description{
 No rounding is ever done.

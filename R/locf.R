@@ -23,3 +23,16 @@
 #' @export
 locf <- function (x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
 
+
+#' Function for linearly interpolating \code{NA}s. 
+#' 
+#' @param x Input vector. 
+#' 
+#' @param na.rm Should leading NAs be removed? Default is \code{FALSE}. 
+#' 
+#' @return Vector length of \code{x}. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @export
+interpolate_na <- function(x, na.rm = FALSE) zoo::na.approx(x, na.rm = na.rm)
