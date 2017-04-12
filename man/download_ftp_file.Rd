@@ -4,24 +4,27 @@
 \alias{download_ftp_file}
 \title{Function to download files from an FTP or SFTP server.}
 \usage{
-download_ftp_file(file, credentials = "", directory = NA, curl = TRUE,
-  progress = "text")
+download_ftp_file(url, file_local = NA, credentials = "", curl = FALSE,
+  verbose = FALSE, progress = "none")
 }
 \arguments{
+\item{url}{The url(s) of the file(s) which are to be downloaded.}
+
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
 \code{credentials} if the server does not require authentication. 
 \code{credentials} takes the format: \code{"username:password"}.}
 
-\item{directory}{Directory where the files are to be downloaded to. If 
-\code{directory} does not exist, it will be created.}
-
 \item{curl}{Should \strong{RCurl} be used to download the files or base R's 
-\code{download.file}? Default is \code{TRUE}.}
+\code{download.file}?}
 
-\item{progress}{Progress bar type. Default is \code{"text"}, for no bar, use
-\code{"none"}.}
+\item{verbose}{Should the function give messages about download progress? 
+Only works when \code{curl = FALSE}.}
 
-\item{url}{The url(s) of the file(s) which are to be downloaded.}
+\item{progress}{Progress bar type.}
+
+\item{file_output}{Name of downloaded files. \code{file_output} should be the
+same length as \code{url}. If not used, the \code{url} basename will be used. 
+The directory will be created if it does not exist.}
 }
 \description{
 Function to download files from an FTP or SFTP server.
@@ -29,17 +32,9 @@ Function to download files from an FTP or SFTP server.
 \examples{
 \dontrun{
 
-# Set credentials in this format
-credentials <- "username:password"
-
-# Get the file "hour_5" in the directory "test" from a FTP server
-download_ftp_file("ftp://195.174.23.76/test/hour_5.csv", 
-                  credentials, "ftp_data/")
-                  
-
-# List files on a ftp server
-list_files_ftp("ftp://195.174.23.76/test", credentials)
-"ftp://195.174.23.76/test/hour_5.csv"
+# Download a file from a server which does not need credentials
+url <- "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
+download_ftp_file(url, "~/Desktop/noaa_data.csv")
 
 }
 

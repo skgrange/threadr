@@ -6,14 +6,17 @@
 #' \code{credentials} if the server does not require authentication. 
 #' \code{credentials} takes the format: \code{"username:password"}. 
 #' 
-#' @param directory Directory where the files are to be downloaded to. If 
-#' \code{directory} does not exist, it will be created. 
+#' @param file_output Name of downloaded files. \code{file_output} should be the
+#' same length as \code{url}. If not used, the \code{url} basename will be used. 
+#' The directory will be created if it does not exist. 
 #' 
 #' @param curl Should \strong{RCurl} be used to download the files or base R's 
-#' \code{download.file}? Default is \code{TRUE}. 
+#' \code{download.file}? 
 #' 
-#' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
-#' \code{"none"}. 
+#' @param verbose Should the function give messages about download progress? 
+#' Only works when \code{curl = FALSE}. 
+#' 
+#' @param progress Progress bar type.
 #' 
 #' @seealso \strong{\link{RCurl}}, \code{\link{list_files_ftp}}, 
 #' \code{\link{upload_ftp_file}}
@@ -23,46 +26,37 @@
 #' @examples
 #' \dontrun{
 #' 
-#' # Set credentials in this format
-#' credentials <- "username:password"
-#' 
-#' # Get the file "hour_5" in the directory "test" from a FTP server
-#' download_ftp_file("ftp://195.174.23.76/test/hour_5.csv", 
-#'                   credentials, "ftp_data/")
-#'                   
-#'
-#' # List files on a ftp server
-#' list_files_ftp("ftp://195.174.23.76/test", credentials)
-#' "ftp://195.174.23.76/test/hour_5.csv"
+#' # Download a file from a server which does not need credentials
+#' url <- "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
+#' download_ftp_file(url, "~/Desktop/noaa_data.csv")
 #' 
 #' }
 #' 
 #' @export
-download_ftp_file <- function(file, credentials = "", directory = NA, 
-                              curl = TRUE, progress = "text") {
+download_ftp_file <- function(url, file_local = NA, credentials = "", 
+                              curl = FALSE, verbose = FALSE, progress = "none") {
   
-  # Apply function over files
-  plyr::l_ply(file, download_ftp_file_worker, credentials, directory, curl, 
-              .progress = progress)
+  # Do
+  plyr::l_ply(url, download_ftp_file_worker, file_local, credentials, curl, 
+              verbose, .progress = progress)
   
 }
 
 
 # No export
-download_ftp_file_worker <- function(url, credentials = "", directory = NA, 
-                                     curl = TRUE) {
+download_ftp_file_worker <- function(url, file_local, credentials, curl, 
+                                     verbose) {
   
-  # If not directory is used
-  if (is.na(directory)) directory <- getwd()
+  # If no file is used
+  if (is.na(file_local[1])) file_local <- basename(url)
   
-  # Create file name
-  file_name <- basename(url)
-  
+  directory <- dirname(file_local)
+
   # Create if does not exist
   create_directory(directory)
   
-  # Add file path
-  file_name <- file.path(directory, file_name)
+  # Add file path if not in working directory
+  if (directory == ".") file_local <- file.path(directory, file_local)
   
   if (curl) {
   
@@ -71,11 +65,11 @@ download_ftp_file_worker <- function(url, credentials = "", directory = NA,
                                     ftp.use.epsv = FALSE)
     
     # Save binary object as file
-    writeBin(data_bin, file_name)
+    writeBin(data_bin, file_local)
     
   } else {
   
-    download.file(url, file_name, quiet = TRUE)
+    download.file(url, file_local, quiet = !verbose)
     
   }
   

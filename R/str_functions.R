@@ -1,9 +1,9 @@
 #' Functions to preform string operations which do not currently exist in
 #' \code{stringr}. 
 #' 
-#' \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
-#' 
 #' \code{str_date} returns the system's idea of the date as a character string.
+#' 
+#' \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 #' 
 #' \code{str_trim_length} trims strings to a certain length of characters. 
 #' 
@@ -55,40 +55,71 @@
 #' @export
 str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   
-  # tz argument is redundant if time is set to FALSE
-  tz <- ifelse(!time, FALSE, tz)
+  if (!time) {
   
-  # If timezone information is desired, then time is needed too
-  if (time | tz) {
-    
-    # Get date with time
-    date <- as.character(Sys.time())
+    date <- as.character(Sys.Date())  
     
   } else {
     
-    # Just the date
-    date <- as.character(Sys.Date())
+    date <- Sys.time()
     
-  }
-  
-  if (tz) {
-    
-    # Get time zone
-    # To-do: do a unix work-around, returning NA if zone is not set
-    time_zone <- Sys.timezone(location = TRUE)
-    
-    # Add time zone to string
-    if (!is.na(time_zone)) date <- paste(date, time_zone)
+    if (tz) {
+      
+      date <- format(date, usetz = TRUE)
+      
+    } else {
+      
+      date <- format(date, usetz = FALSE)
+      
+    }
     
   }
   
   # Useful for file names
   if (underscore) date <- stringr::str_replace_all(date, " |:|-|/", "_")
   
-  # Return 
+  # Return
   date
   
 }
+
+
+# str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
+#   
+#   # tz argument is redundant if time is set to FALSE
+#   tz <- ifelse(!time, FALSE, tz)
+#   
+#   # If timezone information is desired, then time is needed too
+#   if (time | tz) {
+#     
+#     # Get date with time
+#     date <- as.character(Sys.time())
+#     
+#   } else {
+#     
+#     # Just the date
+#     date <- as.character(Sys.Date())
+#     
+#   }
+#   
+#   if (tz) {
+#     
+#     # Get time zone
+#     # To-do: do a unix work-around, returning NA if zone is not set
+#     time_zone <- Sys.timezone(location = TRUE)
+#     
+#     # Add time zone to string
+#     if (!is.na(time_zone)) date <- paste(date, time_zone)
+#     
+#   }
+#   
+#   # Useful for file names
+#   if (underscore) date <- stringr::str_replace_all(date, " |:|-|/", "_")
+#   
+#   # Return 
+#   date
+#   
+# }
 
 
 #' @rdname str_date
@@ -101,14 +132,14 @@ str_rm_non_ascii <- function(x) stringr::str_replace_all(x, "[^\\x00-\\x7F]", ""
 str_trim_length <- function(string, length) {
   
   # Vectorise the trimming function
-  string <- lapply(string, function(x) trim_worker(x, length))
+  string <- lapply(string, function(x) str_trim_length_worker(x, length))
   string <- unlist(string)
   string
   
 }
 
 # Function which does the string trimming
-trim_worker <- function(string, length) 
+str_trim_length_worker <- function(string, length) 
   ifelse(!is.na(length), strtrim(string, length), string)
 
 

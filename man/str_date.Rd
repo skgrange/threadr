@@ -62,10 +62,10 @@ str_note_to_sentence(x, sep = "_")
 str_to_general(x)
 }
 \description{
-\code{str_rm_non_ascii} removes all non-ASCII characters from a string.
+\code{str_date} returns the system's idea of the date as a character string.
 }
 \details{
-\code{str_date} returns the system's idea of the date as a character string.
+\code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 
 \code{str_trim_length} trims strings to a certain length of characters.
 
