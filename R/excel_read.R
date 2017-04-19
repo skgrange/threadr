@@ -22,25 +22,17 @@
 #' @param comment_character A single character which marks observations (rows)
 #' which should be dropped. 
 #' 
-#' @param quiet Should the the reader's \code{cat} output be discarded?
-#' 
 #' @author Stuart K. Grange
 #' 
 #' @export
 excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL, 
                        na = "", skip = 0, clean = TRUE, convert = FALSE,
-                       comment_character = NULL, quiet = FALSE) {
+                       comment_character = NULL) {
   
   # Read sheet
-  if (quiet) {
-    
-    df <- quiet(readxl::read_excel(file, sheet, col_names, col_types, na, skip))
-    
-  } else {
-    
-    df <- readxl::read_excel(file, sheet, col_names, col_types, na, skip)
-    
-  }
+  df <- readxl::read_excel(
+    path = file, sheet = sheet, col_names = col_names, col_types = col_types, 
+    na = na, skip = skip)
   
   # Standard data frame
   df <- base_df(df)
@@ -82,15 +74,7 @@ excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL,
 excel_sheets <- function(file, quiet = FALSE) {
   
   # Read sheet
-  if (quiet) {
-    
-    x <- quiet(readxl::excel_sheets(file))
-    
-  } else {
-    
-    x <- readxl::excel_sheets(file)
-    
-  }
+   x <- readxl::excel_sheets(file)
   
   # Return
   x

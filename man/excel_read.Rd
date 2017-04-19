@@ -5,8 +5,7 @@
 \title{Function to wrap \code{readxl::read_excel} and then do some formating.}
 \usage{
 excel_read(file, sheet = 1, col_names = TRUE, col_types = NULL, na = "",
-  skip = 0, clean = TRUE, convert = FALSE, comment_character = NULL,
-  quiet = FALSE)
+  skip = 0, clean = TRUE, convert = FALSE, comment_character = NULL)
 }
 \arguments{
 \item{file}{File name of \code{.xls} or \code{.xlsx} file.}
@@ -30,8 +29,6 @@ This can help to get correct data-types.}
 
 \item{comment_character}{A single character which marks observations (rows)
 which should be dropped.}
-
-\item{quiet}{Should the the reader's \code{cat} output be discarded?}
 }
 \description{
 Function to wrap \code{readxl::read_excel} and then do some formating.
