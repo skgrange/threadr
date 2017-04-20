@@ -4,8 +4,10 @@
 \alias{excel_read}
 \title{Function to wrap \code{readxl::read_excel} and then do some formating.}
 \usage{
-excel_read(file, sheet = 1, col_names = TRUE, col_types = NULL, na = "",
-  skip = 0, clean = TRUE, convert = FALSE, comment_character = NULL)
+excel_read(file, sheet = 1, range = NULL, col_names = TRUE,
+  col_types = NULL, na = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), clean = TRUE, convert = FALSE,
+  comment_character = NULL)
 }
 \arguments{
 \item{file}{File name of \code{.xls} or \code{.xlsx} file.}
@@ -20,6 +22,10 @@ an integer which indicates position.}
 \item{na}{Missing value indicator. Default is \code{""}.}
 
 \item{skip}{Number of rows to skip before reading tabular data.}
+
+\item{n_max}{Maximum number of data rows to read.}
+
+\item{guess_max}{Maximum number of data rows to use for guessing column types.}
 
 \item{clean}{Should the names of the returned data frame be cleaned? Default
 is \code{TRUE} and will return lower-case and underscore seperated names.}

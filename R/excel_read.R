@@ -13,6 +13,10 @@
 #' 
 #' @param skip Number of rows to skip before reading tabular data.
 #' 
+#' @param n_max Maximum number of data rows to read. 
+#' 
+#' @param guess_max Maximum number of data rows to use for guessing column types.
+#' 
 #' @param clean Should the names of the returned data frame be cleaned? Default
 #' is \code{TRUE} and will return lower-case and underscore seperated names. 
 #' 
@@ -25,14 +29,16 @@
 #' @author Stuart K. Grange
 #' 
 #' @export
-excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL, 
-                       na = "", skip = 0, clean = TRUE, convert = FALSE,
-                       comment_character = NULL) {
+excel_read <- function(file, sheet = 1, range = NULL, col_names = TRUE, 
+                       col_types = NULL, na = "", trim_ws = TRUE, skip = 0, 
+                       n_max = Inf, guess_max = min(1000, n_max), clean = TRUE, 
+                       convert = FALSE, comment_character = NULL) {
   
   # Read sheet
   df <- readxl::read_excel(
-    path = file, sheet = sheet, col_names = col_names, col_types = col_types, 
-    na = na, skip = skip)
+    path = file, sheet = sheet, range = range, col_names = col_names, 
+    col_types = col_types, na = na, trim_ws = trim_ws, skip = skip, 
+    n_max = n_max, guess_max = guess_max)
   
   # Standard data frame
   df <- base_df(df)
@@ -71,10 +77,10 @@ excel_read <- function(file, sheet = 1, col_names = TRUE, col_types = NULL,
 
 
 #' @export
-excel_sheets <- function(file, quiet = FALSE) {
+excel_sheets <- function(file) {
   
   # Read sheet
-   x <- readxl::excel_sheets(file)
+   x <- readxl::excel_sheets(path = file)
   
   # Return
   x
