@@ -34,6 +34,10 @@ excel_read <- function(file, sheet = 1, range = NULL, col_names = TRUE,
                        n_max = Inf, guess_max = min(1000, n_max), clean = TRUE, 
                        convert = FALSE, comment_character = NULL) {
   
+  # Message
+  .Deprecated("excel_read", package = "threadr", 
+              msg = "Use readxl::read_excel directly. ")
+  
   # Read sheet
   df <- readxl::read_excel(
     path = file, sheet = sheet, range = range, col_names = col_names, 
@@ -79,6 +83,10 @@ excel_read <- function(file, sheet = 1, range = NULL, col_names = TRUE,
 #' @export
 excel_sheets <- function(file) {
   
+  # Message
+  .Deprecated("excel_sheets", package = "threadr", 
+              msg = "Use readxl::read_excel directly. ")
+  
   # Read sheet
    x <- readxl::excel_sheets(path = file)
   
@@ -95,6 +103,9 @@ excel_sheets <- function(file) {
 #' 
 #' @export
 excel_read_all <- function(file, sheet = NA, convert = FALSE) {
+  
+  # Message
+  .Deprecated("excel_sheets", package = "threadr")
   
   # Get sheet vector
   sheets <- excel_sheets(file)
