@@ -45,9 +45,6 @@ devtools::install_github("skgrange/threadr")
     - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases and using data frame indexing. 
     - `drop_na_columns` and `rm_na_rows`.
     - `grepl_all`
-    
-  - Wrappers for Microsoft Excel reading functions (from **readxl**)
-    - `excel_read`, `excel_sheets`, and `excel_read_all`.
 
   - **threadr** originally contained many database functions. These function were pulled from the package from version 0.4.0 onwards and can now be found in [**databaser**](https://github.com/skgrange/databaser).  
 

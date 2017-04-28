@@ -2,32 +2,33 @@
 % Please edit documentation in R/download_ftp_file.R
 \name{download_ftp_file}
 \alias{download_ftp_file}
-\title{Function to download files from an FTP or SFTP server.}
+\title{Function to download files from an \code{FTP} or \code{SFTP} server.}
 \usage{
-download_ftp_file(url, file_local = NA, credentials = "", curl = FALSE,
+download_ftp_file(file_remote, file_output, credentials = "", curl = FALSE,
   verbose = FALSE, progress = "none")
 }
 \arguments{
-\item{url}{The url(s) of the file(s) which are to be downloaded.}
+\item{file_remote}{\code{URL}s of the files to be downloaded.}
 
-\item{credentials}{Credentials for a FTP or SFTP server. Do not use 
-\code{credentials} if the server does not require authentication. 
+\item{file_output}{File names for the local version of \code{file_remote}.
+\code{download_ftp_file} will create directories if they do not exist and are
+used.}
+
+\item{credentials}{Credentials for a \code{FTP} or \code{SFTP} server. Do not 
+use \code{credentials} if the server does not require authentication. 
 \code{credentials} takes the format: \code{"username:password"}.}
 
 \item{curl}{Should \strong{RCurl} be used to download the files or base R's 
-\code{download.file}?}
+\code{download.file}? If \code{credentials} are used, \strong{RCurl} will 
+always be used.}
 
 \item{verbose}{Should the function give messages about download progress? 
 Only works when \code{curl = FALSE}.}
 
 \item{progress}{Progress bar type.}
-
-\item{file_output}{Name of downloaded files. \code{file_output} should be the
-same length as \code{url}. If not used, the \code{url} basename will be used. 
-The directory will be created if it does not exist.}
 }
 \description{
-Function to download files from an FTP or SFTP server.
+Function to download files from an \code{FTP} or \code{SFTP} server.
 }
 \examples{
 \dontrun{

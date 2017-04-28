@@ -1,17 +1,18 @@
-#' Function to download files from an FTP or SFTP server. 
+#' Function to download files from an \code{FTP} or \code{SFTP} server. 
 #' 
-#' @param url The url(s) of the file(s) which are to be downloaded. 
+#' @param file_remote \code{URL}s of the files to be downloaded.
 #' 
-#' @param credentials Credentials for a FTP or SFTP server. Do not use 
-#' \code{credentials} if the server does not require authentication. 
+#' @param file_output File names for the local version of \code{file_remote}.
+#' \code{download_ftp_file} will create directories if they do not exist and are
+#' used. 
+#' 
+#' @param credentials Credentials for a \code{FTP} or \code{SFTP} server. Do not 
+#' use \code{credentials} if the server does not require authentication. 
 #' \code{credentials} takes the format: \code{"username:password"}. 
 #' 
-#' @param file_output Name of downloaded files. \code{file_output} should be the
-#' same length as \code{url}. If not used, the \code{url} basename will be used. 
-#' The directory will be created if it does not exist. 
-#' 
 #' @param curl Should \strong{RCurl} be used to download the files or base R's 
-#' \code{download.file}? 
+#' \code{download.file}? If \code{credentials} are used, \strong{RCurl} will 
+#' always be used. 
 #' 
 #' @param verbose Should the function give messages about download progress? 
 #' Only works when \code{curl = FALSE}. 
@@ -33,43 +34,54 @@
 #' }
 #' 
 #' @export
-download_ftp_file <- function(url, file_local = NA, credentials = "", 
+download_ftp_file <- function(file_remote, file_output, credentials = "", 
                               curl = FALSE, verbose = FALSE, progress = "none") {
   
-  # Do
-  plyr::l_ply(url, download_ftp_file_worker, file_local, credentials, curl, 
+  # Check
+  if (!length(file_remote) == length(file_output))
+    stop("Remote and output vectors need to be the same length...", call. = FALSE)
+  
+  # Build mapping data frame
+  df_map <- data.frame(
+    file_remote = file_remote,
+    file_output = file_output,
+    stringsAsFactors = FALSE
+  )
+  
+  plyr::a_ply(df_map, 1, download_ftp_file_worker, credentials, curl, 
               verbose, .progress = progress)
+  
+  # No return
   
 }
 
 
 # No export
-download_ftp_file_worker <- function(url, file_local, credentials, curl, 
-                                     verbose) {
+download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
   
-  # If no file is used
-  if (is.na(file_local[1])) file_local <- basename(url)
+  # Get vectors
+  file_remote <- df_map$file_remote[1]
+  file_output <- df_map$file_output[1]
   
-  directory <- dirname(file_local)
-
   # Create if does not exist
+  directory <- dirname(file_output)
   create_directory(directory)
   
-  # Add file path if not in working directory
-  if (directory == ".") file_local <- file.path(directory, file_local)
+  # If credentials are used, use rcurl
+  if (credentials != "") curl <- TRUE
   
   if (curl) {
   
     # Download the file as a binary object
-    data_bin <- RCurl::getBinaryURL(url, userpwd = credentials, 
+    data_bin <- RCurl::getBinaryURL(file_remote, userpwd = credentials, 
                                     ftp.use.epsv = FALSE)
     
     # Save binary object as file
-    writeBin(data_bin, file_local)
+    writeBin(data_bin, file_output)
     
   } else {
   
-    download.file(url, file_local, quiet = !verbose)
+    download.file(file_remote, file_output, quiet = !verbose)
     
   }
   
