@@ -13,5 +13,5 @@ period_to_string(period)
 Function to format \strong{lubridate} periods into a \code{HH:MM:SS} format.
 }
 \author{
-Stuart K Grange
+Stuart K. Grange
 }
