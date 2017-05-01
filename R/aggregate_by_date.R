@@ -1,7 +1,7 @@
 #' Function to aggregate time-series data by dates.
 #' 
 #' \code{aggregate_by_date} does a similar job and has the same objectives of
-#' \strong{openair}'s \code{\link{timeAverage}}. However, it has been developed 
+#' \strong{openair}'s \code{timeAverage}. However, it has been developed 
 #' to perform on "longer" data which is often encountered. 
 #' 
 #' @param df Input data frame to be aggregated. \code{df} must contain 
@@ -16,7 +16,18 @@
 #' \code{"site"} and \code{"variable"}. 
 #' 
 #' @param summary What summary function should be applied for the aggregation? 
-#' Default is the \code{mean}. 
+#' Default is the \code{mean}. The options are: 
+#' 
+#' \itemize{
+#'   \item{mean}
+#'   \item{median}
+#'   \item{max}
+#'   \item{min}
+#'   \item{sum}
+#'   \item{count}
+#'   \item{sd}
+#'   \item{mode}
+#' }
 #' 
 #' @param threshold What data capture threshold is needed to create a valid 
 #' aggregation. This is an value between \code{0} and \code{1}. Zero would mean 
@@ -36,7 +47,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{\link{timeAverage}}, \code{\link{time_pad}}
+#' @seealso \code{timeAverage}, \code{\link{time_pad}}
 #' 
 #' @import dplyr
 #' @importFrom lubridate floor_date
@@ -77,12 +88,15 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
   }
   
-  # Pad time series first, can be the bottle-neck
+  # Threshold means nothing for data capture
+  if (summary == "data_capture") threshold <- 0
+  
+  # Pad time series first, can be the bottle-neck but is needed for data capture
   if (pad) {
     
     if (verbose) message("Padding time-series...")
-    df <- time_pad(df, interval = interval, by = by, full = TRUE, round = interval,
-                   warn = FALSE)
+    df <- time_pad(df, interval = interval, by = by, full = TRUE, warn = FALSE,
+                   round = interval)
     
   }
   
@@ -267,12 +281,15 @@ aggregation_function_type <- function(type) {
   if (type %in% c("max", "maximum")) f <- max
   if (type %in% c("min", "minumum")) f <- min
   if (type == "sum") f <- sum
-  
-  # Parse na.rm for consistency
-  if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
-  
   if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
   if (type == "mode") f <- mode_average
+  
+  # Parse na.rm for consistency, but is is not used
+  if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
+  
+  # na.rm is not used here either, this could be wrong if date is not padded
+  if (type == "data_capture") 
+    f <- function(x, na.rm) sum(!is.na(x)) / length(x)
   
   # Return
   f

@@ -39,7 +39,7 @@ data_metadata <- file_metadata("music.mp3")
 
 }
 \seealso{
-\link{http://www.sno.phy.queensu.ca/~phil/exiftool/}
+\href{http://www.sno.phy.queensu.ca/~phil/exiftool/}
 }
 \author{
 Stuart K. Grange

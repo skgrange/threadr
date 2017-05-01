@@ -11,7 +11,7 @@
 #' @param na.rm Should \code{NA}s be removed for the aggregation. Default is 
 #' \code{TRUE}, but setting to \code{FALSE} will be faster. 
 #' 
-#' @seealso \code{\link{mean}}, \code{\link{rollapply}}, \code{\link{rollmean}}
+#' @seealso \code{\link{mean}}, \code{\link{rollmean}}
 #' 
 #' @author Stuart K. Grange
 #' 

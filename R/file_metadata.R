@@ -25,7 +25,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \link{http://www.sno.phy.queensu.ca/~phil/exiftool/}
+#' @seealso \href{http://www.sno.phy.queensu.ca/~phil/exiftool/}
 #'
 #' @examples
 #' \dontrun{

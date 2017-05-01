@@ -1,12 +1,15 @@
 #' Function to return duplicated rows in a data frame. 
 #' 
-#' \code{duplicated_rows} can be though as the inverse of 
-#' \code{\link{dplyr::distinct}}. 
+#' \code{duplicated_rows} can be though as the inverse of \code{\link{distinct}}. 
 #' 
 #' @param df Data frame. 
+#' 
 #' @param variable A vector of variables to test for uniqueness.
+#' 
 #' @param invert Should the function exclude duplicated. This is the same as
 #' \code{\link{distinct}}. 
+#' 
+#' @return Data frame. 
 #' 
 #' @author Stuart K. Grange
 #' 

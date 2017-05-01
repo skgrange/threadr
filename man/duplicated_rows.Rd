@@ -14,9 +14,11 @@ duplicated_rows(df, variable, invert = FALSE)
 \item{invert}{Should the function exclude duplicated. This is the same as
 \code{\link{distinct}}.}
 }
+\value{
+Data frame.
+}
 \description{
-\code{duplicated_rows} can be though as the inverse of 
-\code{\link{dplyr::distinct}}.
+\code{duplicated_rows} can be though as the inverse of \code{\link{distinct}}.
 }
 \author{
 Stuart K. Grange

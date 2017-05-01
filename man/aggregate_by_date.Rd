@@ -20,7 +20,18 @@ must be a \code{POSIXct} date class and the value must be a \code{numeric} or
 \code{"site"} and \code{"variable"}.}
 
 \item{summary}{What summary function should be applied for the aggregation? 
-Default is the \code{mean}.}
+Default is the \code{mean}. The options are: 
+
+\itemize{
+  \item{mean}
+  \item{median}
+  \item{max}
+  \item{min}
+  \item{sum}
+  \item{count}
+  \item{sd}
+  \item{mode}
+}}
 
 \item{threshold}{What data capture threshold is needed to create a valid 
 aggregation. This is an value between \code{0} and \code{1}. Zero would mean 
@@ -41,7 +52,7 @@ Data frame.
 }
 \description{
 \code{aggregate_by_date} does a similar job and has the same objectives of
-\strong{openair}'s \code{\link{timeAverage}}. However, it has been developed 
+\strong{openair}'s \code{timeAverage}. However, it has been developed 
 to perform on "longer" data which is often encountered.
 }
 \examples{
@@ -54,7 +65,7 @@ aggregate_by_date(data_air, "hour", by = c("site", "variable"))
 
 }
 \seealso{
-\code{\link{timeAverage}}, \code{\link{time_pad}}
+\code{timeAverage}, \code{\link{time_pad}}
 }
 \author{
 Stuart K. Grange

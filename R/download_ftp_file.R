@@ -158,6 +158,8 @@ list_files_ftp_worker <- function(url, credentials) {
 #' 
 #' \code{upload_to_ftp} will create directories if necessary. 
 #' 
+#' @param file File to upload. 
+#' 
 #' @param url The url of remote directory. 
 #' 
 #' @param credentials Credentials for a FTP or SFTP server. Do not use 
@@ -171,8 +173,7 @@ list_files_ftp_worker <- function(url, credentials) {
 #' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
 #' \code{"none"}. 
 #' 
-#' @seealso \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
-#' \code{\link{list_files_ftp}}
+#' @seealso \code{\link{download_ftp_file}}, \code{\link{list_files_ftp}}
 #' 
 #' @author Stuart K. Grange
 #' 

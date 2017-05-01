@@ -47,6 +47,7 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
     # Known periods
     if (all(seconds == 1)) period <- "second"
     if (all(seconds == 60)) period <- "minute"
+    if (all(seconds == 300)) period <- "five_minute"
     if (all(seconds == 600)) period <- "ten_minute"
     if (all(seconds == 900)) period <- "fifteen_minute"
     if (all(seconds == 3600)) period <- "hour"

@@ -1,5 +1,5 @@
 #' Function for plotting interactive time-series plots in a similar way to
-#' \code{\link{timePlot}}. 
+#' \code{timePlot}. 
 #' 
 #' @param df Data frame with a variable/column named \code{"date"}.
 #' 
@@ -36,7 +36,7 @@
 #' 
 #' @param y_reference Location of a y-axis reference line. 
 #'
-#' @seealso \code{\link{timePlot}}, \code{\link{dygraph}}
+#' @seealso \code{timePlot}, \code{\link{dygraph}}
 #' 
 #' @author Stuart K. Grange
 #' 

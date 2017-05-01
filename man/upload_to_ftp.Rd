@@ -8,6 +8,8 @@ upload_to_ftp(file, url, credentials = "", basename = FALSE,
   progress = "text")
 }
 \arguments{
+\item{file}{File to upload.}
+
 \item{url}{The url of remote directory.}
 
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
@@ -40,8 +42,7 @@ upload_to_ftp(file_list, url, "user:pass")
 
 }
 \seealso{
-\strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
-\code{\link{list_files_ftp}}
+\code{\link{download_ftp_file}}, \code{\link{list_files_ftp}}
 }
 \author{
 Stuart K. Grange

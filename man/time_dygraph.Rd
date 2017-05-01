@@ -3,7 +3,7 @@
 \name{time_dygraph}
 \alias{time_dygraph}
 \title{Function for plotting interactive time-series plots in a similar way to
-\code{\link{timePlot}}.}
+\code{timePlot}.}
 \usage{
 time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
   step = FALSE, points = FALSE, fill = FALSE, color = colour,
@@ -48,10 +48,10 @@ connected when rendered in an HTML document.}
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to
-\code{\link{timePlot}}.
+\code{timePlot}.
 }
 \seealso{
-\code{\link{timePlot}}, \code{\link{dygraph}}
+\code{timePlot}, \code{\link{dygraph}}
 }
 \author{
 Stuart K. Grange
