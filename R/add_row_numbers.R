@@ -13,7 +13,7 @@
 #' @param zero_based Should the numbering start at \code{0} rather than \code{1}? 
 #' Default is \code{FALSE}. 
 #'
-#' @seealso \link{add_rownames}
+#' @seealso \code\link{add_rownames}}
 #' 
 #' @examples 
 #' \dontrun{

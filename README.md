@@ -38,6 +38,7 @@ devtools::install_github("skgrange/threadr")
     - Get Monday-based weeks of the year with `week_monday`. 
     - Get time-zone from date vector with `time_zone`.
     - Parse numerical date formats easily with `parse_unix_time` and `parse_excel_date`.
+    - Aggregate by dates with `aggregate_by_date`. 
     
   - Data frame functions: 
     - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged, joined, and plotted easier. 

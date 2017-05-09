@@ -30,7 +30,8 @@ Imports:
     stringi,
     tibble,
     tidyr,
-    zoo
+    zoo,
+    magrittr
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 6.0.1
