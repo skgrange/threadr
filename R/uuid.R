@@ -41,7 +41,7 @@
 #' 
 #' }
 #' 
-#' @import stringr
+#' @importFrom stringr str_to_upper str_c
 #'
 #' @export
 uuid <- function(uppercase = FALSE, sep = "-") {

@@ -26,7 +26,7 @@
 #' 
 #' }
 #' 
-#' @import stringr
+#' @importFrom stringr str_trim str_split_fixed str_replace str_to_lower str_split_fixed
 #' 
 #' @export
 read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
@@ -167,7 +167,7 @@ extract_bibtex_variables <- function(observation) {
 #' 
 #' @return Character vector. 
 #' 
-#' @import stringr
+#' @importFrom stringr str_trim str_split_fixed str_replace str_to_lower str_split_fixed
 #' 
 #' @rdname read_bibtex
 #' @export

@@ -1,8 +1,8 @@
 #' Functions to convert gas concentrations between volume- and mass-units.
 #' 
 #' Use \code{gas_volume_to_mass} when a gas concentration is in ppb or ppm and 
-#' µg m-3 or mg m-3 is desired. Use \code{gas_mass_to_volume} when a gas 
-#' concentration is in µg m-3 or mg m-3 and ppb or ppm is desired. 
+#' ug m-3 or mg m-3 is desired. Use \code{gas_mass_to_volume} when a gas 
+#' concentration is in ug m-3 or mg m-3 and ppb or ppm is desired. 
 #' 
 #' These functions allow for input of temperatures and pressures which change 
 #' the coefficients used for the conversion between the unit systems, they do
@@ -10,7 +10,7 @@
 #' 
 #' @param volume Gas concentration in ppb or ppm. 
 #' 
-#' @param mass Gas concentration in µg m-3 or mg m-3. 
+#' @param mass Gas concentration in ug m-3 or mg m-3. 
 #' 
 #' @param gas A string such as \code{"o3"}, \code{"co"}, or \code{"co2"} which 
 #' represents the input gas. This is used to find the molecular mass of a gas. 

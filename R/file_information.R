@@ -5,13 +5,9 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param files Vector of file names.
-#' @param drop Should some usually unneeded variables be dropped? Default is 
-#' \code{FALSE}. 
+#' @param files Vector of file names. 
 #' 
-#' @return Tidy data frame
-#' 
-#' @import dplyr
+#' @return Data frame.
 #' 
 #' @export
 file_information <- function(files, drop = FALSE) {
@@ -21,11 +17,8 @@ file_information <- function(files, drop = FALSE) {
   
   # Tidy a little
   df <- tibble::rownames_to_column(df, "file") %>% 
-    mutate(file_basename = basename(file)) %>% 
+    dplyr::mutate(file_basename = basename(file)) %>% 
     arrange_left(c("file", "file_basename"))
-  
-  # Drop variables
-  if (drop) df$file <- NULL
   
   # Return
   df

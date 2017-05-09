@@ -8,9 +8,6 @@
 #' @param interval Interval to calculate splits for in kilometres. Default is 
 #' \code{1}. 
 #' 
-#' @import dplyr
-#' @import stringr
-#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Data frame. 
@@ -90,20 +87,21 @@ calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   pace_min_km <- decimal_minute_to_string(pace_min_km)
   
   # Create data frame
-  df <- data_frame(
+  df <- data.frame(
     distance,
     time, 
     speed_ms,
     speed_km_h,
     pace_min_km,
     distance_split = distance_sequence,
-    time_split = time_elapsed
+    time_split = time_elapsed,
+    stringsAsFactors = FALSE
   )
   
   # Round
   df <- round_numeric(df, round = round)
   
   # Return, standard data frame
-  data.frame(df)
+  df
   
 }

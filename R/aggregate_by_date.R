@@ -49,10 +49,6 @@
 #' 
 #' @seealso \code{timeAverage}, \code{\link{time_pad}}
 #' 
-#' @import dplyr
-#' @importFrom lubridate floor_date
-#' @importFrom lubridate ceiling_date
-#' 
 #' @examples 
 #' \dontrun{
 #' 
@@ -102,8 +98,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Create groups
   df <- df %>% 
-    mutate(date = floor_date(date, unit = interval)) %>% 
-    group_by_(.dots = list_dots)
+    dplyr::mutate(date = lubridate::floor_date(date, unit = interval)) %>% 
+    dplyr::group_by_(.dots = list_dots)
   
   # Wind direction processing, logic used more than once
   # Double && will break out of test if FALSE, no warnings
@@ -124,7 +120,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
     # Do the aggregation
     df_wd <- df_wd %>% 
-      summarise_(value = lazyeval::interp(
+      dplyr::summarise_(value = lazyeval::interp(
         ~date_aggregator(x, summary = summary, threshold = threshold, wd = wd), 
         x = as.name("value"), 
         summary = summary,
@@ -137,26 +133,21 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   if (verbose) message("Aggregating...")
   
   df <- df %>% 
-    summarise_(value = lazyeval::interp(
+    dplyr::summarise_(value = lazyeval::interp(
       ~date_aggregator(x, summary = summary, threshold = threshold), 
       x = as.name("value"), 
       summary = summary,
       threshold = threshold))
   
   # Bind wind direction too
-  if (wind_direction_detected) {
-    
-    df <- df %>% 
-      bind_rows(df_wd)
-    
-  }
+  if (wind_direction_detected) df <- dplyr::bind_rows(df, df_wd)
   
   if (verbose) message("Final clean-up and arranging...")
   
   # Add date end
   df <- df %>% 
-    ungroup() %>% 
-    mutate(date_end = ceiling_date(
+    dplyr::ungroup() %>% 
+    dplyr::mutate(date_end = lubridate::ceiling_date(
       date, unit = interval, change_on_boundary = TRUE),
       date_end = date_end - 1)
   
@@ -169,8 +160,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Format table
   df <- df %>% 
-    select_(.dots = names_vector) %>%
-    arrange_(.dots = rev(list_dots))
+    dplyr::select_(.dots = names_vector) %>%
+    dplyr::arrange_(.dots = rev(list_dots))
   
   # Round
   if (!is.na(round)) df$value <- round(df$value, round)

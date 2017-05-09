@@ -49,7 +49,7 @@ data_benzene_continuous <- time_pad_irregular(data_benzene, "day")
 }
 \seealso{
 \code{\link{na.locf}}, \code{\link{round_date_interval}}, 
-\code{\link{time_pad}}, \code{\link{timeAverage}}, \code{\link{round_date}}
+\code{\link{time_pad}}, \code{timeAverage}, \code{\link{round_date}}
 }
 \author{
 Stuart K. Grange

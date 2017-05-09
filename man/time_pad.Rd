@@ -57,7 +57,7 @@ data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour",
 
 }
 \seealso{
-See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
+See \code{\link{round_date_interval}}, \code{timeAverage}, 
 \code{\link{round_date}}, \code{\link{left_join}}
 }
 \author{

@@ -32,9 +32,9 @@
 #' may insert observations where they were originally represented as missing. 
 #' 
 #' @seealso \code{\link{na.locf}}, \code{\link{round_date_interval}}, 
-#' \code{\link{time_pad}}, \code{\link{timeAverage}}, \code{\link{round_date}}
+#' \code{\link{time_pad}}, \code{timeAverage}, \code{\link{round_date}}
 #' 
-#' @import dplyr
+#' @importFrom magrittr %>%
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -72,11 +72,11 @@ time_pad_irregular <- function (df, interval, by = NA, na.rm = FALSE) {
     
     # Pad by group(s)
     df <- df %>% 
-      group_by_(.dots = list_dots) %>%
-      do(irregular_padder(., 
-                          interval = interval, 
-                          by = by,
-                          na.rm = na.rm))
+      dplyr::group_by_(.dots = list_dots) %>%
+      dplyr::do(irregular_padder(., 
+                                 interval = interval, 
+                                 by = by,
+                                 na.rm = na.rm))
 
   }
   

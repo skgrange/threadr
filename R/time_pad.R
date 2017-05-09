@@ -32,12 +32,12 @@
 #' @param warn Should the function give a warning when dates are duplicated? 
 #' Default is \code{TRUE}. 
 #' 
-#' @seealso See \code{\link{round_date_interval}}, \code{\link{timeAverage}}, 
+#' @seealso See \code{\link{round_date_interval}}, \code{timeAverage}, 
 #' \code{\link{round_date}}, \code{\link{left_join}}
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @import dplyr
+#' @importFrom magrittr %>%
 #' 
 #' @examples
 #' 
@@ -72,13 +72,13 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
     
     # Pad by group
     df <- df %>% 
-      group_by_(.dots = list_dots) %>%
-      do(padder(., 
-                interval = interval, 
-                by = by,
-                round = round, 
-                full = full,
-                warn = warn)) %>% 
+      dplyr::group_by_(.dots = list_dots) %>%
+      dplyr::do(padder(., 
+                       interval = interval, 
+                       by = by,
+                       round = round, 
+                       full = full,
+                       warn = warn)) %>% 
       arrange_left(variables)
     
   }
@@ -149,18 +149,20 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   if (!is.na(round)) date_sequence <- date_sequence[-length(date_sequence)]
   
   # To data frame
-  date_sequence <- data_frame(date = date_sequence)
+  date_sequence <- data.frame(
+    date = date_sequence
+  )
   
   # Do the padding
   # Use dplyr, it is much faster
   if (full) {
     
-    df <- full_join(date_sequence, df, by = "date")
-    df <- arrange(df, date)
+    df <- dplyr::full_join(date_sequence, df, by = "date")
+    df <- dplyr::arrange(df, date)
     
   } else {
     
-    df <- left_join(date_sequence, df, by = "date")
+    df <- dplyr::left_join(date_sequence, df, by = "date")
     
   }
 
