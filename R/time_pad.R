@@ -37,8 +37,6 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @importFrom magrittr %>%
-#' 
 #' @examples
 #' 
 #' \dontrun{

@@ -34,8 +34,6 @@
 #' @seealso \code{\link{na.locf}}, \code{\link{round_date_interval}}, 
 #' \code{\link{time_pad}}, \code{timeAverage}, \code{\link{round_date}}
 #' 
-#' @importFrom magrittr %>%
-#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
