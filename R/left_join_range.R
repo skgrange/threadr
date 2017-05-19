@@ -20,8 +20,13 @@
 #' \dontrun{
 #' 
 #' # Code urban area population into defined groups
-#' data_join <- left_join_range(data_urban, data_urban_class, 
-#'                              "population", "size_min", "size_max")
+#' data_join <- left_join_range(
+#'   data_urban, 
+#'   data_urban_class, 
+#'   "population", 
+#'   "size_min", 
+#'   "size_max"
+#'  )
 #' 
 #' }
 #' 
@@ -41,8 +46,7 @@ left_join_range <- function(x, y, x_test, y_min, y_max, keep = FALSE) {
   
   # For every observation in mapping table
   index <- alply(y_map, 1, function(z) join_conditional_worker(x[, x_test], z))
-  # attributes(index) <- NULL
-  
+
   # Make a matrix
   index <- do.call("rbind", index)
   
@@ -57,7 +61,7 @@ left_join_range <- function(x, y, x_test, y_min, y_max, keep = FALSE) {
   if (!keep) y[, c(y_min, y_max)] <- NULL
   
   # Do the join
-  x <- dplyr::left_join(x, y, by = "row_number")
+  x <- left_join(x, y, by = "row_number")
   
   # Drop joining key
   x[, "row_number"] <- NULL

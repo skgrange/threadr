@@ -12,6 +12,8 @@
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @return Numeric or text vector with a length of 1. 
+#' 
 #' @export
 detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
   

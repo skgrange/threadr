@@ -61,7 +61,7 @@
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
                               threshold = 0, round = NA, pad = TRUE, 
                               verbose = FALSE) {
-
+  
   # Check a few things
   if (!any(c("date", "value") %in% names(df)))
     stop("Input must contain 'date' and 'value' variables.", call. = FALSE)
@@ -91,14 +91,21 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   if (pad) {
     
     if (verbose) message("Padding time-series...")
-    df <- time_pad(df, interval = interval, by = by, full = TRUE, warn = FALSE,
-                   round = interval)
+    
+    df <- time_pad(
+      df, 
+      interval = interval, 
+      by = by, 
+      full = TRUE, 
+      warn = FALSE,
+      round = interval
+    )
     
   }
   
   # Create groups
   df <- df %>% 
-    dplyr::mutate(date = lubridate::floor_date(date, unit = interval)) %>% 
+    mutate(date = lubridate::floor_date(date, unit = interval)) %>% 
     dplyr::group_by_(.dots = list_dots)
   
   # Wind direction processing, logic used more than once
@@ -120,12 +127,19 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
     # Do the aggregation
     df_wd <- df_wd %>% 
-      dplyr::summarise_(value = lazyeval::interp(
-        ~date_aggregator(x, summary = summary, threshold = threshold, wd = wd), 
-        x = as.name("value"), 
-        summary = summary,
-        threshold = threshold,
-        wd = TRUE))
+      dplyr::summarise_(
+        value = lazyeval::interp(
+          ~date_aggregator(
+            x, 
+            summary = summary, 
+            threshold = threshold, 
+            wd = wd
+          ), 
+          x = as.name("value"), 
+          summary = summary,
+          threshold = threshold,
+          wd = TRUE)
+      )
     
   }
   
@@ -133,11 +147,17 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   if (verbose) message("Aggregating...")
   
   df <- df %>% 
-    dplyr::summarise_(value = lazyeval::interp(
-      ~date_aggregator(x, summary = summary, threshold = threshold), 
-      x = as.name("value"), 
-      summary = summary,
-      threshold = threshold))
+    dplyr::summarise_(
+      value = lazyeval::interp(
+        ~date_aggregator(
+          x, 
+          summary = summary, 
+          threshold = threshold
+        ), 
+        x = as.name("value"), 
+        summary = summary,
+        threshold = threshold)
+    )
   
   # Bind wind direction too
   if (wind_direction_detected) df <- dplyr::bind_rows(df, df_wd)
@@ -146,10 +166,11 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Add date end
   df <- df %>% 
-    dplyr::ungroup() %>% 
-    dplyr::mutate(date_end = lubridate::ceiling_date(
-      date, unit = interval, change_on_boundary = TRUE),
-      date_end = date_end - 1)
+    ungroup() %>% 
+    mutate(date_end = lubridate::ceiling_date(
+      date, unit = interval, change_on_boundary = TRUE
+    ),
+    date_end = date_end - 1)
   
   # Do some post aggregation cleaning
   

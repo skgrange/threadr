@@ -55,7 +55,7 @@ oil_ratios <- function(ratio, volume_fuel = NA) {
   )
   
   # Arrange/order
-  df <- dplyr::arrange(df, ratio_numeric, volume_fuel)
+  df <- arrange(df, ratio_numeric, volume_fuel)
   
   # Return
   df

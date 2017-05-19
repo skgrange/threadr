@@ -71,10 +71,12 @@ time_pad_irregular <- function (df, interval, by = NA, na.rm = FALSE) {
     # Pad by group(s)
     df <- df %>% 
       dplyr::group_by_(.dots = list_dots) %>%
-      dplyr::do(irregular_padder(., 
-                                 interval = interval, 
-                                 by = by,
-                                 na.rm = na.rm))
+      do(irregular_padder(
+        ., 
+        interval = interval, 
+        by = by,
+        na.rm = na.rm)
+      )
 
   }
   
@@ -112,7 +114,7 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
                        gather_col = c("date", "date_end"))
   
   # Arrange by observation number
-  df <- dplyr::arrange(df, row_number)
+  df <- arrange(df, row_number)
   
   # Round dates down, time-ending assumption
   df$date <- lubridate::floor_date(df$date, interval)
@@ -171,7 +173,7 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   df <- time_pad(df, interval)
   
   # Drop temporary variables
-  df <- dplyr::select(df, -row_number, -date_type, -date_ahead)
+  df <- select(df, -row_number, -date_type, -date_ahead)
   
   # Push observations forwards, ifs avoid warnings
   if (ncol(df) == 2) {

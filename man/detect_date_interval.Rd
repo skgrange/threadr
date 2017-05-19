@@ -17,6 +17,9 @@ interval.}
 \item{text_return}{Should the date interval be evaluated and a friendly text-
 based return be attempted?}
 }
+\value{
+Numeric or text vector with a length of 1.
+}
 \description{
 Function to determine averaging period in a date vector.
 }

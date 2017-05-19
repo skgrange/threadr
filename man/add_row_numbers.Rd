@@ -17,7 +17,7 @@ Default is \code{FALSE}.}
 }
 \description{
 Row numbers will be a variable which is an integer, unlike 
-\code{dplyr::add_rownames} which adds a character variable.
+\code{rownames_to_column} which adds a character variable.
 }
 \examples{
 \dontrun{

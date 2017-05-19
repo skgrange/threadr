@@ -1,7 +1,7 @@
 #' Function to add a row number variable to a data frame. 
 #' 
 #' Row numbers will be a variable which is an integer, unlike 
-#' \code{dplyr::add_rownames} which adds a character variable. 
+#' \code{rownames_to_column} which adds a character variable. 
 #' 
 #' @author Stuart K. Grange
 #' 

@@ -60,7 +60,15 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
   if (is.na(by[1])) {
     
     # No group-by needed
-    df <- padder(df, interval, by, round, merge, full, warn) %>% 
+    df <- padder(
+      df, 
+      interval, 
+      by, 
+      round, 
+      merge, 
+      full, 
+      warn
+    ) %>% 
       arrange_left(variables)
     
   } else {
@@ -71,19 +79,23 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
     # Pad by group
     df <- df %>% 
       dplyr::group_by_(.dots = list_dots) %>%
-      dplyr::do(padder(., 
-                       interval = interval, 
-                       by = by,
-                       round = round, 
-                       full = full,
-                       warn = warn)) %>% 
+      do(
+        padder(
+          ., 
+          interval = interval, 
+          by = by,
+          round = round, 
+          full = full,
+          warn = warn
+        )
+      ) %>% 
       arrange_left(variables)
     
   }
   
   # Drop dplyr's tbl df
   df <- base_df(df)
-
+  
   # Return 
   df
   
@@ -96,9 +108,14 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
 padder <- function(df, interval, by, round, merge, full, warn) {
   
   # Check if input has a date variable
-  if (!"date" %in% names(df))
-    stop("Data frame must contain a date variable/column and must be named 'date'.",
-         call. = FALSE)
+  if (!"date" %in% names(df)) {
+    
+    stop(
+      "Data frame must contain a date variable/column and must be named 'date'.",
+      call. = FALSE
+    )
+    
+  }
   
   # NA check
   if (any(is.na(df$date)))
@@ -156,14 +173,14 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   if (full) {
     
     df <- dplyr::full_join(date_sequence, df, by = "date")
-    df <- dplyr::arrange(df, date)
+    df <- arrange(df, date)
     
   } else {
     
-    df <- dplyr::left_join(date_sequence, df, by = "date")
+    df <- left_join(date_sequence, df, by = "date")
     
   }
-
+  
   # Overwrite identifiers
   if (!is.na(by[1])) df <- cbind(data_by, df)
   
@@ -200,7 +217,8 @@ get_identifiers <- function(df, by) {
     
     # Selecting vector
     by_collapse <- stringr::str_c(
-      stringr::str_c("\\b", by, "\\b"), collapse = "|")
+      stringr::str_c("\\b", by, "\\b"), collapse = "|"
+    )
     
     # Get first row
     data_by <- df[, grep(by_collapse, names(df))][1, ]

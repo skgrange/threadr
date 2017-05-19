@@ -158,3 +158,23 @@ weekend <- function(x) {
   x
   
 }
+
+
+#' Function to get weekday number from a date where \code{1} is Monday and 
+#' \code{7} is Sunday. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param x Date vector.
+#' 
+#' @return Numeric vector.
+#' 
+#' @export
+wday_monday <- function(x) {
+  
+  x <- lubridate::wday(x)
+  x <- x - 1
+  x <- ifelse(x == 0, 7, x)
+  x
+  
+}

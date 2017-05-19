@@ -26,8 +26,13 @@ range of two variables in table \code{y} and join the other variables if
 \dontrun{
 
 # Code urban area population into defined groups
-data_join <- left_join_range(data_urban, data_urban_class, 
-                             "population", "size_min", "size_max")
+data_join <- left_join_range(
+  data_urban, 
+  data_urban_class, 
+  "population", 
+  "size_min", 
+  "size_max"
+ )
 
 }
 

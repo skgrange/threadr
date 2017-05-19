@@ -25,7 +25,10 @@ tidy_summary <- function (df, round = 3, json = FALSE) {
   table <- summary(df)
   
   # To data frame
-  df <- data.frame(table, stringsAsFactors = FALSE)
+  df <- data.frame(
+    table, 
+    stringsAsFactors = FALSE
+  )
   
   # Drop and filter
   df[, 1] <- NULL
@@ -43,7 +46,7 @@ tidy_summary <- function (df, round = 3, json = FALSE) {
   
   # Drop variable
   df$output <- NULL
-
+  
   # Calculate extras
   suppressWarnings(
     sd <- lapply(df, sd, na.rm = TRUE)
@@ -87,14 +90,16 @@ tidy_summary <- function (df, round = 3, json = FALSE) {
   df <- tidyr::spread(df, descriptive, value, convert = TRUE)
   
   # Arrange
-  df <- arrange_left(df, 
+  df <- arrange_left(
+    df, 
     c("variable", "class", "length", "mean", "median", "min", "max", "mode", 
-      "sd", "variance", "first_quartile", "third_quartile", "nas"))
+      "sd", "variance", "first_quartile", "third_quartile", "nas")
+  )
   
   # To json
   if (json) df <- to_json(df)
   
   # Return
   df
-
+  
 }
