@@ -60,8 +60,12 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   if (length(variable) == 1) {
     
     # Single variable
-    time_series <- xts::xts(df[, variable], df[, "date"], order.by = df[, "date"], 
-                            tzone = tz)
+    time_series <- xts::xts(
+      df[, variable], 
+      df[, "date"], 
+      order.by = df[, "date"], 
+      tzone = tz
+    )
     
   } else {
     
