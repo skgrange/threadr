@@ -50,6 +50,9 @@
 #' \code{str_to_general} will make a "general" string and will transliterate 
 #' special characters to avoid issues such as matching for a \code{join}. 
 #' 
+#' \code{str_filter} will filter a character vector to match a pattern, or drop
+#' elements which match a pattern. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -82,44 +85,6 @@ str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   date
   
 }
-
-
-# str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
-#   
-#   # tz argument is redundant if time is set to FALSE
-#   tz <- ifelse(!time, FALSE, tz)
-#   
-#   # If timezone information is desired, then time is needed too
-#   if (time | tz) {
-#     
-#     # Get date with time
-#     date <- as.character(Sys.time())
-#     
-#   } else {
-#     
-#     # Just the date
-#     date <- as.character(Sys.Date())
-#     
-#   }
-#   
-#   if (tz) {
-#     
-#     # Get time zone
-#     # To-do: do a unix work-around, returning NA if zone is not set
-#     time_zone <- Sys.timezone(location = TRUE)
-#     
-#     # Add time zone to string
-#     if (!is.na(time_zone)) date <- paste(date, time_zone)
-#     
-#   }
-#   
-#   # Useful for file names
-#   if (underscore) date <- stringr::str_replace_all(date, " |:|-|/", "_")
-#   
-#   # Return 
-#   date
-#   
-# }
 
 
 #' @rdname str_date
@@ -318,3 +283,10 @@ str_note_to_sentence <- function(x, sep = "_") {
 #'
 #' @export
 str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
+
+
+#' @rdname str_date
+#'
+#' @export
+str_filter <- function(x, pattern, invert = FALSE)
+  grep(pattern, x, value = TRUE, invert = invert)

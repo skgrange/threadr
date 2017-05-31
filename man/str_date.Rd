@@ -20,6 +20,7 @@
 \alias{str_note_to_title}
 \alias{str_note_to_sentence}
 \alias{str_to_general}
+\alias{str_filter}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -60,6 +61,8 @@ str_note_to_title(x, sep = "_")
 str_note_to_sentence(x, sep = "_")
 
 str_to_general(x)
+
+str_filter(x, pattern, invert = FALSE)
 }
 \description{
 \code{str_date} returns the system's idea of the date as a character string.
@@ -111,6 +114,9 @@ with all other characters lower-case.
 
 \code{str_to_general} will make a "general" string and will transliterate 
 special characters to avoid issues such as matching for a \code{join}.
+
+\code{str_filter} will filter a character vector to match a pattern, or drop
+elements which match a pattern.
 }
 \author{
 Stuart K. Grange
