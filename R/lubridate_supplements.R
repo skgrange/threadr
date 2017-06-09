@@ -178,3 +178,110 @@ wday_monday <- function(x) {
   x
   
 }
+
+
+#' Functions to conveniently access number of seconds in different time periods. 
+#' 
+#' @return Integer vecotor with length of one. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @rdname seconds_in_a_day
+#' 
+#' @export
+seconds_in_a_day <- function() 86400L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+seconds_in_an_hour <- function() 3600L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+seconds_in_a_minute <- function() 60L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+hours_in_a_year <- function(leap_year = FALSE) if (leap_year) 8760L else 8784L
+
+
+#' Function to determine season of a date.
+#' 
+#' The season coding is based on months of year. 
+#' 
+#' @param date \code{POSIXct} or \code{Date} vector. 
+#' 
+#' @param hemisphere Which hemisphere to use? Can be \code{"northern"} or 
+#' \code{"southern"}.
+#' 
+#' @param as.factor Should the return be an ordered factor, not a numeric 
+#' vector?   
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @return Numeric or ordered factor vector with the length of \code{date}. 
+#' 
+#' @export
+season <- function(date, hemisphere = "northern", as.factor = FALSE) {
+  
+  # Check input
+  hemisphere <- stringr::str_to_lower(hemisphere)
+  
+  if (!hemisphere %in% c("northern", "southern")) 
+    stop("hemisphere must be 'northern' or 'southern'")
+  
+  # Get month of date
+  x <- lubridate::month(date)
+  
+  if (hemisphere == "northern") {
+    
+    # Winter
+    y <- ifelse(x %in% c(12, 1:2), 1, 0)
+    
+    # Spring
+    y <- ifelse(x %in% 3:5, 2, y)
+    
+    # Summer
+    y <- ifelse(x %in% 6:8, 3, y)
+    
+    # Autumn
+    y <- ifelse(x %in% 9:11, 4, y)
+    
+    if (as.factor) {
+      
+      # Give order
+      seasons_order <- c("winter", "spring", "summer", "autumn")
+      y <- ordered(y, levels = 1:4, labels = seasons_order)
+      
+    }
+    
+  } else {
+    
+    # Summer
+    y <- ifelse(x %in% c(12, 1:2), 1, 0)
+    
+    # Autumn
+    y <- ifelse(x %in% 3:5, 2, y)
+    
+    # Winter
+    y <- ifelse(x %in% 6:8, 3, y)
+    
+    # Spring
+    y <-  ifelse(x %in% 9:11, 4, y)
+    
+    if (as.factor) {
+      
+      # Give order
+      seasons_order <- c("summer", "autumn", "winter", "spring")
+      y <- ordered(y, levels = 1:4, labels = seasons_order)
+      
+    }
+    
+  }
+  
+  return(y)
+  
+}
+
