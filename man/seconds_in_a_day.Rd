@@ -7,6 +7,7 @@
 \alias{hours_in_a_year}
 \alias{days_in_a_year}
 \alias{seconds_in_a_year}
+\alias{seconds_in_a_week}
 \title{Functions to conveniently access number of seconds in different time periods.}
 \usage{
 seconds_in_a_day()
@@ -20,6 +21,8 @@ hours_in_a_year(leap_year = FALSE)
 days_in_a_year(leap_year = FALSE)
 
 seconds_in_a_year(leap_year = FALSE)
+
+seconds_in_a_week()
 }
 \value{
 Integer vecotor with length of one.

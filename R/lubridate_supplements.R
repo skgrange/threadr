@@ -218,6 +218,11 @@ seconds_in_a_year <- function(leap_year = FALSE)
   seconds_in_a_day() * days_in_a_year(leap_year = leap_year)
 
 
+#' @rdname seconds_in_a_day
+#' @export
+seconds_in_a_week <- function() seconds_in_a_day() * 7L
+
+
 #' Function to determine season of a date.
 #' 
 #' The season coding is based on months of year. 
