@@ -204,7 +204,18 @@ seconds_in_a_minute <- function() 60L
 
 #' @rdname seconds_in_a_day
 #' @export
-hours_in_a_year <- function(leap_year = FALSE) if (leap_year) 8760L else 8784L
+hours_in_a_year <- function(leap_year = FALSE) if (!leap_year) 8760L else 8784L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+days_in_a_year <- function(leap_year = FALSE) if (!leap_year) 365L else 366L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+seconds_in_a_year <- function(leap_year = FALSE) 
+  seconds_in_a_day() * days_in_a_year(leap_year = leap_year)
 
 
 #' Function to determine season of a date.
