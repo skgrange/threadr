@@ -147,8 +147,7 @@ str_to_underscore <- function(x) {
   x <- gsub("__", "_", x)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   x <- tolower(x)
-  # Quite a new base function
-  x <- trimws(x)
+  x <- stringr::str_trim(x)
   x
   
 }
