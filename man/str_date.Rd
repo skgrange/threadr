@@ -62,7 +62,7 @@ str_note_to_sentence(x, sep = "_")
 
 str_to_general(x)
 
-str_filter(x, pattern, invert = FALSE)
+str_filter(x, pattern, ignore.case = FALSE, invert = FALSE)
 }
 \description{
 \code{str_date} returns the system's idea of the date as a character string.

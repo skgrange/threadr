@@ -287,5 +287,5 @@ str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
 #' @rdname str_date
 #'
 #' @export
-str_filter <- function(x, pattern, invert = FALSE)
-  grep(pattern, x, value = TRUE, invert = invert)
+str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE)
+  grep(pattern, x, value = TRUE, ignore.case = ignore.case, invert = invert)

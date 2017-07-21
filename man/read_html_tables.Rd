@@ -4,26 +4,20 @@
 \alias{read_html_tables}
 \title{Function to read HTML tables from an URL.}
 \usage{
-read_html_tables(url, n = NA, character = TRUE)
+read_html_tables(url)
 }
 \arguments{
 \item{url}{A URL which contains HTML tables.}
-
-\item{n}{Table-number to return. Optional, but this will return a single
-data frame rather than a list of data frames which is usually what is 
-desired.}
-
-\item{character}{Should the content of the url be downloaded as a character
-string for processing? Default is \code{TRUE}.}
 }
 \value{
-Named list containing data frames or a data frame.
+Named list containing data frames.
 }
 \description{
 Function to read HTML tables from an URL.
 }
 \examples{
 \dontrun{
+
 # A url
 url <- "https://en.wikipedia.org/wiki/List_of_London_Underground_stations"
 
@@ -31,8 +25,10 @@ url <- "https://en.wikipedia.org/wiki/List_of_London_Underground_stations"
 list_tables <- read_html_tables(url)
 length(list_tables)
 
-# A data frame
-df <- read_html_tables(url, n = 1)
+# Get a single data frame
+data_stations <- list_tables[[1]]
+
+# Cleaning needed...
 
 }
 
