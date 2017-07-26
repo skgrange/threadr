@@ -2,16 +2,18 @@
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @return Variable return. 
+#' 
 #' @param df Data frame to apply \code{type.convert} to every variable/column. 
 #' 
 #' @export
 type_convert <- function(x) {
   
   # Vector
-  if (class(x) == "character") x <- type_converter(x)
+  if (class(x)[1] == "character") x <- type_converter(x)
   
   # If data frame, vectorise over variables
-  if (any(class(x) == "data.frame")) {
+  if (any(class(x) %in% "data.frame")) {
     
     # Drop tbl_df
     x <- base_df(x)
@@ -21,8 +23,7 @@ type_convert <- function(x) {
     
   }
   
-  # Return
-  x
+  return(x)
   
 }
 

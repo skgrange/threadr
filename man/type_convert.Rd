@@ -12,6 +12,9 @@ type_converter(x)
 \arguments{
 \item{df}{Data frame to apply \code{type.convert} to every variable/column.}
 }
+\value{
+Variable return.
+}
 \description{
 Function to quickly apply \code{type.convert} to objects.
 }
