@@ -187,8 +187,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Round
   if (!is.na(round)) df$value <- round(df$value, round)
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -200,7 +199,7 @@ date_aggregator <- function(x, summary, threshold, wd = FALSE) {
     if (threshold == 0) {
       
       # Use trigonometry
-      x <- wind_direction_aggregator(x)
+      x <- mean_wd(x, na.rm = TRUE)
       
     } else {
       
@@ -209,7 +208,7 @@ date_aggregator <- function(x, summary, threshold, wd = FALSE) {
       
       if (threshold <= data_capture) {
         
-        x <- wind_direction_aggregator(x)
+        x <- mean_wd(x, na.rm = TRUE)
         
       } else {
         
@@ -249,8 +248,7 @@ date_aggregator <- function(x, summary, threshold, wd = FALSE) {
     
   }
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -261,26 +259,7 @@ calculate_data_capture <- function(x) {
   count_all <- length(x)
   count_valid <- sum(!is.na(x))
   data_capture <- count_valid / count_all
-  data_capture
-  
-}
-
-
-wind_direction_aggregator <- function(x) {
-  
-  # Calculate wind components, watch the negation
-  wind_u <- - sin(2 * pi * x / 360)
-  wind_v <- - cos(2 * pi * x / 360)
-  
-  # Mean wind components
-  x_u <- mean(wind_u, na.rm = TRUE)
-  x_v <- mean(wind_v, na.rm = TRUE)
-  
-  # Average wind speed
-  x <- atan2(x_u, x_v) * 360 / 2 / pi + 180
-  
-  # Return
-  x
+  return(data_capture)
   
 }
 
@@ -303,7 +282,6 @@ aggregation_function_type <- function(type) {
   if (type == "data_capture") 
     f <- function(x, na.rm) sum(!is.na(x)) / length(x)
   
-  # Return
-  f
+  return(f)
   
 }
