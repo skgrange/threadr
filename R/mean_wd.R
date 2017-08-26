@@ -17,10 +17,10 @@
 mean_wd <- function(wd, ws, na.rm = FALSE) {
   
   # Check input vector
-  if (any(wd <= 0)) 
+  if (any(na.omit(wd) < 0)) 
     stop("Negative wind directions detected...", call. = FALSE)
   
-  if (any(wd >= 360)) 
+  if (any(na.omit(wd) > 360)) 
     stop("Wind directions greater than 360 detected...", call. = FALSE)
   
   # Calculate wind components, watch the negation

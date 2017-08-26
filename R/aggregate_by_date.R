@@ -111,7 +111,10 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Wind direction processing, logic used more than once
   # Double && will break out of test if FALSE, no warnings
   wind_direction_detected <- ifelse(
-    "variable" %in% names(df) && "wd" %in% unique(df$variable), TRUE, FALSE)
+    "variable" %in% names(df) && "wd" %in% unique(df$variable), 
+    TRUE, 
+    FALSE
+  )
   
   if (wind_direction_detected) {
     
@@ -125,38 +128,32 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     df <- df %>% 
       filter(variable != "wd")
     
-    # Do the aggregation
+    # Do the aggregation, non-standard evaluation was a mess, but better now
+    
+    # Do the wind direction aggregation
     df_wd <- df_wd %>% 
-      dplyr::summarise_(
-        value = lazyeval::interp(
-          ~date_aggregator(
-            x, 
-            summary = summary, 
-            threshold = threshold, 
-            wd = wd
-          ), 
-          x = as.name("value"), 
-          summary = summary,
-          threshold = threshold,
-          wd = TRUE)
+      dplyr::summarise(
+        value = date_aggregator(
+          value, 
+          summary = !!summary, 
+          threshold = !!threshold, 
+          wd = TRUE
+        )
       )
     
   }
   
-  # Do the aggregation, non-standard evaluation is a mess!
+  # Other variables
   if (verbose) message("Aggregating...")
   
   df <- df %>% 
-    dplyr::summarise_(
-      value = lazyeval::interp(
-        ~date_aggregator(
-          x, 
-          summary = summary, 
-          threshold = threshold
-        ), 
-        x = as.name("value"), 
-        summary = summary,
-        threshold = threshold)
+    dplyr::summarise(
+      value = date_aggregator(
+        value, 
+        summary = !!summary, 
+        threshold = !!threshold, 
+        wd = FALSE
+      )
     )
   
   # Bind wind direction too
@@ -167,10 +164,13 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Add date end
   df <- df %>% 
     ungroup() %>% 
-    mutate(date_end = lubridate::ceiling_date(
-      date, unit = interval, change_on_boundary = TRUE
-    ),
-    date_end = date_end - 1)
+    mutate(
+      date_end = lubridate::ceiling_date(
+        date, 
+        unit = interval, 
+        change_on_boundary = TRUE
+      ),
+      date_end = date_end - 1)
   
   # Do some post aggregation cleaning
   
