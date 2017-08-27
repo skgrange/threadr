@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.4.73
-Date: 2017-07-28
+Version: 0.4.74
+Date: 2017-08-27
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -19,7 +19,6 @@ Imports:
     jsonlite,
     RCurl,
     XML,
-    readxl,
     xts,
     dygraphs,
     testthat,

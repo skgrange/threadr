@@ -27,7 +27,7 @@
 read_html_tables <- function(url) {
   
   # Check if url is a url or an html document
-  if (stringr::str_detect(url[1], "^http|https")) {
+  if (stringr::str_detect(url[1], "^http|^https")) {
     
     # Read page
     text <- tryCatch({
