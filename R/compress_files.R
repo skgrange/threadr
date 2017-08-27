@@ -12,7 +12,13 @@ compress_files <- function(files, algorithm = "bzip2", keep = TRUE,
                            progress = "none") {
   
   # Vectorise function
-  plyr::l_ply(files, file_compression_worker, algorithm, keep, .progress = progress)
+  plyr::l_ply(
+    files, 
+    file_compression_worker, 
+    algorithm, 
+    keep, 
+    .progress = progress
+  )
   
   # No return
   
@@ -20,7 +26,6 @@ compress_files <- function(files, algorithm = "bzip2", keep = TRUE,
 
 
 # The worker
-# No export
 file_compression_worker <- function(file, algorithm, keep) {
   
   if (algorithm == "bzip2") {

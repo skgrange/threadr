@@ -36,14 +36,20 @@ date_sequence <- function(days = -1, character = TRUE, today = TRUE, sep = "-") 
   if (days < 0) {
     
     # Get past dates
-    date_sequence <- seq(date_system + lubridate::days(days), date_system, 
-                         by = "days")
+    date_sequence <- seq(
+      date_system + lubridate::days(days), 
+      date_system, 
+      by = "days"
+    )
     
   } else {
     
     # Get future dates
-    date_sequence <- seq(date_system, date_system + lubridate::days(days),
-                         by = "days")
+    date_sequence <- seq(
+      date_system, 
+      date_system + lubridate::days(days),
+      by = "days"
+    )
     
   }
   
