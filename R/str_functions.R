@@ -81,8 +81,7 @@ str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   # Useful for file names
   if (underscore) date <- stringr::str_replace_all(date, " |:|-|/", "_")
   
-  # Return
-  date
+  return(date)
   
 }
 
@@ -99,7 +98,7 @@ str_trim_length <- function(string, length) {
   # Vectorise the trimming function
   string <- lapply(string, function(x) str_trim_length_worker(x, length))
   string <- unlist(string)
-  string
+  return(string)
   
 }
 
@@ -128,8 +127,7 @@ str_to_sentence <- function(x) {
   # Combine again
   x <- stringr::str_c(first, other_characters)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -148,7 +146,7 @@ str_to_underscore <- function(x) {
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   x <- tolower(x)
   x <- stringr::str_trim(x)
-  x
+  return(x)
   
 }
 
@@ -174,7 +172,7 @@ str_drop_xml_tags <- function(string) {
   
   string <- stringr::str_replace_all(string, "<.*?>", "")
   string <- stringr::str_trim(string)
-  string
+  return(string)
   
 }
 
@@ -204,8 +202,7 @@ str_extract_digits <- function(x, as.numeric = TRUE) {
   # Numeric class
   if (as.numeric) x <- as.numeric(x)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -221,8 +218,7 @@ str_sql_quote <- function(x, collapse = ",") {
   # Make single element
   if (!is.na(collapse)) x <- stringr::str_c(x, collapse = collapse)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -260,7 +256,7 @@ str_note_to_title <- function(x, sep = "_") {
   x <- stringr::str_to_lower(x)
   x <- stringr::str_replace_all(x, sep, " ")
   x <- stringr::str_to_title(x)
-  x
+  return(x)
   
 }
 
@@ -273,7 +269,7 @@ str_note_to_sentence <- function(x, sep = "_") {
   x <- stringr::str_to_lower(x)
   x <- stringr::str_replace_all(x, sep, " ")
   x <- str_to_sentence(x)
-  x
+  return(x)
   
 }
 

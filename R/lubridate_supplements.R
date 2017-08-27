@@ -57,8 +57,7 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
   # Parse
   x <- as.POSIXct(x, tz = tz, origin = origin)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -97,8 +96,7 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   # To POSIXct
   x <- parse_unix_time(x, tz = tz)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -136,8 +134,7 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
   if (type == "windows") x <- (x / 86400) + 25569
   if (type == "os_x_2007") x <- (x / 86400) + 24107
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -155,7 +152,7 @@ weekend <- function(x) {
   
   x <- lubridate::wday(x)
   x <- ifelse(x %in% c(1, 7), TRUE, FALSE)
-  x
+  return(x)
   
 }
 
@@ -175,7 +172,7 @@ wday_monday <- function(x) {
   x <- lubridate::wday(x)
   x <- x - 1
   x <- ifelse(x == 0, 7, x)
-  x
+  return(x)
   
 }
 
@@ -300,4 +297,3 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE) {
   return(y)
   
 }
-
