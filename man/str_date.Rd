@@ -21,6 +21,7 @@
 \alias{str_note_to_sentence}
 \alias{str_to_general}
 \alias{str_filter}
+\alias{str_parse_html_codes}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -63,6 +64,8 @@ str_note_to_sentence(x, sep = "_")
 str_to_general(x)
 
 str_filter(x, pattern, ignore.case = FALSE, invert = FALSE)
+
+str_parse_html_codes(x)
 }
 \description{
 \code{str_date} returns the system's idea of the date as a character string.
@@ -117,6 +120,8 @@ special characters to avoid issues such as matching for a \code{join}.
 
 \code{str_filter} will filter a character vector to match a pattern, or drop
 elements which match a pattern.
+
+\code{str_parse_html_codes} will parse HTML character codes into text.
 }
 \author{
 Stuart K. Grange

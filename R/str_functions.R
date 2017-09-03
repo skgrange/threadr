@@ -53,6 +53,8 @@
 #' \code{str_filter} will filter a character vector to match a pattern, or drop
 #' elements which match a pattern. 
 #' 
+#' \code{str_parse_html_codes} will parse HTML character codes into text. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
@@ -285,3 +287,23 @@ str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
 #' @export
 str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE)
   grep(pattern, x, value = TRUE, ignore.case = ignore.case, invert = invert)
+
+
+#' @rdname str_date
+#'
+#' @export
+str_parse_html_codes <- function(x)
+  sapply(x, str_parse_html_codes_worker, USE.NAMES = FALSE)
+
+
+str_parse_html_codes_worker <- function(x) {
+  
+  XML::xpathApply(
+    XML::htmlParse(
+      x, 
+      asText = TRUE
+    ), 
+    "//body//text()", 
+    XML::xmlValue)[[1]] 
+  
+}
