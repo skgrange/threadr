@@ -40,7 +40,7 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
   # Drop white space
   text <- str_trim(text)
   
-  # Drop all comments, latex and jabred
+  # Drop all comments, latex and jab ref
   text <- grep("^%|^@comment", text, value = TRUE, invert = TRUE)
   
   # Drop empty lines
