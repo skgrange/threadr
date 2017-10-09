@@ -5,7 +5,7 @@
 \title{Function to download files from a remote system with \code{scp} (secure copy).}
 \usage{
 download_with_scp(host, file_remote, file_local, user, password,
-  progress = "none")
+  compression = FALSE, progress = "none")
 }
 \arguments{
 \item{host}{Host name of remote system.}

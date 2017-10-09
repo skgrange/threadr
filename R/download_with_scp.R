@@ -38,7 +38,7 @@
 #' 
 #' @export
 download_with_scp <- function(host, file_remote, file_local, user, password,
-                              progress = "none") {
+                              compression = FALSE, progress = "none") {
   
   # Check
   stopifnot(length(file_remote) == length(file_local))
@@ -60,7 +60,8 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
     function(x) download_with_scp_worker(
       x,
       user = user,
-      password = password
+      password = password,
+      compression = compression
     ),
     .progress = progress
   )
@@ -70,10 +71,16 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
 }
 
 
-download_with_scp_worker <- function(df, user, password) {
+download_with_scp_worker <- function(df, user, password, compression) {
   
-  # Build system call command
+  # Build system command
   command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ", user, "@")
+  
+  # Add compression argument
+  if (compression) 
+    command_prefix <- stringr::str_replace(command_prefix, "\\bscp\\b", "scp -C")
+  
+  # And file
   command_files <- stringr::str_c(df$file_remote, df$file_local, sep = " ")
   
   # Combine commands
@@ -83,6 +90,27 @@ download_with_scp_worker <- function(df, user, password) {
   system(command)
   
 }
+
+
+# # Build system call command
+# # if (cypher == "arcfour") {
+#   
+#   # # Fastest cypher in most cases
+#   # command_prefix <- stringr::str_c(
+#   #   "sshpass -p '", 
+#   #   password, 
+#   #   "' scp ", "Cipher=arcfour ", 
+#   #   user, 
+#   #   "@"
+#   # )
+#   
+#   
+# } else {
+# 
+#   # Default
+#   
+#   
+# }
 
 
 #' Function to list files and directories on a remote system with \code{scp} 
