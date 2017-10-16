@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.5.9
-Date: 2017-10-09
+Version: 0.5.12
+Date: 2017-10-16
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>

@@ -7,20 +7,26 @@
 #' 
 #' @param round Number of decimal points to round to. Default is no rounding. 
 #' 
-#' @return \code{Period} vector. 
+#' @param as.character Should the period be formated and returned as a character?
+#' 
+#' @return \code{Period} or character vector. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @seealso \code{\link{as.period}}
 #' 
 #' @export
-to_period <- function(date_one, date_two, round = FALSE) {
+to_period <- function(date_one, date_two, round = FALSE, as.character = FALSE) {
   
-  x <- date_one %>% 
-    lubridate::as.interval(date_two) %>% 
-    lubridate::as.period()
+  # Interval first
+  x <- lubridate::as.interval(date_one, date_two)
   
+  # Then period
+  x <- lubridate::as.period(x)
+  
+  # Formating tasks
   if (!is.na(round)) x <- round(x, round)
+  if (as.character) x <- format(x)
   
   return(x)
   

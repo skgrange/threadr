@@ -11,6 +11,9 @@ file_size(file, unit = "mb")
 
 \item{unit}{Measurement unit. Default is \code{"mb"} for megabytes.}
 }
+\value{
+Numeric vector with length of one.
+}
 \description{
 Function to get file size.
 }

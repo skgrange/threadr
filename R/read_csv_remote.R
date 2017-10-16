@@ -2,6 +2,7 @@
 #' \code{URL}. 
 #' 
 #' @param url Remote file to read. 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @author Stuart K. Grange
@@ -25,8 +26,7 @@ read_csv_remote <- function(url, verbose = FALSE) {
     data.frame(readr::read_csv(file_local, progress = FALSE))
   )
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -35,8 +35,11 @@ read_csv_remote <- function(url, verbose = FALSE) {
 #' GitHub repository. 
 #' 
 #' @param user GitHub user. 
+#' 
 #' @param repository GitHub repository. 
+#' 
 #' @param branch Repository's branch. 
+#' 
 #' @param file Repository's file, including directory.  
 #' 
 #' @author Stuart K. Grange
@@ -48,7 +51,6 @@ read_csv_remote <- function(url, verbose = FALSE) {
 #' data_hour <- read_csv_git_hub(file = "data/wacl/2016_kirb_hour_data.csv.bz2")
 #' 
 #' }
-#' 
 #' 
 #' @export
 read_csv_git_hub <- function(user = "skgrange", repository = "web.server", 
@@ -65,7 +67,6 @@ read_csv_git_hub <- function(user = "skgrange", repository = "web.server",
   # Get and read file
   df <- read_csv_remote(url)
   
-  # Return
-  df
+  return(df)
   
 }

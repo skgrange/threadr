@@ -22,6 +22,8 @@
 \alias{str_to_general}
 \alias{str_filter}
 \alias{str_parse_html_codes}
+\alias{str_utf8_to_integer}
+\alias{str_integer_to_utf8}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -66,6 +68,10 @@ str_to_general(x)
 str_filter(x, pattern, ignore.case = FALSE, invert = FALSE)
 
 str_parse_html_codes(x)
+
+str_utf8_to_integer(x)
+
+str_integer_to_utf8(x)
 }
 \description{
 \code{str_date} returns the system's idea of the date as a character string.
@@ -122,6 +128,11 @@ special characters to avoid issues such as matching for a \code{join}.
 elements which match a pattern.
 
 \code{str_parse_html_codes} will parse HTML character codes into text.
+
+\code{str_utf8_to_integer} will map a character vector to the UTF-8 integer
+code points.
+
+\code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters.
 }
 \author{
 Stuart K. Grange

@@ -5,7 +5,7 @@
 \title{Function to calculate a \strong{lubridate} \code{period} date class based on
 two dates.}
 \usage{
-to_period(date_one, date_two, round = FALSE)
+to_period(date_one, date_two, round = FALSE, as.character = FALSE)
 }
 \arguments{
 \item{date_one}{First date.}
@@ -13,9 +13,11 @@ to_period(date_one, date_two, round = FALSE)
 \item{date_two}{Second date.}
 
 \item{round}{Number of decimal points to round to. Default is no rounding.}
+
+\item{as.character}{Should the period be formated and returned as a character?}
 }
 \value{
-\code{Period} vector.
+\code{Period} or character vector.
 }
 \description{
 Function to calculate a \strong{lubridate} \code{period} date class based on

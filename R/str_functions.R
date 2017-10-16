@@ -55,10 +55,17 @@
 #' 
 #' \code{str_parse_html_codes} will parse HTML character codes into text. 
 #' 
+#' \code{str_utf8_to_integer} will map a character vector to the UTF-8 integer
+#' code points. 
+#' 
+#' \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export
 str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
+  
+  .Deprecated(msg = "`str_date` is now deprecated...")
   
   if (!time) {
   
@@ -305,5 +312,38 @@ str_parse_html_codes_worker <- function(x) {
     ), 
     "//body//text()", 
     XML::xmlValue)[[1]] 
+  
+}
+
+
+#' @rdname str_date
+#'
+#' @export
+str_utf8_to_integer <- function(x) {
+  
+  # Check
+  if (!any(nchar(unique(x)) == 1, na.rm = TRUE)) 
+    stop("All inputs must be a single character...", call. = FALSE)
+  
+  # Do
+  x <- purrr::map_int(x, utf8ToInt)
+  return(x)
+  
+}
+
+
+#' @rdname str_date
+#'
+#' @export
+str_integer_to_utf8 <- function(x) {
+  
+  if (class(x) == "numeric") x <- as.integer(x)
+  
+  if (class(x) != "integer") 
+    stop("Input must be an integer vector...", call. = FALSE)
+  
+  # Do
+  x <- purrr::map_chr(x, intToUtf8)
+  return(x)
   
 }

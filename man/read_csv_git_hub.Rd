@@ -29,7 +29,6 @@ data_hour <- read_csv_git_hub(file = "data/wacl/2016_kirb_hour_data.csv.bz2")
 
 }
 
-
 }
 \author{
 Stuart K. Grange

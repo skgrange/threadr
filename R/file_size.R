@@ -3,7 +3,10 @@
 #' @author Stuart K. Grange
 #' 
 #' @param file File name. 
+#' 
 #' @param unit Measurement unit. Default is \code{"mb"} for megabytes. 
+#' 
+#' @return Numeric vector with length of one. 
 #' 
 #' @export
 file_size <- function(file, unit = "mb") {
@@ -13,12 +16,11 @@ file_size <- function(file, unit = "mb") {
   
   if (unit == "mb") {
     
-    x <- x / 1000000  # 1048576
+    x <- x / 1000000  # or 1048576?
     x <- round(x, 2)
     
   }
   
-  # Return
-  x
+  return(x)
   
 }

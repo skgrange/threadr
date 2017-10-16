@@ -4,7 +4,8 @@
 \alias{read_lines}
 \title{Function to wrap \code{\link{readLines}} with different defaults.}
 \usage{
-read_lines(connection, n = -1, collapse = FALSE, warn = FALSE)
+read_lines(connection, n = -1, collapse = FALSE, encoding = "UTF-8",
+  warn = FALSE)
 }
 \arguments{
 \item{connection}{File name, URL, or connection to load.}
@@ -13,6 +14,8 @@ read_lines(connection, n = -1, collapse = FALSE, warn = FALSE)
 
 \item{collapse}{Should the vector which is loaded be collapsed to a length of
 \code{1}.}
+
+\item{encoding}{Coding of input. Defult is \code{"UTF-8"}.}
 
 \item{warn}{Should \code{readLines} give warning? Default is \code{FALSE}.}
 }
