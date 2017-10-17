@@ -91,8 +91,7 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
   # Transform output units, ug_m3 to mg_m3
   if (unit_output == "mg_m3") mass <- microgram_to_milligram(mass)
   
-  # Return
-  mass
+  return(mass)
   
 }
 
@@ -136,8 +135,7 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
   # To ppm to ppb
   if (unit_output == "ppm") volume <- ppb_to_ppm(volume)
   
-  # Return
-  volume
+  return(volume)
   
 }
 
@@ -148,11 +146,17 @@ calculate_molecular_volume <- function(temp, pressure)
 
 
 # No export
-gas_string_to_mass <- function(gas) {
+gas_string_to_mass <- function(gas) {.
+  
+  # Check
+  stopifnot(length(gas) == 1)
   
   # Parse
   gas <- stringr::str_to_lower(gas)
   gas <- stringr::str_trim(gas)
+  
+  # Used for testing if gas is supported
+  mass <- NA
   
   # Switch
   if (gas == "o3") mass <- 48
@@ -181,24 +185,47 @@ gas_string_to_mass <- function(gas) {
   
   if (gas == "nh3") mass <- 17.031
   
-  # Return
-  mass
+  if (gas %in% c("ethane", "c2h6")) mass <- 30.07
+  
+  if (gas %in% c("propane", "c3h8")) mass <- 44.1
+  
+  # Check if conversion has occured
+  if (is.na(mass)) 
+    stop("`gas` not supported, use the `molecular_mass` argument...", call. = FALSE)
+  
+  return(mass)
   
 }
 
 
 #' @rdname gas_volume_to_mass
+#' 
 #' @export
 milligram_to_microgram <- function(x) x * 1000
 
 #' @rdname gas_volume_to_mass
+#' 
 #' @export
 microgram_to_milligram <- function(x) x / milligram_to_microgram(1)
 
 #' @rdname gas_volume_to_mass
+#' 
 #' @export
 ppb_to_ppm <- function(x) x / 1000
 
 #' @rdname gas_volume_to_mass
+#' 
 #' @export
 ppm_to_ppb <- function(x) x / ppb_to_ppm(1)
+
+
+#' @rdname gas_volume_to_mass
+#' 
+#' @export
+ppt_to_ppb <- function(x) x / 1000
+
+
+#' @rdname gas_volume_to_mass
+#' 
+#' @export
+ppb_to_ppt <- function(x) x / ppt_to_ppb(1)

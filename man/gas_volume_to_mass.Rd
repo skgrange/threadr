@@ -7,6 +7,8 @@
 \alias{microgram_to_milligram}
 \alias{ppb_to_ppm}
 \alias{ppm_to_ppb}
+\alias{ppt_to_ppb}
+\alias{ppb_to_ppt}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
@@ -22,6 +24,10 @@ microgram_to_milligram(x)
 ppb_to_ppm(x)
 
 ppm_to_ppb(x)
+
+ppt_to_ppb(x)
+
+ppb_to_ppt(x)
 }
 \arguments{
 \item{volume}{Gas concentration in ppb or ppm.}
