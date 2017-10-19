@@ -1,7 +1,9 @@
 #' Function to download files from a remote system with \code{scp} (secure copy). 
 #' 
 #' \code{download_with_scp} offers an alternative to the \code{curl} based 
-#' functions which can be troublesome to use with the \code{sftp} protocol. 
+#' functions which can be troublesome to use with the \code{sftp} protocol on 
+#' Ubuntu systems. \code{download_with_scp} needs the \code{sshpass} system 
+#' programme to be installed. 
 #' 
 #' @param host Host name of remote system. 
 #' 
@@ -14,7 +16,13 @@
 #' 
 #' @param password Password for the user for \code{scp}. 
 #' 
-#' @param Type of progress bar to display. 
+#' @param compression Should the files be copied with compression on the fly? 
+#' This can speed up copying time on slower networks but not always. 
+#' 
+#' @param print Should the file to be downloaded be printed to the console as a
+#' message? 
+#' 
+#' @param progress Type of progress bar to display. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -34,14 +42,18 @@
 #' 
 #' @return Invisible.
 #' 
-#' @seealso \code{\link{list_files_scp}}
+#' @seealso \code{\link{list_files_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass}
 #' 
 #' @export
 download_with_scp <- function(host, file_remote, file_local, user, password,
-                              compression = FALSE, progress = "none") {
+                              compression = FALSE, print = FALSE, 
+                              progress = "none") {
   
-  # Check
+  # Checks
   stopifnot(length(file_remote) == length(file_local))
+  
+  if (!sshpass_install_check()) 
+    stop("`sshpass` system programme is not installed...", call. = FALSE)
   
   # Add host to file remote
   file_remote <- stringr::str_c(host, ":", file_remote)
@@ -61,7 +73,8 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
       x,
       user = user,
       password = password,
-      compression = compression
+      compression = compression,
+      print = print
     ),
     .progress = progress
   )
@@ -71,7 +84,7 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
 }
 
 
-download_with_scp_worker <- function(df, user, password, compression) {
+download_with_scp_worker <- function(df, user, password, compression, print) {
   
   # Build system command
   command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ", user, "@")
@@ -85,6 +98,9 @@ download_with_scp_worker <- function(df, user, password, compression) {
   
   # Combine commands
   command <- stringr::str_c(command_prefix, command_files)
+  
+  # A message to the user
+  if (print) message(stringr::str_c("Copying: ", df$file_remote))
   
   # Do
   system(command)
@@ -117,7 +133,9 @@ download_with_scp_worker <- function(df, user, password, compression) {
 #' (secure copy). 
 #' 
 #' \code{list_files_scp} offers an alternative to the \code{curl} based 
-#' functions which can be troublesome to use with the \code{sftp} protocol. 
+#' functions which can be troublesome to use with the \code{sftp} protocol on 
+#' Ubuntu systems. \code{download_with_scp} needs the \code{sshpass} system 
+#' programme to be installed.  
 #' 
 #' @param host Host name of remote system. 
 #' 
@@ -144,10 +162,13 @@ download_with_scp_worker <- function(df, user, password, compression) {
 #' 
 #' @return Character vector.
 #' 
-#' @seealso \code{\link{download_with_scp}}
+#' @seealso \code{\link{download_with_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass}
 #' 
 #' @export
 list_files_scp <- function(host, directory_remote, user, password) {
+  
+  if (!sshpass_install_check()) 
+    stop("`sshpass` system programme is not installed...", call. = FALSE)
   
   # Ensure remote has a slash and a wild card
   directory_remote <- stringr::str_c(directory_remote, "/*")
@@ -168,5 +189,33 @@ list_files_scp <- function(host, directory_remote, user, password) {
   file_list <- system(command, intern = TRUE)
   
   return(file_list)
+  
+}
+
+
+# Test if sshpass is installed
+sshpass_install_check <- function() {
+  
+  # System call
+  suppressWarnings(
+    x <- system("which sshpass", intern = TRUE)
+  )
+  
+  # Test
+  x <- if (length(x) == 0) {
+    
+    x <- FALSE
+    
+  } else if (grepl("sshpass", x, ignore.case = TRUE)) {
+    
+    x <- TRUE
+    
+  } else {
+    
+    x <- FALSE
+    
+  }
+
+  return(x)
   
 }

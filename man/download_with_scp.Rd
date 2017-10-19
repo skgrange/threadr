@@ -5,7 +5,7 @@
 \title{Function to download files from a remote system with \code{scp} (secure copy).}
 \usage{
 download_with_scp(host, file_remote, file_local, user, password,
-  compression = FALSE, progress = "none")
+  compression = FALSE, print = FALSE, progress = "none")
 }
 \arguments{
 \item{host}{Host name of remote system.}
@@ -19,14 +19,22 @@ download_with_scp(host, file_remote, file_local, user, password,
 
 \item{password}{Password for the user for \code{scp}.}
 
-\item{Type}{of progress bar to display.}
+\item{compression}{Should the files be copied with compression on the fly? 
+This can speed up copying time on slower networks but not always.}
+
+\item{print}{Should the file to be downloaded be printed to the console as a
+message?}
+
+\item{progress}{Type of progress bar to display.}
 }
 \value{
 Invisible.
 }
 \description{
 \code{download_with_scp} offers an alternative to the \code{curl} based 
-functions which can be troublesome to use with the \code{sftp} protocol.
+functions which can be troublesome to use with the \code{sftp} protocol on 
+Ubuntu systems. \code{download_with_scp} needs the \code{sshpass} system 
+programme to be installed.
 }
 \examples{
 \dontrun{
@@ -44,7 +52,7 @@ download_with_scp(
 
 }
 \seealso{
-\code{\link{list_files_scp}}
+\code{\link{list_files_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass}
 }
 \author{
 Stuart K. Grange

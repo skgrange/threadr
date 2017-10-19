@@ -21,7 +21,9 @@ Character vector.
 }
 \description{
 \code{list_files_scp} offers an alternative to the \code{curl} based 
-functions which can be troublesome to use with the \code{sftp} protocol.
+functions which can be troublesome to use with the \code{sftp} protocol on 
+Ubuntu systems. \code{download_with_scp} needs the \code{sshpass} system 
+programme to be installed.
 }
 \examples{
 \dontrun{
@@ -38,7 +40,7 @@ list_files_scp(
 
 }
 \seealso{
-\code{\link{download_with_scp}}
+\code{\link{download_with_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass}
 }
 \author{
 Stuart K. Grange
