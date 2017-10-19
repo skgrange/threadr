@@ -40,7 +40,8 @@ list_files_scp(
 
 }
 \seealso{
-\code{\link{download_with_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass}
+\code{\link{download_with_scp}}, \href{https://gist.github.com/arunoda/7790979}{sshpass},
+\code{\link{upload_with_scp}}
 }
 \author{
 Stuart K. Grange
