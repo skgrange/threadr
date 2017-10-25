@@ -64,11 +64,11 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Check a few things
   if (!any(c("date", "value") %in% names(df)))
-    stop("Input must contain 'date' and 'value' variables.", call. = FALSE)
+    stop("Input must contain `date` and `value` variables...", call. = FALSE)
   
   # Check data type
   if (!class(df$value) %in% c("numeric", "integer"))
-    stop("'value' must be of numeric or integer class.", call. = FALSE)
+    stop("`value` must be of numeric or integer class...", call. = FALSE)
   
   if (!threshold <= 1 & threshold >= 0) 
     stop("Threshold must be between 0 and 1.", call. = FALSE)
@@ -268,11 +268,17 @@ aggregation_function_type <- function(type) {
   
   # Switch
   if (type == "mean") f <- mean
+  
   if (type == "median") f <- median
+  
   if (type %in% c("max", "maximum")) f <- max
+  
   if (type %in% c("min", "minumum")) f <- min
-  if (type == "sum") f <- sum
+  
+  if (type == "sum") f <- sum_custom
+  
   if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
+  
   if (type == "mode") f <- mode_average
   
   # Parse na.rm for consistency, but is is not used
@@ -283,5 +289,23 @@ aggregation_function_type <- function(type) {
     f <- function(x, na.rm) sum(!is.na(x)) / length(x)
   
   return(f)
+  
+}
+
+
+# If the entire vector is NA, return NA, not 0, usually used for rainfall data
+sum_custom <- function(x, na.rm) {
+  
+  if (all(is.na(x))) {
+  
+    x <- NA
+    
+  } else {
+    
+    x <- sum(x, na.rm = na.rm)
+    
+  }
+  
+  return(x)
   
 }

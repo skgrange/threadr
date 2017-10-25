@@ -11,16 +11,26 @@
 #' 
 #' @param method Method for downloading. 
 #' 
+#' @param sleep If a number, this is the number of seconds to sleep between 
+#' download iterations. This can help with keeping some webservers happy. 
+#' 
 #' @seealso \code{\link{download.file}}
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @export
 get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w", 
-                            method = "auto") {
+                            method = "auto", sleep = FALSE) {
   
   # Check
   stopifnot(length(file_remote) == length(file_local))
+  
+  # df <- data.frame(
+  #   index = seq(1, length(file_remote)),
+  #   file_remote = file_remote,
+  #   file_local,
+  #   stringsAsFactors = FALSE
+  # )
   
   # Do
   purrr::walk2(
@@ -29,7 +39,8 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
     get_remote_file_worker,
     verbose = verbose,
     mode = mode, 
-    method = method
+    method = method,
+    sleep = sleep
   )
   
   # No return
@@ -37,7 +48,11 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
 }
 
 
-get_remote_file_worker <- function(file_remote, file_local, verbose, mode, method) {
+get_remote_file_worker <- function(file_remote, file_local, verbose, mode, method, 
+                                   sleep) {
+  
+  # No need for sleep here
+  # if (length(index) == 1) sleep <- FALSE
   
   tryCatch({
     
@@ -55,6 +70,17 @@ get_remote_file_worker <- function(file_remote, file_local, verbose, mode, metho
     warning(message, call. = FALSE)
     
   })
+  
+  # print(i)
+  
+  # Sleep between iterations
+  if (!is.logical(sleep)) {
+    
+    if (verbose) message("Sleeping...\n")
+    
+    Sys.sleep(sleep)
+    
+  }
   
   # No return
   

@@ -5,7 +5,7 @@
 \title{Function to get/download file from an \code{URL}.}
 \usage{
 get_remote_file(file_remote, file_local, verbose = TRUE, mode = "w",
-  method = "auto")
+  method = "auto", sleep = FALSE)
 }
 \arguments{
 \item{file_remote}{Vector of \code{URL}s/remote file names.}
@@ -18,6 +18,9 @@ get_remote_file(file_remote, file_local, verbose = TRUE, mode = "w",
 \item{mode}{Mode with which to write the file.}
 
 \item{method}{Method for downloading.}
+
+\item{sleep}{If a number, this is the number of seconds to sleep between 
+download iterations. This can help with keeping some webservers happy.}
 }
 \description{
 Function to get/download file from an \code{URL}.
