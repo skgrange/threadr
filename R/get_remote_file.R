@@ -25,22 +25,22 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
   # Check
   stopifnot(length(file_remote) == length(file_local))
   
-  # df <- data.frame(
-  #   index = seq(1, length(file_remote)),
-  #   file_remote = file_remote,
-  #   file_local,
-  #   stringsAsFactors = FALSE
-  # )
+  df <- data.frame(
+    file_remote,
+    file_local,
+    verbose = verbose,
+    mode = mode,
+    method = method,
+    sleep = sleep,
+    index = seq(1, length(file_remote)),
+    length = length(file_remote),
+    stringsAsFactors = FALSE
+  )
   
   # Do
-  purrr::walk2(
-    file_remote, 
-    file_local, 
-    get_remote_file_worker,
-    verbose = verbose,
-    mode = mode, 
-    method = method,
-    sleep = sleep
+  purrr::pwalk(
+    df, 
+    get_remote_file_worker
   )
   
   # No return
@@ -48,11 +48,11 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
 }
 
 
-get_remote_file_worker <- function(file_remote, file_local, verbose, mode, method, 
-                                   sleep) {
+get_remote_file_worker <- function(index, file_remote, file_local, verbose, mode, 
+                                   method, sleep, length) {
   
-  # No need for sleep here
-  # if (length(index) == 1) sleep <- FALSE
+  # No need for sleep for the last iteration
+  if (index == length) sleep <- FALSE
   
   tryCatch({
     
@@ -77,7 +77,6 @@ get_remote_file_worker <- function(file_remote, file_local, verbose, mode, metho
   if (!is.logical(sleep)) {
     
     if (verbose) message("Sleeping...\n")
-    
     Sys.sleep(sleep)
     
   }
