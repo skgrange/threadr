@@ -13,7 +13,10 @@
 str_hms <- function(x, round = NA) {
   
   # Check class
-  stopifnot("hms" %in% class(x))
+  stopifnot(any(c("hms", "numeric", "integer") %in% class(x)))
+  
+  # Check data type
+  if (any(c("numeric", "integer") %in% class(x))) x <- hms::as.hms(x)
   
   if (!is.na(round)) {
     

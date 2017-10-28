@@ -25,6 +25,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
   # Check
   stopifnot(length(file_remote) == length(file_local))
   
+  # Build data frame
   df <- data.frame(
     file_remote,
     file_local,
@@ -37,7 +38,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
     stringsAsFactors = FALSE
   )
   
-  # Do
+  # Do, pwalk will use the names of the df to match the arguments in the worker
   purrr::pwalk(
     df, 
     get_remote_file_worker
