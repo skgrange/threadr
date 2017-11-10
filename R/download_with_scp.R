@@ -22,6 +22,8 @@
 #' @param print Should the file to be downloaded be printed to the console as a
 #' message? 
 #' 
+#' @param quiet_streams Should the system streams be suppressed? 
+#' 
 #' @param progress Type of progress bar to display. 
 #' 
 #' @examples 
@@ -48,7 +50,7 @@
 #' @export
 download_with_scp <- function(host, file_remote, file_local, user, password,
                               compression = FALSE, print = FALSE, 
-                              progress = "none") {
+                              quiet_streams = FALSE, progress = "none") {
   
   # If nothing is passed, just skip
   if (!length(file_remote) == 0) {
@@ -78,7 +80,8 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
         user = user,
         password = password,
         compression = compression,
-        print = print
+        print = print,
+        quiet_streams = quiet_streams
       ),
       .progress = progress
     )
@@ -94,7 +97,8 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
 }
 
 
-download_with_scp_worker <- function(df, user, password, compression, print) {
+download_with_scp_worker <- function(df, user, password, compression, print, 
+                                     quiet_streams) {
   
   # Build system command
   command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ", user, "@")
@@ -112,8 +116,20 @@ download_with_scp_worker <- function(df, user, password, compression, print) {
   # A message to the user
   if (print) message(stringr::str_c("Copying: ", df$file_remote))
   
+  if (quiet_streams) {
+    
+    ignore.stdout <- TRUE
+    ignore.stderr <- TRUE
+    
+  } else {
+    
+    ignore.stdout <- FALSE
+    ignore.stderr <- FALSE
+    
+  }
+  
   # Do
-  system(command)
+  system(command, ignore.stdout = ignore.stdout, ignore.stderr = ignore.stderr)
   
 }
 
@@ -155,6 +171,11 @@ download_with_scp_worker <- function(df, user, password, compression, print) {
 #' 
 #' @param password Password for the user for \code{scp}. 
 #' 
+#' @param method Either \code{"scp"} or \code{"rsync"}. Using \code{"rsync"} can
+#' be useful when the remote server does not allow scp commands. 
+#' 
+#' @param quiet_streams Should the system streams be suppressed? 
+#' 
 #' @examples 
 #' \dontrun{
 #' 
@@ -176,28 +197,73 @@ download_with_scp_worker <- function(df, user, password, compression, print) {
 #' \code{\link{upload_with_scp}}
 #' 
 #' @export
-list_files_scp <- function(host, directory_remote, user, password) {
+list_files_scp <- function(host, directory_remote, user, password, 
+                           method = "scp", quiet_streams = FALSE) {
   
   if (!sshpass_install_check()) 
     stop("`sshpass` system programme is not installed...", call. = FALSE)
   
-  # Ensure remote has a slash and a wild card
-  directory_remote <- stringr::str_c(directory_remote, "/*")
+  # Used in logic
+  method <- stringr::str_to_lower(method)
   
-  # Build system call command, ssh, not scp
-  command <- stringr::str_c(
-    "sshpass -p '", 
-    password, 
-    "' ssh ", 
-    user, 
-    "@", 
-    host, 
-    " ls -d -1 ", 
-    directory_remote
-  )
+  # For system call
+  ignore.stderr <- ifelse(quiet_streams, TRUE, FALSE)
   
-  # Do
-  file_list <- system(command, intern = TRUE)
+  if (method == "scp") {
+    
+    # Ensure remote has a slash and a wild card
+    directory_remote <- stringr::str_c(directory_remote, "/*")
+    
+    # Build system call command, ssh, not scp
+    command <- stringr::str_c(
+      "sshpass -p '", 
+      password, 
+      "' ssh ", 
+      user, 
+      "@", 
+      host, 
+      " ls -d -1 ", 
+      directory_remote
+    )
+    
+    # Do
+    file_list <- system(command, intern = TRUE, ignore.stderr = ignore.stderr)
+    
+  } else if (method == "rsync") {
+    
+    # Ensure remote has a slash
+    directory_remote <- stringr::str_c(directory_remote, "/")
+    
+    command <- stringr::str_c(
+      "sshpass -p '", 
+      password, 
+      "' rsync --list-only ", 
+      user, 
+      "@", 
+      host, 
+      ":", 
+      directory_remote
+    )
+    
+    # Do
+    file_list <- system(command, intern = TRUE, ignore.stderr = ignore.stderr)
+    
+    # Use the collon in the date as an anchor, certainly not perfect
+    file_list <- stringr::str_split_fixed(file_list, ":", 3)[, 3]
+    file_list <- stringr::str_split_fixed(file_list, " ", 2)[, 2]
+    
+    # Drop working directory
+    file_list <- file_list[file_list != "."]
+    
+    # Add path
+    file_list <- stringr::str_c(directory_remote, file_list)
+    
+  } else {
+    
+    warning("`method` not recognised...", call. = FALSE)
+    file_list <- character()
+    
+  }
   
   return(file_list)
   

@@ -5,7 +5,8 @@
 \title{Function to list files and directories on a remote system with \code{scp} 
 (secure copy).}
 \usage{
-list_files_scp(host, directory_remote, user, password)
+list_files_scp(host, directory_remote, user, password, method = "scp",
+  quiet_streams = FALSE)
 }
 \arguments{
 \item{host}{Host name of remote system.}
@@ -15,6 +16,11 @@ list_files_scp(host, directory_remote, user, password)
 \item{user}{User name for \code{scp}.}
 
 \item{password}{Password for the user for \code{scp}.}
+
+\item{method}{Either \code{"scp"} or \code{"rsync"}. Using \code{"rsync"} can
+be useful when the remote server does not allow scp commands.}
+
+\item{quiet_streams}{Should the system streams be suppressed?}
 }
 \value{
 Character vector.

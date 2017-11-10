@@ -24,6 +24,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
   
   # Check
   stopifnot(length(file_remote) == length(file_local))
+  stopifnot(all(dir.exists(dirname(file_local))))
   
   # Build data frame
   df <- data.frame(
