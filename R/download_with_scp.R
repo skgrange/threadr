@@ -323,6 +323,8 @@ sshpass_install_check <- function() {
 #' @param print Should the file to be uploaded be printed to the console as a
 #' message? 
 #' 
+#' @param quiet_streams Should the system streams be suppressed? 
+#' 
 #' @param progress Type of progress bar to display. 
 #' 
 #' @examples 
@@ -349,7 +351,7 @@ sshpass_install_check <- function() {
 #' @export
 upload_with_scp <- function(host, file_local, file_remote, user, password,
                             compression = FALSE, print = FALSE, 
-                            progress = "none") {
+                            quiet_streams = FALSE, progress = "none") {
   
   # If nothing is passed, just skip
   if (!length(file_local) == 0) {
@@ -379,7 +381,8 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
         user = user,
         password = password,
         compression = compression,
-        print = print
+        print = print,
+        quiet_streams = quiet_streams
       ),
       .progress = progress
     )
@@ -395,7 +398,8 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
 }
 
 
-upload_with_scp_worker <- function(df, user, password, compression, print) {
+upload_with_scp_worker <- function(df, user, password, compression, print,
+                                   quiet_streams) {
   
   # Build system command
   command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ")
@@ -413,7 +417,19 @@ upload_with_scp_worker <- function(df, user, password, compression, print) {
   # A message to the user
   if (print) message(stringr::str_c("Copying: ", df$file_local))
   
+  if (quiet_streams) {
+    
+    ignore.stdout <- TRUE
+    ignore.stderr <- TRUE
+    
+  } else {
+    
+    ignore.stdout <- FALSE
+    ignore.stderr <- FALSE
+    
+  }
+  
   # Do
-  system(command)
+  system(command, ignore.stdout = ignore.stdout, ignore.stderr = ignore.stderr)
   
 }
