@@ -30,10 +30,10 @@
 write_json <- function(x, file, pretty = TRUE, na = FALSE, auto_unbox = FALSE) {
   
   # Factor vector
-  if (class(x) == "factor") x <- as.character(x)
+  if ("factor" %in% class(x)) x <- as.character(x)
   
   # Factors within data frame
-  if (grepl("data.frame", class(x))) {
+  if (any(grepl("data.frame", class(x)))) {
     
     # Make factors strings
     index_factor <- sapply(x, is.factor)
@@ -45,8 +45,13 @@ write_json <- function(x, file, pretty = TRUE, na = FALSE, auto_unbox = FALSE) {
   if (na) {
     
     # Keep NAs, but make them null
-    json <- jsonlite::toJSON(x, pretty = pretty, na = "null", null = "null",
-                             auto_unbox = auto_unbox)
+    json <- jsonlite::toJSON(
+      x, 
+      pretty = pretty, 
+      na = "null", 
+      null = "null",
+      auto_unbox = auto_unbox
+    )
     
   } else {
     
