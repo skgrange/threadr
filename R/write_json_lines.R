@@ -59,7 +59,9 @@ read_json_lines <- function(file, pagesize = 500, verbose = FALSE) {
   con <- file(file, open = "r")
   
   # Read
-  x <- jsonlite::stream_in(con, pagesize = pagesize, verbose = verbose)
+  x <- suppressWarnings(
+    jsonlite::stream_in(con, pagesize = pagesize, verbose = verbose)
+  )
   
   # Close connection
   close(con)
