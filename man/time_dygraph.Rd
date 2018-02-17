@@ -46,6 +46,9 @@ connected when rendered in an HTML document.}
 
 \item{y_reference}{Location of a y-axis reference line.}
 }
+\value{
+Invisible, an interactive dygraph.
+}
 \description{
 Function for plotting interactive time-series plots in a similar way to
 \code{timePlot}.

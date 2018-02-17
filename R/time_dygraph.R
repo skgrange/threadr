@@ -35,6 +35,8 @@
 #' connected when rendered in an HTML document. 
 #' 
 #' @param y_reference Location of a y-axis reference line. 
+#' 
+#' @return Invisible, an interactive dygraph.  
 #'
 #' @seealso \code{timePlot}, \code{\link{dygraph}}
 #' 
@@ -48,12 +50,21 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
                          y_reference = NA) {
   
   # Check
-  if (nrow(df) == 0) stop("No data to plot.", call. = FALSE)
+  if (nrow(df) == 0) stop("No data to plot...", call. = FALSE)
+  
+  # Check variable names
+  input_names <- names(df)
+  
+  if (all(!c("date", variable) %in% input_names))
+    stop("Variables not contained in `df`...", call. = FALSE)
   
   # Catch dplyr's table data frame
   df <- base_df(df)
   
-  if (is.na(mouse_label) & length(mouse_label) == 1) mouse_label <- variable
+  # But don't mangle names
+  names(df) <- input_names
+  
+  if (all(is.na(mouse_label)) && length(mouse_label) == 1) mouse_label <- variable
   if (is.na(tz)) tz <- time_zone(df[, "date"])
   
   # Create time-series objects
@@ -92,8 +103,12 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   
   # Plot
   plot <- dygraphs::dygraph(time_series, group = group) %>%  
-    dygraphs::dyOptions(colors = colour, stepPlot = step, fillGraph = fill, 
-                        useDataTimezone = TRUE) %>% 
+    dygraphs::dyOptions(
+      colors = colour, 
+      stepPlot = step, 
+      fillGraph = fill, 
+      useDataTimezone = TRUE
+    ) %>% 
     dygraphs::dySeries(label = mouse_label, drawPoints = points) %>% 
     dygraphs::dyLegend(width = legend_width)
   
@@ -121,7 +136,6 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
     
   }
   
-  # Return
-  plot
+  return(plot)
   
 }
