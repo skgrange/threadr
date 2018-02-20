@@ -131,6 +131,17 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   interval <- ifelse(interval %in% c("second", "seconds"), "sec", interval)
   interval <- ifelse(interval == "hours", "hour", interval)
   
+  # Attempt to make interval a numeric value for sub-second padding
+  interval <- tryCatch({
+    
+    as.numeric(interval)
+    
+  }, warning = function(w) {
+    
+    interval
+    
+  })
+  
   # Get identifiers
   if (!is.na(by[1])) {
     
