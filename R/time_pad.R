@@ -96,8 +96,7 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
   # Drop dplyr's tbl df
   df <- base_df(df)
   
-  # Return 
-  df
+  return(df)
   
 }
 
@@ -176,7 +175,8 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   
   # To data frame
   date_sequence <- data.frame(
-    date = date_sequence
+    date = date_sequence,
+    stringsAsFactors = FALSE
   )
   
   # Do the padding
@@ -203,8 +203,7 @@ padder <- function(df, interval, by, round, merge, full, warn) {
     
   }
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -221,7 +220,7 @@ get_identifiers <- function(df, by) {
     data_by <- df[, by][1]
     
     # Data frame building
-    data_by <- data.frame(data_by)
+    data_by <- data.frame(data_by, stringsAsFactors = FALSE)
     names(data_by) <- by
     
   } else {
@@ -239,10 +238,7 @@ get_identifiers <- function(df, by) {
     
   }
   
-  # No factors bitte
-  data_by <- factor_coerce(data_by)
-  
   # Return
-  data_by
+  return(data_by)
   
 }
