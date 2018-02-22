@@ -16,7 +16,8 @@
 #' 
 #' @param interval Interval of returned time series. Some examples could be: 
 #' \code{"min"} \code{"hour"}, \code{"day"}, \code{"month"}, \code{"year"} but 
-#' multiples such as \code{"5 min"} work too. 
+#' multiples such as \code{"5 min"} work too. \code{interval} can also be a 
+#' numeric value such as \code{0.5} which is useful for sub-second padding. 
 #' 
 #' @param by Should \code{time_pad} apply the padding function to groups within
 #' \code{df}? This is helpful when there are many sites/other identifiers within
@@ -36,6 +37,8 @@
 #' \code{\link{round_date}}, \code{\link{left_join}}
 #' 
 #' @author Stuart K. Grange
+#' 
+#' @return Data frame. 
 #' 
 #' @examples
 #' 
@@ -95,6 +98,11 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
   
   # Drop dplyr's tbl df
   df <- base_df(df)
+  
+  # Make sure return is a data frame, happens when df contains only the date
+  # variable
+  if (!"data.frame" %in% class(df))
+    df <- data.frame(date = df, stringsAsFactors = FALSE)
   
   return(df)
   

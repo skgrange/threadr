@@ -13,7 +13,8 @@ be named \code{date}.}
 
 \item{interval}{Interval of returned time series. Some examples could be: 
 \code{"min"} \code{"hour"}, \code{"day"}, \code{"month"}, \code{"year"} but 
-multiples such as \code{"5 min"} work too.}
+multiples such as \code{"5 min"} work too. \code{interval} can also be a 
+numeric value such as \code{0.5} which is useful for sub-second padding.}
 
 \item{by}{Should \code{time_pad} apply the padding function to groups within
 \code{df}? This is helpful when there are many sites/other identifiers within
@@ -28,6 +29,9 @@ Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
 
 \item{warn}{Should the function give a warning when dates are duplicated? 
 Default is \code{TRUE}.}
+}
+\value{
+Data frame.
 }
 \description{
 \code{time_pad} use is similar to \strong{openair}'s \code{timeAverage}, but
