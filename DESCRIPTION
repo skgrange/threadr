@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.6.8
-Date: 2018-02-24
+Version: 0.7.0
+Date: 2018-03-05
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -30,7 +30,8 @@ Imports:
     tidyr,
     zoo,
     magrittr, 
-    hms
+    hms,
+    purrr
 Suggests:
     ggplot2,
     ggthemes

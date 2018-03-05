@@ -16,7 +16,7 @@ str_date_formatted <- function(date = NA, time_zone = TRUE,
                                fractional_seconds = TRUE) {
   
   # Get date if not supplied
-  if (is.na(date)[1]) date <- lubridate::now()
+  if (is.na(date)[1]) date <- lubridate::now(tz = Sys.timezone())
   
   # Format string
   format_date <- ifelse(

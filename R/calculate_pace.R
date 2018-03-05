@@ -47,7 +47,6 @@ calculate_pace <- function(seconds, metres) {
   # Then to pace
   x <- km_h_to_min_km(x)
   
-  # Return
-  x
+  return(x)
   
 }

@@ -6,8 +6,8 @@
 copy).}
 \usage{
 upload_with_scp(host, file_local, file_remote, user, password,
-  compression = FALSE, print = FALSE, quiet_streams = FALSE,
-  progress = "none")
+  compression = FALSE, verbose = FALSE, basename = FALSE,
+  quiet_streams = FALSE)
 }
 \arguments{
 \item{host}{Host name of remote system.}
@@ -24,12 +24,13 @@ upload_with_scp(host, file_local, file_remote, user, password,
 \item{compression}{Should the files be copied with compression on the fly? 
 This can speed up copying time on slower networks but not always.}
 
-\item{print}{Should the file to be uploaded be printed to the console as a
+\item{verbose}{Should the file to be uploaded be printed to the console as a
 message?}
 
-\item{quiet_streams}{Should the system streams be suppressed?}
+\item{basename}{If \code{verbose}, should only the basename of file being 
+handled be printed?}
 
-\item{progress}{Type of progress bar to display.}
+\item{quiet_streams}{Should the system streams be suppressed?}
 }
 \value{
 Invisible.

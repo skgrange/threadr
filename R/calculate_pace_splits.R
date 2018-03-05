@@ -38,7 +38,7 @@ calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   # http://www.coolrunning.com/engine/4/4_1/96.shtml
   
   # Pad string
-  if (str_count(time, ":") == 1) time <- str_c("00:", time)
+  if (stringr::str_count(time, ":") == 1) time <- stringr::str_c("00:", time)
   
   # Time string to seconds
   time_seconds <- lubridate::hms(time)
@@ -101,7 +101,6 @@ calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   # Round
   df <- round_numeric(df, round = round)
   
-  # Return, standard data frame
-  df
+  return(df)
   
 }

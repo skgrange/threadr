@@ -5,8 +5,8 @@
 \title{Function to download files from a remote system with \code{scp} (secure copy).}
 \usage{
 download_with_scp(host, file_remote, file_local, user, password,
-  compression = FALSE, print = FALSE, quiet_streams = FALSE,
-  progress = "none")
+  compression = FALSE, verbose = FALSE, basename = FALSE,
+  quiet_streams = FALSE)
 }
 \arguments{
 \item{host}{Host name of remote system.}
@@ -23,12 +23,13 @@ download_with_scp(host, file_remote, file_local, user, password,
 \item{compression}{Should the files be copied with compression on the fly? 
 This can speed up copying time on slower networks but not always.}
 
-\item{print}{Should the file to be downloaded be printed to the console as a
-message?}
+\item{verbose}{Should the file to be downloaded be printed to the console as 
+a message?}
+
+\item{basename}{If \code{verbose}, should only the basename of file being 
+handled be printed?}
 
 \item{quiet_streams}{Should the system streams be suppressed?}
-
-\item{progress}{Type of progress bar to display.}
 }
 \value{
 Invisible.

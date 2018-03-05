@@ -19,12 +19,13 @@
 #' @param compression Should the files be copied with compression on the fly? 
 #' This can speed up copying time on slower networks but not always. 
 #' 
-#' @param print Should the file to be downloaded be printed to the console as a
-#' message? 
+#' @param verbose Should the file to be downloaded be printed to the console as 
+#' a message? 
+#' 
+#' @param basename If \code{verbose}, should only the basename of file being 
+#' handled be printed? 
 #' 
 #' @param quiet_streams Should the system streams be suppressed? 
-#' 
-#' @param progress Type of progress bar to display. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -49,8 +50,8 @@
 #' 
 #' @export
 download_with_scp <- function(host, file_remote, file_local, user, password,
-                              compression = FALSE, print = FALSE, 
-                              quiet_streams = FALSE, progress = "none") {
+                              compression = FALSE, verbose = FALSE, 
+                              basename = FALSE, quiet_streams = FALSE) {
   
   # If nothing is passed, just skip
   if (!length(file_remote) == 0) {
@@ -64,26 +65,20 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
     # Add host to file remote
     file_remote <- stringr::str_c(host, ":", file_remote)
     
-    # Build mapping data frame
-    df <- data.frame(
-      file_remote,
-      file_local, 
-      stringsAsFactors = FALSE
-    )
-    
-    # Do 
-    plyr::a_ply(
-      df, 
-      .margins = 1,
-      function(x) download_with_scp_worker(
-        x,
+    # Do
+    purrr::walk2(
+      .x = file_local,
+      .y = file_remote,
+      .f = ~ download_with_scp_worker(
+        file_local = .x,
+        file_remote = .y,
         user = user,
         password = password,
         compression = compression,
-        print = print,
+        verbose = verbose,
+        basename = basename,
         quiet_streams = quiet_streams
-      ),
-      .progress = progress
+      )
     )
     
   } else {
@@ -97,7 +92,8 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
 }
 
 
-download_with_scp_worker <- function(df, user, password, compression, print, 
+download_with_scp_worker <- function(file_local, file_remote, user, password, 
+                                     compression, verbose, basename, 
                                      quiet_streams) {
   
   # Build system command
@@ -108,13 +104,14 @@ download_with_scp_worker <- function(df, user, password, compression, print,
     command_prefix <- stringr::str_replace(command_prefix, "\\bscp\\b", "scp -C")
   
   # And file
-  command_files <- stringr::str_c(df$file_remote, df$file_local, sep = " ")
+  command_files <- stringr::str_c(file_remote, file_local, sep = " ")
   
   # Combine commands
   command <- stringr::str_c(command_prefix, command_files)
   
   # A message to the user
-  if (print) message(stringr::str_c("Copying: ", df$file_remote))
+  if (verbose) 
+    message(download_with_scp_message(file_remote, basename = basename))
   
   if (quiet_streams) {
     
@@ -132,27 +129,6 @@ download_with_scp_worker <- function(df, user, password, compression, print,
   system(command, ignore.stdout = ignore.stdout, ignore.stderr = ignore.stderr)
   
 }
-
-
-# # Build system call command
-# # if (cypher == "arcfour") {
-#   
-#   # # Fastest cypher in most cases
-#   # command_prefix <- stringr::str_c(
-#   #   "sshpass -p '", 
-#   #   password, 
-#   #   "' scp ", "Cipher=arcfour ", 
-#   #   user, 
-#   #   "@"
-#   # )
-#   
-#   
-# } else {
-# 
-#   # Default
-#   
-#   
-# }
 
 
 #' Function to list files and directories on a remote system with \code{scp} 
@@ -320,12 +296,13 @@ sshpass_install_check <- function() {
 #' @param compression Should the files be copied with compression on the fly? 
 #' This can speed up copying time on slower networks but not always. 
 #' 
-#' @param print Should the file to be uploaded be printed to the console as a
+#' @param verbose Should the file to be uploaded be printed to the console as a
 #' message? 
 #' 
-#' @param quiet_streams Should the system streams be suppressed? 
+#' @param basename If \code{verbose}, should only the basename of file being 
+#' handled be printed? 
 #' 
-#' @param progress Type of progress bar to display. 
+#' @param quiet_streams Should the system streams be suppressed? 
 #' 
 #' @examples 
 #' \dontrun{
@@ -350,8 +327,8 @@ sshpass_install_check <- function() {
 #' 
 #' @export
 upload_with_scp <- function(host, file_local, file_remote, user, password,
-                            compression = FALSE, print = FALSE, 
-                            quiet_streams = FALSE, progress = "none") {
+                            compression = FALSE, verbose = FALSE, 
+                            basename = FALSE, quiet_streams = FALSE) {
   
   # If nothing is passed, just skip
   if (!length(file_local) == 0) {
@@ -365,26 +342,20 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
     # Add user and host to file remote
     file_remote <- stringr::str_c(user, "@", host, ":", file_remote)
     
-    # Build mapping data frame
-    df <- data.frame(
-      file_remote,
-      file_local, 
-      stringsAsFactors = FALSE
-    )
-    
-    # Do 
-    plyr::a_ply(
-      df, 
-      .margins = 1,
-      function(x) upload_with_scp_worker(
-        x,
+    # Do
+    purrr::walk2(
+      .x = file_remote,
+      .y = file_local,
+      .f = ~ upload_with_scp_worker(
+        file_remote = .x,
+        file_local = .y,
         user = user,
         password = password,
         compression = compression,
-        print = print,
+        verbose = verbose,
+        basename = basename,
         quiet_streams = quiet_streams
-      ),
-      .progress = progress
+      )
     )
     
   } else {
@@ -398,7 +369,8 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
 }
 
 
-upload_with_scp_worker <- function(df, user, password, compression, print,
+upload_with_scp_worker <- function(file_remote, file_local, user, password, 
+                                   compression, verbose, basename, 
                                    quiet_streams) {
   
   # Build system command
@@ -409,13 +381,14 @@ upload_with_scp_worker <- function(df, user, password, compression, print,
     command_prefix <- stringr::str_replace(command_prefix, "\\bscp\\b", "scp -C")
   
   # Add files, the local one
-  command_files <- stringr::str_c(df$file_local, df$file_remote, sep = " ")
+  command_files <- stringr::str_c(file_local, file_remote, sep = " ")
   
   # Combine commands
   command <- stringr::str_c(command_prefix, command_files)
   
   # A message to the user
-  if (print) message(stringr::str_c("Copying: ", df$file_local))
+  if (verbose) 
+    message(download_with_scp_message(file_remote, basename = basename))
   
   if (quiet_streams) {
     
@@ -431,5 +404,18 @@ upload_with_scp_worker <- function(df, user, password, compression, print,
   
   # Do
   system(command, ignore.stdout = ignore.stdout, ignore.stderr = ignore.stderr)
+  
+}
+
+
+download_with_scp_message <- function(file, basename) {
+  
+  # Basename only?
+  file <- ifelse(basename, basename(file), file)
+  
+  # Build string
+  message_string <- stringr::str_c(str_date_formatted(), ": ", file)
+  
+  return(message_string)
   
 }
