@@ -146,7 +146,7 @@ calculate_molecular_volume <- function(temp, pressure)
 
 
 # No export
-gas_string_to_mass <- function(gas) {.
+gas_string_to_mass <- function(gas) {
   
   # Check
   stopifnot(length(gas) == 1)
