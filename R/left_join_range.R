@@ -45,7 +45,7 @@ left_join_range <- function(x, y, x_test, y_min, y_max, keep = FALSE) {
   names(y_map) <- ifelse(names(y_map) == y_max, "maximum", names(y_map))
   
   # For every observation in mapping table
-  index <- alply(y_map, 1, function(z) join_conditional_worker(x[, x_test], z))
+  index <- plyr::alply(y_map, 1, function(z) join_conditional_worker(x[, x_test], z))
 
   # Make a matrix
   index <- do.call("rbind", index)
@@ -66,8 +66,7 @@ left_join_range <- function(x, y, x_test, y_min, y_max, keep = FALSE) {
   # Drop joining key
   x[, "row_number"] <- NULL
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -82,6 +81,6 @@ join_conditional_worker <- function(x_test, y_map) {
   index <- ifelse(index, y_map$row_number, NA)
   
   # Return
-  index
+  return(index)
   
 }

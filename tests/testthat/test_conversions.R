@@ -100,3 +100,12 @@ test_that("temperature conversions", {
   expect_equal(celsius_to_fahrenheit(32.5), 90.5)
   
 })
+
+
+test_that("Humidity conversions", {
+  
+  # Tested against: https://planetcalc.com/2167/
+  # Approx equal but not precise enough here
+  # expect_equal(absolute_humidity(4.9, 84), 0.00569 * 1000)
+  
+})
