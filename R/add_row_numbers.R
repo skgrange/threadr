@@ -15,6 +15,8 @@
 #'
 #' @seealso \code{\link{add_rownames}}
 #' 
+#' @return Data frame. 
+#' 
 #' @examples 
 #' \dontrun{
 #' 
@@ -44,9 +46,8 @@ add_row_numbers <- function(df, name = "row_number", zero_based = FALSE) {
   df[, name] <- sequence
   
   # Move variable to the first column position
-  df <- arrange_left(df, name)
+  df <- select(df, !!name, everything())
   
-  # Return
-  df
+  return(df)
   
 }

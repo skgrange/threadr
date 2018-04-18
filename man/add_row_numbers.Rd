@@ -15,6 +15,9 @@ drop an existing variable of the same name if present in \code{df}.}
 \item{zero_based}{Should the numbering start at \code{0} rather than \code{1}? 
 Default is \code{FALSE}.}
 }
+\value{
+Data frame.
+}
 \description{
 Row numbers will be a variable which is an integer, unlike 
 \code{rownames_to_column} which adds a character variable.

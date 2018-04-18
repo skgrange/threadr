@@ -89,17 +89,25 @@ tidy_summary <- function (df, round = 3, json = FALSE) {
   # Reshape
   df <- tidyr::spread(df, descriptive, value, convert = TRUE)
   
-  # Arrange
-  df <- arrange_left(
-    df, 
-    c("variable", "class", "length", "mean", "median", "min", "max", "mode", 
-      "sd", "variance", "first_quartile", "third_quartile", "nas")
-  )
+  # Arrange variables
+  df <- df %>% 
+    select(matches("variable"),
+           matches("class"), 
+           matches("length"),
+           matches("mean"),
+           matches("median"),
+           matches("min"),
+           matches("max"), 
+           matches("mode"), 
+           matches("sd"), 
+           matches("variance"), 
+           matches("first_quartile"),
+           matches("third_quartile"), 
+           matches("nas"))
   
   # To json
   if (json) df <- to_json(df)
   
-  # Return
-  df
+  return(df)
   
 }

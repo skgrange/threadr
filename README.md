@@ -45,7 +45,6 @@ devtools::install_github("skgrange/threadr")
     
   - Data frame functions: 
     - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged, joined, and plotted easier. 
-    - `arrange_left`. Move variables/columns to the left of a data frame. 
     - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases and using data frame indexing. 
     - `drop_na_columns` and `rm_na_rows`.
     - `grepl_all`

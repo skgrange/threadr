@@ -18,9 +18,10 @@ file_information <- function(files, drop = FALSE) {
   # Tidy a little
   df <- tibble::rownames_to_column(df, "file") %>% 
     mutate(file_basename = basename(file)) %>% 
-    arrange_left(c("file", "file_basename"))
+    select(file,
+           file_basename,
+           everything())
   
-  # Return
-  df
+  return(df)
   
 }
