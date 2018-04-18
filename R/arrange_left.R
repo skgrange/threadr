@@ -23,6 +23,11 @@
 #' @export
 arrange_left <- function(df, variable) {
   
+  # Soon to be dropped
+  .Deprecated(
+    msg = "`arrange_left` is deprecated, please use dplyr::select and dplyr::everything."
+  )
+  
   # Bound strings
   variable <- stringr::str_c("\\b", variable, "\\b")
  

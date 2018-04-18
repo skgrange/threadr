@@ -23,9 +23,17 @@
 #' }
 #' 
 #' @export
-create_directory <- function(directory, quiet = TRUE)
+create_directory <- function(directory, quiet = TRUE) {
+  
+  # Soon to be dropped
+  .Deprecated(
+    msg = "`create_directory` is deprecated, please use dir.create."
+  )
+  
   plyr::l_ply(directory, directory_creator, quiet)
-
+  
+}
+  
 
 # The actual function
 directory_creator <- function(x, quiet) {

@@ -72,7 +72,8 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
       full, 
       warn
     ) %>% 
-      arrange_left(variables)
+      select(!!variables, 
+             everything())
     
   } else {
     
@@ -92,7 +93,8 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
           warn = warn
         )
       ) %>% 
-      arrange_left(variables)
+      select(!!variables, 
+             everything())
     
   }
   

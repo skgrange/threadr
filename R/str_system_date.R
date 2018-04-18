@@ -7,6 +7,9 @@
 #' @export
 str_system_date <- function(tz = TRUE) {
   
+  # Soon to be dropped
+  .Deprecated(msg = "`str_system_date` is deprecated.")
+  
   if (.Platform$OS.type == "windows") {
     
     # Use R for Windows. To-do: fix if someone asks. 
@@ -45,6 +48,9 @@ str_system_date <- function(tz = TRUE) {
 #' 
 #' @export
 sys_unix_time <- function(integer = FALSE) {
+  
+  # Soon to be dropped
+  .Deprecated(msg = "`sys_unix_time` is deprecated.")
   
   # Get system time
   date <- Sys.time()
