@@ -9,6 +9,8 @@
 \alias{symbol_subscript_10}
 \alias{symbol_subscript_x}
 \alias{symbol_subscript_2.5}
+\alias{symbol_superscript_3}
+\alias{symbol_superscript_minus}
 \title{Functions for commonly used unicode symbols.}
 \usage{
 symbol_degree()
@@ -26,6 +28,10 @@ symbol_subscript_10()
 symbol_subscript_x()
 
 symbol_subscript_2.5()
+
+symbol_superscript_3()
+
+symbol_superscript_minus()
 }
 \value{
 Character vector.

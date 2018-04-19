@@ -41,3 +41,13 @@ symbol_subscript_x <- function() "\u2093"
 #' @rdname symbol_degree
 #' @export
 symbol_subscript_2.5 <- function() stringr::str_c("\u2082", "\u2024", "\u2085")
+
+
+#' @rdname symbol_degree
+#' @export
+symbol_superscript_3 <- function() "\u00B3"
+
+
+#' @rdname symbol_degree
+#' @export
+symbol_superscript_minus <- function() "\u207B"
