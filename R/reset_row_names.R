@@ -2,15 +2,16 @@
 #' 
 #' \code{reset_row_names} can be used with magrittr's pipe (\code{\%>\%}). 
 #' 
+#' @param df Data frame. 
+#' 
+#' @return Data frame. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @export
 reset_row_names <- function(df) {
   
-  # Do
   row.names(df) <- NULL
-  
-  # Return
-  df
+  return(df)
   
 }

@@ -73,6 +73,11 @@ str_utf8_to_integer(x)
 
 str_integer_to_utf8(x)
 }
+\arguments{
+\item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert}{Function specific options.}
+
+\item{x, string}{Input string.}
+}
 \description{
 \code{str_date} returns the system's idea of the date as a character string.
 }

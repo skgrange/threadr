@@ -6,6 +6,9 @@
 \usage{
 parse_no_hour_time(x)
 }
+\arguments{
+\item{x}{Vector of times in no hour format.}
+}
 \value{
 Vector of periods; a \strong{lubridate} data type.
 }

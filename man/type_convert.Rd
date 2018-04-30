@@ -10,10 +10,10 @@ type_convert(x)
 type_converter(x)
 }
 \arguments{
-\item{df}{Data frame to apply \code{type.convert} to every variable/column.}
+\item{x}{A vector or data frame.}
 }
 \value{
-Variable return.
+Vector or data frame, possibly with different data types.
 }
 \description{
 Function to quickly apply \code{type.convert} to objects.

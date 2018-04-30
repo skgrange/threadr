@@ -6,6 +6,9 @@
 \usage{
 str_extract_xml_attributes(text)
 }
+\arguments{
+\item{text}{Text to parse.}
+}
 \value{
 Data frame.
 }

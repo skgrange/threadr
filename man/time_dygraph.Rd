@@ -16,7 +16,8 @@ time_dygraph(df, variable = "value", colour = "dodgerblue", range = TRUE,
 \item{variable}{Variable in \code{df} to plot. Default is \code{"value"}. 
 \code{variable} can be a vector but faceting is not yet supported.}
 
-\item{colour}{Colour of plotted geometry. Default is \code{"dodgerblue"}.}
+\item{colour, color}{Colour of plotted geometry. Default is 
+\code{"dodgerblue"}.}
 
 \item{range}{Should a range selector be plotted? Default is \code{TRUE}.}
 

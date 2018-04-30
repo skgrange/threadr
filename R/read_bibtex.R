@@ -161,8 +161,6 @@ extract_bibtex_variables <- function(observation) {
 #' \code{read_bibtex_aux} reads \code{.aux} files created by \code{BibTeX} and 
 #' \code{BibLaTeX}. 
 #' 
-#' @param file File name of a \code{BibTeX} \code{.aux} file. 
-#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Character vector. 

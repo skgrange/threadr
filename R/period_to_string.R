@@ -49,6 +49,8 @@ period_to_date <- function(period) {
 #' \code{parse_no_hour_time} will format and parse a time such as \code{124.17}
 #' (124 minutes and 17 seconds) to a period with hour, minutes, and seconds. 
 #' 
+#' @param x Vector of times in no hour format.  
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Vector of periods; a \strong{lubridate} data type.  

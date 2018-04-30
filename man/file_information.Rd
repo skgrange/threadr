@@ -4,7 +4,7 @@
 \alias{file_information}
 \title{Function to get file information.}
 \usage{
-file_information(files, drop = FALSE)
+file_information(files)
 }
 \arguments{
 \item{files}{Vector of file names.}

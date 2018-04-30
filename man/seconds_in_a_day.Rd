@@ -24,6 +24,9 @@ seconds_in_a_year(leap_year = FALSE)
 
 seconds_in_a_week()
 }
+\arguments{
+\item{leap_year}{Should leap year logic be used?}
+}
 \value{
 Integer vecotor with length of one.
 }

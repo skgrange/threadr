@@ -10,7 +10,7 @@
 #' @return Data frame.
 #' 
 #' @export
-file_information <- function(files, drop = FALSE) {
+file_information <- function(files) {
   
   # Get information
   df <- file.info(files)

@@ -60,7 +60,6 @@ monday_week_table <- function (date, floor) {
       df_days$week_monday >= 52, 52, df_days$week_monday)
     
   }
-    
   
   # Return
   df_days
@@ -90,7 +89,9 @@ monday_week_table <- function (date, floor) {
 #' @author Stuart K. Grange
 #' 
 #' @export
-week_financial <- function (date, start = "july", floor = TRUE) {
+week_financial <- function(date, start = "july", floor = TRUE) {
+  
+  .Deprecated()
   
   # If date, not POSIXct
   if (class(date)[1] == "Date") date <- lubridate::ymd(date, tz = "UTC")
@@ -175,6 +176,8 @@ financial_week_table <- function (date, start, floor) {
 #' @export
 year_financial <- function (date, start = "july") {
   
+  .Deprecated()
+  
   # Get year
   year <- lubridate::year(date)
   
@@ -210,6 +213,8 @@ year_financial <- function (date, start = "july") {
 #' 
 #' @export
 period_financial <- function(date, start = "july") {
+  
+  .Deprecated()
   
   # If date, not POSIXct
   if (class(date)[1] == "Date") date <- lubridate::ymd(date, tz = "UTC")

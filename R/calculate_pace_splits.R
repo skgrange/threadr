@@ -8,6 +8,8 @@
 #' @param interval Interval to calculate splits for in kilometres. Default is 
 #' \code{1}. 
 #' 
+#' @param round Decimal points to round numeric variables to. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Data frame. 
@@ -99,7 +101,7 @@ calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   )
   
   # Round
-  df <- round_numeric(df, round = round)
+  df <- dplyr::mutate_if(df, is.numeric, dplyr::funs(round(., digits = round)))
   
   return(df)
   

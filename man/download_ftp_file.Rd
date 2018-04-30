@@ -41,8 +41,7 @@ download_ftp_file(url, "~/Desktop/noaa_data.csv")
 
 }
 \seealso{
-\strong{\link{RCurl}}, \code{\link{list_files_ftp}}, 
-\code{\link{upload_ftp_file}}
+\code{\link{list_files_ftp}}, \code{\link{upload_to_ftp}}
 }
 \author{
 Stuart K. Grange

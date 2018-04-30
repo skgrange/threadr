@@ -1,8 +1,7 @@
 language: r
 sudo: required
 warnings_are_errors: false
+cache: packages
 
-r_binary_packages:
-  - Rcpp
-  - testthat
-
+r_packages:
+  - devtools

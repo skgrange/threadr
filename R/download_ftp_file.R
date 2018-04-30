@@ -19,8 +19,7 @@
 #' 
 #' @param progress Progress bar type.
 #' 
-#' @seealso \strong{\link{RCurl}}, \code{\link{list_files_ftp}}, 
-#' \code{\link{upload_ftp_file}}
+#' @seealso \code{\link{list_files_ftp}}, \code{\link{upload_to_ftp}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -48,8 +47,16 @@ download_ftp_file <- function(file_remote, file_output, credentials = "",
     stringsAsFactors = FALSE
   )
   
-  plyr::a_ply(df_map, 1, download_ftp_file_worker, credentials, curl, 
-              verbose, .progress = progress)
+  # Do
+  plyr::a_ply(
+    df_map, 
+    1, 
+    download_ftp_file_worker, 
+    credentials, 
+    curl,
+    verbose, 
+    .progress = progress
+  )
   
   # No return
   
@@ -73,8 +80,11 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
   if (curl) {
   
     # Download the file as a binary object
-    data_bin <- RCurl::getBinaryURL(file_remote, userpwd = credentials, 
-                                    ftp.use.epsv = FALSE)
+    data_bin <- RCurl::getBinaryURL(
+      file_remote, 
+      userpwd = credentials, 
+      ftp.use.epsv = FALSE
+    )
     
     # Save binary object as file
     writeBin(data_bin, file_output)
@@ -98,8 +108,7 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
 #' \code{credentials} if the server does not require authentication. 
 #' \code{credentials} takes the format: \code{"username:password"}. 
 #' 
-#' @seealso \strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
-#' \code{\link{upload_ftp_file}}
+#' \code{\link{download_ftp_file}}, \code{\link{upload_to_ftp}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -118,14 +127,17 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
 list_files_ftp <- function(url, credentials = "") {
   
   # For each url
-  list_files <- plyr::llply(url, list_files_ftp_worker, 
-                            credentials = credentials)
+  file_list <- plyr::llply(
+    url, 
+    list_files_ftp_worker, 
+    credentials = credentials
+  )
   
   # Just a vector bitte
-  list_files <- unlist(list_files)
+  file_list <- unlist(file_list)
   
   # Return
-  list_files
+  return(file_list)
   
 }
 
@@ -148,8 +160,7 @@ list_files_ftp_worker <- function(url, credentials) {
   file_list <- stringr::str_c(url, stringr::str_split(file_list, "\n")[[1]])
   file_list <- stringr::str_trim(file_list)
   
-  # Return
-  file_list
+  return(file_list)
   
 }
 
@@ -196,8 +207,14 @@ upload_to_ftp <- function(file, url, credentials = "", basename = FALSE,
                           progress = "text") {
   
   # Apply function to length of file
-  plyr::l_ply(file, upload_to_ftp_worker, url = url, credentials = credentials, 
-              basename = basename, .progress = progress)
+  plyr::l_ply(
+    file, 
+    upload_to_ftp_worker, 
+    url = url, 
+    credentials = credentials, 
+    basename = basename, 
+    .progress = progress
+  )
   
 }
 
@@ -219,8 +236,12 @@ upload_to_ftp_worker <- function(file, url, credentials, basename) {
   url <- stringr::str_c(url, file)
   
   # Upload, will create directories if needed
-  RCurl::ftpUpload(file, url, userpwd = credentials, 
-                   .opts = list(ftp.create.missing.dirs = TRUE))
+  RCurl::ftpUpload(
+    file, 
+    url, 
+    userpwd = credentials, 
+    .opts = list(ftp.create.missing.dirs = TRUE)
+  )
   
   # No return
   

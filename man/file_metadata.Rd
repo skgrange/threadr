@@ -7,12 +7,12 @@
 file_metadata(file, json = FALSE, progress = "none")
 }
 \arguments{
+\item{file}{A vector of files to extract metadata from.}
+
 \item{json}{Should the return be a pretty printed JSON string?}
 
 \item{progress}{What type of progress bar should the funciton display? Default
 is \code{"none"}.}
-
-\item{files}{A vector of files to extract metadata from.}
 }
 \description{
 \code{file_metadata} uses Phil Harvey's Perl \code{exiftool} to extract a 

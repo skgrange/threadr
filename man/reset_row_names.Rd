@@ -6,6 +6,12 @@
 \usage{
 reset_row_names(df)
 }
+\arguments{
+\item{df}{Data frame.}
+}
+\value{
+Data frame.
+}
 \description{
 \code{reset_row_names} can be used with magrittr's pipe (\code{\%>\%}).
 }

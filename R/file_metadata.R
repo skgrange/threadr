@@ -16,7 +16,7 @@
 #' present. Watch out for very large numbers of variables when imputing large
 #' XML or JSON documents with a large numbers of nested elements.
 #' 
-#' @param files A vector of files to extract metadata from. 
+#' @param file A vector of files to extract metadata from. 
 #' 
 #' @param json Should the return be a pretty printed JSON string? 
 #' 
@@ -33,7 +33,10 @@
 #' }
 #'
 #' @export
-file_metadata <- function (file, json = FALSE, progress = "none") {
+file_metadata <- function(file, json = FALSE, progress = "none") {
+  
+  # Check for programme
+  detect_exiftool()
   
   # Ensure path is expanded, sometimes in necessary
   file <- path.expand(file)
@@ -44,8 +47,7 @@ file_metadata <- function (file, json = FALSE, progress = "none") {
   # To json
   if (json) df <- jsonlite::toJSON(df, pretty = TRUE)
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -53,7 +55,7 @@ file_metadata <- function (file, json = FALSE, progress = "none") {
 # The function which does the work
 #
 # No export 
-file_metadata_worker <- function (file) {
+file_metadata_worker <- function(file) {
 
   # Get file basename
   file_basename <- basename(file)
@@ -76,7 +78,21 @@ file_metadata_worker <- function (file) {
   names(df) <- str_to_underscore(names(df))
   names(df) <- make.names(names(df), unique = TRUE)
   
-  # Return
-  df
+  return(df)
   
 }
+
+
+detect_exiftool <- function() {
+  
+  # Test
+  text <- suppressWarnings(system("which exiftool", intern = TRUE, ignore.stderr = TRUE))
+  
+  # Raise error if not installed
+  if (length(text) == 0 || !grepl("exiftool", text))
+    stop("'exiftool' system programme not detected...", call. = FALSE)
+  
+  # No return
+  
+}
+

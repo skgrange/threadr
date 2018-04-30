@@ -40,9 +40,7 @@ Every gas-species will never be supported, therefore, use the
 \item{molecular_mass}{Molecular mass of gas in g mol-1. For example, for 
 ozone, this is 48 and for carbon monoxide this is 28.01.}
 
-\item{unit_input}{Input unit.}
-
-\item{unit_output}{Output unit.}
+\item{unit_input, unit_output}{Input and output units.}
 
 \item{temp}{Default is 0 degrees Celsius. However, values such as 20 or 25 
 degrees Celsius are often used.}
@@ -50,6 +48,11 @@ degrees Celsius are often used.}
 \item{pressure}{Default is 101325 Pa (1 standard atmosphere).}
 
 \item{mass}{Gas concentration in ug m-3 or mg m-3.}
+
+\item{x}{Vector of gases to convert.}
+}
+\value{
+Numeric vector.
 }
 \description{
 Use \code{gas_volume_to_mass} when a gas concentration is in ppb or ppm and 

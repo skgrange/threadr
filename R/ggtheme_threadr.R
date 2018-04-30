@@ -1,3 +1,11 @@
+#' Function for "tufte-like" \strong{ggplot2} appearance. 
+#' 
+#' @param grid_lines Should the plot have grid lines? 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @return Invisible, a ggplot2 plot. 
+#' 
 #' @export
 ggtheme_threadr <- function(grid_lines = FALSE) {
   

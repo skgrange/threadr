@@ -6,7 +6,8 @@
 #' @param variable Variable in \code{df} to plot. Default is \code{"value"}. 
 #' \code{variable} can be a vector but faceting is not yet supported. 
 #' 
-#' @param colour Colour of plotted geometry. Default is \code{"dodgerblue"}. 
+#' @param colour,color Colour of plotted geometry. Default is 
+#' \code{"dodgerblue"}. 
 #' 
 #' @param range Should a range selector be plotted? Default is \code{TRUE}.
 #' 

@@ -14,6 +14,9 @@ unix_time_to_excel_date(x, tz = "UTC", type = "windows")
 \item{type}{Type of Microsoft Excel date. Can be \code{"windows"} or 
 \code{"os_x_2007"}.}
 }
+\value{
+\code{POSIXct} vector.
+}
 \description{
 Depending on what version of Microsoft Excel, there are two origins used.
 }

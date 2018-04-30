@@ -60,6 +60,10 @@
 #' 
 #' \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters. 
 #' 
+#' @param x,string Input string. 
+#' 
+#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert Function specific options. 
+#' 
 #' @author Stuart K. Grange
 #'
 #' @export

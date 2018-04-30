@@ -2,9 +2,9 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Variable return. 
+#' @param x A vector or data frame. 
 #' 
-#' @param df Data frame to apply \code{type.convert} to every variable/column. 
+#' @return Vector or data frame, possibly with different data types.
 #' 
 #' @export
 type_convert <- function(x) {
@@ -29,5 +29,6 @@ type_convert <- function(x) {
 
 
 #' @export
+#' 
 #' @rdname type_convert
 type_converter <- function(x) type.convert(as.character(x), as.is = TRUE)

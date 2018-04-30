@@ -19,8 +19,6 @@ if \code{file} contains a non-commented preamble.}
 not used, all entries will be returned.}
 
 \item{progress}{Progress bar to display, only useful for large files.}
-
-\item{file}{File name of a \code{BibTeX} \code{.aux} file.}
 }
 \value{
 Data frame.

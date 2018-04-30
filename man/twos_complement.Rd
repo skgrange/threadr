@@ -2,9 +2,15 @@
 % Please edit documentation in R/twos_complement.R
 \name{twos_complement}
 \alias{twos_complement}
-\title{Function to convert Two's Complement integer to a "standard" integer.}
+\title{Function to convert Two's Complement integer to a standard integer.}
 \usage{
 twos_complement(x)
+}
+\arguments{
+\item{x}{Vector of integers.}
+}
+\value{
+Numeric vector.
 }
 \description{
 \code{twos_complement} is vectorised and will convert integers to-and-from

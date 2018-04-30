@@ -69,12 +69,16 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
 #' @author Stuart K. Grange
 #' 
 #' @param x Numeric vector. 
+#' 
 #' @param tz Time-zone. Default is \code{"UTC"}. 
+#' 
 #' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
 #' \code{"os_x_2007"}. 
 #' 
 #' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow},
 #' \code{\link{unix_time_to_excel_date}}
+#' 
+#' @return \code{POSIXct} vector.
 #' 
 #' @export
 parse_excel_date <- function(x, tz = "UTC", type = "windows") {
@@ -108,12 +112,16 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
 #' @author Stuart K. Grange
 #' 
 #' @param x Numeric vector. 
+#' 
 #' @param tz Time-zone. Default is \code{"UTC"}. 
+#' 
 #' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
 #' \code{"os_x_2007"}. 
 #' 
 #' @seealso \href{http://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp}{stackoverflow},
 #' \code{\link{parse_excel_date}}
+#' 
+#' @return \code{POSIXct} vector.
 #' 
 #' @export
 unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
@@ -178,6 +186,8 @@ wday_monday <- function(x) {
 
 
 #' Functions to conveniently access number of seconds in different time periods. 
+#' 
+#' @param leap_year Should leap year logic be used?  
 #' 
 #' @return Integer vecotor with length of one. 
 #' 

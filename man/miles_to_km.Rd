@@ -144,8 +144,17 @@ half_marathon()
 
 absolute_zero()
 }
+\arguments{
+\item{x}{Input vector.}
+
+\item{type, metric}{Type options.}
+
+\item{temp, rh, unit}{Specific options for some functions. 
+
+No rounding is ever done.}
+}
 \description{
-No rounding is ever done.
+Functions to convert unit systems.
 }
 \author{
 Stuart K. Grange

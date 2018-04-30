@@ -20,16 +20,18 @@
 #' @param molecular_mass Molecular mass of gas in g mol-1. For example, for 
 #' ozone, this is 48 and for carbon monoxide this is 28.01. 
 #' 
-#' @param unit_input Input unit. 
-#' 
-#' @param unit_output Output unit. 
+#' @param unit_input,unit_output Input and output units.
 #' 
 #' @param temp Default is 0 degrees Celsius. However, values such as 20 or 25 
 #' degrees Celsius are often used.  
 #' 
 #' @param pressure Default is 101325 Pa (1 standard atmosphere). 
 #' 
+#' @param x Vector of gases to convert. 
+#' 
 #' @author Stuart K. Grange
+#' 
+#' @return Numeric vector.
 #' 
 #' @examples 
 #' \dontrun{

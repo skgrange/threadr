@@ -21,7 +21,9 @@
 #' }
 #' 
 #' @export
-round_numeric <- function (df, round = 1) {
+round_numeric <- function(df, round = 1) {
+  
+  .Deprecated("mutate_if", package = "dplyr")
   
   # Get index
   index <- sapply(df, is.numeric)
@@ -29,14 +31,17 @@ round_numeric <- function (df, round = 1) {
   # Apply function to all the numeric variables in data frame
   df[index] <- lapply(df[index], function (x) round(x, round))
   
-  # Return
-  df
+  return(df)
   
 }
 
 
+#' @rdname round_numeric
+#' 
 #' @export
-factor_coerce <- function (df) {
+factor_coerce <- function(df) {
+  
+  .Deprecated("mutate_if", package = "dplyr")
   
   # Get index
   index <- sapply(df, is.factor)
@@ -44,7 +49,6 @@ factor_coerce <- function (df) {
   # Apply function to all the numeric variables in data frame
   df[index] <- lapply(df[index], as.character)
   
-  # Return
-  df
+  return(df)
   
 }

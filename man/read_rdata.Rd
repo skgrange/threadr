@@ -7,14 +7,19 @@ can be used.}
 \usage{
 read_rdata(file)
 }
+\arguments{
+\item{file}{File name of \code{.Rdata} object.}
+}
 \description{
 If a single object needs to be saved in R's native format, use 
 \code{\link{saveRDS}} rather than \code{\link{save}}.
 }
 \examples{
 \dontrun{
+
 # Load an RData file with standard assignment. 
 data_air <- read_rdata("ADA16_2015.RData")
+
 }
 
 }

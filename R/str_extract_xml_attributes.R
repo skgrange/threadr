@@ -1,5 +1,7 @@
 #' Function to extract and format an XML attribute string into a key-value pair. 
 #' 
+#' @param text Text to parse. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Data frame.  

@@ -4,12 +4,16 @@
 #' If a single object needs to be saved in R's native format, use 
 #' \code{\link{saveRDS}} rather than \code{\link{save}}. 
 #' 
+#' @param file File name of \code{.Rdata} object. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
 #' \dontrun{
+#' 
 #' # Load an RData file with standard assignment. 
 #' data_air <- read_rdata("ADA16_2015.RData")
+#' 
 #' }
 #' 
 #' @export
@@ -19,9 +23,8 @@ read_rdata <- function(file) {
   r_data <- load(file)
   
   # Change imported object's name
-  object <- get(r_data)
+  x <- get(r_data)
   
-  # Return
-  object
+  return(x)
   
 }

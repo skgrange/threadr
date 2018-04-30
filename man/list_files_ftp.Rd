@@ -11,7 +11,9 @@ list_files_ftp(url, credentials = "")
 
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
 \code{credentials} if the server does not require authentication. 
-\code{credentials} takes the format: \code{"username:password"}.}
+\code{credentials} takes the format: \code{"username:password"}. 
+
+\code{\link{download_ftp_file}}, \code{\link{upload_to_ftp}}}
 }
 \description{
 Function to list files on an FTP or SFTP server.
@@ -27,10 +29,6 @@ list_files_ftp("ftp://195.174.23.76/test", credentials)
 
 }
 
-}
-\seealso{
-\strong{\link{RCurl}}, \code{\link{download_ftp_file}}, 
-\code{\link{upload_ftp_file}}
 }
 \author{
 Stuart K. Grange

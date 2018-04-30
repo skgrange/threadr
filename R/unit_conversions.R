@@ -1,5 +1,11 @@
 #' Functions to convert unit systems. 
 #' 
+#' @param x Input vector. 
+#' 
+#' @param type,metric Type options. 
+#' 
+#' @param temp,rh,unit Specific options for some functions. 
+#' 
 #' No rounding is ever done. 
 #' 
 #' @author Stuart K. Grange

@@ -14,6 +14,8 @@ like \code{"01:30:00"} for one hour and thirty minutes.}
 
 \item{interval}{Interval to calculate splits for in kilometres. Default is 
 \code{1}.}
+
+\item{round}{Decimal points to round numeric variables to.}
 }
 \value{
 Data frame.

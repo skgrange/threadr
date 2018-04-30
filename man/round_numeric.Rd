@@ -2,9 +2,12 @@
 % Please edit documentation in R/round_numeric.R
 \name{round_numeric}
 \alias{round_numeric}
+\alias{factor_coerce}
 \title{Function to round all numerical variables in a data frame.}
 \usage{
 round_numeric(df, round = 1)
+
+factor_coerce(df)
 }
 \arguments{
 \item{df}{A data frame containing numeric variables.}

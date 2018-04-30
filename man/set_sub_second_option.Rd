@@ -6,6 +6,9 @@
 \usage{
 set_sub_second_option(digits = 5)
 }
+\arguments{
+\item{digits}{Number of digits to show.}
+}
 \description{
 Function to set R's options to print fractional seconds.
 }
