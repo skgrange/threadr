@@ -178,11 +178,11 @@ irregular_padder <- function (df, interval, by = NA, na.rm) {
   # Push observations forwards, ifs avoid warnings
   if (ncol(df) == 2) {
     
-    df[, 2] <- locf(df[, 2])
+    df[, 2] <- na_locf(df[, 2])
     
   } else {
     
-    df[, -1] <- lapply(df[, -1], locf)
+    df[, -1] <- lapply(df[, -1], na_locf)
     
   }
   

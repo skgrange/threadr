@@ -13,7 +13,8 @@ ggtheme_threadr <- function(grid_lines = FALSE) {
   plot <- ggthemes::theme_tufte(base_family = "GillSans")
   
   # Add grid lines too
-  if (grid_lines) plot <- plot + theme(panel.grid.major = element_line())
+  if (grid_lines) 
+    plot <- plot + ggplot2::theme(panel.grid.major = ggplot2::element_line())
   
   return(plot)
   
