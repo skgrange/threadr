@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.8.6
-Date: 2018-05-18
+Version: 0.8.62
+Date: 2018-06-21
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -11,6 +11,7 @@ URL: https://github.com/skgrange/threadr
 License: GPL-3 | file LICENSE
 ByteCompile: true
 Depends:
+    R (>= 3.2.0),
     stringr,
     lubridate,
     dplyr

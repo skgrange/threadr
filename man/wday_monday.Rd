@@ -5,13 +5,17 @@
 \title{Function to get weekday number from a date where \code{1} is Monday and 
 \code{7} is Sunday.}
 \usage{
-wday_monday(x)
+wday_monday(x, as.factor = FALSE, abbr = FALSE)
 }
 \arguments{
 \item{x}{Date vector.}
+
+\item{as.factor}{Should the return be an (ordered) factor with weekday labels?}
+
+\item{abbr}{If \code{as.factor}, should the weekday lables be abbreviated?}
 }
 \value{
-Numeric vector.
+Numeric or factor vector.
 }
 \description{
 Function to get weekday number from a date where \code{1} is Monday and 

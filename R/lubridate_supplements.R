@@ -49,17 +49,8 @@ time_zone <- function(date) attr(date, "tzone")
 #' }
 #' 
 #' @export 
-parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
-  
-  # A switch for my common usage
-  if (tz == "nz") tz <- "Etc/GMT-12"
-  
-  # Parse
-  x <- as.POSIXct(x, tz = tz, origin = origin)
-  
-  return(x)
-  
-}
+parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") 
+  as.POSIXct(x, tz = tz, origin = origin)
 
 
 #' Function to parse Microsoft Excel's numeric date. 
@@ -172,14 +163,39 @@ weekend <- function(x) {
 #' 
 #' @param x Date vector.
 #' 
-#' @return Numeric vector.
+#' @param as.factor Should the return be an (ordered) factor with weekday labels? 
+#' 
+#' @param abbr If \code{as.factor}, should the weekday lables be abbreviated?
+#' 
+#' @return Numeric or factor vector.
 #' 
 #' @export
-wday_monday <- function(x) {
+wday_monday <- function(x, as.factor = FALSE, abbr = FALSE) {
   
   x <- lubridate::wday(x)
   x <- x - 1
   x <- ifelse(x == 0, 7, x)
+  
+  if (as.factor) {
+    
+    if (abbr) {
+      
+      labels <- c("Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun")
+      
+    } else {
+      
+      labels <- c(
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", 
+        "Sunday"
+      )
+      
+    }
+    
+    # Give order and a label
+    x <- factor(x, levels = 1:7, labels = labels)
+    
+  }
+  
   return(x)
   
 }
