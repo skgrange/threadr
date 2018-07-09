@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.8.62
-Date: 2018-06-21
+Version: 0.8.63
+Date: 2018-07-09
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -34,10 +34,10 @@ Imports:
     hms,
     purrr, 
     stats,
-    utils
-Suggests:
+    utils,
     ggplot2,
     ggthemes
+Suggests:
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 6.0.1

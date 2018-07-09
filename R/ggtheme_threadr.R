@@ -19,3 +19,29 @@ ggtheme_threadr <- function(grid_lines = FALSE) {
   return(plot)
   
 }
+
+
+#' @rdname ggtheme_threadr
+#' @export
+theme_super_minimal <- function(grid_lines = FALSE) {
+  
+  # Tufte styling, maximise data ink but use a common pdf font
+  plot <- ggthemes::theme_tufte(base_family = "sans")
+  
+  # Add grid lines too
+  if (grid_lines) 
+    plot <- plot + ggplot2::theme(panel.grid.major = ggplot2::element_line())
+  
+  return(plot)
+  
+}
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colour_byzantine_blue <- function() "#3457D5"
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colour_crimson <- function() "#DC143C"

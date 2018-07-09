@@ -2,9 +2,18 @@
 % Please edit documentation in R/ggtheme_threadr.R
 \name{ggtheme_threadr}
 \alias{ggtheme_threadr}
+\alias{theme_super_minimal}
+\alias{colour_byzantine_blue}
+\alias{colour_crimson}
 \title{Function for "tufte-like" \strong{ggplot2} appearance.}
 \usage{
 ggtheme_threadr(grid_lines = FALSE)
+
+theme_super_minimal(grid_lines = FALSE)
+
+colour_byzantine_blue()
+
+colour_crimson()
 }
 \arguments{
 \item{grid_lines}{Should the plot have grid lines?}
