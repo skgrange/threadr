@@ -32,13 +32,11 @@ read_html_tables <- function(url) {
     # Read page
     text <- tryCatch({
       
-      suppressWarnings(
-        read_lines(url)
-      )
+      suppressWarnings(read_lines(url))
       
     }, error = function(e) {
       
-      warning("Article not found, check `url`...", call. = FALSE)
+      # warning("Article not found, check `url`...", call. = FALSE)
       
       # Break and return here
       return(list())

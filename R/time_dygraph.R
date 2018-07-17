@@ -56,8 +56,8 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   # Check variable names
   input_names <- names(df)
   
-  if (all(!c("date", variable) %in% input_names))
-    stop("Variables not contained in `df`...", call. = FALSE)
+  if (!all(variable %in% input_names)) 
+    stop("All variables are not within input data...", call. = FALSE)
   
   # Catch dplyr's table data frame
   df <- base_df(df)
