@@ -22,7 +22,7 @@ it. \code{locf} is a simple wrapper for \code{zoo::na.locf}.
 \dontrun{
 
 # Push observations forwards, in a data frame
-data_income$income_chunk <- locf(data_income$income_chunk)
+data_income$income_chunk <- na_locf(data_income$income_chunk)
 
 }
 
