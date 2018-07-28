@@ -11,11 +11,13 @@
 \alias{ppb_to_ppt}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
-gas_volume_to_mass(volume, gas, molecular_mass = NA, unit_input = "ppb",
-  unit_output = "ug_m3", temp = 0, pressure = 101325)
+gas_volume_to_mass(volume, gas, molecular_mass = NA,
+  unit_input = "ppb", unit_output = "ug_m3", temp = 0,
+  pressure = 101325)
 
-gas_mass_to_volume(mass, gas, molecular_mass = NA, unit_input = "ug_m3",
-  unit_output = "ppb", temp = 0, pressure = 101325)
+gas_mass_to_volume(mass, gas, molecular_mass = NA,
+  unit_input = "ug_m3", unit_output = "ppb", temp = 0,
+  pressure = 101325)
 
 milligram_to_microgram(x)
 

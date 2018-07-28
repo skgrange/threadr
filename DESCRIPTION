@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.8.632
-Date: 2018-07-27
+Version: 0.8.633
+Date: 2018-07-28
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -40,4 +40,4 @@ Imports:
 Suggests:
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

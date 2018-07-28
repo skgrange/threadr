@@ -4,7 +4,8 @@
 \alias{compress_files}
 \title{Function to compress files.}
 \usage{
-compress_files(files, algorithm = "bzip2", keep = TRUE, progress = "none")
+compress_files(files, algorithm = "bzip2", keep = TRUE,
+  progress = "none")
 }
 \arguments{
 \item{files}{File to compress.}

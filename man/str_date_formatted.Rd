@@ -4,7 +4,8 @@
 \alias{str_date_formatted}
 \title{Function to format a date (usually) for printing.}
 \usage{
-str_date_formatted(date = NA, time_zone = TRUE, fractional_seconds = TRUE)
+str_date_formatted(date = NA, time_zone = TRUE,
+  fractional_seconds = TRUE)
 }
 \arguments{
 \item{date}{Optional, a date to be formated.}

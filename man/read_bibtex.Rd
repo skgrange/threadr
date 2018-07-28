@@ -26,8 +26,6 @@ Data frame.
 Character vector.
 }
 \description{
-Function to load a \code{BibTeX} file to a data frame.
-
 \code{read_bibtex_aux} reads \code{.aux} files created by \code{BibTeX} and 
 \code{BibLaTeX}.
 }
