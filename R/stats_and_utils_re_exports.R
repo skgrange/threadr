@@ -1,6 +1,6 @@
 #' Psudo-function to re-export functions from the \strong{stats} package. 
 #'
-#' @importFrom stats loess median na.exclude na.omit predict sd var
+#' @importFrom stats loess median na.exclude na.omit predict sd var lm
 NULL
 
 

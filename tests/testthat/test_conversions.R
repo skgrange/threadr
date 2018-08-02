@@ -109,3 +109,20 @@ test_that("temperature conversions", {
 #   expect_equal(absolute_humidity(4.9, 84), 0.00569 * 1000)
 #   
 # })
+
+
+test_that("Tickier distance transformations ", {
+
+  # Miles per hour to meter per seconds
+  # https://www.quora.com/How-do-you-convert-mph-to-meters-per-second
+  expect_equal(4.470389, miles_h_to_ms(10), tolerance = 1e-5)
+  
+  # https://www.formulaconversion.com/formulaconversioncalculator.php?convert=milesperhour_to_meterspersecond
+  expect_equal(6.973824, miles_h_to_ms(15.6))
+  
+  # Miles per hour per second to meter per seconds per second
+  # http://www.unit-conversion.info/acceleration.html
+  expect_equal(0.4470399999909, miles_h_s_2_to_ms_2(1))
+  expect_equal(1.848957439962, miles_h_s_2_to_ms_2(4.136))
+  
+})

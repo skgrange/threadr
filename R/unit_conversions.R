@@ -1,12 +1,12 @@
 #' Functions to convert unit systems. 
 #' 
+#' No rounding is ever done. 
+#' 
 #' @param x Input vector. 
 #' 
 #' @param type,metric Type options. 
 #' 
 #' @param temp,rh,unit Specific options for some functions. 
-#' 
-#' No rounding is ever done. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -329,3 +329,13 @@ half_marathon <- function() marathon() / 2
 #' @export
 #' @rdname miles_to_km
 absolute_zero <- function() -273.15
+
+
+#' @export
+#' @rdname miles_to_km
+miles_h_to_ms <- function(x) x * (miles_to_km(1) * 1000 / (60 * 60))
+
+
+#' @export
+#' @rdname miles_to_km
+miles_h_s_2_to_ms_2 <- function(x) x * miles_h_to_ms(1)

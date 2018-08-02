@@ -48,6 +48,8 @@
 \alias{marathon}
 \alias{half_marathon}
 \alias{absolute_zero}
+\alias{miles_h_to_ms}
+\alias{miles_h_s_2_to_ms_2}
 \title{Functions to convert unit systems.}
 \usage{
 miles_to_km(x)
@@ -143,18 +145,20 @@ marathon()
 half_marathon()
 
 absolute_zero()
+
+miles_h_to_ms(x)
+
+miles_h_s_2_to_ms_2(x)
 }
 \arguments{
 \item{x}{Input vector.}
 
 \item{type, metric}{Type options.}
 
-\item{temp, rh, unit}{Specific options for some functions. 
-
-No rounding is ever done.}
+\item{temp, rh, unit}{Specific options for some functions.}
 }
 \description{
-Functions to convert unit systems.
+No rounding is ever done.
 }
 \author{
 Stuart K. Grange
