@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Threading Pieces Of Analysis Together
-Version: 0.8.634
-Date: 2018-08-02
+Version: 0.8.635
+Date: 2018-08-04
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
@@ -38,6 +38,7 @@ Imports:
     ggplot2,
     ggthemes
 Suggests:
+    jpeg
 Encoding: UTF-8
 LazyLoad: yes
 LazyData: true
