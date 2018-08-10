@@ -16,7 +16,7 @@ plot_image_jpg <- function(file) {
   graphics::par(mar = c(0, 0, 0, 0))
   
   # Create graphics device
-  plot(
+  graphics::plot(
     1, 1, 
     xlim = c(1, resolution[2]), 
     ylim = c(1, resolution[1]), 
