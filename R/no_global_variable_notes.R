@@ -7,7 +7,7 @@ if (getRversion() >= "2.15.1") {
     ".", "variable", "value", "date_end", "sd", "median", "tail", "head", 
     "str_replace_all", "file_basename", "weekday", "saturday_logical", 
     "row_number", "date_ahead", "date_type", "descriptive", "year", "month", 
-    "matches", "monday_logical"
+    "matches", "monday_logical", "confidence", "z_score"
   )
   
   # Squash the note

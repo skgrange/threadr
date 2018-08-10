@@ -12,10 +12,11 @@ calculate_errors(x, type = "se", level = NA)
 \item{type}{Type of error to calculate, either \code{"se"} or \code{"ci"}.}
 
 \item{level}{When \code{type} is \code{"ci"}, what confidence interval should
-be calculated. \code{level} can be 90, 95, or 99.}
+be calculated. \code{level} can be 90, 95, 98, or 99 (which represent 
+percentage).}
 }
 \value{
-Data frame.
+Tribble.
 }
 \description{
 Function to calculate errors for an aggregation.
