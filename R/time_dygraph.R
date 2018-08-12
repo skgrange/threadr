@@ -23,9 +23,6 @@
 #' 
 #' @param legend_width Width of legend in pixels. Default is \code{400}. 
 #' 
-#' @param mouse_label String for legend label. If not used, label will take the
-#' name of \code{variable}. 
-#' 
 #' @param tz Timezone to display plot with. If not used, \code{tz} will use the
 #' time-zone of the \code{df}'s \code{"date"} variable. 
 #' 
@@ -46,12 +43,17 @@
 #' @export
 time_dygraph <- function(df, variable = "value", colour = "dodgerblue", 
                          range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
-                         color = colour, ylab = NA, legend_width = 400,
-                         mouse_label = NA, tz = NA, window = NULL, group = NULL,
-                         y_reference = NA) {
+                         color = colour, ylab = NA, legend_width = 400, tz = NA,
+                         window = NULL, group = NULL, y_reference = NA) {
   
-  # Check
-  if (nrow(df) == 0) stop("No data to plot...", call. = FALSE)
+  # Check Input
+  if (nrow(df) == 0) stop("There are no observations to plot...", call. = FALSE)
+  
+  if (!"date" %in% names(df)) 
+    stop("`date` must be present in data frame...", call. = FALSE)
+  
+  if (!lubridate::is.POSIXct(df$date))
+    stop("`date` must be a parsed date (POSIXct)...", call. = FALSE)
   
   # Check variable names
   input_names <- names(df)
@@ -59,30 +61,24 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   if (!all(variable %in% input_names)) 
     stop("All variables are not within input data...", call. = FALSE)
   
-  # Catch dplyr's table data frame
-  df <- base_df(df)
-  
-  # But don't mangle names
-  names(df) <- input_names
-  
-  if (all(is.na(mouse_label)) && length(mouse_label) == 1) mouse_label <- variable
-  if (is.na(tz)) tz <- time_zone(df[, "date"])
+  # Get time zone from date in input data frame
+  if (is.na(tz)) tz <- time_zone(df$date)
   
   # Create time-series objects
   if (length(variable) == 1) {
     
-    # Single variable
+    # For a single variable
     time_series <- xts::xts(
-      df[, variable], 
-      df[, "date"], 
-      order.by = df[, "date"], 
+      df[, variable, drop = TRUE], 
+      df$date, 
+      order.by = df$date, 
       tzone = tz
     )
     
   } else {
     
     # Select variables
-    df <- df[, c("date", variable)]
+    df <- df[, c("date", variable), drop = FALSE]
     
     # Promote
     list_ts <- data_frame_to_timeseries(df, tz = tz)
@@ -90,17 +86,14 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
     # Bind
     time_series <- do.call(cbind, list_ts)
     
-    # Fix names, names are mashed
-    names(time_series) <- variable
-    
     # Also alter colours if needed
     if (length(colour) != length(variable))
       colour <- ggplot2_colours(length(variable))
     
-    # Use names
-    mouse_label <- NULL
-    
   }
+  
+  # Fix names, names can be mashed
+  names(time_series) <- variable
   
   # Plot
   plot <- dygraphs::dygraph(time_series, group = group) %>%  
@@ -110,7 +103,7 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
       fillGraph = fill, 
       useDataTimezone = TRUE
     ) %>% 
-    dygraphs::dySeries(label = mouse_label, drawPoints = points) %>% 
+    dygraphs::dySeries(drawPoints = points) %>% 
     dygraphs::dyLegend(width = legend_width)
   
   # Add range selector

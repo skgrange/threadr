@@ -7,8 +7,8 @@
 \usage{
 time_dygraph(df, variable = "value", colour = "dodgerblue",
   range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
-  color = colour, ylab = NA, legend_width = 400, mouse_label = NA,
-  tz = NA, window = NULL, group = NULL, y_reference = NA)
+  color = colour, ylab = NA, legend_width = 400, tz = NA,
+  window = NULL, group = NULL, y_reference = NA)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}
@@ -32,9 +32,6 @@ is \code{FALSE}.}
 \item{ylab}{String for y-axis label.}
 
 \item{legend_width}{Width of legend in pixels. Default is \code{400}.}
-
-\item{mouse_label}{String for legend label. If not used, label will take the
-name of \code{variable}.}
 
 \item{tz}{Timezone to display plot with. If not used, \code{tz} will use the
 time-zone of the \code{df}'s \code{"date"} variable.}
