@@ -121,41 +121,43 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     if (verbose) message("Wind direction ('wd') detected...")
     
     # Get wind direction
-    df_wd <- df %>% 
-      filter(variable == "wd")
+    df_wd <- filter(df, variable == "wd")
     
     # Drop from orignal data frame
-    df <- df %>% 
-      filter(variable != "wd")
-    
-    # Do the aggregation, non-standard evaluation was a mess, but better now
+    df <- filter(df, variable != "wd")
     
     # Do the wind direction aggregation
-    df_wd <- df_wd %>% 
-      dplyr::summarise(
-        value = date_aggregator(
-          value, 
-          summary = !!summary, 
-          threshold = !!threshold, 
-          wd = TRUE
+    # Warnings come from max is used when all elements are NA
+    suppressWarnings(
+      df_wd <- df_wd %>% 
+        dplyr::summarise(
+          value = date_aggregator(
+            value, 
+            summary = !!summary, 
+            threshold = !!threshold, 
+            wd = TRUE
+          )
         )
-      )
+    )
     
   }
   
   # Other variables
   if (verbose) message("Aggregating...")
   
-  df <- df %>% 
-    dplyr::summarise(
-      value = date_aggregator(
-        value, 
-        summary = !!summary, 
-        threshold = !!threshold, 
-        wd = FALSE
+  # Warnings come from max is used when all elements are NA
+  suppressWarnings(
+    df <- df %>% 
+      dplyr::summarise(
+        value = date_aggregator(
+          value, 
+          summary = !!summary, 
+          threshold = !!threshold, 
+          wd = FALSE
+        )
       )
-    )
-  
+  )
+
   # Bind wind direction too
   if (wind_direction_detected) df <- dplyr::bind_rows(df, df_wd)
   
