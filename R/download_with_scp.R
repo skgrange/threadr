@@ -97,11 +97,13 @@ download_with_scp_worker <- function(file_local, file_remote, user, password,
                                      quiet_streams) {
   
   # Build system command
-  command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ", user, "@")
+  command_prefix <- stringr::str_c(
+    "sshpass -p '", password, "' scp -p ", user, "@"
+  )
   
   # Add compression argument
   if (compression) 
-    command_prefix <- stringr::str_replace(command_prefix, "\\bscp\\b", "scp -C")
+    command_prefix <- stringr::str_replace(command_prefix, "scp -p", "scp -pC")
   
   # And file
   command_files <- stringr::str_c(file_remote, file_local, sep = " ")
