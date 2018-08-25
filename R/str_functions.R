@@ -60,9 +60,12 @@
 #' 
 #' \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters. 
 #' 
+#' \code{str_insert} will insert characters in location within a string
+#' 
 #' @param x,string Input string. 
 #' 
-#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert Function specific options. 
+#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert 
+#' Function specific options. 
 #' 
 #' @author Stuart K. Grange
 #'
@@ -348,6 +351,19 @@ str_integer_to_utf8 <- function(x) {
   
   # Do
   x <- purrr::map_chr(x, intToUtf8)
+  return(x)
+  
+}
+
+
+#' @rdname str_date
+#'
+#' @export
+str_insert <- function(x, n, sep) {
+  
+  x_start <- stringr::str_sub(x, start = 1, end = n)
+  x_end <- stringr::str_sub(x, start = n + 1, end = -1)
+  x <- stringr::str_c(x_start, sep, x_end)
   return(x)
   
 }

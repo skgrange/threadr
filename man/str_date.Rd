@@ -24,6 +24,7 @@
 \alias{str_parse_html_codes}
 \alias{str_utf8_to_integer}
 \alias{str_integer_to_utf8}
+\alias{str_insert}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -72,6 +73,8 @@ str_parse_html_codes(x)
 str_utf8_to_integer(x)
 
 str_integer_to_utf8(x)
+
+str_insert(x, n, sep)
 }
 \arguments{
 \item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert}{Function specific options.}
@@ -138,6 +141,8 @@ elements which match a pattern.
 code points.
 
 \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters.
+
+\code{str_insert} will insert characters in location within a string
 }
 \author{
 Stuart K. Grange
