@@ -45,3 +45,13 @@ colour_byzantine_blue <- function() "#3457D5"
 #' @rdname ggtheme_threadr
 #' @export
 colour_crimson <- function() "#DC143C"
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colour_inferno_purple <- function() "#6B186E"
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colour_inferno_orange <- function() "#FCA50A"

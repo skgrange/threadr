@@ -5,6 +5,8 @@
 \alias{theme_super_minimal}
 \alias{colour_byzantine_blue}
 \alias{colour_crimson}
+\alias{colour_inferno_purple}
+\alias{colour_inferno_orange}
 \title{Function for "tufte-like" \strong{ggplot2} appearance.}
 \usage{
 ggtheme_threadr(grid_lines = FALSE)
@@ -14,6 +16,10 @@ theme_super_minimal(grid_lines = FALSE)
 colour_byzantine_blue()
 
 colour_crimson()
+
+colour_inferno_purple()
+
+colour_inferno_orange()
 }
 \arguments{
 \item{grid_lines}{Should the plot have grid lines?}
