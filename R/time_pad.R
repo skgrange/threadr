@@ -94,17 +94,10 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
         )
       ) %>% 
       select(!!variables, 
-             everything())
+             everything()) %>% 
+      ungroup()
     
   }
-  
-  # Drop dplyr's tbl df
-  df <- base_df(df)
-  
-  # Make sure return is a data frame, happens when df contains only the date
-  # variable
-  if (!"data.frame" %in% class(df))
-    df <- data.frame(date = df, stringsAsFactors = FALSE)
   
   return(df)
   
@@ -190,7 +183,6 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   )
   
   # Do the padding
-  # Use dplyr, it is much faster
   if (full) {
     
     df <- dplyr::full_join(date_sequence, df, by = "date")
