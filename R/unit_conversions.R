@@ -90,8 +90,7 @@ gallon_to_litre <- function(x, type = "imperial") {
   if (type == "us") 
     x <- x * 3.785411784
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -116,7 +115,6 @@ mpg_to_l_100_km <- function(x, type = "imperial")
 #' @rdname miles_to_km
 l_100_km_to_km_l <- function(x) 100 / x # just the reciprocal
 
-# Metric to other systems after talking to John
 #' @export
 #' @rdname miles_to_km
 l_100km_to_mpg <- function(x, type = "imperial") mpg_to_l_100_km(1, type) / x
@@ -148,6 +146,10 @@ inch_hg_to_mb <- function(x) x * 33.8638866667
 #' @rdname miles_to_km
 mb_to_inch_hg <- function(x) x / inch_hg_to_mb(1)
 
+#' @export
+#' @rdname miles_to_km
+pascal_to_psi <- function(x) x * bar_to_psi(1) / 1e+05
+
 
 # Temperatures
 #' @export
@@ -164,16 +166,13 @@ celsius_to_fahrenheit <- function(x) x * 9 / 5 + 32
 #' @rdname miles_to_km
 heat_index <- function(temp, rh, unit = "c") {
   
-  if (unit == "c") 
-    temp <- celsius_to_fahrenheit(temp)
+  if (unit == "c") temp <- celsius_to_fahrenheit(temp)
   
-  heat.index <- mapply(heat_index_calculation, temp, rh)
+  heat_index <- mapply(heat_index_calculation, temp, rh)
   
-  if (unit == "c")
-    heat.index <- fahrenheit_to_celsius(heat.index)
+  if (unit == "c") heat_index <- fahrenheit_to_celsius(heat_index)
   
-  # Return
-  heat.index
+  return(heat_index)
   
 }
 
@@ -223,8 +222,7 @@ heat_index_calculation <- function(t = NA, rh = NA) {
       }
     }
   
-  # Return
-  hi
+  return(hi)
   
 }
 
@@ -246,8 +244,7 @@ kw_to_hp <- function(x, metric = FALSE) {
     
   }
   
-  # Return
-  y
+  return(y)
   
 }
 
@@ -325,10 +322,13 @@ marathon <- function() 42.195
 #' @rdname miles_to_km
 half_marathon <- function() marathon() / 2
 
-
 #' @export
 #' @rdname miles_to_km
 absolute_zero <- function() -273.15
+
+#' @export
+#' @rdname miles_to_km
+standard_atmosphere <- function() 101325
 
 
 #' @export

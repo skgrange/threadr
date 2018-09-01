@@ -30,6 +30,7 @@
 \alias{psi_to_bar}
 \alias{inch_hg_to_mb}
 \alias{mb_to_inch_hg}
+\alias{pascal_to_psi}
 \alias{fahrenheit_to_celsius}
 \alias{celsius_to_fahrenheit}
 \alias{heat_index}
@@ -48,6 +49,7 @@
 \alias{marathon}
 \alias{half_marathon}
 \alias{absolute_zero}
+\alias{standard_atmosphere}
 \alias{miles_h_to_ms}
 \alias{miles_h_s_2_to_ms_2}
 \title{Functions to convert unit systems.}
@@ -110,6 +112,8 @@ inch_hg_to_mb(x)
 
 mb_to_inch_hg(x)
 
+pascal_to_psi(x)
+
 fahrenheit_to_celsius(x)
 
 celsius_to_fahrenheit(x)
@@ -145,6 +149,8 @@ marathon()
 half_marathon()
 
 absolute_zero()
+
+standard_atmosphere()
 
 miles_h_to_ms(x)
 
