@@ -31,6 +31,7 @@
 \alias{inch_hg_to_mb}
 \alias{mb_to_inch_hg}
 \alias{pascal_to_psi}
+\alias{psi_to_pascal}
 \alias{fahrenheit_to_celsius}
 \alias{celsius_to_fahrenheit}
 \alias{heat_index}
@@ -113,6 +114,8 @@ inch_hg_to_mb(x)
 mb_to_inch_hg(x)
 
 pascal_to_psi(x)
+
+psi_to_pascal(x)
 
 fahrenheit_to_celsius(x)
 

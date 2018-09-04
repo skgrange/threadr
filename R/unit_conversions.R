@@ -148,7 +148,11 @@ mb_to_inch_hg <- function(x) x / inch_hg_to_mb(1)
 
 #' @export
 #' @rdname miles_to_km
-pascal_to_psi <- function(x) x * bar_to_psi(1) / 1e+05
+pascal_to_psi <- function(x) x * bar_to_psi(1) / 100000
+
+#' @export
+#' @rdname miles_to_km
+psi_to_pascal <- function(x) psi_to_bar(x) * 100000
 
 
 # Temperatures
