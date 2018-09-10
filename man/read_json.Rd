@@ -7,12 +7,16 @@
 read_json(file, flatten = TRUE)
 }
 \arguments{
-\item{file}{File name of JSON file.}
+\item{file}{File name of JSON file or character vector containing a JSON
+string.}
 
-\item{flatten}{Should the JSON file be flattened? Default is \code{TRUE}.}
+\item{flatten}{Should the JSON file be flattened?}
+}
+\value{
+An R data structure representing the JSON content.
 }
 \description{
-Very simple wrapper for \code{jsonlite::fromJSON}.
+Simple wrapper for \code{jsonlite::fromJSON}.
 }
 \author{
 Stuart K. Grange

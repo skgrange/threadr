@@ -14,7 +14,7 @@ read_json_lines(file, pagesize = 500, verbose = FALSE)
 \item{verbose}{Should the function give messages?}
 }
 \value{
-R data object, dependent on contents of \code{file}.
+An R data object, dependent on contents of \code{file}.
 }
 \description{
 Function to read a new line JSON, also known as \code{ndjson} file.

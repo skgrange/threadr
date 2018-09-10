@@ -50,7 +50,7 @@ write_json_lines <- function(df, file, append = FALSE, pagesize = 500,
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return R data object, dependent on contents of \code{file}.
+#' @return An R data object, dependent on contents of \code{file}.
 #' 
 #' @export
 read_json_lines <- function(file, pagesize = 500, verbose = FALSE) {
@@ -65,6 +65,9 @@ read_json_lines <- function(file, pagesize = 500, verbose = FALSE) {
   
   # Close connection
   close(con)
+  
+  # If data frame, make tibble
+  if (class(x) == "data.frame") x <- as_tibble(x)
   
   return(x)
   
