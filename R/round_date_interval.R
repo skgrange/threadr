@@ -69,30 +69,31 @@ round_date_interval <- function(date, interval = "5 min", f = round) {
   # Character catching
   interval <- stringr::str_replace_all(interval, "-|_|\\.", " ")
   
-  interval <- switch(interval,
-                     "1 sec"  =, "1 second" =, "sec" = 1, 
-                     "2 sec"  =, "2 secs" =, "2 seconds" = 2, 
-                     "5 sec"  =, "5 secs" =, "5 seconds" = 5, 
-                     "10 sec" =, "10 secs" =, "10 seconds" = 10,
-                     "15 sec" =, "15 secs" =, "15 seconds" = 15,
-                     "20 sec" =, "20 secs" =, "20 seconds" = 20,
-                     "30 sec" =, "30 secs" =, "30 seconds" = 30,
-                     "60 sec" =, "60 secs" =, "60 seconds" =, "1 min" =, "min" = 60, 
-                     "2 min"  =, "2 mins" =, "2 minutes" = 2 * 60, 
-                     "5 min"  =, "5 mins" =, "5 minutes" = 5 * 60, 
-                     "10 min" =, "10 mins" =, "10 minutes" = 10 * 60,
-                     "15 min" =, "15 mins" =, "15 minutes" = 15 * 60,
-                     "20 min" =, "20 mins" =, "20 minutes" = 20 * 60,
-                     "30 min" =, "30 mins" =, "30 minutes" =, "half hour" = 30 * 60,
-                     "60 min" =, "60 mins" =, "60 minutes" =, "hour" = 60 * 60)
+  interval <- switch(
+    interval,
+    "1 sec"  =, "1 second" =, "sec" = 1, 
+    "2 sec"  =, "2 secs" =, "2 seconds" = 2, 
+    "5 sec"  =, "5 secs" =, "5 seconds" = 5, 
+    "10 sec" =, "10 secs" =, "10 seconds" = 10,
+    "15 sec" =, "15 secs" =, "15 seconds" = 15,
+    "20 sec" =, "20 secs" =, "20 seconds" = 20,
+    "30 sec" =, "30 secs" =, "30 seconds" = 30,
+    "60 sec" =, "60 secs" =, "60 seconds" =, "1 min" =, "min" = 60, 
+    "2 min"  =, "2 mins" =, "2 minutes" = 2 * 60, 
+    "5 min"  =, "5 mins" =, "5 minutes" = 5 * 60, 
+    "10 min" =, "10 mins" =, "10 minutes" = 10 * 60,
+    "15 min" =, "15 mins" =, "15 minutes" = 15 * 60,
+    "20 min" =, "20 mins" =, "20 minutes" = 20 * 60,
+    "30 min" =, "30 mins" =, "30 minutes" =, "half hour" = 30 * 60,
+    "60 min" =, "60 mins" =, "60 minutes" =, "hour" = 60 * 60
+  )
   
   # If interval is different than switch, stop
   if (is.null(interval)) stop("'interval' is not supported.", call. = FALSE)
   
-  # Use plyr
-  date <- plyr::round_any(date, accuracy = interval, f = f)
+  # Round
+  date <- round_any(date, accuracy = interval, f = f)
   
-  # Return
-  date
+  return(date)
   
 }

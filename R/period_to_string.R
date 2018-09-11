@@ -12,8 +12,7 @@ period_to_string <- function(period) {
   # Format for printing
   period <- format(period, format = "%H:%M:%OS")
   
-  # Return
-  period
+  return(period)
   
 }
 
@@ -31,15 +30,20 @@ period_to_date <- function(period) {
   period <- as.character(period)
   
   # Pad if needed
-  period <- ifelse(!stringr::str_detect(period, "H"), 
-                   stringr::str_c("0H ", period), period)
+  period <- ifelse(
+    !stringr::str_detect(period, "H"), 
+    stringr::str_c("0H ", period), 
+    period
+  )
   
   # Parse again, as POSIXct
-  period <- lubridate::parse_date_time(period, c("HMOS", "MOS", "HMS", "MS"), 
-                                       quiet = FALSE)
+  period <- lubridate::parse_date_time(
+    period, 
+    c("HMOS", "MOS", "HMS", "MS"), 
+    quiet = FALSE
+  )
   
-  # Return
-  period
+  return(period)
   
 }
 

@@ -26,7 +26,6 @@ duplicated_rows <- function(df, variable, invert = FALSE) {
     
   }
   
-  # Return
-  df
+  return(df)
   
 }

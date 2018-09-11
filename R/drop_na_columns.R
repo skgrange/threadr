@@ -6,6 +6,8 @@
 #'
 #' @author teucer
 #' 
+#' @return Data frame. 
+#' 
 #' @export
 drop_na_columns <- function(df) {
   
@@ -13,23 +15,8 @@ drop_na_columns <- function(df) {
   index <- colSums(is.na(df)) < nrow(df)
   
   # Drop
-  df <- df[, index]
+  df <- df[, index, drop = FALSE]
   
-  # If subsetting has simplified object, make data frame again
-  if (any(grepl("data.frame", class(df)))) {
-    
-    # Make data frame again
-    df <- data.frame(
-      df, 
-      stringsAsFactors = FALSE
-    )
-    
-    # Give names
-    names(df) <- names(index[index])
-    
-  }
-  
-  # Return
-  df
+  return(df)
   
 }

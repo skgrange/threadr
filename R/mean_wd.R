@@ -27,14 +27,14 @@ mean_wd <- function(wd, ws, na.rm = FALSE) {
   if (missing(ws)) {
     
     # No weighting by wind speed
-    wind_u <- - sin(2 * pi * wd / 360)
-    wind_v <- - cos(2 * pi * wd / 360)
+    wind_u <- -sin(2 * pi * wd / 360)
+    wind_v <- -cos(2 * pi * wd / 360)
     
   } else {
     
     # Weight by wind speed, resultant vector average wind speed
-    wind_u <- - ws * sin(2 * pi * wd / 360)
-    wind_v <- - ws * cos(2 * pi * wd / 360)
+    wind_u <- -ws * sin(2 * pi * wd / 360)
+    wind_v <- -ws * cos(2 * pi * wd / 360)
     
   }
 

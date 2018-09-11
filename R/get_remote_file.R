@@ -27,7 +27,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
   stopifnot(all(dir.exists(dirname(file_local))))
   
   # Build data frame
-  df <- data.frame(
+  df <- data_frame(
     file_remote,
     file_local,
     verbose = verbose,
@@ -35,15 +35,11 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
     method = method,
     sleep = sleep,
     index = seq(1, length(file_remote)),
-    length = length(file_remote),
-    stringsAsFactors = FALSE
+    length = length(file_remote)
   )
   
   # Do, pwalk will use the names of the df to match the arguments in the worker
-  purrr::pwalk(
-    df, 
-    get_remote_file_worker
-  )
+  purrr::pwalk(df, get_remote_file_worker)
   
   # No return
   
@@ -68,12 +64,9 @@ get_remote_file_worker <- function(index, file_remote, file_local, verbose, mode
     
   }, error = function(e) {
     
-    message <- stringr::str_c("Could not download ", file_remote, "...")
-    warning(message, call. = FALSE)
+    warning("Could not download ", file_remote, "...", call. = FALSE)
     
   })
-  
-  # print(i)
   
   # Sleep between iterations
   if (!is.logical(sleep)) {

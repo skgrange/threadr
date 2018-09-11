@@ -9,6 +9,9 @@ drop_na_columns(df)
 \arguments{
 \item{df}{Data frame with \code{NA} columns.}
 }
+\value{
+Data frame.
+}
 \description{
 Function to drop columns in a data frame which only contain \code{NA}.
 }
