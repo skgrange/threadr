@@ -31,7 +31,7 @@ calculate_errors <- function(x, type = "se", level = NA) {
   # Calculate standard error
   se <- sd / sqrt(n)
   
-  if (type == "ci") {
+  if (type %in% c("ci", "confidence_interval")) {
     
     # Get z score for confidence interval calculations
     if (is.na(level)) level <- 95
@@ -46,6 +46,11 @@ calculate_errors <- function(x, type = "se", level = NA) {
     
     # Multiply error by z
     error <- se * z
+    
+  } else {
+    
+    # Reasign for next calculation
+    error <- se
     
   }
   
