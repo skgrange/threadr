@@ -17,8 +17,17 @@ read_json <- function(file, flatten = TRUE) {
   # Parse
   x <- jsonlite::fromJSON(file, flatten)
   
-  # If data frame, make tibble
-  if (class(x) == "data.frame") x <- as_tibble(x)
+  # If data frame, make tibble if possible
+  if (class(x) == "data.frame") {
+    
+    # Get data classes
+    classes <- purrr::map_chr(x, class)
+    classes <- unique(classes)
+    
+    # If simple data frame, make tibble
+    if (!any(classes %in% c("data.frame", "list"))) x <- as_tibble(x)
+    
+  }
   
   return(x)
   
