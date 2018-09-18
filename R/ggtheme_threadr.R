@@ -12,9 +12,15 @@ ggtheme_threadr <- function(grid_lines = FALSE) {
   # Tufte styling, maximise data ink
   plot <- ggthemes::theme_tufte(base_family = "GillSans")
   
-  # Add grid lines too
-  if (grid_lines) 
-    plot <- plot + ggplot2::theme(panel.grid.major = ggplot2::element_line())
+  # Add subtle grid lines too
+  if (grid_lines) {
+    
+    plot <- plot + 
+      ggplot2::theme(
+        panel.grid.major = ggplot2::element_line(size = 0.05, linetype = "dashed")
+      )
+    
+  }
   
   return(plot)
   
@@ -28,9 +34,15 @@ theme_super_minimal <- function(grid_lines = FALSE) {
   # Tufte styling, maximise data ink but use a common pdf font
   plot <- ggthemes::theme_tufte(base_family = "sans")
   
-  # Add grid lines too
-  if (grid_lines) 
-    plot <- plot + ggplot2::theme(panel.grid.major = ggplot2::element_line())
+  # Add subtle grid lines too
+  if (grid_lines) {
+    
+    plot <- plot + 
+      ggplot2::theme(
+        panel.grid.major = ggplot2::element_line(size = 0.05, linetype = "dashed")
+      )
+    
+  }
   
   return(plot)
   

@@ -53,6 +53,8 @@
 \alias{standard_atmosphere}
 \alias{miles_h_to_ms}
 \alias{miles_h_s_2_to_ms_2}
+\alias{speed_of_light}
+\alias{gravity}
 \title{Functions to convert unit systems.}
 \usage{
 miles_to_km(x)
@@ -158,6 +160,10 @@ standard_atmosphere()
 miles_h_to_ms(x)
 
 miles_h_s_2_to_ms_2(x)
+
+speed_of_light()
+
+gravity()
 }
 \arguments{
 \item{x}{Input vector.}

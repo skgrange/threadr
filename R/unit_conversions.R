@@ -343,3 +343,13 @@ miles_h_to_ms <- function(x) x * (miles_to_km(1) * 1000 / (60 * 60))
 #' @export
 #' @rdname miles_to_km
 miles_h_s_2_to_ms_2 <- function(x) x * miles_h_to_ms(1)
+
+
+#' @export
+#' @rdname miles_to_km
+speed_of_light <- function() 299792458
+
+
+#' @export
+#' @rdname miles_to_km
+gravity <- function() 9.80665
