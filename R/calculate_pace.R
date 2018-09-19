@@ -50,3 +50,39 @@ calculate_pace <- function(seconds, metres) {
   return(x)
   
 }
+
+
+#' Function to calculate target pace in min km-1. 
+#' 
+#' @param distance Distance in kilometres. 
+#' 
+#' @param time A formatted time string such as \code{16:05} or \code{01:24:00}. 
+#' 
+#' @param as.hms Should the return be of \strong{hms} class? 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @return Character of \strong{hms} vector. 
+#' 
+#' @export
+calculate_target_pace <- function(distance, time, as.hms = FALSE) {
+  
+  # Pad string
+  if (stringr::str_count(time, ":") == 1) time <- stringr::str_c("00:", time)
+  
+  # Time to seconds
+  time <- as.numeric(hms::parse_hms(time))
+  
+  # Seconds per distance
+  x <- time / distance
+  
+  # Parse
+  x <- hms::as.hms(x)
+  
+  # To character
+  if (!as.hms) x <- format(x, format = "%H:%M:%OS")
+  
+  return(x)
+  
+}
+
