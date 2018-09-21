@@ -8,31 +8,23 @@
 #' @param article A vector of \code{BibTeX} keys to filter \code{file} to. If 
 #' not used, all entries will be returned. 
 #' 
-#' @param progress Progress bar to display, only useful for large files. 
-#' 
 #' @author Stuart K. Grange
 #' 
-#' @return Data frame.
+#' @return Tibble. 
 #' 
 #' @examples 
-#' \dontrun{
 #' 
 #' # A file from the web
 #' url <- "http://www.andy-roberts.net/res/writing/latex/sample.bib"
 #' data_bib <- read_bibtex(url)
 #' 
-#' # To json
-#' to_json(data_bib)
-#' 
-#' }
-#' 
 #' @importFrom stringr str_trim str_split_fixed str_replace str_to_lower str_split_fixed
 #' 
 #' @export
-read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
+read_bibtex <- function(file, skip = 0, article = NA) {
   
   # Load file
-  text <- readLines(file, warn = FALSE)
+  text <- read_lines(file)
   
   # Drop top
   if (skip >= 1) text <- text[-1:-skip]
@@ -44,7 +36,7 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
   text <- grep("^%|^@comment", text, value = TRUE, invert = TRUE)
   
   # Drop empty lines
-  text <- text[!ifelse(text == "", TRUE, FALSE)]
+  text <- text[!text == ""]
   
   # Get article keys
   index_keys <- grep("@", text)
@@ -52,11 +44,10 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
   article_key <- clean_bibtex_article_key(article_key)
   
   # Create mapping table to get ranges of articles
-  df_map <- data.frame(
+  df_map <- data_frame(
     article_key = article_key,
     start = index_keys,
-    end = dplyr::lead(index_keys - 1),
-    stringsAsFactors = FALSE
+    end = dplyr::lead(index_keys - 1)
   )
   
   # Final observation
@@ -66,19 +57,21 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
   if (!is.na(article[1])) df_map <- df_map[df_map$article_key %in% c(article), ]
   
   # Split text into list
-  list_text <- plyr::alply(df_map, 1, function(x) split_bibtex_text(text, x))
-  attributes(list_text) <- NULL
+  list_text <- purrr::map2(
+    df_map$start, 
+    df_map$end, 
+    ~split_bibtex_text(.x, .y, text)
+  )
   
   # Extract data for each article
-  df <- plyr::ldply(list_text, extract_bibtex_variables, .progress = progress)
+  df <- purrr::map_dfr(list_text, extract_bibtex_variables)
   
   # Remove double quotes
-  index <- sapply(df, is.character)
-  df[, index] <- lapply(df[, index], function(x) str_replace_all(x, '^"|"$', ''))
+  index <- purrr::map_lgl(df, is.character)
+  df[, index] <- lapply(df[, index], function(x) str_remove_all(x, '^"|"$'))
   df[, index] <- lapply(df[, index], function(x) str_create_na(x))
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -86,23 +79,23 @@ read_bibtex <- function(file, skip = 0, article = NA, progress = "none") {
 clean_bibtex_article_key <- function(x) {
   
   x <- str_split_fixed(x, "\\{", 2)[, 2]
-  x <- str_replace(x, ",$", "")
-  x
+  x <- str_remove(x, ",$")
+  return(x)
   
 }
 
 
 clean_bibtex_article_type <- function(x) {
   
-  x <- str_replace(x, "^@", "")
+  x <- str_remove(x, "^@")
   x <- str_split_fixed(x, "\\{", 2)[, 1]
   x <- str_to_lower(x)
-  x
+  return(x)
   
 }
 
 
-split_bibtex_text <- function(text, df_map) text[df_map$start:df_map$end]
+split_bibtex_text <- function(start, end, text) text[start:end]
 
 
 extract_bibtex_variables <- function(observation) {
@@ -140,17 +133,16 @@ extract_bibtex_variables <- function(observation) {
   # Build named character
   names(value) <- c("bibtex_key", "article_type", key)
   
-  # Leading : in file variable, ifelse drops names
-  # value <- ifelse(names(value) == "file", str_replace(value, "^:", ""), value)
-  
   # Create data frame
   df <- data.frame(
     t(value), 
     stringsAsFactors = FALSE
   )
   
-  # Return
-  df
+  # To tibble
+  df <- as_tibble(df)
+  
+  return(df)
   
 }
 
