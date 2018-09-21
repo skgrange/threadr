@@ -155,8 +155,6 @@ extract_bibtex_variables <- function(observation) {
 #' 
 #' @return Character vector. 
 #' 
-#' @importFrom stringr str_trim str_split_fixed str_replace str_to_lower str_split_fixed
-#' 
 #' @rdname read_bibtex
 #' @export
 read_bibtex_aux <- function(file) {

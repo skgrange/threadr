@@ -19,6 +19,6 @@ NULL
 #' Pseudo-function to re-export \strong{stringr}'s common functions. 
 #' 
 #' @importFrom stringr str_c str_trim str_split str_split_fixed str_replace 
-#'   str_replace_all str_to_lower str_remove str_remove_all
+#'   str_replace_all str_to_lower str_to_upper str_remove str_remove_all
 #'
 NULL
