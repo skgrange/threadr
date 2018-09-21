@@ -18,8 +18,6 @@
 #' url <- "http://www.andy-roberts.net/res/writing/latex/sample.bib"
 #' data_bib <- read_bibtex(url)
 #' 
-#' @importFrom stringr str_trim str_split_fixed str_replace str_to_lower str_split_fixed
-#' 
 #' @export
 read_bibtex <- function(file, skip = 0, article = NA) {
   

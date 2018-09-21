@@ -5,7 +5,7 @@
 \alias{read_bibtex_aux}
 \title{Function to load a \code{BibTeX} file to a data frame.}
 \usage{
-read_bibtex(file, skip = 0, article = NA, progress = "none")
+read_bibtex(file, skip = 0, article = NA)
 
 read_bibtex_aux(file)
 }
@@ -17,11 +17,9 @@ if \code{file} contains a non-commented preamble.}
 
 \item{article}{A vector of \code{BibTeX} keys to filter \code{file} to. If 
 not used, all entries will be returned.}
-
-\item{progress}{Progress bar to display, only useful for large files.}
 }
 \value{
-Data frame.
+Tibble.
 
 Character vector.
 }
@@ -30,16 +28,10 @@ Character vector.
 \code{BibLaTeX}.
 }
 \examples{
-\dontrun{
 
 # A file from the web
 url <- "http://www.andy-roberts.net/res/writing/latex/sample.bib"
 data_bib <- read_bibtex(url)
-
-# To json
-to_json(data_bib)
-
-}
 
 }
 \author{
