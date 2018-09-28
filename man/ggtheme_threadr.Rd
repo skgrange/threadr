@@ -7,6 +7,7 @@
 \alias{colour_crimson}
 \alias{colour_inferno_purple}
 \alias{colour_inferno_orange}
+\alias{colour_inferno_peach}
 \title{Function for "tufte-like" \strong{ggplot2} appearance.}
 \usage{
 ggtheme_threadr(grid_lines = FALSE)
@@ -20,6 +21,8 @@ colour_crimson()
 colour_inferno_purple()
 
 colour_inferno_orange()
+
+colour_inferno_peach()
 }
 \arguments{
 \item{grid_lines}{Should the plot have grid lines?}

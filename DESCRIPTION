@@ -1,8 +1,8 @@
 Package: threadr
 Type: Package
 Title: Tools to Thread Pieces Of Data Analysis Together
-Version: 0.8.652
-Date: 2018-09-21
+Version: 0.8.653
+Date: 2018-09-28
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>

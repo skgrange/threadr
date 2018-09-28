@@ -28,15 +28,12 @@ split_nrow <- function(df, rows) {
       list_split <- split(df, (0:nrow(df) %/% rows))
     )
     
-  }
-  
-  if (class(df) %in% c("character", "integer", "numeric", "factor")) {
+  } else if (any(class(df) %in% c("character", "integer", "numeric", "factor"))) {
     
     list_split <- split(df, ceiling(seq_along(df) / rows))
     
   }
   
-  # Return
-  list_split
+  return(list_split)
   
 }

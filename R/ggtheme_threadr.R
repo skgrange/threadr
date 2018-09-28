@@ -67,3 +67,8 @@ colour_inferno_purple <- function() "#6B186E"
 #' @rdname ggtheme_threadr
 #' @export
 colour_inferno_orange <- function() "#FCA50A"
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colour_inferno_peach <- function() "#E65C30"
