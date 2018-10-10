@@ -5,7 +5,7 @@
 \title{Function to wrap \code{\link{readLines}} with different defaults.}
 \usage{
 read_lines(connection, n = -1, collapse = FALSE, encoding = "UTF-8",
-  warn = FALSE)
+  skip_null = FALSE, warn = FALSE)
 }
 \arguments{
 \item{connection}{File name, URL, or connection to load.}
@@ -17,7 +17,12 @@ read_lines(connection, n = -1, collapse = FALSE, encoding = "UTF-8",
 
 \item{encoding}{Coding of input. Defult is \code{"UTF-8"}.}
 
+\item{skip_null}{Should nulls be skipped?}
+
 \item{warn}{Should \code{readLines} give warning? Default is \code{FALSE}.}
+}
+\value{
+Character vector.
 }
 \description{
 Function to wrap \code{\link{readLines}} with different defaults.

@@ -9,16 +9,26 @@
 #' 
 #' @param encoding Coding of input. Defult is \code{"UTF-8"}. 
 #' 
+#' @param skip_null Should nulls be skipped? 
+#' 
 #' @param warn Should \code{readLines} give warning? Default is \code{FALSE}. 
 #' 
 #' @author Stuart K. Grange
 #' 
+#' @return Character vector. 
+#' 
 #' @export
 read_lines <- function(connection, n = -1, collapse = FALSE, encoding = "UTF-8", 
-                       warn = FALSE) {
+                       skip_null = FALSE, warn = FALSE) {
   
   # Load
-  x <- readLines(connection, n = as.integer(n), warn = warn, encoding = encoding)
+  x <- readLines(
+    connection, 
+    n = as.integer(n), 
+    warn = warn, 
+    encoding = encoding,
+    skipNul = skip_null
+  )
   
   # Collapse
   if (collapse) x <- stringr::str_c(x, collapse = "")
