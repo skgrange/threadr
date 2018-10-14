@@ -81,11 +81,9 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
       )
     )
     
-  } else {
-    
-    message("`file_remote` has length of 0, nothing has been downloaded...")
-    
   }
+  
+  # message("`file_remote` has length of 0, nothing has been downloaded...")
   
   # No return
   
@@ -360,11 +358,9 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
       )
     )
     
-  } else {
-    
-    message("`file_local` has length of 0, nothing has been uploaded...")
-    
   }
+  
+  # message("`file_local` has length of 0, nothing has been uploaded...")
   
   # No return
   
