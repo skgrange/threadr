@@ -95,6 +95,9 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   # Fix names, names can be mashed
   names(time_series) <- variable
   
+  # To-do: add vertical reference lines
+  # https://rstudio.github.io/dygraphs/gallery-event-lines.html
+  
   # Plot
   plot <- dygraphs::dygraph(time_series, group = group) %>%  
     dygraphs::dyOptions(

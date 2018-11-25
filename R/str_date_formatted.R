@@ -31,3 +31,21 @@ str_date_formatted <- function(date = NA, time_zone = TRUE,
   return(x)
   
 }
+
+
+#' Function to get a formatted date string used to prefix messages. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @return Character vector
+#' 
+#' @examples 
+#' 
+#' # The message prefix
+#' message_date_prefix()
+#' 
+#' # Within a message
+#' message(message_date_prefix(), "Loading...")
+#' 
+#' @export
+message_date_prefix <- function() stringr::str_c(str_date_formatted(), ": ")
