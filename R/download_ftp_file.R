@@ -36,6 +36,12 @@
 download_ftp_file <- function(file_remote, file_output, credentials = "", 
                               curl = FALSE, verbose = FALSE, progress = "none") {
   
+  # Soon to be dropped
+  .Deprecated(
+    msg = "`download_ftp_file` is deprecated, please use `get_remote_file` instead.",
+    package = "threadr"
+  )
+  
   # Check
   if (!length(file_remote) == length(file_output))
     stop("Remote and output vectors need to be the same length...", call. = FALSE)
