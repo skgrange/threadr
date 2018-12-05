@@ -38,7 +38,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Data frame. 
+#' @return Tibble. 
 #' 
 #' @examples
 #' 
@@ -177,10 +177,7 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   if (!is.na(round)) date_sequence <- date_sequence[-length(date_sequence)]
   
   # To data frame
-  date_sequence <- data.frame(
-    date = date_sequence,
-    stringsAsFactors = FALSE
-  )
+  date_sequence <- data_frame(date = date_sequence)
   
   # Do the padding
   if (full) {
@@ -204,6 +201,9 @@ padder <- function(df, interval, by, round, merge, full, warn) {
       warning("Duplicated dates detected.", call. = FALSE)
     
   }
+  
+  # Make sure return is tibble
+  df <- as_tibble(df)
   
   return(df)
   

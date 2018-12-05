@@ -31,7 +31,7 @@ Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
 Default is \code{TRUE}.}
 }
 \value{
-Data frame.
+Tibble.
 }
 \description{
 \code{time_pad} use is similar to \strong{openair}'s \code{timeAverage}, but
