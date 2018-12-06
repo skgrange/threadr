@@ -16,7 +16,6 @@ Named list containing data frames.
 Function to read HTML tables from an URL.
 }
 \examples{
-\dontrun{
 
 # A url
 url <- "https://en.wikipedia.org/wiki/List_of_London_Underground_stations"
@@ -27,10 +26,6 @@ length(list_tables)
 
 # Get a single data frame
 data_stations <- list_tables[[1]]
-
-# Cleaning needed...
-
-}
 
 }
 \author{

@@ -6,8 +6,7 @@
 #' 
 #' @return Named list containing data frames. 
 #' 
-#' @examples 
-#' \dontrun{
+#' @examples
 #' 
 #' # A url
 #' url <- "https://en.wikipedia.org/wiki/List_of_London_Underground_stations"
@@ -19,10 +18,6 @@
 #' # Get a single data frame
 #' data_stations <- list_tables[[1]]
 #' 
-#' # Cleaning needed...
-#' 
-#' }
-#' 
 #' @export 
 read_html_tables <- function(url) {
   
@@ -32,11 +27,9 @@ read_html_tables <- function(url) {
     # Read page
     text <- tryCatch({
       
-      suppressWarnings(read_lines(url))
+      read_lines(url)
       
     }, error = function(e) {
-      
-      # warning("Article not found, check `url`...", call. = FALSE)
       
       # Break and return here
       return(list())
@@ -73,6 +66,9 @@ read_html_tables <- function(url) {
       # If names are null, give names
       if (unique(names(list_tables))[1] == "NULL")
         names(list_tables) <- stringr::str_c("table_", 1:length(list_tables))
+      
+      # Make data frames tibbles
+      list_tables <- purrr::modify_if(list_tables, is.data.frame, as_tibble)
       
       # If a single table, return as data frame
       if (length(list_tables) == 1) list_tables <- list_tables[[1]]
