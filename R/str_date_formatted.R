@@ -37,15 +37,26 @@ str_date_formatted <- function(date = NA, time_zone = TRUE,
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Character vector
+#' @return Character vector.
 #' 
 #' @examples 
 #' 
 #' # The message prefix
-#' message_date_prefix()
+#' date_message()
 #' 
 #' # Within a message
-#' message(message_date_prefix(), "Loading...")
+#' message(date_message(), "Loading...")
 #' 
 #' @export
-message_date_prefix <- function() stringr::str_c(str_date_formatted(), ": ")
+date_message <- function() stringr::str_c(str_date_formatted(), ": ")
+
+
+#' @rdname date_message
+#' 
+#' @export
+message_date_prefix <- function() {
+  
+  .Deprecated("date_message", package = "threadr")
+  stringr::str_c(str_date_formatted(), ": ")
+  
+}
