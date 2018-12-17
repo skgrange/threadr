@@ -2,10 +2,16 @@
 % Please edit documentation in R/str_date_formatted.R
 \name{str_date_formatted}
 \alias{str_date_formatted}
+\alias{date_message}
+\alias{message_date_prefix}
 \title{Function to format a date (usually) for printing.}
 \usage{
 str_date_formatted(date = NA, time_zone = TRUE,
   fractional_seconds = TRUE)
+
+date_message()
+
+message_date_prefix()
 }
 \arguments{
 \item{date}{Optional, a date to be formated.}
@@ -17,10 +23,25 @@ the date?}
 }
 \value{
 Character vector.
+
+Character vector.
 }
 \description{
 Function to format a date (usually) for printing.
+
+Function to get a formatted date string used to prefix messages.
+}
+\examples{
+
+# The message prefix
+date_message()
+
+# Within a message
+message(date_message(), "Loading...")
+
 }
 \author{
+Stuart K. Grange
+
 Stuart K. Grange
 }
