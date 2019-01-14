@@ -73,6 +73,18 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   if (!threshold <= 1 & threshold >= 0) 
     stop("Threshold must be between 0 and 1.", call. = FALSE)
   
+  # Return empty data frame if input is empty
+  if (nrow(df) == 0) {
+    
+    warning(
+      "Input contains no observations, returning emmpty data frame...", 
+      call. = FALSE
+    )
+    
+    return(data_frame())
+    
+  }
+  
   # For grouping
   if (is.na(by)[1]) {
     

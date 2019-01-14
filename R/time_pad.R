@@ -57,6 +57,10 @@
 time_pad <- function(df, interval = "hour", by = NA, round = NA, 
                      full = FALSE, warn = TRUE) {
   
+  # Check input
+  if (nrow(df) == 0) 
+    stop("Input data frame has no observations...", call. = FALSE)
+  
   # Get variable order
   variables <- names(df)
   

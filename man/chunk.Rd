@@ -7,7 +7,7 @@
 chunk(x, n)
 }
 \arguments{
-\item{x}{Vector to be chunked into pieces.}
+\item{x}{Vector or list to be chunked into pieces.}
 
 \item{n}{Length of chunk elements.}
 }

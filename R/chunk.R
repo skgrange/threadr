@@ -2,7 +2,7 @@
 #' 
 #' @author Harlan
 #' 
-#' @param x Vector to be chunked into pieces. 
+#' @param x Vector or list to be chunked into pieces. 
 #' 
 #' @param n Length of chunk elements. 
 #' 
