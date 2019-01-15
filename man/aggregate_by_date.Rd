@@ -48,7 +48,7 @@ this previously, it can be set to \code{FALSE}.}
 \item{verbose}{Should the function give messages?}
 }
 \value{
-Data frame.
+Tibble.
 }
 \description{
 \code{aggregate_by_date} does a similar job and has the same objectives of

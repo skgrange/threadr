@@ -42,8 +42,8 @@ na_extrapolate <- function(x) {
   )
   
   # Use models to predict
-  x_trailing <- predict(fit_trailing, newdata = data_frame(x = index_trailing))
-  x_leading <- predict(fit_leading, newdata = data_frame(x = index_leading))
+  x_trailing <- predict(fit_trailing, newdata = tibble(x = index_trailing))
+  x_leading <- predict(fit_leading, newdata = tibble(x = index_leading))
   
   # Drop duplicated values, already present in complete vector
   x_trailing <- unname(x_trailing[-1])
@@ -63,7 +63,7 @@ build_lm_from_index_and_values <- function(index, values) {
   stopifnot(length(values) == 2)
   
   # Create data frame
-  df <- data_frame(x = index, y = values)
+  df <- tibble(x = index, y = values)
   
   # Model these points with lm, a simple delta in this case
   fit <- lm(y ~ x, data = df)

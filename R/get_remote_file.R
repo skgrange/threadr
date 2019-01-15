@@ -27,7 +27,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
   stopifnot(all(dir.exists(dirname(file_local))))
   
   # Build data frame
-  df <- data_frame(
+  df <- tibble(
     file_remote,
     file_local,
     verbose = verbose,

@@ -58,8 +58,8 @@ calculate_errors <- function(x, type = "se", level = NA) {
   lower <- mean - error
   upper <- mean + error
   
-  # Bind together into a data frame
-  df <- data_frame(
+  # Bind together into a tibble
+  df <- tibble(
     n, 
     sd, 
     mean, 

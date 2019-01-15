@@ -43,7 +43,7 @@
 #' 
 #' @param verbose Should the function give messages? 
 #' 
-#' @return Data frame. 
+#' @return Tibble.
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -77,11 +77,11 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   if (nrow(df) == 0) {
     
     warning(
-      "Input contains no observations, returning emmpty data frame...", 
+      "Input contains no observations, returning emmpty tibble...", 
       call. = FALSE
     )
     
-    return(data_frame())
+    return(tibble())
     
   }
   

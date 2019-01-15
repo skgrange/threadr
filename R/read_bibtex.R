@@ -42,7 +42,7 @@ read_bibtex <- function(file, skip = 0, article = NA) {
   article_key <- clean_bibtex_article_key(article_key)
   
   # Create mapping table to get ranges of articles
-  df_map <- data_frame(
+  df_map <- tibble(
     article_key = article_key,
     start = index_keys,
     end = dplyr::lead(index_keys - 1)
@@ -187,7 +187,6 @@ read_bibtex_aux <- function(file) {
   
   keys <- sort(unique(keys))
   
-  # Return
-  keys
+  return(keys)
   
 }
