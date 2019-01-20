@@ -68,7 +68,12 @@ read_html_tables <- function(url) {
         names(list_tables) <- stringr::str_c("table_", 1:length(list_tables))
       
       # Make data frames tibbles
-      list_tables <- purrr::modify_if(list_tables, is.data.frame, as_tibble)
+      list_tables <- purrr::modify_if(
+        list_tables, 
+        is.data.frame, 
+        as_tibble, 
+        .name_repair = "minimal"
+      )
       
       # If a single table, return as data frame
       if (length(list_tables) == 1) list_tables <- list_tables[[1]]

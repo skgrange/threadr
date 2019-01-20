@@ -67,7 +67,6 @@ the coefficients used for the conversion between the unit systems, they do
 not use conversion factors.
 }
 \examples{
-\dontrun{
 
 # Ozone
 # From ppb
@@ -76,7 +75,7 @@ gas_volume_to_mass(400, "o3")
 # To ug m-3
 gas_mass_to_volume(800, "o3")
 
-# For monitoring sites in Europe where conversions are done at 20 degreees
+# For monitoring sites in Europe where conversions are done at 20 degrees
 gas_mass_to_volume(2.24, "no", temp = 20, unit_output = "ppb")
 gas_mass_to_volume(24.53, "no2", temp = 20, unit_output = "ppb")
 gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
@@ -87,8 +86,6 @@ gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temp = 20,
 
 # NOx as NO2
 gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
-
-}
 
 }
 \author{

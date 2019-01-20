@@ -22,6 +22,9 @@ Function to calculate percentage change between new and old values.
 # A simple calculation
 percentage_change(100, 50)
 
+# Global mean CO2 concentrations
+percentage_change(277, 400)
+
 }
 \author{
 Stuart K. Grange

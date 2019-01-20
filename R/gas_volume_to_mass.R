@@ -34,7 +34,6 @@
 #' @return Numeric vector.
 #' 
 #' @examples 
-#' \dontrun{
 #' 
 #' # Ozone
 #' # From ppb
@@ -43,7 +42,7 @@
 #' # To ug m-3
 #' gas_mass_to_volume(800, "o3")
 #' 
-#' # For monitoring sites in Europe where conversions are done at 20 degreees
+#' # For monitoring sites in Europe where conversions are done at 20 degrees
 #' gas_mass_to_volume(2.24, "no", temp = 20, unit_output = "ppb")
 #' gas_mass_to_volume(24.53, "no2", temp = 20, unit_output = "ppb")
 #' gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
@@ -54,8 +53,6 @@
 #' 
 #' # NOx as NO2
 #' gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
-#' 
-#' }
 #' 
 #' @export
 gas_volume_to_mass <- function(volume, gas, molecular_mass = NA, 

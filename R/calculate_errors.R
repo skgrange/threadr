@@ -7,10 +7,10 @@
 #' @param type Type of error to calculate, either \code{"se"} or \code{"ci"}. 
 #' 
 #' @param level When \code{type} is \code{"ci"}, what confidence interval should
-#' be calculated. \code{level} can be 90, 95, 98, or 99 (which represent 
+#' be calculated. \code{level} can be 90, 95, 98, 99, or 99.9 (which represent 
 #' percentage). 
 #' 
-#' @return Tribble.
+#' @return Tibble.
 #' 
 #' @export
 calculate_errors <- function(x, type = "se", level = NA) {
@@ -79,8 +79,9 @@ calculate_errors <- function(x, type = "se", level = NA) {
 # Helper table for z scores
 df_z_scores <- dplyr::tribble(
   ~confidence, ~z_score,
-  90L, 1.645,
-  95L, 1.96,
-  98L, 2.326,
-  99L, 2.576,
+  90, 1.645,
+  95, 1.96,
+  98, 2.326,
+  99, 2.576,
+  99.9, 3
 )

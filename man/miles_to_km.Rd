@@ -55,6 +55,7 @@
 \alias{miles_h_s_2_to_ms_2}
 \alias{speed_of_light}
 \alias{gravity}
+\alias{dry_adiabatic_lapse_rate}
 \title{Functions to convert unit systems.}
 \usage{
 miles_to_km(x)
@@ -164,6 +165,8 @@ miles_h_s_2_to_ms_2(x)
 speed_of_light()
 
 gravity()
+
+dry_adiabatic_lapse_rate()
 }
 \arguments{
 \item{x}{Input vector.}

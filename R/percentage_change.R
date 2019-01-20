@@ -13,5 +13,8 @@
 #' # A simple calculation
 #' percentage_change(100, 50)
 #' 
+#' # Global mean CO2 concentrations
+#' percentage_change(277, 400)
+#' 
 #' @export
 percentage_change <- function(previous, new) ((new - previous) / previous) * 100

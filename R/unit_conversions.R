@@ -353,3 +353,8 @@ speed_of_light <- function() 299792458
 #' @export
 #' @rdname miles_to_km
 gravity <- function() 9.80665
+
+
+#' @export
+#' @rdname miles_to_km
+dry_adiabatic_lapse_rate <- function() -9.8
