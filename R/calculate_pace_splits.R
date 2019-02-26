@@ -12,10 +12,9 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Data frame. 
+#' @return Tibble. 
 #' 
 #' @examples 
-#' \dontrun{
 #'
 #' # Pace for a half marathon
 #' # Every km
@@ -30,8 +29,6 @@
 #' 
 #' # Pace for 5 km 
 #' calculate_pace_splits(5, "18:15")
-#' 
-#' }
 #' 
 #' 
 #' @export
@@ -89,19 +86,18 @@ calculate_pace_splits <- function(distance, time, interval = 1, round = 2) {
   pace_min_km <- decimal_minute_to_string(pace_min_km)
   
   # Create data frame
-  df <- data.frame(
+  df <- tibble(
     distance,
     time, 
     speed_ms,
     speed_km_h,
     pace_min_km,
     distance_split = distance_sequence,
-    time_split = time_elapsed,
-    stringsAsFactors = FALSE
+    time_split = time_elapsed
   )
   
   # Round
-  df <- dplyr::mutate_if(df, is.numeric, dplyr::funs(round(., digits = round)))
+  df <- dplyr::mutate_if(df, is.numeric, ~round(., digits = round))
   
   return(df)
   

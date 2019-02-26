@@ -18,13 +18,12 @@ like \code{"01:30:00"} for one hour and thirty minutes.}
 \item{round}{Decimal points to round numeric variables to.}
 }
 \value{
-Data frame.
+Tibble.
 }
 \description{
 Function to calculate splits for a running or cycling event.
 }
 \examples{
-\dontrun{
 
 # Pace for a half marathon
 # Every km
@@ -39,8 +38,6 @@ calculate_pace_splits(10, "30:00")
 
 # Pace for 5 km 
 calculate_pace_splits(5, "18:15")
-
-}
 
 
 }
