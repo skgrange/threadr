@@ -36,15 +36,16 @@
 download_ftp_file <- function(file_remote, file_output, credentials = "", 
                               curl = FALSE, verbose = FALSE, progress = "none") {
   
-  # Soon to be dropped
-  .Deprecated(
-    msg = "`download_ftp_file` is deprecated, please use `get_remote_file` instead.",
-    package = "threadr"
-  )
+  # # Soon to be dropped
+  # .Deprecated(
+  #   msg = "`download_ftp_file` is deprecated, please use `get_remote_file` instead.",
+  #   package = "threadr"
+  # )
   
   # Check
-  if (!length(file_remote) == length(file_output))
+  if (!length(file_remote) == length(file_output)) {
     stop("Remote and output vectors need to be the same length...", call. = FALSE)
+  }
   
   # Build mapping data frame
   df_map <- data.frame(
@@ -151,16 +152,21 @@ list_files_ftp <- function(url, credentials = "") {
 list_files_ftp_worker <- function(url, credentials) {
   
   # url must be prefixed with ftp or sftp
-  if (!grepl("^ftp://|^sftp://", url))
+  if (!grepl("^ftp://|^sftp://", url)) {
     stop("URL must be prefixed with 'ftp://' or 'sftp://'", call. = FALSE)
-
+  }
+  
   # Ensure the directory has a trailing separator
   url <- stringr::str_c(url, .Platform$file.sep)
   
   # Get the file list
   # If credentials are blank, this will still work
-  file_list <- RCurl::getURL(url, userpwd = credentials, ftp.use.epsv = FALSE, 
-                             dirlistonly = TRUE)
+  file_list <- RCurl::getURL(
+    url, 
+    userpwd = credentials, 
+    ftp.use.epsv = FALSE, 
+    dirlistonly = TRUE
+  )
   
   # Clean
   file_list <- stringr::str_c(url, stringr::str_split(file_list, "\n")[[1]])
@@ -229,8 +235,9 @@ upload_to_ftp <- function(file, url, credentials = "", basename = FALSE,
 upload_to_ftp_worker <- function(file, url, credentials, basename) {
   
   # url must be prefixed with ftp or sftp
-  if (!grepl("^ftp://|^sftp://", url))
+  if (!grepl("^ftp://|^sftp://", url)) {
     stop("URL must be prefixed with 'ftp://' or 'sftp://'", call. = FALSE)
+  }
   
   # Trim to last element
   if (basename) file <- basename(file)
