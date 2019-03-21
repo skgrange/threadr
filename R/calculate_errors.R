@@ -54,7 +54,11 @@ calculate_errors <- function(x, type = "se", level = NA) {
     # Reasign for next calculation
     error <- se
     
-  } 
+  } else if (type == "range") {
+    
+    error <- NA_real_
+    
+  }
   
   if (type == "range") {
     
