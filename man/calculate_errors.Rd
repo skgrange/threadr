@@ -7,9 +7,10 @@
 calculate_errors(x, type = "se", level = NA)
 }
 \arguments{
-\item{x}{Numeric vector to be summarised.}
+\item{x}{Numeric or date vector to be summarised.}
 
-\item{type}{Type of error to calculate, either \code{"se"} or \code{"ci"}.}
+\item{type}{Type of error to calculate, either \code{"se"}, \code{"ci"}, or 
+\code{"range"}.}
 
 \item{level}{When \code{type} is \code{"ci"}, what confidence interval should
 be calculated. \code{level} can be 90, 95, 98, 99, or 99.9 (which represent 

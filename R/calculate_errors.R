@@ -2,9 +2,10 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param x Numeric vector to be summarised. 
+#' @param x Numeric or date vector to be summarised. 
 #' 
-#' @param type Type of error to calculate, either \code{"se"} or \code{"ci"}. 
+#' @param type Type of error to calculate, either \code{"se"}, \code{"ci"}, or 
+#' \code{"range"}. 
 #' 
 #' @param level When \code{type} is \code{"ci"}, what confidence interval should
 #' be calculated. \code{level} can be 90, 95, 98, 99, or 99.9 (which represent 
@@ -17,8 +18,9 @@ calculate_errors <- function(x, type = "se", level = NA) {
   
   # Check inputs
   type <- stringr::str_to_lower(type)
-  stopifnot(type %in% c("se", "standard_error", "ci", "confidence_interval"))
-  stopifnot(is.numeric(x))
+  type <- stringr::str_trim(type)
+  stopifnot(type %in% c("se", "standard_error", "ci", "confidence_interval", "range"))
+  stopifnot(is.numeric(x) | lubridate::is.POSIXt(x))
   
   # Drop all nas
   x <- x[!is.na(x)]
@@ -47,16 +49,26 @@ calculate_errors <- function(x, type = "se", level = NA) {
     # Multiply error by z
     error <- se * z
     
-  } else {
+  } else if (type %in% c("se", "standard_error")) {
     
     # Reasign for next calculation
     error <- se
     
-  }
+  } 
   
-  # Calculate bounds
-  lower <- mean - error
-  upper <- mean + error
+  if (type == "range") {
+    
+    # Calculate min and max, these variables will be renamed once in the tibble
+    lower <- min(x)
+    upper <- max(x)
+    
+  } else {
+    
+    # Calculate bounds
+    lower <- mean - error
+    upper <- mean + error
+    
+  }
   
   # Bind together into a tibble
   df <- tibble(
@@ -70,6 +82,15 @@ calculate_errors <- function(x, type = "se", level = NA) {
     lower, 
     upper
   )
+  
+  if (type == "range") {
+    
+    # Rename lower and upper
+    df <- df %>% 
+      rename(min = lower,
+             max = upper)
+    
+  }
   
   return(df)
   
