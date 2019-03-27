@@ -4,7 +4,6 @@
 \alias{str_date}
 \alias{str_rm_non_ascii}
 \alias{str_trim_length}
-\alias{str_to_sentence}
 \alias{str_to_underscore}
 \alias{str_trim_many_spaces}
 \alias{str_chop}
@@ -25,6 +24,7 @@
 \alias{str_utf8_to_integer}
 \alias{str_integer_to_utf8}
 \alias{str_insert}
+\alias{str_extract_characters}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -33,8 +33,6 @@ str_date(time = TRUE, tz = TRUE, underscore = FALSE)
 str_rm_non_ascii(x)
 
 str_trim_length(string, length)
-
-str_to_sentence(x)
 
 str_to_underscore(x)
 
@@ -75,6 +73,8 @@ str_utf8_to_integer(x)
 str_integer_to_utf8(x)
 
 str_insert(x, n, sep)
+
+str_extract_characters(x)
 }
 \arguments{
 \item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert}{Function specific options.}
@@ -88,9 +88,6 @@ str_insert(x, n, sep)
 \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 
 \code{str_trim_length} trims strings to a certain length of characters.
-
-\code{str_to_sentence} capitalises the first letter in a string and makes
-all other characters lowercase.
 
 \code{str_to_underscore} converts CamelCase and period.separated strings to
 lowercase underscore_separated strings.

@@ -7,9 +7,6 @@
 #' 
 #' \code{str_trim_length} trims strings to a certain length of characters. 
 #' 
-#' \code{str_to_sentence} capitalises the first letter in a string and makes
-#' all other characters lowercase.
-#' 
 #' \code{str_to_underscore} converts CamelCase and period.separated strings to
 #' lowercase underscore_separated strings. 
 #' 
@@ -123,29 +120,26 @@ str_trim_length_worker <- function(string, length)
   ifelse(!is.na(length), strtrim(string, length), string)
 
 
-#' @rdname str_date
-#' 
-#' @export
-str_to_sentence <- function(x) {
-  
-  # Get first character
-  first <- stringr::str_sub(x, 1, 1)
-  
-  # Capitialise
-  first <- stringr::str_to_upper(first)
-  
-  # Get other characters
-  other_characters <- stringr::str_sub(x, 2)
-  
-  # Lower case
-  other_characters <- stringr::str_to_lower(other_characters)
-  
-  # Combine again
-  x <- stringr::str_c(first, other_characters)
-  
-  return(x)
-  
-}
+# str_to_sentence <- function(x) {
+#   
+#   # Get first character
+#   first <- stringr::str_sub(x, 1, 1)
+#   
+#   # Capitialise
+#   first <- stringr::str_to_upper(first)
+#   
+#   # Get other characters
+#   other_characters <- stringr::str_sub(x, 2)
+#   
+#   # Lower case
+#   other_characters <- stringr::str_to_lower(other_characters)
+#   
+#   # Combine again
+#   x <- stringr::str_c(first, other_characters)
+#   
+#   return(x)
+#   
+# }
 
 
 #' @rdname str_date
@@ -284,7 +278,7 @@ str_note_to_sentence <- function(x, sep = "_") {
   
   x <- stringr::str_to_lower(x)
   x <- stringr::str_replace_all(x, sep, " ")
-  x <- str_to_sentence(x)
+  x <- stringr::str_to_sentence(x)
   return(x)
   
 }
@@ -367,3 +361,9 @@ str_insert <- function(x, n, sep) {
   return(x)
   
 }
+
+
+#' @rdname str_date
+#'
+#' @export
+str_extract_characters <- function(x) stringr::str_remove_all(x, "[[:digit:]]+")
