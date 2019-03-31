@@ -18,11 +18,6 @@
 #' 
 #' @param file A vector of files to extract metadata from. 
 #' 
-#' @param json Should the return be a pretty printed JSON string? 
-#' 
-#' @param progress What type of progress bar should the funciton display? Default
-#' is \code{"none"}. 
-#' 
 #' @author Stuart K. Grange
 #' 
 #' @seealso \href{http://www.sno.phy.queensu.ca/~phil/exiftool/}{exiftool}
@@ -33,29 +28,25 @@
 #' }
 #'
 #' @export
-file_metadata <- function(file, json = FALSE, progress = "none") {
+file_metadata <- function(file) {
   
   # Check for programme
   detect_exiftool()
   
-  # Ensure path is expanded, sometimes in necessary
-  file <- path.expand(file)
+  # Initialize progress bar
+  # if (.progress) progress_bar <- dplyr::progress_estimated(length(file))
   
-  # Vectorise function
-  df <- plyr::ldply(file, file_metadata_worker, .progress = progress)
-  
-  # To json
-  if (json) df <- jsonlite::toJSON(df, pretty = TRUE)
+  # Ensure path is expanded, sometimes in necessary and then do
+  df <- fs::path_expand(file) %>% 
+    purrr::map_dfr(file_metadata_worker) %>% 
+    as_tibble()
   
   return(df)
   
 }
 
 
-# The function which does the work
-#
-# No export 
-file_metadata_worker <- function(file) {
+file_metadata_worker <- function(file, .progress) {
 
   # Get file basename
   file_basename <- basename(file)
@@ -89,8 +80,9 @@ detect_exiftool <- function() {
   text <- suppressWarnings(system("which exiftool", intern = TRUE, ignore.stderr = TRUE))
   
   # Raise error if not installed
-  if (length(text) == 0 || !grepl("exiftool", text))
+  if (length(text) == 0 || !grepl("exiftool", text)) {
     stop("'exiftool' system programme not detected...", call. = FALSE)
+  }
   
   # No return
   
