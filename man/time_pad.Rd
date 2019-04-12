@@ -54,8 +54,11 @@ the input data frame and the missing values are represented as \code{NA}.
 data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
-data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour", 
-  by = c("site", "sensor"))
+data_ozone_sensor_pad <- time_pad(
+  data_ozone_sensor, 
+  interval = "hour", 
+  by = c("site", "sensor")
+)
 
 }
 

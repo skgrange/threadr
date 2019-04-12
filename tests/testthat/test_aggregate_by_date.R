@@ -11,42 +11,64 @@ test_that("Test date aggregator", {
   )
   
   # Default use
-  expect_equal(nrow(aggregate_by_date(df)), 6572)
+  df %>% 
+    aggregate_by_date() %>% 
+    nrow() %>% 
+    expect_equal(6572)
   
   # Monthly
-  expect_equal(nrow(aggregate_by_date(df, interval = "month")), 10)
+  df %>% 
+    aggregate_by_date(interval = "month") %>% 
+    nrow() %>% 
+    expect_equal(10)
   
   # No padding, incorrect in this example
-  expect_equal(nrow(aggregate_by_date(df, interval = "month", pad = FALSE)), 4)
+  df %>% 
+    aggregate_by_date(interval = "month", pad = FALSE) %>% 
+    nrow() %>% 
+    expect_equal(4)
   
   # Different summary functions
-  expect_equal(
-    nrow(aggregate_by_date(df, interval = "month", summary = "median")),
-    10
-  )
+  df %>% 
+    aggregate_by_date(interval = "month", summary = "median") %>% 
+    pull(value) %>% 
+    expect_equal(c(64, NA, NA, 25.5, NA, NA, NA, 72.5, NA, 32.5))
   
-  expect_equal(
-    nrow(aggregate_by_date(df, interval = "month", summary = "count")),
-    10
-  )
+  df %>% 
+    aggregate_by_date(interval = "month", summary = "count") %>% 
+    pull(value) %>% 
+    expect_equal(c(2L, 0L, 0L, 2L, 0L, 0L, 0L, 2L, 0L, 2L))
+  
+  df %>% 
+    aggregate_by_date(interval = "month", summary = "data_capture") %>% 
+    pull(value) %>% 
+    expect_equal(
+      c(0.666666666666667, 0, 0, 0.666666666666667, 0, 0, 0, 0.666666666666667, 
+        0, 0.666666666666667)
+    )
   
   # Single group by
-  expect_equal(
-    nrow(aggregate_by_date(df, interval = "month", by = "variable")),
-    20
-  )
+  df %>% 
+    aggregate_by_date(interval = "month", by = "variable") %>% 
+    nrow() %>% 
+    expect_equal(20)
   
   # Multiple group by
-  expect_equal(
-    nrow(aggregate_by_date(df, interval = "month", by = c("site", "variable", "country"))),
-    20
-  )
+  df %>% 
+    aggregate_by_date(
+      interval = "month", 
+      by = c("site", "variable", "country")
+    ) %>% 
+    nrow() %>% 
+    expect_equal(20)
   
-  # Threshold
-  expect_equal(
-    unique(aggregate_by_date(df, interval = "month", threshold = 0.75)$value),
-    NA
-  )
+  df %>% 
+    aggregate_by_date(
+      interval = "month", 
+      threshold = 0.75
+    ) %>% 
+    pull(value) %>% 
+    expect_equal(c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA))
   
 })
 

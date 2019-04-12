@@ -4,13 +4,15 @@
 \alias{read_html_tables}
 \title{Function to read HTML tables from an URL.}
 \usage{
-read_html_tables(url)
+read_html_tables(url, col_names = TRUE)
 }
 \arguments{
 \item{url}{A URL which contains HTML tables.}
+
+\item{col_names}{Do the HTML tables have column names/headers?}
 }
 \value{
-Named list containing data frames.
+Named list containing tibbles.
 }
 \description{
 Function to read HTML tables from an URL.

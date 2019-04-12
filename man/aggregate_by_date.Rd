@@ -31,6 +31,7 @@ Default is the \code{mean}. The options are:
   \item{count}
   \item{sd}
   \item{mode}
+  \item{data_capture}
 }}
 
 \item{threshold}{What data capture threshold is needed to create a valid 
@@ -65,7 +66,7 @@ aggregate_by_date(data_air, "hour", by = c("site", "variable"))
 
 }
 \seealso{
-\code{timeAverage}, \code{\link{time_pad}}
+\code{\link[openair]{timeAverage}}, \code{\link{time_pad}}
 }
 \author{
 Stuart K. Grange

@@ -4,7 +4,32 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Invisible, a ggplot2 plot. 
+#' @return Invisible, modification to a \strong{ggplot2} plot. 
+#' 
+#' @examples
+#' 
+#' \dontrun{
+#' 
+#' # Load package
+#' library(ggplot2)
+#' 
+#' # Create data
+#' data_example <- tibble(
+#'   x = seq(1:3), 
+#'   y = sample(1:10, 3)
+#' )
+#' 
+#' # Plot with a tufte theme
+#' ggplot(data_example, aes(x, y)) + 
+#'   geom_point() + 
+#'   ggtheme_threadr()
+#'   
+#' # Plot with a super minimal
+#' ggplot(data_example, aes(x, y)) + 
+#'   geom_point() + 
+#'   theme_super_minimal()
+#'   
+#' }
 #' 
 #' @export
 ggtheme_threadr <- function(grid_lines = FALSE) {

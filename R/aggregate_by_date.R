@@ -27,6 +27,7 @@
 #'   \item{count}
 #'   \item{sd}
 #'   \item{mode}
+#'   \item{data_capture}
 #' }
 #' 
 #' @param threshold What data capture threshold is needed to create a valid 
@@ -47,7 +48,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{timeAverage}, \code{\link{time_pad}}
+#' @seealso \code{\link[openair]{timeAverage}}, \code{\link{time_pad}}
 #' 
 #' @examples 
 #' \dontrun{
@@ -63,37 +64,26 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
                               verbose = FALSE) {
   
   # Check a few things
-  if (!any(c("date", "value") %in% names(df)))
+  if (!any(c("date", "value") %in% names(df))) {
     stop("Input must contain `date` and `value` variables...", call. = FALSE)
+  }
   
   # Check data type
-  if (!class(df$value) %in% c("numeric", "integer"))
+  if (!class(df$value) %in% c("numeric", "integer")) {
     stop("`value` must be of numeric or integer class...", call. = FALSE)
+  }
   
-  if (!threshold <= 1 & threshold >= 0) 
+  if (!threshold <= 1 & threshold >= 0) {
     stop("Threshold must be between 0 and 1.", call. = FALSE)
+  }
   
   # Return empty data frame if input is empty
   if (nrow(df) == 0) {
-    
     warning(
       "Input contains no observations, returning emmpty tibble...", 
       call. = FALSE
     )
-    
     return(tibble())
-    
-  }
-  
-  # For grouping
-  if (is.na(by)[1]) {
-    
-    list_dots <- list(as.symbol("date"))
-    
-  } else {
-    
-    list_dots <- lapply(c("date", by), as.symbol)
-    
   }
   
   # Threshold means nothing for data capture
@@ -112,29 +102,34 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       warn = FALSE,
       round = interval
     )
-    
   }
   
-  # Create groups
-  df <- df %>% 
-    mutate(date = lubridate::floor_date(date, unit = interval)) %>% 
-    dplyr::group_by_(.dots = list_dots)
+  # Round dates
+  df <- mutate(df, date = lubridate::floor_date(date, unit = interval))
+  
+  # Create groups if needed
+  if (is.na(by[1])) {
+    by <- "date"
+  } else {
+    by <- c("date", by)
+  }
+  
+  # Group data frame
+  df <- dplyr::group_by_at(df, by)
   
   # Wind direction processing, logic used more than once
   # Double && will break out of test if FALSE, no warnings
-  wind_direction_detected <- ifelse(
+  wind_direction_detected <- if_else(
     "variable" %in% names(df) && "wd" %in% unique(df$variable), 
-    TRUE, 
-    FALSE
+    TRUE, FALSE
   )
   
   if (wind_direction_detected) {
     
-    if (verbose) message("Wind direction ('wd') detected...")
+    if (verbose) message("Wind direction (`wd`) detected...")
     
     # Get wind direction
     df_wd <- filter(df, variable == "wd")
-    
     # Drop from orignal data frame
     df <- filter(df, variable != "wd")
     
@@ -142,8 +137,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     # Warnings come from max is used when all elements are NA
     suppressWarnings(
       df_wd <- df_wd %>% 
-        dplyr::summarise(
-          value = date_aggregator(
+        summarise(
+          value = aggregate_by_date_worker(
             value, 
             summary = !!summary, 
             threshold = !!threshold, 
@@ -160,8 +155,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Warnings come from max is used when all elements are NA
   suppressWarnings(
     df <- df %>% 
-      dplyr::summarise(
-        value = date_aggregator(
+      summarise(
+        value = aggregate_by_date_worker(
           value, 
           summary = !!summary, 
           threshold = !!threshold, 
@@ -171,11 +166,11 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   )
 
   # Bind wind direction too
-  if (wind_direction_detected) df <- dplyr::bind_rows(df, df_wd)
-  
-  if (verbose) message("Final clean-up and arranging...")
+  if (wind_direction_detected) df <- bind_rows(df, df_wd)
   
   # Add date end
+  if (verbose) message("Final clean-up and arranging...")
+  
   df <- df %>% 
     ungroup() %>% 
     mutate(
@@ -187,16 +182,17 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       date_end = date_end - 1)
   
   # Do some post aggregation cleaning
+  # Fix the variable order
+  if (identical(by, "date")) {
+    variable_order <- c("date", "date_end", "value")
+  } else {
+    variable_order <- c("date", "date_end", by, "value")
+  }
   
-  # Variable order
-  names_vector <- c("date", "date_end", by, "value")
-  # No NA when by is NA
-  names_vector <- names_vector[!is.na(names_vector)]
-  
-  # Format table
+  # Format tibble, arrange variables and observations
   df <- df %>% 
-    dplyr::select_(.dots = names_vector) %>%
-    dplyr::arrange_(.dots = rev(list_dots))
+    select(!!variable_order) %>%
+    dplyr::arrange_at(rev(by))
   
   # Round
   if (!is.na(round)) df$value <- round(df$value, round)
@@ -206,31 +202,22 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
 }
 
 
-date_aggregator <- function(x, summary, threshold, wd = FALSE) {
+aggregate_by_date_worker <- function(x, summary, threshold, wd = FALSE) {
   
   if (wd) {
     
     if (threshold == 0) {
-      
       # Use trigonometry
       x <- mean_wd(x, na.rm = TRUE)
-      
     } else {
-      
       # Calculate data capture
       data_capture <- calculate_data_capture(x)
-      
       if (threshold <= data_capture) {
-        
         x <- mean_wd(x, na.rm = TRUE)
-        
       } else {
-        
         # Invalid summary
         x <- NA
-        
       }
-      
     }
     
   } else {
@@ -239,25 +226,16 @@ date_aggregator <- function(x, summary, threshold, wd = FALSE) {
     aggregation_function <- aggregation_function_type(summary)
     
     if (threshold == 0) {
-      
       x <- aggregation_function(x, na.rm = TRUE)
-      
     } else {
-      
       # Calculate data capture
       data_capture <- calculate_data_capture(x)
-      
       if (threshold <= data_capture) {
-        
         x <- aggregation_function(x, na.rm = TRUE)
-        
       } else {
-        
         # Invalid summary
         x <- NA
-        
       }
-      
     }
     
   }
@@ -282,25 +260,18 @@ aggregation_function_type <- function(type) {
   
   # Switch
   if (type == "mean") f <- mean
-  
   if (type == "median") f <- median
-  
   if (type %in% c("max", "maximum")) f <- max
-  
   if (type %in% c("min", "minumum")) f <- min
-  
   if (type == "sum") f <- sum_custom
-  
   if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
-  
   if (type == "mode") f <- mode_average
-  
   # Parse na.rm for consistency, but is is not used
   if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
-  
   # na.rm is not used here either, this could be wrong if date is not padded
-  if (type == "data_capture") 
+  if (type == "data_capture") {
     f <- function(x, na.rm) sum(!is.na(x)) / length(x)
+  }
   
   return(f)
   
@@ -311,13 +282,9 @@ aggregation_function_type <- function(type) {
 sum_custom <- function(x, na.rm) {
   
   if (all(is.na(x))) {
-  
     x <- NA
-    
   } else {
-    
     x <- sum(x, na.rm = na.rm)
-    
   }
   
   return(x)

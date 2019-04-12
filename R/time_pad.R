@@ -48,8 +48,11 @@
 #' data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 #' 
 #' # Keep identifying variables "site" and "sensor"
-#' data_ozone_sensor_pad <- time_pad(data_ozone_sensor, interval = "hour", 
-#'   by = c("site", "sensor"))
+#' data_ozone_sensor_pad <- time_pad(
+#'   data_ozone_sensor, 
+#'   interval = "hour", 
+#'   by = c("site", "sensor")
+#' )
 #' 
 #' }
 #' 
@@ -58,8 +61,27 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
                      full = FALSE, warn = TRUE) {
   
   # Check input
-  if (nrow(df) == 0) 
+  if (nrow(df) == 0) {
     stop("Input data frame has no observations...", call. = FALSE)
+  }
+  
+  # Check if input has a date variable
+  if (!"date" %in% names(df)) {
+    stop(
+      "Input must contain a date variable/column and must be named `date`...",
+      call. = FALSE
+    )
+  }
+  
+  # NA check
+  if (any(is.na(df$date))) {
+    stop("`date` must not contain missing (`NA`) values...", call. = FALSE)
+  }
+  
+  # Check class
+  if (!lubridate::is.POSIXct(df$date)) {
+    stop("`date` must be a POSIXct date...", call. = FALSE)
+  }
   
   # Get variable order
   variables <- names(df)
@@ -67,28 +89,24 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
   if (is.na(by[1])) {
     
     # No group-by needed
-    df <- padder(
+    df <- time_pad_worker(
       df, 
-      interval, 
-      by, 
-      round, 
-      merge, 
-      full, 
-      warn
+      interval = interval, 
+      by = by, 
+      round = round, 
+      full = full, 
+      warn = warn
     ) %>% 
       select(!!variables, 
              everything())
     
   } else {
     
-    # Get around non-standard evaluation
-    list_dots <- lapply(by, as.symbol)
-    
     # Pad by group
     df <- df %>% 
-      dplyr::group_by_(.dots = list_dots) %>%
+      dplyr::group_by_at(by) %>%
       do(
-        padder(
+        time_pad_worker(
           ., 
           interval = interval, 
           by = by,
@@ -111,67 +129,43 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA,
 # The worker
 # 
 # No export
-padder <- function(df, interval, by, round, merge, full, warn) {
-  
-  # Check if input has a date variable
-  if (!"date" %in% names(df)) {
-    
-    stop(
-      "Data frame must contain a date variable/column and must be named 'date'.",
-      call. = FALSE
-    )
-    
-  }
-  
-  # NA check
-  if (any(is.na(df$date)))
-    stop("'date' must not contain missing (NA) values.", call. = FALSE)
-  
-  # Check class
-  if (!lubridate::is.POSIXt(df$date)) 
-    stop("'date' must be a parsed POSIXt date.", call. = FALSE)
+time_pad_worker <- function(df, interval, by, round, merge, full, warn) {
   
   # Switch interval
   interval <- stringr::str_trim(interval)
-  interval <- ifelse(interval %in% c("minute", "minutes"), "min", interval)
-  interval <- ifelse(interval %in% c("second", "seconds"), "sec", interval)
-  interval <- ifelse(interval == "hours", "hour", interval)
+  interval <- if_else(interval %in% c("minute", "minutes"), "min", interval)
+  interval <- if_else(interval %in% c("second", "seconds"), "sec", interval)
+  interval <- if_else(interval == "hours", "hour", interval)
   
   # Attempt to make interval a numeric value for sub-second padding
   interval <- tryCatch({
-    
     as.numeric(interval)
-    
   }, warning = function(w) {
-    
     interval
-    
   })
   
-  # Get identifiers
+  # Store identifiers in a single row data frame
   if (!is.na(by[1])) {
     
     # Get identifiers
-    data_by <- get_identifiers(df, by = by)
+    df_by <- df %>% 
+      dplyr::slice(1) %>% 
+      dplyr::select_at(by)
     
-    # Drop identifiers
-    df <- df[!names(df) %in% by]
+    # Drop identifiers from input
+    df <- dplyr::select_at(df, dplyr::vars(-by))
     
   }
   
   # Find the start and end of the date sequence
   if (is.na(round)) {
-    
     # No date rounding, use date values in df
     date_start <- min(df$date)
     date_end <- max(df$date)
-    
   } else {
-    
     # Date rounding
     date_start <- lubridate::floor_date(min(df$date), round)
     date_end <- lubridate::ceiling_date(max(df$date), round)
-    
   }
   
   # Create the sequence of dates
@@ -185,66 +179,29 @@ padder <- function(df, interval, by, round, merge, full, warn) {
   
   # Do the padding
   if (full) {
-    
     df <- dplyr::full_join(date_sequence, df, by = "date")
     df <- arrange(df, date)
-    
   } else {
-    
     df <- left_join(date_sequence, df, by = "date")
-    
   }
   
-  # Overwrite identifiers
-  if (!is.na(by[1])) df <- cbind(data_by, df)
+  # Bind identifiers again
+  if (!is.na(by[1])) {
+    df <- df_by %>% 
+      dplyr::slice(rep(1:dplyr::n(), each = nrow(df))) %>% 
+      dplyr::bind_cols(df)
+  }
+  
+  # Ensure return is a tibble
+  df <- as_tibble(df)
   
   # Message
   if (warn) {
-    
-    if (any(duplicated(df$date))) 
-      warning("Duplicated dates detected.", call. = FALSE)
-    
+    if (any(duplicated(df$date))) {
+      warning("Duplicated dates detected...", call. = FALSE)
+    }
   }
-  
-  # Make sure return is tibble
-  df <- as_tibble(df)
   
   return(df)
-  
-}
-
-
-# Function to get identifiers from a data frame
-get_identifiers <- function(df, by) {
-  
-  # Catch dplyr's table so indexing works as expected
-  df <- base_df(df)
-  
-  if (length(by) == 1) {
-    
-    # Single row
-    data_by <- df[, by][1]
-    
-    # Data frame building
-    data_by <- data.frame(data_by, stringsAsFactors = FALSE)
-    names(data_by) <- by
-    
-  } else {
-    
-    # Selecting vector
-    by_collapse <- stringr::str_c(
-      stringr::str_c("\\b", by, "\\b"), collapse = "|"
-    )
-    
-    # Get first row
-    data_by <- df[, grep(by_collapse, names(df))][1, ]
-    
-    # Reset
-    row.names(data_by) <- NULL
-    
-  }
-  
-  # Return
-  return(data_by)
   
 }
