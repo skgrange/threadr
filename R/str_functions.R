@@ -207,7 +207,10 @@ str_rm_square_brackets <- function(x)
 str_extract_digits <- function(x, as.numeric = TRUE) {
   
   # Replace characters
-  x <- stringr::str_replace_all(x, "[[:alpha:]]", "")
+  x <- stringr::str_remove_all(x, "[[:alpha:]]")
+  
+  # Remove special characters too
+  x <- stringr::str_remove_all(x, "_")
   
   # Numeric class
   if (as.numeric) x <- as.numeric(x)
