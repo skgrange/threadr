@@ -29,13 +29,16 @@
 #' calculate_time_span(date_one, date_two, format = "hms")
 #' calculate_time_span(date_one, date_two, format = "duration")
 #' calculate_time_span(date_one, date_two, format = "period")
+#' calculate_time_span(date_one, date_two, format = "days")
 #' 
 #' # Use round to reduce precision
 #' calculate_time_span(date_one, date_two, format = "period", round = 0)
 #' 
 #' @export
 calculate_time_span <- function(date_one, date_two, 
-                                format = c("seconds", "hms", "duration", "period"), 
+                                format = c(
+                                  "seconds", "hms", "duration", "period", "days"
+                                ), 
                                 round = NA,
                                 as.character = FALSE) {
   
@@ -53,6 +56,8 @@ calculate_time_span <- function(date_one, date_two,
   } else if (format == "period") {
     x <- lubridate::as.interval(date_one, date_two)
     x <- lubridate::as.period(x)
+  } else if (format == "days") {
+    x <- x / threadr::seconds_in_a_day()
   }
   
   # Round return

@@ -5,7 +5,7 @@
 \title{Function to calculate time span between dates.}
 \usage{
 calculate_time_span(date_one, date_two, format = c("seconds", "hms",
-  "duration", "period"), round = NA, as.character = FALSE)
+  "duration", "period", "days"), round = NA, as.character = FALSE)
 }
 \arguments{
 \item{date_one}{First date.}
@@ -39,6 +39,7 @@ calculate_time_span(date_one, date_two)
 calculate_time_span(date_one, date_two, format = "hms")
 calculate_time_span(date_one, date_two, format = "duration")
 calculate_time_span(date_one, date_two, format = "period")
+calculate_time_span(date_one, date_two, format = "days")
 
 # Use round to reduce precision
 calculate_time_span(date_one, date_two, format = "period", round = 0)
