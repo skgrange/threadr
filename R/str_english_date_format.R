@@ -8,6 +8,8 @@
 #' 
 #' @param time_zone Should the time zone string be printed? 
 #' 
+#' @param date_only Should only the date pieces be returned? 
+#' 
 #' @return Character vector. 
 #' 
 #' @author Stuart K. Grange.
@@ -25,18 +27,28 @@
 #' 
 #' @export 
 str_english_date_format <- function(x, weekday = TRUE, seconds = TRUE, 
-                                    time_zone = TRUE) {
+                                    time_zone = TRUE, date_only = FALSE) {
   
   # The formatting string
   format_string <- "%A, %B %d %Y %H:%M"
   
+  # Just the date
+  if (date_only) {
+    
+    time_zone <- FALSE
+    format_string <- stringr::str_remove(format_string, " %H:%M")
+    
+  } else {
+    
+    # Append seconds
+    if (seconds) format_string <- stringr::str_c(format_string, ":%OS3")
+    
+    # To-do: fractional second logic
+    
+  }
+  
   # Drop weekday
   if (!weekday) format_string <- stringr::str_remove(format_string, "%A, ")
-  
-  # Append seconds
-  if (seconds) format_string <- stringr::str_c(format_string, ":%OS3")
-  
-  # To-do: fractional second logic
   
   # Do the formating
   x <- format(x, format_string, usetz = time_zone)

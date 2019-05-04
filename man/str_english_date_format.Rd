@@ -5,7 +5,7 @@
 \title{Function to format a date in a verbose, English language style.}
 \usage{
 str_english_date_format(x, weekday = TRUE, seconds = TRUE,
-  time_zone = TRUE)
+  time_zone = TRUE, date_only = FALSE)
 }
 \arguments{
 \item{x}{Date vector.}
@@ -15,6 +15,8 @@ str_english_date_format(x, weekday = TRUE, seconds = TRUE,
 \item{seconds}{Should seconds be printed?}
 
 \item{time_zone}{Should the time zone string be printed?}
+
+\item{date_only}{Should only the date pieces be returned?}
 }
 \value{
 Character vector.
