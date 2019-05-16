@@ -7,7 +7,7 @@
 detect_date_interval(date, skip = 1, n = 100, text_return = FALSE)
 }
 \arguments{
-\item{date}{A date vector.}
+\item{date}{A date vector of POSIXt class.}
 
 \item{skip}{Number of elements in \code{date} to skip before detecting 
 interval.}
