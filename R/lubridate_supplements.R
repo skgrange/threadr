@@ -177,18 +177,13 @@ wday_monday <- function(x, as.factor = FALSE, abbr = FALSE) {
   x <- ifelse(x == 0, 7, x)
   
   if (as.factor) {
-    
     if (abbr) {
-      
       labels <- c("Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun")
-      
     } else {
-      
       labels <- c(
         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", 
         "Sunday"
       )
-      
     }
     
     # Give order and a label
@@ -256,20 +251,25 @@ seconds_in_a_week <- function() seconds_in_a_day() * 7L
 #' \code{"southern"}.
 #' 
 #' @param as.factor Should the return be an ordered factor, not a numeric 
-#' vector?   
+#' vector? 
+#' 
+#' @param as.title When \code{as.factor} is \code{TRUE}, should the labels be
+#' in "title-case"?
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @return Numeric or ordered factor vector with the length of \code{date}. 
 #' 
 #' @export
-season <- function(date, hemisphere = "northern", as.factor = FALSE) {
+season <- function(date, hemisphere = "northern", as.factor = FALSE, 
+                   as.title = FALSE) {
   
   # Check input
   hemisphere <- stringr::str_to_lower(hemisphere)
   
-  if (!hemisphere %in% c("northern", "southern")) 
-    stop("hemisphere must be 'northern' or 'southern'")
+  if (!hemisphere %in% c("northern", "southern")) {
+    stop("hemisphere must be 'northern' or 'southern'...")
+  }
   
   # Get month of date
   x <- lubridate::month(date)
@@ -277,21 +277,22 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE) {
   if (hemisphere == "northern") {
     
     # Winter
-    y <- ifelse(x %in% c(12, 1:2), 1, 0)
+    y <- if_else(x %in% c(12, 1:2), 1, 0)
     
     # Spring
-    y <- ifelse(x %in% 3:5, 2, y)
+    y <- if_else(x %in% 3:5, 2, y)
     
     # Summer
-    y <- ifelse(x %in% 6:8, 3, y)
+    y <- if_else(x %in% 6:8, 3, y)
     
     # Autumn
-    y <- ifelse(x %in% 9:11, 4, y)
+    y <- if_else(x %in% 9:11, 4, y)
     
     if (as.factor) {
       
       # Give order
       seasons_order <- c("winter", "spring", "summer", "autumn")
+      if (as.title) seasons_order <- stringr::str_to_title(seasons_order)
       y <- ordered(y, levels = 1:4, labels = seasons_order)
       
     }
@@ -299,21 +300,22 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE) {
   } else {
     
     # Summer
-    y <- ifelse(x %in% c(12, 1:2), 1, 0)
+    y <- if_else(x %in% c(12, 1:2), 1, 0)
     
     # Autumn
-    y <- ifelse(x %in% 3:5, 2, y)
+    y <- if_else(x %in% 3:5, 2, y)
     
     # Winter
-    y <- ifelse(x %in% 6:8, 3, y)
+    y <- if_else(x %in% 6:8, 3, y)
     
     # Spring
-    y <-  ifelse(x %in% 9:11, 4, y)
+    y <-  if_else(x %in% 9:11, 4, y)
     
     if (as.factor) {
       
       # Give order
       seasons_order <- c("summer", "autumn", "winter", "spring")
+      if (as.title) seasons_order <- stringr::str_to_title(seasons_order)
       y <- ordered(y, levels = 1:4, labels = seasons_order)
       
     }

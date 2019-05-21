@@ -4,7 +4,8 @@
 \alias{season}
 \title{Function to determine season of a date.}
 \usage{
-season(date, hemisphere = "northern", as.factor = FALSE)
+season(date, hemisphere = "northern", as.factor = FALSE,
+  as.title = FALSE)
 }
 \arguments{
 \item{date}{\code{POSIXct} or \code{Date} vector.}
@@ -14,6 +15,9 @@ season(date, hemisphere = "northern", as.factor = FALSE)
 
 \item{as.factor}{Should the return be an ordered factor, not a numeric 
 vector?}
+
+\item{as.title}{When \code{as.factor} is \code{TRUE}, should the labels be
+in "title-case"?}
 }
 \value{
 Numeric or ordered factor vector with the length of \code{date}.
