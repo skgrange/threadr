@@ -2,7 +2,7 @@
 % Please edit documentation in R/normalise.R
 \name{normalise}
 \alias{normalise}
-\title{Function to normalise a numeric vector's range to 0--1.}
+\title{Function to normalise a numeric vector's range between 0 and 1.}
 \usage{
 normalise(x, na.rm = TRUE)
 }
@@ -15,7 +15,7 @@ normalise(x, na.rm = TRUE)
 Numeric vector with the length of \code{x}.
 }
 \description{
-Function to normalise a numeric vector's range to 0--1.
+Function to normalise a numeric vector's range between 0 and 1.
 }
 \seealso{
 \href{http://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range}{stackexchange}

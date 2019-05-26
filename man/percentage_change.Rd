@@ -19,8 +19,9 @@ Function to calculate percentage change between new and old values.
 }
 \examples{
 
-# A simple calculation
+# Simple calculations
 percentage_change(100, 50)
+percentage_change(50, 100)
 
 # Global mean CO2 concentrations
 percentage_change(277, 400)

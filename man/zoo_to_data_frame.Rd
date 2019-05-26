@@ -9,7 +9,8 @@ zoo_to_data_frame(zoo_df, clean_names = FALSE)
 \arguments{
 \item{zoo_df}{A \strong{zoo} time series object.}
 
-\item{clean_names}{Should the names be cleaned?}
+\item{clean_names}{If the \strong{zoo} series contains more than one variable, 
+should the names be cleaned?}
 }
 \value{
 Tibble.

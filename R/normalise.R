@@ -1,6 +1,7 @@
-#' Function to normalise a numeric vector's range to 0--1. 
+#' Function to normalise a numeric vector's range between 0 and 1. 
 #' 
 #' @param x Numeric vector
+#' 
 #' @param na.rm Remove NAs? Default is \code{TRUE}.
 #' 
 #' @return Numeric vector with the length of \code{x}.  
@@ -19,8 +20,7 @@ normalise <- function(x, na.rm = TRUE) {
   # Apply normalising function
   x <- (x - min) / (max - min)
   
-  # Return
-  x
+  return(x)
   
 }
 

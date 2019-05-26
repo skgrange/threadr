@@ -7,7 +7,7 @@
 #' 
 #' @return \strong{zoo} series. 
 #' 
-#' @example
+#' @examples
 #' 
 #' # Example data
 #' data_example <- structure(
@@ -45,7 +45,8 @@ data_frame_to_zoo <- function(df) {
 #' 
 #' @param zoo_df A \strong{zoo} time series object.
 #' 
-#' @param clean_names Should the names be cleaned? 
+#' @param clean_names If the \strong{zoo} series contains more than one variable, 
+#' should the names be cleaned? 
 #' 
 #' @author Stuart K. Grange. 
 #' 
@@ -60,15 +61,28 @@ zoo_to_data_frame <- function(zoo_df, clean_names = FALSE) {
   # Get dates, this is the object's index
   date <- zoo::index(zoo_df)
   
+  # Does the zoo series contain more than one vaiable? 
+  # Used for renaming logic
+  if (is.null(attr(zoo_df, "dimnames"))) {
+    single_variable <- TRUE
+  } else {
+    single_variable <- FALSE
+  }
+  
   # Get data, add date, and push to tibble
-  df <- as.data.frame(zoo_df, check.names = FALSE, stringsAsFactors = FALSE) %>% 
+  df <- data.frame(zoo_df, check.names = FALSE, stringsAsFactors = FALSE) %>% 
     mutate(date = date) %>% 
     select(date, 
            everything()) %>% 
     as_tibble()
   
-  if (clean_names) {
-    names(df) <- if_else(names(df) == "(Intercept)", "intercept", names(df))
+  # Rename variable in tibble
+  if (single_variable) {
+    names(df)[2] <- attr(zoo_df, "names")[1]
+  } else {
+    if (clean_names) {
+      names(df) <- if_else(names(df) == "(Intercept)", "intercept", names(df))
+    }
   }
   
   return(df)

@@ -16,6 +16,23 @@ data_frame_to_zoo(df)
 \description{
 Function to transform a data frame into a \strong{zoo} time series object.
 }
+\examples{
+
+# Example data
+data_example <- structure(
+list(
+  date = structure(c(1238713200, 1238799600, 1238886000, 1238972400, 1239058800),
+  class = c("POSIXct", "POSIXt"), tzone = "Etc/GMT-1"),
+  value = c(0.299977143295109, 0.491486074170098, 0.792906971182674, 
+  0.0756499643903226, 0.00722031807526946)
+), 
+class = "data.frame", row.names = c(NA, -5L)
+)
+
+# To zoo series, date variable needed
+zoo_df <- data_frame_to_zoo(data_example)
+
+}
 \author{
 Stuart K. Grange.
 }
