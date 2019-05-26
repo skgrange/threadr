@@ -19,11 +19,11 @@ Function to calculate the percentage lost between two values.
 }
 \examples{
 
-# Check the calculation, loss 80 from 100
+# Check the calculation, take 20 from 100
 percent_lost(100, 80)
 
 # Take 1693.2 from 33864
-percent_lost(33864, 1693.2)
+percent_lost(33864, 32170.8)
 
 }
 \author{

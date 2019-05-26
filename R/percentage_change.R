@@ -53,11 +53,11 @@ percent_of <- function(value, percent) value * (percent / 100)
 #' 
 #' @examples 
 #' 
-#' # Check the calculation, loss 80 from 100
+#' # Check the calculation, take 20 from 100
 #' percent_lost(100, 80)
 #' 
 #' # Take 1693.2 from 33864
-#' percent_lost(33864, 1693.2)
+#' percent_lost(33864, 32170.8)
 #' 
 #' @export
-percent_lost <- function(value, value_two) (1 - (value - value_two) / value) * 100
+percent_lost <- function(value, value_two) ((value - value_two) / value) * 100
