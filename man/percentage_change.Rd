@@ -4,12 +4,14 @@
 \alias{percentage_change}
 \title{Function to calculate percentage change between new and old values.}
 \usage{
-percentage_change(previous, new)
+percentage_change(previous, new, as_decimal = FALSE)
 }
 \arguments{
 \item{previous}{Previous or older value.}
 
 \item{new}{Newer value.}
+
+\item{as_decimal}{Should the percentage be represented in a 0 to 1 scale?}
 }
 \value{
 Numeric vector.
@@ -25,6 +27,7 @@ percentage_change(50, 100)
 
 # Global mean CO2 concentrations
 percentage_change(277, 400)
+percentage_change(277, 400, as_decimal = TRUE)
 
 }
 \author{

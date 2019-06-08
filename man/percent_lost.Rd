@@ -4,12 +4,14 @@
 \alias{percent_lost}
 \title{Function to calculate the percentage lost between two values.}
 \usage{
-percent_lost(value, value_two)
+percent_lost(value, value_two, as_decimal = FALSE)
 }
 \arguments{
 \item{value}{Numeric vector of values.}
 
 \item{value_two}{Numeric vector of values.}
+
+\item{as_decimal}{Should the percentage be represented in a 0 to 1 scale?}
 }
 \value{
 Numeric vector with length of \code{value}.
@@ -24,6 +26,7 @@ percent_lost(100, 80)
 
 # Take 1693.2 from 33864
 percent_lost(33864, 32170.8)
+percent_lost(33864, 32170.8, as_decimal = TRUE)
 
 }
 \author{

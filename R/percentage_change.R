@@ -4,6 +4,8 @@
 #' 
 #' @param new Newer value. 
 #' 
+#' @param as_decimal Should the percentage be represented in a 0 to 1 scale? 
+#' 
 #' @return Numeric vector.
 #' 
 #' @author Stuart K. Grange
@@ -16,9 +18,14 @@
 #' 
 #' # Global mean CO2 concentrations
 #' percentage_change(277, 400)
+#' percentage_change(277, 400, as_decimal = TRUE)
 #' 
 #' @export
-percentage_change <- function(previous, new) ((new - previous) / previous) * 100
+percentage_change <- function(previous, new, as_decimal = FALSE) {
+  x <- ((new - previous) / previous) * 100
+  if (as_decimal) x <- x / 100
+  return(x)
+}
 
 
 #' Function to calculate the value of a percentage of another value. 
@@ -47,6 +54,8 @@ percent_of <- function(value, percent) value * (percent / 100)
 #' 
 #' @param value_two Numeric vector of values.  
 #' 
+#' @param as_decimal Should the percentage be represented in a 0 to 1 scale? 
+#' 
 #' @return Numeric vector with length of \code{value}.
 #' 
 #' @author Stuart K. Grange
@@ -58,6 +67,11 @@ percent_of <- function(value, percent) value * (percent / 100)
 #' 
 #' # Take 1693.2 from 33864
 #' percent_lost(33864, 32170.8)
+#' percent_lost(33864, 32170.8, as_decimal = TRUE)
 #' 
 #' @export
-percent_lost <- function(value, value_two) ((value - value_two) / value) * 100
+percent_lost <- function(value, value_two, as_decimal = FALSE) {
+  x <- ((value - value_two) / value) * 100
+  if (as_decimal) x <- x / 100
+  return(x)
+}
