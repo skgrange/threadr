@@ -42,7 +42,11 @@ calculate_time_span <- function(date_one, date_two,
                                 round = NA,
                                 as.character = FALSE) {
   
-  # Check that inputs are dates
+  # Push dates to POSIXct
+  if (is.Date(date_one)) date_one <- as.POSIXct(date_one, tz = "UTC")
+  if (is.Date(date_two)) date_two <- as.POSIXct(date_two, tz = "UTC")
+  
+  # Check that inputs are POSIXct
   stopifnot(lubridate::is.POSIXt(date_one), lubridate::is.POSIXt(date_two))
   format <- stringr::str_to_lower(format[1])
   
