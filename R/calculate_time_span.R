@@ -43,8 +43,8 @@ calculate_time_span <- function(date_one, date_two,
                                 as.character = FALSE) {
   
   # Push dates to POSIXct
-  if (is.Date(date_one)) date_one <- as.POSIXct(date_one, tz = "UTC")
-  if (is.Date(date_two)) date_two <- as.POSIXct(date_two, tz = "UTC")
+  if (lubridate::is.Date(date_one)) date_one <- as.POSIXct(date_one, tz = "UTC")
+  if (lubridate::is.Date(date_two)) date_two <- as.POSIXct(date_two, tz = "UTC")
   
   # Check that inputs are POSIXct
   stopifnot(lubridate::is.POSIXt(date_one), lubridate::is.POSIXt(date_two))

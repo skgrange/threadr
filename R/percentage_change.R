@@ -75,3 +75,25 @@ percent_lost <- function(value, value_two, as_decimal = FALSE) {
   if (as_decimal) x <- x / 100
   return(x)
 }
+
+
+#' Function to calculate the percentage difference between two values. 
+#' 
+#' @param value Numeric vector of values.  
+#' 
+#' @param value_two Numeric vector of values.  
+#' 
+#' @return Numeric vector with length of \code{value}.
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @examples 
+#' 
+#' # Calculate some differences
+#' percentage_difference(100, 80)
+#' percentage_difference(104, 130)
+#' 
+#' @export
+percentage_difference <- function(value, value_two) {
+  (value - value_two) / ((value + value_two) / 2) * 100
+} 
