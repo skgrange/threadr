@@ -49,17 +49,20 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   # Check Input
   if (nrow(df) == 0) stop("There are no observations to plot...", call. = FALSE)
   
-  if (!"date" %in% names(df)) 
+  if (!"date" %in% names(df)) {
     stop("`date` must be present in data frame...", call. = FALSE)
+  }
   
-  if (!lubridate::is.POSIXct(df$date))
-    stop("`date` must be a parsed date (POSIXct)...", call. = FALSE)
+  if (!lubridate::is.POSIXct(df$date)) {
+    stop("`date` must be a parsed date (POSIXct)...", call. = FALSE) 
+  }
   
   # Check variable names
   input_names <- names(df)
   
-  if (!all(variable %in% input_names)) 
+  if (!all(variable %in% input_names)) {
     stop("All variables are not within input data...", call. = FALSE)
+  }
   
   # Get time zone from date in input data frame
   if (is.na(tz)) tz <- time_zone(df$date)
@@ -68,11 +71,14 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   if (length(variable) == 1) {
     
     # For a single variable
-    time_series <- xts::xts(
-      df[, variable, drop = TRUE], 
-      df$date, 
-      order.by = df$date, 
-      tzone = tz
+    # Message supression is for Registered S3 method overwritten...
+    suppressMessages(
+      time_series <- xts::xts(
+        df[, variable, drop = TRUE], 
+        df$date, 
+        order.by = df$date, 
+        tzone = tz
+      )
     )
     
   } else {
