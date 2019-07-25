@@ -17,9 +17,6 @@
 #' 
 #' \code{str_drop_xml_tags} removes XML tags from strings. 
 #' 
-#' \code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)}
-#' or \code{[} and \code{]}) and the characters within them. 
-#' 
 #' \code{str_extract_digits} will extract digits/numbers from a string and convert
 #' to a numeric data class if desired. 
 #' 
@@ -57,7 +54,7 @@
 #' 
 #' \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters. 
 #' 
-#' \code{str_insert} will insert characters in location within a string
+#' \code{str_insert} will insert characters in location within a string.
 #' 
 #' @param x,string Input string. 
 #' 
@@ -72,23 +69,14 @@ str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   .Deprecated(msg = "`str_date` is now deprecated...")
   
   if (!time) {
-  
     date <- as.character(Sys.Date())  
-    
   } else {
-    
     date <- Sys.time()
-    
     if (tz) {
-      
       date <- format(date, usetz = TRUE)
-      
     } else {
-      
       date <- format(date, usetz = FALSE)
-      
     }
-    
   }
   
   # Useful for file names
@@ -116,30 +104,9 @@ str_trim_length <- function(string, length) {
 }
 
 # Function which does the string trimming
-str_trim_length_worker <- function(string, length) 
+str_trim_length_worker <- function(string, length) {
   ifelse(!is.na(length), strtrim(string, length), string)
-
-
-# str_to_sentence <- function(x) {
-#   
-#   # Get first character
-#   first <- stringr::str_sub(x, 1, 1)
-#   
-#   # Capitialise
-#   first <- stringr::str_to_upper(first)
-#   
-#   # Get other characters
-#   other_characters <- stringr::str_sub(x, 2)
-#   
-#   # Lower case
-#   other_characters <- stringr::str_to_lower(other_characters)
-#   
-#   # Combine again
-#   x <- stringr::str_c(first, other_characters)
-#   
-#   return(x)
-#   
-# }
+}
 
 
 #' @rdname str_date
@@ -171,8 +138,9 @@ str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
 #' @rdname str_date
 #' 
 #' @export
-str_chop <- function(string, n)
+str_chop <- function(string, n) {
   substring(string, seq(1, nchar(string), n), seq(n, nchar(string), n))
+}
 
 
 #' @rdname str_date
@@ -190,16 +158,18 @@ str_drop_xml_tags <- function(string) {
 #' @rdname str_date
 #' 
 #' @export
-str_rm_round_brackets <- function(x) 
+str_rm_round_brackets <- function(x) {
   stringr::str_replace_all(x, "\\s*\\([^\\)]+\\)", "")
+}
 
 
 #' @rdname str_date
 #' 
 #' @export
-str_rm_square_brackets <- function(x)
+str_rm_square_brackets <- function(x) {
   stringr::str_replace_all(x, "\\[[^\\]]*\\]", "")
-  
+}
+
 
 #' @rdname str_date
 #'
@@ -257,8 +227,9 @@ str_create_na <- function(x) ifelse(x %in% c("NA", "", " "), NA, x)
 #' @rdname str_date
 #'
 #' @export
-str_thousands_separator <- function(x, sep = " ")
+str_thousands_separator <- function(x, sep = " ") {
   format(as.numeric(x), big.mark = sep, scientific = FALSE)
+}
 
 
 #' @rdname str_date
@@ -296,15 +267,17 @@ str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
 #' @rdname str_date
 #'
 #' @export
-str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE)
+str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE) {
   grep(pattern, x, value = TRUE, ignore.case = ignore.case, invert = invert)
+}
 
 
 #' @rdname str_date
 #'
 #' @export
-str_parse_html_codes <- function(x)
+str_parse_html_codes <- function(x) {
   sapply(x, str_parse_html_codes_worker, USE.NAMES = FALSE)
+}
 
 
 str_parse_html_codes_worker <- function(x) {
@@ -326,8 +299,9 @@ str_parse_html_codes_worker <- function(x) {
 str_utf8_to_integer <- function(x) {
   
   # Check
-  if (!any(nchar(unique(x)) == 1, na.rm = TRUE)) 
+  if (!any(nchar(unique(x)) == 1, na.rm = TRUE)) {
     stop("All inputs must be a single character...", call. = FALSE)
+  }
   
   # Do
   x <- purrr::map_int(x, utf8ToInt)
@@ -343,8 +317,9 @@ str_integer_to_utf8 <- function(x) {
   
   if (class(x) == "numeric") x <- as.integer(x)
   
-  if (class(x) != "integer") 
+  if (class(x) != "integer") {
     stop("Input must be an integer vector...", call. = FALSE)
+  }
   
   # Do
   x <- purrr::map_chr(x, intToUtf8)

@@ -99,9 +99,6 @@ string.
 
 \code{str_drop_xml_tags} removes XML tags from strings.
 
-\code{str_rm_brackets_and_contents} will erase brackets (\code{(} and \code{)}
-or \code{[} and \code{]}) and the characters within them.
-
 \code{str_extract_digits} will extract digits/numbers from a string and convert
 to a numeric data class if desired.
 
@@ -139,7 +136,7 @@ code points.
 
 \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters.
 
-\code{str_insert} will insert characters in location within a string
+\code{str_insert} will insert characters in location within a string.
 }
 \author{
 Stuart K. Grange

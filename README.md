@@ -10,15 +10,9 @@
 
 ```
 # Development version
-devtools::install_github("skgrange/threadr")
+remotes::install_github("skgrange/threadr")
 ```
 
-## To-do
-
-  1. Do some more unit testing
-  2. Work on documentation
-  3. Get package on CRAN
-  
 ## Some infomation
 
   - Utilities:
@@ -28,7 +22,7 @@ devtools::install_github("skgrange/threadr")
     - scp functions
       - `list_files_scp` and `download_with_scp`. 
     - `str_*` functions. Do things with strings which **stringr** does not. 
-      - `str_trim_length`, `str_sentence_case`, `str_trim_many_spaces`, `str_to_underscore`, `str_chop`, `str_drop_xml_tags`, `str_rm_brackets_and_contents`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`.
+      - `str_trim_length`, `str_sentence_case`, `str_to_underscore`, `str_chop`, `str_drop_xml_tags`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`.
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
     - Test if a vector is within one or many ranges `within_range`.
@@ -42,11 +36,5 @@ devtools::install_github("skgrange/threadr")
     - Get time-zone from date vector with `time_zone`.
     - Parse numerical date formats easily with `parse_unix_time` and `parse_excel_date`.
     - Aggregate by dates with `aggregate_by_date`. 
-    
-  - Data frame functions: 
-    - `add_row_numbers`. Very similar to `dplyr::add_rownames` but the variable is an integer, not a character so it can be arranged, joined, and plotted easier. 
-    - `base_df`. Remove **dplyr**'s `data.frame` extension (`tbl_df` and others) from a data frame. I have encountered issues with some functions when piping data frames within the **dplyr**'s grammar; especially those interacting with SQL databases and using data frame indexing. 
-    - `drop_na_columns` and `rm_na_rows`.
-    - `grepl_all`
 
   - **threadr** originally contained many database functions. These function were pulled from the package from version 0.4.0 onwards and can now be found in [**databaser**](https://github.com/skgrange/databaser).  
