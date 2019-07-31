@@ -5,7 +5,8 @@
 \title{Function to aggregate time-series data by dates.}
 \usage{
 aggregate_by_date(df, interval = "hour", by = NA, summary = "mean",
-  threshold = 0, round = NA, pad = TRUE, verbose = FALSE)
+  threshold = 0, round = NA, pad = TRUE, determine_interval = TRUE,
+  verbose = FALSE)
 }
 \arguments{
 \item{df}{Input data frame to be aggregated. \code{df} must contain 
@@ -45,6 +46,10 @@ would round to three decimal places.}
 \item{pad}{Should the time-series be padded before aggregation? Almost always
 this will be \code{TRUE} but if you want to speed the function up and have done
 this previously, it can be set to \code{FALSE}.}
+
+\item{determine_interval}{Should the input time series be evaluate to find
+it's avergaing period/interval. This is required for the correct calculation 
+of \code{threshold}.}
 
 \item{verbose}{Should the function give messages?}
 }

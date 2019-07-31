@@ -42,6 +42,10 @@
 #' this will be \code{TRUE} but if you want to speed the function up and have done
 #' this previously, it can be set to \code{FALSE}. 
 #' 
+#' @param determine_interval Should the input time series be evaluate to find
+#' it's avergaing period/interval. This is required for the correct calculation 
+#' of \code{threshold}. 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @return Tibble.
@@ -61,7 +65,7 @@
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
                               threshold = 0, round = NA, pad = TRUE, 
-                              verbose = FALSE) {
+                              determine_interval = TRUE, verbose = FALSE) {
   
   # Check a few things
   if (!any(c("date", "value") %in% names(df))) {
@@ -94,14 +98,31 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
     if (verbose) message("Padding time-series...")
     
+    # Detemine interval
+    if (determine_interval) {
+      
+      if (verbose) message("Detecting input averaging period/interval...")
+      interval_of_input <- detect_date_interval(df$date, text_return = TRUE)
+      
+      # Switch for default
+      if (interval_of_input == "unknown") {
+        if (verbose) message("Input averaging period/interval could not be determined...")
+        interval_of_input <- interval
+      }
+      
+    } else {
+      interval_of_input <- interval
+    }
+    
     df <- time_pad(
       df, 
-      interval = interval, 
+      interval = interval_of_input, 
       by = by, 
       full = TRUE, 
       warn = FALSE,
       round = interval
     )
+    
   }
   
   # Round dates
