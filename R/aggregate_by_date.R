@@ -104,6 +104,15 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       if (verbose) message("Detecting input averaging period/interval...")
       interval_of_input <- detect_date_interval(df$date, text_return = TRUE)
       
+      # For sequence date generator, needs a specific format
+      interval_of_input <- dplyr::case_when(
+        interval_of_input == "five_minute" ~ "5 min",
+        interval_of_input == "ten_minute" ~ "10 min",
+        interval_of_input == "fifteen_minute" ~ "15 min",
+        interval_of_input == "half_hour" ~ "30 min",
+        TRUE ~ interval_of_input
+      )
+      
       # Switch for default
       if (interval_of_input == "unknown") {
         if (verbose) message("Input averaging period/interval could not be determined...")
@@ -114,6 +123,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       interval_of_input <- interval
     }
     
+    # Pad the time series
     df <- time_pad(
       df, 
       interval = interval_of_input, 
