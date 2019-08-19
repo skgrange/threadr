@@ -2,7 +2,7 @@
 #' 
 #' @param file_remote \code{URL}s of the files to be downloaded.
 #' 
-#' @param file_output File names for the local version of \code{file_remote}.
+#' @param file_local File names for the local version of \code{file_remote}.
 #' \code{download_ftp_file} will create directories if they do not exist and are
 #' used. 
 #' 
@@ -15,71 +15,49 @@
 #' always be used. 
 #' 
 #' @param verbose Should the function give messages about download progress? 
-#' Only works when \code{curl = FALSE}. 
-#' 
-#' @param progress Progress bar type.
 #' 
 #' @seealso \code{\link{list_files_ftp}}, \code{\link{upload_to_ftp}}
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @examples
-#' \dontrun{
 #' 
+#' \dontrun{
 #' # Download a file from a server which does not need credentials
 #' url <- "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
-#' download_ftp_file(url, "~/Desktop/noaa_data.csv")
-#' 
+#' download_ftp_file(url, "~/Desktop/noaa_data.csv", verbose = TRUE)
 #' }
 #' 
 #' @export
-download_ftp_file <- function(file_remote, file_output, credentials = "", 
-                              curl = FALSE, verbose = FALSE, progress = "none") {
-  
-  # # Soon to be dropped
-  # .Deprecated(
-  #   msg = "`download_ftp_file` is deprecated, please use `get_remote_file` instead.",
-  #   package = "threadr"
-  # )
-  
-  # Check
-  if (!length(file_remote) == length(file_output)) {
-    stop("Remote and output vectors need to be the same length...", call. = FALSE)
-  }
-  
-  # Build mapping data frame
-  df_map <- data.frame(
-    file_remote = file_remote,
-    file_output = file_output,
-    stringsAsFactors = FALSE
-  )
+download_ftp_file <- function(file_remote, file_local, credentials = "", 
+                              curl = FALSE, verbose = FALSE) {
   
   # Do
-  plyr::a_ply(
-    df_map, 
-    1, 
-    download_ftp_file_worker, 
-    credentials, 
-    curl,
-    verbose, 
-    .progress = progress
+  purrr::walk2(
+    file_remote,
+    file_local,
+    ~download_ftp_file_worker(
+      file_remote = .x,
+      file_local = .y,
+      credentials = credentials,
+      curl = curl,
+      verbose = verbose
+      
+    )
   )
-  
-  # No return
   
 }
 
 
 # No export
-download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
+download_ftp_file_worker <- function(file_remote, file_local, credentials, 
+                                     curl, verbose) {
   
-  # Get vectors
-  file_remote <- df_map$file_remote[1]
-  file_output <- df_map$file_output[1]
+  # Message to user
+  if (verbose) message(date_message(), "`", file_remote, "`...")
   
   # Create if does not exist
-  directory <- dirname(file_output)
-  create_directory(directory)
+  fs::dir_create(fs::path_dir(file_local))
   
   # If credentials are used, use rcurl
   if (credentials != "") curl <- TRUE
@@ -94,12 +72,10 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
     )
     
     # Save binary object as file
-    writeBin(data_bin, file_output)
+    writeBin(data_bin, file_local)
     
   } else {
-  
-    download.file(file_remote, file_output, quiet = !verbose)
-    
+    download.file(file_remote, file_local, quiet = !verbose)
   }
   
   # No return
@@ -114,6 +90,10 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
 #' @param credentials Credentials for a FTP or SFTP server. Do not use 
 #' \code{credentials} if the server does not require authentication. 
 #' \code{credentials} takes the format: \code{"username:password"}. 
+#' 
+#' @param sleep Number of seconds to wait between querying server. 
+#' 
+#' @param verbose Should the function give messages? 
 #' 
 #' \code{\link{download_ftp_file}}, \code{\link{upload_to_ftp}}
 #' 
@@ -131,25 +111,27 @@ download_ftp_file_worker <- function(df_map, credentials, curl, verbose) {
 #' }
 #' 
 #' @export
-list_files_ftp <- function(url, credentials = "") {
+list_files_ftp <- function(url, credentials = "", sleep = NA, verbose = FALSE) {
   
-  # For each url
-  file_list <- plyr::llply(
-    url, 
-    list_files_ftp_worker, 
-    credentials = credentials
-  )
-  
-  # Just a vector bitte
-  file_list <- unlist(file_list)
-  
-  # Return
-  return(file_list)
+  # Do
+  url %>% 
+    purrr::map(
+      ~list_files_ftp_worker(
+        url = .,
+        credentials = credentials,
+        sleep = sleep,
+        verbose = verbose
+      )
+    ) %>% 
+    purrr::flatten_chr()
   
 }
 
 
-list_files_ftp_worker <- function(url, credentials) {
+list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
+  
+  # Message to user
+  if (verbose) message(date_message(), "`", url, "`...")
   
   # url must be prefixed with ftp or sftp
   if (!grepl("^ftp://|^sftp://", url)) {
@@ -161,16 +143,27 @@ list_files_ftp_worker <- function(url, credentials) {
   
   # Get the file list
   # If credentials are blank, this will still work
-  file_list <- RCurl::getURL(
-    url, 
-    userpwd = credentials, 
-    ftp.use.epsv = FALSE, 
-    dirlistonly = TRUE
-  )
+  file_list <- tryCatch({
+    
+    RCurl::getURL(
+      url, 
+      userpwd = credentials, 
+      ftp.use.epsv = FALSE, 
+      dirlistonly = TRUE
+    )
+    
+  }, error = function(e) {
+    message("`", url, " returning nothing...")
+    as.character()
+  })
   
-  # Clean
-  file_list <- stringr::str_c(url, stringr::str_split(file_list, "\n")[[1]])
-  file_list <- stringr::str_trim(file_list)
+  # Make a vector
+  if (length(file_list) != 0) {
+    file_list <- stringr::str_c(url, stringr::str_split(file_list, "\n")[[1]])
+    file_list <- stringr::str_trim(file_list)
+  }
+  
+  if (!is.na(sleep[1])) Sys.sleep(sleep)
   
   return(file_list)
   

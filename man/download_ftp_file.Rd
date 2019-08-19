@@ -4,13 +4,13 @@
 \alias{download_ftp_file}
 \title{Function to download files from an \code{FTP} or \code{SFTP} server.}
 \usage{
-download_ftp_file(file_remote, file_output, credentials = "",
-  curl = FALSE, verbose = FALSE, progress = "none")
+download_ftp_file(file_remote, file_local, credentials = "",
+  curl = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{file_remote}{\code{URL}s of the files to be downloaded.}
 
-\item{file_output}{File names for the local version of \code{file_remote}.
+\item{file_local}{File names for the local version of \code{file_remote}.
 \code{download_ftp_file} will create directories if they do not exist and are
 used.}
 
@@ -24,20 +24,16 @@ always be used.}
 
 \item{verbose}{Should the function give messages about download progress? 
 Only works when \code{curl = FALSE}.}
-
-\item{progress}{Progress bar type.}
 }
 \description{
 Function to download files from an \code{FTP} or \code{SFTP} server.
 }
 \examples{
-\dontrun{
 
 # Download a file from a server which does not need credentials
 url <- "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
-download_ftp_file(url, "~/Desktop/noaa_data.csv")
+download_ftp_file(url, "~/Desktop/noaa_data.csv", verbose = TRUE)
 
-}
 
 }
 \seealso{

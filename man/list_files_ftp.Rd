@@ -4,14 +4,18 @@
 \alias{list_files_ftp}
 \title{Function to list files on an FTP or SFTP server.}
 \usage{
-list_files_ftp(url, credentials = "")
+list_files_ftp(url, credentials = "", sleep = NA, verbose = FALSE)
 }
 \arguments{
 \item{url}{The url of remote directory.}
 
 \item{credentials}{Credentials for a FTP or SFTP server. Do not use 
 \code{credentials} if the server does not require authentication. 
-\code{credentials} takes the format: \code{"username:password"}. 
+\code{credentials} takes the format: \code{"username:password"}.}
+
+\item{sleep}{Number of seconds to wait between querying server.}
+
+\item{verbose}{Should the function give messages? 
 
 \code{\link{download_ftp_file}}, \code{\link{upload_to_ftp}}}
 }
