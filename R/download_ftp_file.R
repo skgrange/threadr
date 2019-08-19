@@ -153,7 +153,7 @@ list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
     )
     
   }, error = function(e) {
-    message("`", url, " returning nothing...")
+    message("`", url, " returned nothing...")
     as.character()
   })
   

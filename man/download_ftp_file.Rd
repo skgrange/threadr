@@ -22,18 +22,18 @@ use \code{credentials} if the server does not require authentication.
 \code{download.file}? If \code{credentials} are used, \strong{RCurl} will 
 always be used.}
 
-\item{verbose}{Should the function give messages about download progress? 
-Only works when \code{curl = FALSE}.}
+\item{verbose}{Should the function give messages about download progress?}
 }
 \description{
 Function to download files from an \code{FTP} or \code{SFTP} server.
 }
 \examples{
 
+\dontrun{
 # Download a file from a server which does not need credentials
 url <- "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
 download_ftp_file(url, "~/Desktop/noaa_data.csv", verbose = TRUE)
-
+}
 
 }
 \seealso{
