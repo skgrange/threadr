@@ -14,6 +14,8 @@
 #' \code{download.file}? If \code{credentials} are used, \strong{RCurl} will 
 #' always be used. 
 #' 
+#' @param sleep Number of seconds to wait between querying server. 
+#' 
 #' @param verbose Should the function give messages about download progress? 
 #' 
 #' @seealso \code{\link{list_files_ftp}}, \code{\link{upload_to_ftp}}
@@ -30,7 +32,7 @@
 #' 
 #' @export
 download_ftp_file <- function(file_remote, file_local, credentials = "", 
-                              curl = FALSE, verbose = FALSE) {
+                              curl = FALSE, sleep = NA, verbose = FALSE) {
   
   # Do
   purrr::walk2(
@@ -41,6 +43,7 @@ download_ftp_file <- function(file_remote, file_local, credentials = "",
       file_local = .y,
       credentials = credentials,
       curl = curl,
+      sleep = sleep,
       verbose = verbose
       
     )
@@ -49,9 +52,8 @@ download_ftp_file <- function(file_remote, file_local, credentials = "",
 }
 
 
-# No export
 download_ftp_file_worker <- function(file_remote, file_local, credentials, 
-                                     curl, verbose) {
+                                     curl, sleep, verbose) {
   
   # Message to user
   if (verbose) message(date_message(), "`", file_remote, "`...")
@@ -77,6 +79,8 @@ download_ftp_file_worker <- function(file_remote, file_local, credentials,
   } else {
     download.file(file_remote, file_local, quiet = !verbose)
   }
+  
+  if (!is.na(sleep[1])) Sys.sleep(sleep)
   
   # No return
   
@@ -186,8 +190,7 @@ list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
 #' useful when files to be uploaded are outside of the working directory, but the
 #' directory structure will be lost on the remote server.
 #' 
-#' @param progress Progress bar type. Default is \code{"text"}, for no bar, use
-#' \code{"none"}. 
+#' @param verbose Should the function give messages? 
 #' 
 #' @seealso \code{\link{download_ftp_file}}, \code{\link{list_files_ftp}}
 #' 
@@ -209,23 +212,22 @@ list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
 #' 
 #' @export
 upload_to_ftp <- function(file, url, credentials = "", basename = FALSE, 
-                          progress = "text") {
+                          verbose = FALSE) {
   
   # Apply function to length of file
-  plyr::l_ply(
+  purrr::walk(
     file, 
     upload_to_ftp_worker, 
     url = url, 
     credentials = credentials, 
     basename = basename, 
-    .progress = progress
+    verbose = verbose
   )
   
 }
 
 
-# No export
-upload_to_ftp_worker <- function(file, url, credentials, basename) {
+upload_to_ftp_worker <- function(file, url, credentials, basename, verbose) {
   
   # url must be prefixed with ftp or sftp
   if (!grepl("^ftp://|^sftp://", url)) {

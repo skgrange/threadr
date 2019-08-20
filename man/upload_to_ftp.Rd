@@ -5,7 +5,7 @@
 \title{Function to upload a files to an FTP or SFTP server.}
 \usage{
 upload_to_ftp(file, url, credentials = "", basename = FALSE,
-  progress = "text")
+  verbose = FALSE)
 }
 \arguments{
 \item{file}{File to upload.}
@@ -20,8 +20,7 @@ upload_to_ftp(file, url, credentials = "", basename = FALSE,
 useful when files to be uploaded are outside of the working directory, but the
 directory structure will be lost on the remote server.}
 
-\item{progress}{Progress bar type. Default is \code{"text"}, for no bar, use
-\code{"none"}.}
+\item{verbose}{Should the function give messages?}
 }
 \description{
 \code{upload_to_ftp} will create directories if necessary.

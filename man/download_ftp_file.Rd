@@ -5,7 +5,7 @@
 \title{Function to download files from an \code{FTP} or \code{SFTP} server.}
 \usage{
 download_ftp_file(file_remote, file_local, credentials = "",
-  curl = FALSE, verbose = FALSE)
+  curl = FALSE, sleep = NA, verbose = FALSE)
 }
 \arguments{
 \item{file_remote}{\code{URL}s of the files to be downloaded.}
@@ -21,6 +21,8 @@ use \code{credentials} if the server does not require authentication.
 \item{curl}{Should \strong{RCurl} be used to download the files or base R's 
 \code{download.file}? If \code{credentials} are used, \strong{RCurl} will 
 always be used.}
+
+\item{sleep}{Number of seconds to wait between querying server.}
 
 \item{verbose}{Should the function give messages about download progress?}
 }
