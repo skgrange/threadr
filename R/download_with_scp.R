@@ -59,8 +59,9 @@ download_with_scp <- function(host, file_remote, file_local, user, password,
     # Checks
     stopifnot(length(file_remote) == length(file_local))
     
-    if (!sshpass_install_check()) 
+    if (!sshpass_install_check()) {
       stop("`sshpass` system programme is not installed...", call. = FALSE)
+    }
     
     # Add host to file remote
     file_remote <- stringr::str_c(host, ":", file_remote)
@@ -100,8 +101,9 @@ download_with_scp_worker <- function(file_local, file_remote, user, password,
   )
   
   # Add compression argument
-  if (compression) 
+  if (compression) {
     command_prefix <- stringr::str_replace(command_prefix, "scp -p", "scp -pC")
+  }
   
   # And file
   command_files <- stringr::str_c(file_remote, file_local, sep = " ")
@@ -110,19 +112,16 @@ download_with_scp_worker <- function(file_local, file_remote, user, password,
   command <- stringr::str_c(command_prefix, command_files)
   
   # A message to the user
-  if (verbose) 
+  if (verbose) {
     message(download_with_scp_message(file_remote, basename = basename))
+  }
   
   if (quiet_streams) {
-    
     ignore.stdout <- TRUE
     ignore.stderr <- TRUE
-    
   } else {
-    
     ignore.stdout <- FALSE
     ignore.stderr <- FALSE
-    
   }
   
   # Do
@@ -176,8 +175,9 @@ download_with_scp_worker <- function(file_local, file_remote, user, password,
 list_files_scp <- function(host, directory_remote, user, password, 
                            method = "scp", quiet_streams = FALSE) {
   
-  if (!sshpass_install_check()) 
+  if (!sshpass_install_check()) {
     stop("`sshpass` system programme is not installed...", call. = FALSE)
+  }
   
   # Used in logic
   method <- stringr::str_to_lower(method)
@@ -235,10 +235,8 @@ list_files_scp <- function(host, directory_remote, user, password,
     file_list <- stringr::str_c(directory_remote, file_list)
     
   } else {
-    
     warning("`method` not recognised...", call. = FALSE)
     file_list <- character()
-    
   }
   
   return(file_list)
@@ -256,17 +254,11 @@ sshpass_install_check <- function() {
   
   # Test
   x <- if (length(x) == 0) {
-    
     x <- FALSE
-    
   } else if (grepl("sshpass", x, ignore.case = TRUE)) {
-    
     x <- TRUE
-    
   } else {
-    
     x <- FALSE
-    
   }
 
   return(x)
@@ -336,8 +328,9 @@ upload_with_scp <- function(host, file_local, file_remote, user, password,
     # Checks
     stopifnot(length(file_remote) == length(file_local))
     
-    if (!sshpass_install_check()) 
+    if (!sshpass_install_check()) {
       stop("`sshpass` system programme is not installed...", call. = FALSE)
+    }
     
     # Add user and host to file remote
     file_remote <- stringr::str_c(user, "@", host, ":", file_remote)
@@ -375,8 +368,9 @@ upload_with_scp_worker <- function(file_remote, file_local, user, password,
   command_prefix <- stringr::str_c("sshpass -p '", password, "' scp ")
   
   # Add compression argument
-  if (compression) 
+  if (compression) {
     command_prefix <- stringr::str_replace(command_prefix, "\\bscp\\b", "scp -C")
+  }
   
   # Add files, the local one
   command_files <- stringr::str_c(file_local, file_remote, sep = " ")
@@ -385,19 +379,16 @@ upload_with_scp_worker <- function(file_remote, file_local, user, password,
   command <- stringr::str_c(command_prefix, command_files)
   
   # A message to the user
-  if (verbose) 
+  if (verbose) {
     message(download_with_scp_message(file_remote, basename = basename))
+  }
   
   if (quiet_streams) {
-    
     ignore.stdout <- TRUE
     ignore.stderr <- TRUE
-    
   } else {
-    
     ignore.stdout <- FALSE
     ignore.stderr <- FALSE
-    
   }
   
   # Do
@@ -409,10 +400,10 @@ upload_with_scp_worker <- function(file_remote, file_local, user, password,
 download_with_scp_message <- function(file, basename) {
   
   # Basename only?
-  file <- ifelse(basename, basename(file), file)
+  file <- if_else(basename, basename(file), file)
   
   # Build string
-  message_string <- stringr::str_c(str_date_formatted(), ": ", file)
+  message_string <- stringr::str_c(str_date_formatted(), ": `", file, "`...")
   
   return(message_string)
   
