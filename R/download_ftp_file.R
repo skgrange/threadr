@@ -70,7 +70,8 @@ download_ftp_file_worker <- function(file_remote, file_local, credentials,
     data_bin <- RCurl::getBinaryURL(
       file_remote, 
       userpwd = credentials, 
-      ftp.use.epsv = FALSE
+      ftp.use.epsv = FALSE,
+      forbid.reuse = TRUE
     )
     
     # Save binary object as file
@@ -153,7 +154,8 @@ list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
       url, 
       userpwd = credentials, 
       ftp.use.epsv = FALSE, 
-      dirlistonly = TRUE
+      dirlistonly = TRUE,
+      forbid.reuse = TRUE
     )
     
   }, error = function(e) {

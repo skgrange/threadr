@@ -50,18 +50,18 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   if (nrow(df) == 0) stop("There are no observations to plot...", call. = FALSE)
   
   if (!"date" %in% names(df)) {
-    stop("`date` must be present in data frame...", call. = FALSE)
+    stop("`date` must be present in data frame.", call. = FALSE)
   }
   
   if (!lubridate::is.POSIXct(df$date)) {
-    stop("`date` must be a parsed date (POSIXct)...", call. = FALSE) 
+    stop("`date` must be a parsed date (POSIXct).", call. = FALSE) 
   }
   
   # Check variable names
   input_names <- names(df)
   
   if (!all(variable %in% input_names)) {
-    stop("All variables are not within input data...", call. = FALSE)
+    stop("All variables are not within input data.", call. = FALSE)
   }
   
   # Get time zone from date in input data frame
