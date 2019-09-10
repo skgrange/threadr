@@ -25,6 +25,7 @@
 \alias{str_integer_to_utf8}
 \alias{str_insert}
 \alias{str_extract_characters}
+\alias{str_english_currency_format}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -75,9 +76,11 @@ str_integer_to_utf8(x)
 str_insert(x, n, sep)
 
 str_extract_characters(x)
+
+str_english_currency_format(x, sep = " ", currency = NA)
 }
 \arguments{
-\item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert}{Function specific options.}
+\item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert, currency}{Function specific options.}
 
 \item{x, string}{Input string.}
 }
@@ -137,6 +140,11 @@ code points.
 \code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters.
 
 \code{str_insert} will insert characters in location within a string.
+
+\code{str_extract_characters} will extract characters and drop digits.
+
+\code{str_english_currency_format} will format a number for currency 
+printing.
 }
 \author{
 Stuart K. Grange

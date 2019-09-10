@@ -56,9 +56,14 @@
 #' 
 #' \code{str_insert} will insert characters in location within a string.
 #' 
+#' \code{str_extract_characters} will extract characters and drop digits. 
+#' 
+#' \code{str_english_currency_format} will format a number for currency 
+#' printing. 
+#' 
 #' @param x,string Input string. 
 #' 
-#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert 
+#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert,currency
 #' Function specific options. 
 #' 
 #' @author Stuart K. Grange
@@ -345,3 +350,20 @@ str_insert <- function(x, n, sep) {
 #'
 #' @export
 str_extract_characters <- function(x) stringr::str_remove_all(x, "[[:digit:]]+")
+
+
+#' @rdname str_date
+#'
+#' @export
+str_english_currency_format <- function(x, sep = " ", currency = NA) {
+  
+  x <- x %>% 
+    round(digits = 2) %>% 
+    format(nsmall = 2, big.mark = sep, scientific = FALSE) %>% 
+    stringr::str_trim()
+  
+  if (!is.na(currency[1])) x <- stringr::str_c(currency, " ", x)
+  
+  return(x)
+  
+}
