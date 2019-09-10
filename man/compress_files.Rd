@@ -4,17 +4,14 @@
 \alias{compress_files}
 \title{Function to compress files.}
 \usage{
-compress_files(files, algorithm = "bzip2", keep = TRUE,
-  progress = "none")
+compress_files(files, algorithm = "bzip2", keep = TRUE)
 }
 \arguments{
-\item{files}{File to compress.}
+\item{files}{Files to compress.}
 
 \item{algorithm}{Compression algorithm to use.}
 
 \item{keep}{Should the original file be kept? Default is \code{TRUE}.}
-
-\item{progress}{Type of progress bar. Default is \code{"none"}.}
 }
 \description{
 Function to compress files.

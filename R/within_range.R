@@ -1,62 +1,44 @@
 #' Function to test if a vector is within one, or many ranges. 
 #' 
-#' \code{within_range} works well for testing unix time dates too.  
+#' \code{within_range} works well for testing Unix time too.  
 #' 
-#' @param vector Vector to test. 
+#' @param x Numeric vector to test. 
+#' 
 #' @param start Start of range. 
+#' 
 #' @param end End of range.
 #' 
-#' @return Logical vector of length of \code{vector}. 
+#' @return Logical vector of length of \code{x}. 
 #' 
 #' @seealso \code{\link{which}}
 #' 
-#' @examples 
-#' \dontrun{
+#' @examples
 #' 
 #' # Test a single range
 #' within_range(1:10, 8, 9)
 #' 
-#' 
 #' # Test many ranges
-#' # A vector
-#' vector <- 1:10
-#' 
-#' # Build look-up table
-#' look_up <- data.frame(
-#'   start = c(1, 5),
-#'   end = c(2, 9)
-#' )
-#' 
-#' # Test vector
-#' within_range(vector, look_up$start, look_up$end)
-#' 
-#' }
+#' within_range(1:100, c(1, 5), c(2, 9))
 #'  
 #' @author Stuart K. Grange
 #' 
 #' @export
-within_range <- function(vector, start, end) {
+within_range <- function(x, start, end) {
   
-  if (!length(start) == length(end))
-    stop("'start' and 'end' must be the same length.", call. = FALSE)
+  if (!length(start) == length(end)) {
+    stop("`start` and `end` must be the same length.", call. = FALSE)
+  }
   
-  # Build data frame
-  df_look <- data.frame(start, end)
+  # Do the test
+  x <- purrr::map2(start, end, ~within_range_worker(x, .x, .y)) %>% 
+    do.call(rbind, .) %>% 
+    apply(2, function(z) any(z))
   
-  # Test each range
-  logical_list <- plyr::alply(df_look, 1, function(x) 
-    between_tester(vector, x$start, x$end))
-  
-  # Make a vector
-  logical <- do.call("rbind", logical_list)
-  logical <- apply(logical, 2, function(x) any(x))
-  
-  # Return
-  logical
+  return(x)
   
 }
 
 
-# No export
-between_tester <- function(vector, start, end)
-  ifelse(vector >= start & vector <= end, TRUE, FALSE)
+within_range_worker <- function(x, start, end) {
+  if_else(x >= start & x <= end, TRUE, FALSE)
+}

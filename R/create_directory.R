@@ -26,11 +26,11 @@
 create_directory <- function(directory, quiet = TRUE) {
   
   # Soon to be dropped
-  .Deprecated(
+  .Defunct(
     msg = "`create_directory` is deprecated, please use dir.create."
   )
   
-  plyr::l_ply(directory, directory_creator, quiet)
+  purrr::walk(directory, directory_creator, quiet)
   
 }
   

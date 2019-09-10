@@ -4,42 +4,28 @@
 \alias{within_range}
 \title{Function to test if a vector is within one, or many ranges.}
 \usage{
-within_range(vector, start, end)
+within_range(x, start, end)
 }
 \arguments{
-\item{vector}{Vector to test.}
+\item{x}{Numeric vector to test.}
 
 \item{start}{Start of range.}
 
 \item{end}{End of range.}
 }
 \value{
-Logical vector of length of \code{vector}.
+Logical vector of length of \code{x}.
 }
 \description{
-\code{within_range} works well for testing unix time dates too.
+\code{within_range} works well for testing Unix time too.
 }
 \examples{
-\dontrun{
 
 # Test a single range
 within_range(1:10, 8, 9)
 
-
 # Test many ranges
-# A vector
-vector <- 1:10
-
-# Build look-up table
-look_up <- data.frame(
-  start = c(1, 5),
-  end = c(2, 9)
-)
-
-# Test vector
-within_range(vector, look_up$start, look_up$end)
-
-}
+within_range(1:100, c(1, 5), c(2, 9))
  
 }
 \seealso{
