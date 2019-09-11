@@ -5,15 +5,15 @@
 #' @param metres Numeric vector of metres covered within the time period 
 #' in \code{seconds}.
 #' 
-#' @return Numeric vector of speed in m s-1 or pace in min km-1. 
-#' 
 #' @keywords speed, pace, running, sport, cycling
+#' 
+#' @seealso \code{\link{decimal_minute_to_string}}
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @examples
+#' @return Numeric vector of speed in m s-1 or pace in min km-1. 
 #' 
-#' \dontrun{
+#' @examples
 #'
 #' # Calculate some speeds
 #' calculate_speed(9.58, 100)
@@ -27,8 +27,6 @@
 #' 
 #' calculate_speed(3503, half_marathon() * 1000)
 #' decimal_minute_to_string(calculate_pace(3503, half_marathon() * 1000))
-#' 
-#' }
 #' 
 #' @export
 calculate_speed <- function(seconds, metres) metres / seconds
@@ -77,7 +75,7 @@ calculate_target_pace <- function(distance, time, as.hms = FALSE) {
   x <- time / distance
   
   # Parse
-  x <- hms::as.hms(x)
+  x <- hms::as_hms(x)
   
   # To character
   if (!as.hms) x <- format(x, format = "%H:%M:%OS")
@@ -85,4 +83,3 @@ calculate_target_pace <- function(distance, time, as.hms = FALSE) {
   return(x)
   
 }
-

@@ -23,8 +23,6 @@ Functions for calculating speed in m s-1 and pace in min km-1.
 }
 \examples{
 
-\dontrun{
-
 # Calculate some speeds
 calculate_speed(9.58, 100)
 ms_to_km_h(calculate_speed(9.58, 100))
@@ -39,7 +37,8 @@ calculate_speed(3503, half_marathon() * 1000)
 decimal_minute_to_string(calculate_pace(3503, half_marathon() * 1000))
 
 }
-
+\seealso{
+\code{\link{decimal_minute_to_string}}
 }
 \author{
 Stuart K. Grange
