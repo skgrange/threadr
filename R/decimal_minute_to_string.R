@@ -3,13 +3,11 @@
 #' 
 #' @param x Numeric vector of decimal minutes.
 #'  
-#' @param hour Should the hour also be included in the formatted string? Default
-#' is \code{TRUE}.
+#' @param hour Should the hour also be included in the formatted string?
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
-#' \dontrun{
 #' 
 #' decimal_minute_to_string(5)
 #' 
@@ -22,7 +20,6 @@
 #' # Without the hour piece
 #' decimal_minute_to_string(5.954226, hour = FALSE)
 #' 
-#' }
 #' 
 #' @export
 decimal_minute_to_string <- function(x, hour = TRUE) {
@@ -37,13 +34,9 @@ decimal_minute_to_string <- function(x, hour = TRUE) {
   x <- parse_unix_time(x)
   
   if (hour) {
-    
     x <- format(x, format = "%H:%M:%OS")
-    
   } else {
-    
     x <- format(x, format = "%M:%OS")
-    
   }
   
   return(x)

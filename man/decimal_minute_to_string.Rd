@@ -10,15 +10,13 @@ decimal_minute_to_string(x, hour = TRUE)
 \arguments{
 \item{x}{Numeric vector of decimal minutes.}
 
-\item{hour}{Should the hour also be included in the formatted string? Default
-is \code{TRUE}.}
+\item{hour}{Should the hour also be included in the formatted string?}
 }
 \description{
 Function to transform decimal minutes into a formatted \code{"HH:MM:SS"} or
 \code{"MM:SS"} string.
 }
 \examples{
-\dontrun{
 
 decimal_minute_to_string(5)
 
@@ -31,7 +29,6 @@ decimal_minute_to_string(5.954226)
 # Without the hour piece
 decimal_minute_to_string(5.954226, hour = FALSE)
 
-}
 
 }
 \author{
