@@ -98,6 +98,8 @@ download_ftp_file_worker <- function(file_remote, file_local, credentials,
 #' 
 #' @param sleep Number of seconds to wait between querying server. 
 #' 
+#' @param sort Should the files be sorted alphabetically? 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' \code{\link{download_ftp_file}}, \code{\link{upload_to_ftp}}
@@ -116,10 +118,11 @@ download_ftp_file_worker <- function(file_remote, file_local, credentials,
 #' }
 #' 
 #' @export
-list_files_ftp <- function(url, credentials = "", sleep = NA, verbose = FALSE) {
+list_files_ftp <- function(url, credentials = "", sleep = NA, sort = FALSE, 
+                           verbose = FALSE) {
   
   # Do
-  url %>% 
+  x <- url %>% 
     purrr::map(
       ~list_files_ftp_worker(
         url = .,
@@ -129,6 +132,11 @@ list_files_ftp <- function(url, credentials = "", sleep = NA, verbose = FALSE) {
       )
     ) %>% 
     purrr::flatten_chr()
+  
+  # Sort remote file names
+  if (sort) x <- sort(x)
+  
+  return(x)
   
 }
 
@@ -155,11 +163,11 @@ list_files_ftp_worker <- function(url, credentials, sleep, verbose) {
       userpwd = credentials, 
       ftp.use.epsv = FALSE, 
       dirlistonly = TRUE,
-      forbid.reuse = TRUE
+      forbid.reuse = TRUE,
+      .encoding = "UTF-8"
     )
     
   }, error = function(e) {
-    message("`", url, " returned nothing...")
     as.character()
   })
   
