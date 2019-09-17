@@ -31,5 +31,6 @@ round_any(135, 25, ceiling)
 round_any(Sys.time() + 1:10, 5)
 round_any(Sys.time() + 1:10, 5, floor)
 round_any(Sys.time(), 3600)
+
 }
 \keyword{manip}

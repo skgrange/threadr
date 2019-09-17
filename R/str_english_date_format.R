@@ -1,4 +1,4 @@
-#' Function to format a date in a verbose, English language style. 
+#' Function to format a date in a verbose, English language character string. 
 #' 
 #' @param x Date vector. 
 #' 
@@ -42,7 +42,6 @@ str_english_date_format <- function(x, weekday = TRUE, seconds = TRUE,
     
     # Append seconds
     if (seconds) format_string <- stringr::str_c(format_string, ":%OS3")
-    
     # To-do: fractional second logic
     
   }
@@ -52,6 +51,9 @@ str_english_date_format <- function(x, weekday = TRUE, seconds = TRUE,
   
   # Do the formating
   x <- format(x, format_string, usetz = time_zone)
+  
+  # Remove leading zeros
+  x <- stringr::str_replace_all(x, " 0", " ")
   
   return(x)
   

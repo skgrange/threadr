@@ -2,7 +2,7 @@
 % Please edit documentation in R/str_english_date_format.R
 \name{str_english_date_format}
 \alias{str_english_date_format}
-\title{Function to format a date in a verbose, English language style.}
+\title{Function to format a date in a verbose, English language character string.}
 \usage{
 str_english_date_format(x, weekday = TRUE, seconds = TRUE,
   time_zone = TRUE, date_only = FALSE)
@@ -22,7 +22,7 @@ str_english_date_format(x, weekday = TRUE, seconds = TRUE,
 Character vector.
 }
 \description{
-Function to format a date in a verbose, English language style.
+Function to format a date in a verbose, English language character string.
 }
 \examples{
 
