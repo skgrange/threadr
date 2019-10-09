@@ -35,7 +35,6 @@ time_zone <- function(date) attr(date, "tzone")
 #' @return A POSIXct vector with the length of x. 
 #' 
 #' @examples
-#' \dontrun{
 #' 
 #' # A vector
 #' unix_time_vector <- c(1460034000, 1460034703)
@@ -46,11 +45,10 @@ time_zone <- function(date) attr(date, "tzone")
 #' # Or in Berlin's time-zone
 #' parse_unix_time(unix_time_vector, tz = "Europe/Berlin")
 #' 
-#' }
-#' 
 #' @export 
-parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") 
+parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
   as.POSIXct(x, tz = tz, origin = origin)
+}
 
 
 #' Function to parse Microsoft Excel's numeric date. 
@@ -150,7 +148,7 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
 weekend <- function(x) {
   
   x <- lubridate::wday(x)
-  x <- ifelse(x %in% c(1, 7), TRUE, FALSE)
+  x <- if_else(x %in% c(1, 7), TRUE, FALSE)
   return(x)
   
 }
@@ -232,8 +230,9 @@ days_in_a_year <- function(leap_year = FALSE) if (!leap_year) 365L else 366L
 
 #' @rdname seconds_in_a_day
 #' @export
-seconds_in_a_year <- function(leap_year = FALSE) 
+seconds_in_a_year <- function(leap_year = FALSE){
   seconds_in_a_day() * days_in_a_year(leap_year = leap_year)
+}
 
 
 #' @rdname seconds_in_a_day

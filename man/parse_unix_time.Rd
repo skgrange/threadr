@@ -21,7 +21,6 @@ A POSIXct vector with the length of x.
 Function to conveniently parse a vector of unix time to a POSIXct date vector.
 }
 \examples{
-\dontrun{
 
 # A vector
 unix_time_vector <- c(1460034000, 1460034703)
@@ -31,8 +30,6 @@ parse_unix_time(unix_time_vector)
 
 # Or in Berlin's time-zone
 parse_unix_time(unix_time_vector, tz = "Europe/Berlin")
-
-}
 
 }
 \author{
