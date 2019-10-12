@@ -39,12 +39,10 @@ ggtheme_threadr <- function(grid_lines = FALSE) {
   
   # Add subtle grid lines too
   if (grid_lines) {
-    
     plot <- plot + 
       ggplot2::theme(
         panel.grid.major = ggplot2::element_line(size = 0.05, linetype = "dashed")
       )
-    
   }
   
   return(plot)
@@ -61,12 +59,10 @@ theme_super_minimal <- function(grid_lines = FALSE) {
   
   # Add subtle grid lines too
   if (grid_lines) {
-    
     plot <- plot + 
       ggplot2::theme(
         panel.grid.major = ggplot2::element_line(size = 0.05, linetype = "dashed")
       )
-    
   }
   
   return(plot)
@@ -97,3 +93,8 @@ colour_inferno_orange <- function() "#FCA50A"
 #' @rdname ggtheme_threadr
 #' @export
 colour_inferno_peach <- function() "#E65C30"
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colours_ggpubr <- function() c("#00AFBB", "#E7B800", "#FC4E07", "#868686FF")
