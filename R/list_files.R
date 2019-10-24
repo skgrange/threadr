@@ -22,15 +22,29 @@
 #' 
 #' @param no.. Should \code{"."} and \code{".."} be dropped from return? 
 #' 
+#' @param fs_path Should the return be an \strong{fs} path? Useful for tidying 
+#' paths and colour printing. 
+#' 
 #' @return Vector of file names or paths. 
 #' 
 #' @export
 list_files <- function(path = ".", pattern = NULL, all.files = FALSE, 
                        full.names = TRUE, recursive = FALSE, ignore.case = FALSE,
-                       include.dirs = FALSE, no.. = FALSE) {
+                       include.dirs = FALSE, no.. = FALSE, fs_path = FALSE) {
   
-  list.files(path = path, pattern = pattern, all.files = all.files, 
-             full.names = full.names, recursive = recursive, 
-             ignore.case = ignore.case, include.dirs = include.dirs, no.. = no..)
+  x <- list.files(
+    path = path, 
+    pattern = pattern, 
+    all.files = all.files, 
+    full.names = full.names, 
+    recursive = recursive, 
+    ignore.case = ignore.case, 
+    include.dirs = include.dirs,
+    no.. = no..
+  )
+  
+  if (fs_path) x <- fs::as_fs_path(x)
+  
+  return(x)
   
 }

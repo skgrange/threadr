@@ -6,7 +6,7 @@
 \usage{
 list_files(path = ".", pattern = NULL, all.files = FALSE,
   full.names = TRUE, recursive = FALSE, ignore.case = FALSE,
-  include.dirs = FALSE, no.. = FALSE)
+  include.dirs = FALSE, no.. = FALSE, fs_path = FALSE)
 }
 \arguments{
 \item{path}{Path of directory.}
@@ -25,6 +25,9 @@ default is \code{TRUE}.}
 \item{include.dirs}{Should sub-directory names be included?}
 
 \item{no..}{Should \code{"."} and \code{".."} be dropped from return?}
+
+\item{fs_path}{Should the return be an \strong{fs} path? Useful for tidying 
+paths and colour printing.}
 }
 \value{
 Vector of file names or paths.
