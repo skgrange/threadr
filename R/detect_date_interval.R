@@ -17,8 +17,9 @@
 #' @export
 detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
   
+  # Check
   if (!lubridate::is.POSIXt(date)) {
-    stop("'date' must be a POSIXt date.", call. = FALSE)
+    stop("`date` must be a POSIXt date.", call. = FALSE)
   }
   
   # Get vectors
@@ -38,10 +39,7 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
   seconds <- mode_average(seconds, na.rm = TRUE)
   
   if (!text_return) {
-    
-    # Return now
     return(seconds)
-    
   } else {
     
     # Default
