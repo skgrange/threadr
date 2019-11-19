@@ -224,6 +224,10 @@ gas_string_to_mass <- function(gas) {
   
   if (gas %in% c("benzene", "c6h6")) mass <- 78.11
   
+  if (gas %in% c("224-TMP", "2,2,4-tmp", "iso-octane", "2,2,4-trimethylpentane")) mass <- 114.232
+  
+  if (gas %in% c("octane", "n-octane")) mass <- 114.23
+  
   if (gas %in% c("toluene", "methylbenzene", "c7h8")) mass <- 92.14
   
   
