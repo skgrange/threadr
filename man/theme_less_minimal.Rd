@@ -5,8 +5,12 @@
 \title{Function for a mimimal \strong{ggplot2} appearance but with bounding lines 
 for plot area.}
 \usage{
-theme_less_minimal(base_size = 11, base_family = "",
-  base_line_size = base_size/22, base_rect_size = base_size/22)
+theme_less_minimal(
+  base_size = 11,
+  base_family = "",
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22
+)
 }
 \arguments{
 \item{base_size}{Base font size.}

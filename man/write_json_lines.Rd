@@ -4,8 +4,7 @@
 \alias{write_json_lines}
 \title{Function to export a data frame as new line JSON, also known as \code{ndjson}.}
 \usage{
-write_json_lines(df, file, append = FALSE, pagesize = 500,
-  verbose = FALSE)
+write_json_lines(df, file, append = FALSE, pagesize = 500, verbose = FALSE)
 }
 \arguments{
 \item{df}{Data frame to export.}

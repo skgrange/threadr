@@ -4,8 +4,7 @@
 \alias{upload_to_ftp}
 \title{Function to upload a files to an FTP or SFTP server.}
 \usage{
-upload_to_ftp(file, url, credentials = "", basename = FALSE,
-  verbose = FALSE)
+upload_to_ftp(file, url, credentials = "", basename = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{file}{File to upload.}

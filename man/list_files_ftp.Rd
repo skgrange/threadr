@@ -4,8 +4,13 @@
 \alias{list_files_ftp}
 \title{Function to list files on an FTP or SFTP server.}
 \usage{
-list_files_ftp(url, credentials = "", sleep = NA, sort = FALSE,
-  verbose = FALSE)
+list_files_ftp(
+  url,
+  credentials = "",
+  sleep = NA,
+  sort = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{url}{The url of remote directory.}

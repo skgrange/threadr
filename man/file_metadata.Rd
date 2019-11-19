@@ -18,10 +18,10 @@ conveniently used within R.
 \code{exiftool} is called as a system command and this function has not been
 tested on other non-Debian systems. I do not know how \code{exiftool} is 
 implemented on Windows or OS X and therefore I cannot guarantee that this 
-function will work.
+function will work. 
 
 \code{file_metadata} can be useful for media files and the exploration of 
-metadata.
+metadata. 
 
 All variables which are supported and returned by \code{exiftool} will be 
 present. Watch out for very large numbers of variables when imputing large

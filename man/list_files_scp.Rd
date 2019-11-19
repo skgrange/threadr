@@ -5,8 +5,14 @@
 \title{Function to list files and directories on a remote system with \code{scp} 
 (secure copy).}
 \usage{
-list_files_scp(host, directory_remote, user, password, method = "scp",
-  quiet_streams = FALSE)
+list_files_scp(
+  host,
+  directory_remote,
+  user,
+  password,
+  method = "scp",
+  quiet_streams = FALSE
+)
 }
 \arguments{
 \item{host}{Host name of remote system.}

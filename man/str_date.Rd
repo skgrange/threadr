@@ -90,58 +90,58 @@ str_english_currency_format(x, sep = " ", currency = NA)
 \details{
 \code{str_rm_non_ascii} removes all non-ASCII characters from a string.
 
-\code{str_trim_length} trims strings to a certain length of characters.
+\code{str_trim_length} trims strings to a certain length of characters. 
 
 \code{str_to_underscore} converts CamelCase and period.separated strings to
-lowercase underscore_separated strings.
+lowercase underscore_separated strings. 
 
 \code{str_trim_many_spaces} will remove excess spaces between words in a 
-string.
+string. 
 
-\code{str_chop} will chop a string into a vector of fixed-width lengths.
+\code{str_chop} will chop a string into a vector of fixed-width lengths. 
 
-\code{str_drop_xml_tags} removes XML tags from strings.
+\code{str_drop_xml_tags} removes XML tags from strings. 
 
 \code{str_extract_digits} will extract digits/numbers from a string and convert
-to a numeric data class if desired.
+to a numeric data class if desired. 
 
 \code{str_sql_quote} will add single quotes can collapse string vectors, a 
-common step for building SQL statements.
+common step for building SQL statements. 
 
-\code{str_unique} will find unique characters in a string.
+\code{str_unique} will find unique characters in a string. 
 
 \code{str_nth_character} will return single character(s) from position(s) 
-for a string.
+for a string. 
 
 \code{str_create_na} will convert \code{"NA"}, \code{""}, and \code{" "} into
-\code{NA}.
+\code{NA}. 
 
 \code{str_thousands_separator} will add thousands separators to a string or 
-numeric vector.
+numeric vector. 
 
 \code{str_note_to_title} will format a normalised note such as 
-\code{"meeting_in_auckland"} to a note with title-case.
+\code{"meeting_in_auckland"} to a note with title-case. 
 
 \code{str_note_to_sentence} will format a normalised note such as 
 \code{"testing_the_things"} to a note with the first character capitalised
-with all other characters lower-case.
+with all other characters lower-case. 
 
 \code{str_to_general} will make a "general" string and will transliterate 
-special characters to avoid issues such as matching for a \code{join}.
+special characters to avoid issues such as matching for a \code{join}. 
 
 \code{str_filter} will filter a character vector to match a pattern, or drop
-elements which match a pattern.
+elements which match a pattern. 
 
-\code{str_parse_html_codes} will parse HTML character codes into text.
+\code{str_parse_html_codes} will parse HTML character codes into text. 
 
 \code{str_utf8_to_integer} will map a character vector to the UTF-8 integer
-code points.
+code points. 
 
-\code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters.
+\code{str_integer_to_utf8} will map an integer vector to UTF-8 charcters. 
 
 \code{str_insert} will insert characters in location within a string.
 
-\code{str_extract_characters} will extract characters and drop digits.
+\code{str_extract_characters} will extract characters and drop digits. 
 
 \code{str_english_currency_format} will format a number for currency 
 printing.

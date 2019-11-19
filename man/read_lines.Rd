@@ -4,8 +4,14 @@
 \alias{read_lines}
 \title{Function to wrap \code{\link{readLines}} with different defaults.}
 \usage{
-read_lines(connection, n = -1, collapse = FALSE, encoding = "UTF-8",
-  skip_null = FALSE, warn = FALSE)
+read_lines(
+  connection,
+  n = -1,
+  collapse = FALSE,
+  encoding = "UTF-8",
+  skip_null = FALSE,
+  warn = FALSE
+)
 }
 \arguments{
 \item{connection}{File name, URL, or connection to load.}
