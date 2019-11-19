@@ -94,8 +94,8 @@ gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 
 # CO usually uses different units
 gas_mass_to_volume(
-  mass = 0.39, 
-  gas = "co", 
+  0.39, 
+  "co", 
   unit_input = "mg_m3",
   temp = 20, 
   unit_output = "ppb"

@@ -51,8 +51,8 @@
 #' 
 #' # CO usually uses different units
 #' gas_mass_to_volume(
-#'   mass = 0.39, 
-#'   gas = "co", 
+#'   0.39, 
+#'   "co", 
 #'   unit_input = "mg_m3",
 #'   temp = 20, 
 #'   unit_output = "ppb"
@@ -78,7 +78,12 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
   if (unit_input == "ppm") volume <- ppm_to_ppb(volume)
   
   # Get molecular mass
-  molecular_mass <- find_molecular_mass_from_string(molecular_mass, gas)
+  if (is.na(molecular_mass)) {
+    molecular_mass <- gas_string_to_mass(gas)
+  } else {
+    # or use argument
+    molecular_mass <- molecular_mass
+  }
   
   # Get coefficient
   molecular_volume <- calculate_molecular_volume(temp, pressure)
@@ -112,7 +117,12 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
   if (unit_input == "mg_m3") mass <- milligram_to_microgram(mass)
   
   # Get molecular mass
-  molecular_mass <- find_molecular_mass_from_string(molecular_mass, gas)
+  if (is.na(molecular_mass)) {
+    molecular_mass <- gas_string_to_mass(gas)
+  } else {
+    # or use argument
+    molecular_mass <- molecular_mass
+  }
   
   # Get coefficient
   molecular_volume <- calculate_molecular_volume(temp, pressure)
@@ -153,12 +163,11 @@ find_molecular_mass_from_string <- function(molecular_mass, gas) {
 clean_gas_string <- function(x) {
   
   # VOCs
-  
   if (gas %in% c("ethane", "c2h6")) mass <- 30.07
   
   if (gas %in% c("ethene", "c2h4")) mass <- 28.05
   
-  if (gas %in% c("acetylene","ethyne", "c2h2")) mass <- 26.04
+  if (gas %in% c("acetylene", "ethyne", "c2h2")) mass <- 26.04
   
   if (gas %in% c("propane", "c3h8")) mass <- 44.1
   
@@ -170,7 +179,7 @@ clean_gas_string <- function(x) {
   
   if (gas %in% c("trans-2-butene", "2-butene", "c4h8")) mass <- 56.106
   
-  if (gas %in% c("cis-2-butene","2-butene", "c4h8")) mass <- 56.1
+  if (gas %in% c("cis-2-butene", "2-butene", "c4h8")) mass <- 56.1
   
   if (gas %in% c("but-1-ene", "1-butene", "butene")) mass <- 56.11
   
@@ -194,17 +203,20 @@ clean_gas_string <- function(x) {
   
   if (gas %in% c("benzene", "c6h6")) mass <- 78.11
   
-  if (gas %in% c("224-TMP", "2,2,4-tmp", "iso-octane", "2,2,4-trimethylpentane")) mass <- 114.232
+  if (
+    gas %in% c(
+      "224-TMP", "2,2,4-tmp", "iso-octane", "2,2,4-trimethylpentane"
+    )
+  ) mass <- 114.232
   
   if (gas %in% c("octane", "n-octane")) mass <- 114.23
   
   if (gas %in% c("toluene", "methylbenzene", "c7h8")) mass <- 92.14
   
-  
-  
   # Check if conversion has occured
-  if (is.na(mass)) 
-    stop("`gas` not supported, use the `molecular_mass` argument...", call. = FALSE)
+  if (is.na(mass)) {
+    stop("`gas` not supported, use the `molecular_mass` argument.", call. = FALSE)
+  }
   
 }
 
