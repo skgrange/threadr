@@ -4,9 +4,17 @@
 \alias{list_files}
 \title{Function to list files in a directory.}
 \usage{
-list_files(path = ".", pattern = NULL, all.files = FALSE,
-  full.names = TRUE, recursive = FALSE, ignore.case = FALSE,
-  include.dirs = FALSE, no.. = FALSE, fs_path = FALSE)
+list_files(
+  path = ".",
+  pattern = NULL,
+  all.files = FALSE,
+  full.names = TRUE,
+  recursive = FALSE,
+  ignore.case = FALSE,
+  include.dirs = FALSE,
+  no.. = FALSE,
+  fs_path = FALSE
+)
 }
 \arguments{
 \item{path}{Path of directory.}

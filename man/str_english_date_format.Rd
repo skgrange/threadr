@@ -4,8 +4,13 @@
 \alias{str_english_date_format}
 \title{Function to format a date in a verbose, English language character string.}
 \usage{
-str_english_date_format(x, weekday = TRUE, seconds = TRUE,
-  time_zone = TRUE, date_only = FALSE)
+str_english_date_format(
+  x,
+  weekday = TRUE,
+  seconds = TRUE,
+  time_zone = TRUE,
+  date_only = FALSE
+)
 }
 \arguments{
 \item{x}{Date vector.}

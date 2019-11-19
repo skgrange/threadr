@@ -4,8 +4,14 @@
 \alias{download_ftp_file}
 \title{Function to download files from an \code{FTP} or \code{SFTP} server.}
 \usage{
-download_ftp_file(file_remote, file_local, credentials = "",
-  curl = FALSE, sleep = NA, verbose = FALSE)
+download_ftp_file(
+  file_remote,
+  file_local,
+  credentials = "",
+  curl = FALSE,
+  sleep = NA,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{file_remote}{\code{URL}s of the files to be downloaded.}

@@ -4,9 +4,17 @@
 \alias{aggregate_by_date}
 \title{Function to aggregate time-series data by dates.}
 \usage{
-aggregate_by_date(df, interval = "hour", by = NA, summary = "mean",
-  threshold = 0, round = NA, pad = TRUE, determine_interval = TRUE,
-  verbose = FALSE)
+aggregate_by_date(
+  df,
+  interval = "hour",
+  by = NA,
+  summary = "mean",
+  threshold = 0,
+  round = NA,
+  pad = TRUE,
+  determine_interval = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{df}{Input data frame to be aggregated. \code{df} must contain 

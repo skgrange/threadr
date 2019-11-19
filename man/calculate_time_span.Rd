@@ -4,8 +4,13 @@
 \alias{calculate_time_span}
 \title{Function to calculate time span between dates.}
 \usage{
-calculate_time_span(date_one, date_two, format = c("seconds", "hms",
-  "duration", "period", "days"), round = NA, as.character = FALSE)
+calculate_time_span(
+  date_one,
+  date_two,
+  format = c("seconds", "hms", "duration", "period", "days"),
+  round = NA,
+  as.character = FALSE
+)
 }
 \arguments{
 \item{date_one}{First date.}

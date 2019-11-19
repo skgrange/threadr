@@ -4,8 +4,7 @@
 \alias{time_pad}
 \title{Function to pad time-series.}
 \usage{
-time_pad(df, interval = "hour", by = NA, round = NA, full = FALSE,
-  warn = TRUE)
+time_pad(df, interval = "hour", by = NA, round = NA, full = FALSE, warn = TRUE)
 }
 \arguments{
 \item{df}{A data frame including parsed dates. The date variable/column must

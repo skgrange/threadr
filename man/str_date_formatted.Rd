@@ -6,8 +6,7 @@
 \alias{message_date_prefix}
 \title{Function to format a date (usually) for printing.}
 \usage{
-str_date_formatted(date = NA, time_zone = TRUE,
-  fractional_seconds = TRUE)
+str_date_formatted(date = NA, time_zone = TRUE, fractional_seconds = TRUE)
 
 date_message()
 

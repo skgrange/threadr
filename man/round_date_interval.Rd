@@ -30,7 +30,7 @@ multiple. The rounded value and the origin are then summed and returned.
 
 \code{round_date_interval} can be also used for rounding dates to the nearest
 whole second, minute, or hour. However, \code{lubridate::round_date} and 
-related functions may be more convenient.
+related functions may be more convenient. 
 
 \code{round_date_interval} cannot deal with multiples other than seconds or 
 minutes. Intervals such as 2 hours will not work.

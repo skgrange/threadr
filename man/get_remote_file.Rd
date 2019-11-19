@@ -4,8 +4,14 @@
 \alias{get_remote_file}
 \title{Function to get/download file from an \code{URL}.}
 \usage{
-get_remote_file(file_remote, file_local, verbose = TRUE, mode = "w",
-  method = "auto", sleep = FALSE)
+get_remote_file(
+  file_remote,
+  file_local,
+  verbose = TRUE,
+  mode = "w",
+  method = "auto",
+  sleep = FALSE
+)
 }
 \arguments{
 \item{file_remote}{Vector of \code{URL}s/remote file names.}

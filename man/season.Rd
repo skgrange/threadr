@@ -4,8 +4,7 @@
 \alias{season}
 \title{Function to determine season of a date.}
 \usage{
-season(date, hemisphere = "northern", as.factor = FALSE,
-  as.title = FALSE)
+season(date, hemisphere = "northern", as.factor = FALSE, as.title = FALSE)
 }
 \arguments{
 \item{date}{\code{POSIXct} or \code{Date} vector.}

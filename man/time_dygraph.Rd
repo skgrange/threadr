@@ -5,10 +5,22 @@
 \title{Function for plotting interactive time-series plots in a similar way to
 \code{timePlot}.}
 \usage{
-time_dygraph(df, variable = "value", colour = "dodgerblue",
-  range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
-  color = colour, ylab = NA, legend_width = 400, tz = NA,
-  window = NULL, group = NULL, y_reference = NA)
+time_dygraph(
+  df,
+  variable = "value",
+  colour = "dodgerblue",
+  range = TRUE,
+  step = FALSE,
+  points = FALSE,
+  fill = FALSE,
+  color = colour,
+  ylab = NA,
+  legend_width = 400,
+  tz = NA,
+  window = NULL,
+  group = NULL,
+  y_reference = NA
+)
 }
 \arguments{
 \item{df}{Data frame with a variable/column named \code{"date"}.}

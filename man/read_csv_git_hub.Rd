@@ -5,8 +5,12 @@
 \title{Function to read a \code{.csv} file and return as a data frame from a 
 GitHub repository.}
 \usage{
-read_csv_git_hub(user = "skgrange", repository = "web.server",
-  branch = "master", file)
+read_csv_git_hub(
+  user = "skgrange",
+  repository = "web.server",
+  branch = "master",
+  file
+)
 }
 \arguments{
 \item{user}{GitHub user.}

@@ -11,13 +11,25 @@
 \alias{ppb_to_ppt}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
-gas_volume_to_mass(volume, gas, molecular_mass = NA,
-  unit_input = "ppb", unit_output = "ug_m3", temp = 0,
-  pressure = 101325)
+gas_volume_to_mass(
+  volume,
+  gas,
+  molecular_mass = NA,
+  unit_input = "ppb",
+  unit_output = "ug_m3",
+  temp = 0,
+  pressure = 101325
+)
 
-gas_mass_to_volume(mass, gas, molecular_mass = NA,
-  unit_input = "ug_m3", unit_output = "ppb", temp = 0,
-  pressure = 101325)
+gas_mass_to_volume(
+  mass,
+  gas,
+  molecular_mass = NA,
+  unit_input = "ug_m3",
+  unit_output = "ppb",
+  temp = 0,
+  pressure = 101325
+)
 
 milligram_to_microgram(x)
 
@@ -81,8 +93,13 @@ gas_mass_to_volume(24.53, "no2", temp = 20, unit_output = "ppb")
 gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 
 # CO usually uses different units
-gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temp = 20, 
-                   unit_output = "ppb")
+gas_mass_to_volume(
+  0.39, 
+  "co", 
+  unit_input = "mg_m3",
+  temp = 20, 
+  unit_output = "ppb"
+ )
 
 # NOx as NO2
 gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")

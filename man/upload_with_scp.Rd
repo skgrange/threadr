@@ -5,9 +5,17 @@
 \title{Function to upload files locally to a remote system with \code{scp} (secure 
 copy).}
 \usage{
-upload_with_scp(host, file_local, file_remote, user, password,
-  compression = FALSE, verbose = FALSE, basename = FALSE,
-  quiet_streams = FALSE)
+upload_with_scp(
+  host,
+  file_local,
+  file_remote,
+  user,
+  password,
+  compression = FALSE,
+  verbose = FALSE,
+  basename = FALSE,
+  quiet_streams = FALSE
+)
 }
 \arguments{
 \item{host}{Host name of remote system.}

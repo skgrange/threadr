@@ -48,8 +48,13 @@
 #' gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 #' 
 #' # CO usually uses different units
-#' gas_mass_to_volume(0.39, "co", unit_input = "mg_m3", temp = 20, 
-#'                    unit_output = "ppb")
+#' gas_mass_to_volume(
+#'   0.39, 
+#'   "co", 
+#'   unit_input = "mg_m3",
+#'   temp = 20, 
+#'   unit_output = "ppb"
+#'  )
 #' 
 #' # NOx as NO2
 #' gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
@@ -62,8 +67,9 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)
   
-  if (!unit_input %in% c("ppb", "ppm"))
-    stop("Input unit must be 'ppb' or ppm.", call. = FALSE)
+  if (!unit_input %in% c("ppb", "ppm")) {
+    stop("Input unit must be `ppb` or `ppm`.", call. = FALSE)
+  }
   
   # Transform input units
   # To ppm to ppb
@@ -71,14 +77,10 @@ gas_volume_to_mass <- function(volume, gas, molecular_mass = NA,
   
   # Get molecular mass
   if (is.na(molecular_mass)) {
-    
     molecular_mass <- gas_string_to_mass(gas)
-    
   } else {
-    
     # or use argument
     molecular_mass <- molecular_mass
-    
   }
   
   # Get coefficient
@@ -103,10 +105,10 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
   
   # Check inputs
   unit_input <- stringr::str_to_lower(unit_input)
-  # unit_input <- stringr::str_replace(unit_input, "mu", "u")
   
-  if (!unit_input %in% c("ug_m3", "mg_m3"))
-    stop("Input unit must be 'ug_m3' or mg_m3", call. = FALSE)
+  if (!unit_input %in% c("ug_m3", "mg_m3")) {
+    stop("Input unit must be `ug_m3` `or mg_m3`.", call. = FALSE)
+  }
   
   # Transform input units
   # ug_m3 to mg_m3
@@ -114,14 +116,10 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
   
   # Get molecular mass
   if (is.na(molecular_mass)) {
-    
     molecular_mass <- gas_string_to_mass(gas)
-    
   } else {
-    
     # or use argument
     molecular_mass <- molecular_mass
-    
   }
   
   # Get coefficient
@@ -140,8 +138,9 @@ gas_mass_to_volume <- function(mass, gas, molecular_mass = NA,
 
 
 # No export
-calculate_molecular_volume <- function(temp, pressure)
+calculate_molecular_volume <- function(temp, pressure) {
   22.41 * (273.15 + temp) / 273.15 *  101325 / pressure
+}
 
 
 # No export
@@ -175,8 +174,6 @@ gas_string_to_mass <- function(gas) {
   
   if (gas == "h2s") mass <- 34.08
   
-  if (gas == "benzene") mass <- 78.11
-  
   if (gas %in% c("ch4", "methane")) mass <- 16.01
   
   # Oxygen O or O2? Use O2 here
@@ -184,13 +181,61 @@ gas_string_to_mass <- function(gas) {
   
   if (gas == "nh3") mass <- 17.031
   
+  # VOCs
   if (gas %in% c("ethane", "c2h6")) mass <- 30.07
+  
+  if (gas %in% c("ethene", "c2h4")) mass <- 28.05
+  
+  if (gas %in% c("acetylene", "ethyne", "c2h2")) mass <- 26.04
   
   if (gas %in% c("propane", "c3h8")) mass <- 44.1
   
+  if (gas %in% c("propene", "c3h6")) mass <- 42.08
+  
+  if (gas %in% c("iso-butane", "i-butane", "2-methylpropane")) mass <- 58.12
+  
+  if (gas %in% c("n-butane", "c4h10")) mass <- 58.12
+  
+  if (gas %in% c("trans-2-butene", "2-butene", "c4h8")) mass <- 56.106
+  
+  if (gas %in% c("cis-2-butene", "2-butene", "c4h8")) mass <- 56.1
+  
+  if (gas %in% c("but-1-ene", "1-butene", "butene")) mass <- 56.11
+  
+  if (gas %in% c("iso-pentane", "i-pentane", "2-methylbutane")) mass <- 72.15
+  
+  if (gas %in% c("n-pentane", "c5h12")) mass <- 72.15
+  
+  if (gas %in% c("1,3-butadiene", "butadiene")) mass <- 54.0916
+  
+  if (gas %in% c("trans-2-pentene", "2-pentene")) mass <- 70.13
+  
+  if (gas %in% c("pent-1-ene", "pentene", "c5h10")) mass <- 70.13
+  
+  if (gas %in% c("2,3-methyl pentanes", "2,3-dimethylbutane")) mass <- 86.1754
+  
+  if (gas %in% c("hexane", "c6h14")) mass <- 86.18
+  
+  if (gas %in% c("isoprene", "c5h8")) mass <- 68.12
+  
+  if (gas %in% c("heptane", "n-heptane", "c7h16")) mass <- 100.21
+  
+  if (gas %in% c("benzene", "c6h6")) mass <- 78.11
+  
+  if (
+    gas %in% c(
+      "224-TMP", "2,2,4-tmp", "iso-octane", "2,2,4-trimethylpentane"
+    )
+  ) mass <- 114.232
+  
+  if (gas %in% c("octane", "n-octane")) mass <- 114.23
+  
+  if (gas %in% c("toluene", "methylbenzene", "c7h8")) mass <- 92.14
+  
   # Check if conversion has occured
-  if (is.na(mass)) 
-    stop("`gas` not supported, use the `molecular_mass` argument...", call. = FALSE)
+  if (is.na(mass)) {
+    stop("`gas` not supported, use the `molecular_mass` argument.", call. = FALSE)
+  }
   
   return(mass)
   
