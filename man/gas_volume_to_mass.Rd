@@ -94,8 +94,8 @@ gas_mass_to_volume(37.74, "o3", temp = 20, unit_output = "ppb")
 
 # CO usually uses different units
 gas_mass_to_volume(
-  0.39, 
-  "co", 
+  mass = 0.39, 
+  gas = "co", 
   unit_input = "mg_m3",
   temp = 20, 
   unit_output = "ppb"
@@ -104,6 +104,9 @@ gas_mass_to_volume(
 # NOx as NO2
 gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
 
+}
+\seealso{
+\code{\link{molecular_mass_table}}
 }
 \author{
 Stuart K. Grange
