@@ -10,7 +10,7 @@
 ```
 # Development version
 install.packages("remotes")
-remotes::install_github("skgrange/threadr")
+remotes::install_github("asilha/threadr")
 ```
 
 ## Some infomation
