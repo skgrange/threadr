@@ -1,8 +1,7 @@
-# **threadr**
+# **threadr** <a href='https://github.com/skgrange/threadr'><img src='man/figures/logo.png' align="right" height="131.5" /></a>
 
 [![Build Status](https://travis-ci.org/skgrange/threadr.svg?branch=master)](https://travis-ci.org/skgrange/threadr)
-
-![](inst/extdata/images/icon_small.png)
+[![Lifecycle Status](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/)
 
 **threadr** is a collection of R utility functions to link pieces of analysis together. **threadr** is not a focused, single-unit package, rather a collection of functions which I use to glue many processes together.
 
