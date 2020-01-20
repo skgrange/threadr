@@ -2,7 +2,7 @@
 % Please edit documentation in R/detect_date_interval.R
 \name{detect_date_interval}
 \alias{detect_date_interval}
-\title{Function to determine averaging period in a date vector.}
+\title{Function to determine period of a date vector.}
 \usage{
 detect_date_interval(date, skip = 1, n = 100, text_return = FALSE)
 }
@@ -21,7 +21,7 @@ based return be attempted?}
 Numeric or text vector with a length of 1.
 }
 \description{
-Function to determine averaging period in a date vector.
+Function to determine period of a date vector.
 }
 \author{
 Stuart K. Grange

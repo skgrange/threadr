@@ -1,4 +1,4 @@
-#' Function to aggregate time-series data by dates.
+#' Function to aggregate time series data by dates.
 #' 
 #' \code{aggregate_by_date} does a similar job and has the same objectives of
 #' \strong{openair}'s \code{timeAverage}. However, it has been developed 
@@ -38,7 +38,7 @@
 #' @param round Should the aggregations be rounded? Default is no but \code{3} 
 #' would round to three decimal places. 
 #' 
-#' @param pad Should the time-series be padded before aggregation? Almost always
+#' @param pad Should the time series be padded before aggregation? Almost always
 #' this will be \code{TRUE} but if you want to speed the function up and have done
 #' this previously, it can be set to \code{FALSE}. 
 #' 
@@ -96,7 +96,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Pad time series first, can be the bottle-neck but is needed for data capture
   if (pad) {
     
-    if (verbose) message("Padding time-series...")
+    if (verbose) message("Padding time series...")
     
     # Detemine interval
     if (determine_interval) {
