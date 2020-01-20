@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_by_date.R
 \name{aggregate_by_date}
 \alias{aggregate_by_date}
-\title{Function to aggregate time-series data by dates.}
+\title{Function to aggregate time series data by dates.}
 \usage{
 aggregate_by_date(
   df,
@@ -51,7 +51,7 @@ values are needed for a valid average.}
 \item{round}{Should the aggregations be rounded? Default is no but \code{3} 
 would round to three decimal places.}
 
-\item{pad}{Should the time-series be padded before aggregation? Almost always
+\item{pad}{Should the time series be padded before aggregation? Almost always
 this will be \code{TRUE} but if you want to speed the function up and have done
 this previously, it can be set to \code{FALSE}.}
 

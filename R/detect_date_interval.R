@@ -1,4 +1,4 @@
-#' Function to determine averaging period in a date vector.
+#' Function to determine period of a date vector.
 #' 
 #' @param date A date vector of POSIXt class.  
 #' 
@@ -22,6 +22,9 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
     stop("`date` must be a POSIXt date.", call. = FALSE)
   }
   
+  # A catch for vectors with fewer elements than skip
+  if (length(date) <= skip) skip <- 0L
+  
   # Get vectors
   # Skip if needed
   date <- date[skip:length(date)]
@@ -44,6 +47,9 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
     
     # Default
     period <- "unknown"
+    
+    # Missing-ness test, when length is one
+    if (length(seconds) == 1 && is.na(seconds)) return(period)
     
     # Known periods
     if (all(seconds == 1)) {
