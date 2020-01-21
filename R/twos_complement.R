@@ -28,4 +28,4 @@
 #' 
 #' @export
 twos_complement <- function(x) 
-  return(as.integer(ifelse(x > (2^19 - 1), x - 2^20, x)))
+  return(ifelse(x > (2^19 - 1), x - 2^20, x))
