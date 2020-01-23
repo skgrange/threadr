@@ -7,17 +7,16 @@
 twos_complement(x)
 }
 \arguments{
-\item{x}{Vector of integers.}
+\item{x}{Vector of 20-bit integers.}
 }
 \value{
 Numeric vector.
 }
 \description{
 \code{twos_complement} is vectorised and will convert integers to-and-from
-(8-bit) binary form to decode the Two's Complement rule.
+(20-bit) binary form to decode the Two's Complement rule.
 }
 \examples{
-\dontrun{
 
 # A hexadecimal number
 hex <- "fff4d"
@@ -32,8 +31,6 @@ twos_complement(integer)
 -179
 
 }
-
-}
 \author{
-Stuart K. Grange
+Alexandre Ilha and Stuart K. Grange.
 }

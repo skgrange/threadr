@@ -5,12 +5,11 @@
 #' 
 #' @param x Vector of 20-bit integers. 
 #' 
-#' @author Stuart K. Grange
+#' @author Alexandre Ilha and Stuart K. Grange.
 #' 
 #' @return Numeric vector. 
 #' 
 #' @examples 
-#' \dontrun{
 #' 
 #' # A hexadecimal number
 #' hex <- "fff4d"
@@ -24,8 +23,5 @@
 #' twos_complement(integer)
 #' -179
 #' 
-#' }
-#' 
 #' @export
-twos_complement <- function(x) 
-  return(ifelse(x > (2^19 - 1), x - 2^20, x))
+twos_complement <- function(x) ifelse(x > (2^19 - 1), x - 2^20, x)
