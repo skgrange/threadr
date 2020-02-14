@@ -2,14 +2,15 @@
 % Please edit documentation in R/theme_less_minimal.R
 \name{theme_less_minimal}
 \alias{theme_less_minimal}
-\title{Function for a mimimal \strong{ggplot2} appearance but with bounding lines 
+\title{Function for a minimal \strong{ggplot2} appearance but with bounding lines 
 for plot area.}
 \usage{
 theme_less_minimal(
   base_size = 11,
   base_family = "",
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  strip_margin = 2
 )
 }
 \arguments{
@@ -20,12 +21,14 @@ theme_less_minimal(
 \item{base_line_size}{Base size for line elements.}
 
 \item{base_rect_size}{Base size for rectangle elements.}
+
+\item{strip_margin}{Margins for strip headings.}
 }
 \value{
 Invisible, modification to a \strong{ggplot2} plot.
 }
 \description{
-Function for a mimimal \strong{ggplot2} appearance but with bounding lines 
+Function for a minimal \strong{ggplot2} appearance but with bounding lines 
 for plot area.
 }
 \examples{
@@ -38,12 +41,14 @@ library(ggplot2)
 # Create data
 data_example <- tibble(
   x = seq(1:3), 
-  y = sample(1:10, 3)
+  y = sample(1:10, 3),
+  facet_heading = "The plot"
 )
 
 # Plot with the theme
 ggplot(data_example, aes(x, y)) + 
   geom_point() + 
+  facet_wrap("facet_heading") + 
   theme_less_minimal()
   
 }
