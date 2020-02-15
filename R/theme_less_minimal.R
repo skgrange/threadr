@@ -11,6 +11,12 @@
 #' 
 #' @param strip_margin Margins for strip headings. 
 #' 
+#' @param angle Angle of text. 
+#' 
+#' @param narrow_strips Should the plot have narrow strips for facet headings? 
+#' 
+#' @param x_label_rotate Should the plot have rotated x-axis ticks? 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Invisible, modification to a \strong{ggplot2} plot. 
@@ -35,15 +41,21 @@
 #'   facet_wrap("facet_heading") + 
 #'   theme_less_minimal()
 #'   
+#' # Plot with the theme with some options
+#' ggplot(data_example, aes(x, y)) + 
+#'   geom_point() + 
+#'   facet_wrap("facet_heading") + 
+#'   theme_less_minimal(narrow_strips = TRUE, x_label_rotate = TRUE)
+#' 
 #' }
 #' 
 #' @export
 theme_less_minimal <- function(base_size = 11, base_family = "", 
                                base_line_size = base_size / 22, 
                                base_rect_size = base_size / 22,
-                               strip_margin = 2) {
+                               narrow_strips = FALSE, x_label_rotate = FALSE) {
   
-  ggplot2::theme_bw(
+  plot <- ggplot2::theme_bw(
     base_size = base_size, 
     base_family = base_family, 
     base_line_size = base_line_size, 
@@ -56,13 +68,39 @@ theme_less_minimal <- function(base_size = 11, base_family = "",
       panel.border = ggplot2::element_rect(fill = NA, linetype = 1, size = 0.1),
       strip.background = ggplot2::element_rect(linetype = 1, size = 0.1),
       plot.background = ggplot2::element_blank(),
-      complete = TRUE,
-      strip.text.x = ggplot2::element_text(
-        margin = ggplot2::margin(b = strip_margin, t = strip_margin)
-      ),
-      strip.text.y = ggplot2::element_text(
-        margin = ggplot2::margin(b = strip_margin, t = strip_margin)
-      )
+      complete = TRUE
     )
   
+  # Do a couple of extra things
+  if (narrow_strips) plot <- plot + theme_narrow_strips()
+  if (x_label_rotate) plot <- plot + theme_x_label_rotate()
+  
+  return(plot)
+  
+}
+
+
+#' @rdname theme_less_minimal
+#' 
+#' @export
+theme_narrow_strips <- function(strip_margin = 2) {
+  
+  ggplot2::theme(
+    strip.text.x = ggplot2::element_text(
+      margin = ggplot2::margin(b = strip_margin, t = strip_margin),
+    ),
+    strip.text.y = ggplot2::element_text(
+      margin = ggplot2::margin(b = strip_margin, t = strip_margin),
+      angle = -90
+    )
+  )
+  
+}
+
+
+#' @rdname theme_less_minimal
+#' 
+#' @export
+theme_x_label_rotate <- function(angle = 45) {
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = angle, hjust = 1))
 }

@@ -2,6 +2,8 @@
 % Please edit documentation in R/theme_less_minimal.R
 \name{theme_less_minimal}
 \alias{theme_less_minimal}
+\alias{theme_narrow_strips}
+\alias{theme_x_label_rotate}
 \title{Function for a minimal \strong{ggplot2} appearance but with bounding lines 
 for plot area.}
 \usage{
@@ -10,8 +12,13 @@ theme_less_minimal(
   base_family = "",
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
-  strip_margin = 2
+  narrow_strips = FALSE,
+  x_label_rotate = FALSE
 )
+
+theme_narrow_strips(strip_margin = 2)
+
+theme_x_label_rotate(angle = 45)
 }
 \arguments{
 \item{base_size}{Base font size.}
@@ -22,7 +29,13 @@ theme_less_minimal(
 
 \item{base_rect_size}{Base size for rectangle elements.}
 
+\item{narrow_strips}{Should the plot have narrow strips for facet headings?}
+
+\item{x_label_rotate}{Should the plot have rotated x-axis ticks?}
+
 \item{strip_margin}{Margins for strip headings.}
+
+\item{angle}{Angle of text.}
 }
 \value{
 Invisible, modification to a \strong{ggplot2} plot.
@@ -51,6 +64,12 @@ ggplot(data_example, aes(x, y)) +
   facet_wrap("facet_heading") + 
   theme_less_minimal()
   
+# Plot with the theme with some options
+ggplot(data_example, aes(x, y)) + 
+  geom_point() + 
+  facet_wrap("facet_heading") + 
+  theme_less_minimal(narrow_strips = TRUE, x_label_rotate = TRUE)
+
 }
 
 }
