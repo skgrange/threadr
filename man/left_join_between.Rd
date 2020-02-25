@@ -4,7 +4,7 @@
 \alias{left_join_between}
 \title{Function to join two tibbles/data frames together using a between clause.}
 \usage{
-left_join_between(df, df_y, by, match_fun, clean = TRUE)
+left_join_between(df, df_y, by, match_fun, clean = TRUE, drop_between = TRUE)
 }
 \arguments{
 \item{df, df_y}{Data frames/tibbles to join.}
@@ -14,6 +14,9 @@ left_join_between(df, df_y, by, match_fun, clean = TRUE)
 \item{match_fun}{The functions used for the joining. See examples for clarity.}
 
 \item{clean}{Should the joined output be cleaned before being returned?}
+
+\item{drop_between}{Should the variables used for the between/range test be
+dropped?}
 }
 \value{
 Tibble.
@@ -54,7 +57,7 @@ data_time_series \%>\%
   left_join_between(
   data_invalidations,
   by = c(
-  "station_id" = "station_id",
+    "station_id" = "station_id",
     "date" = "date_start",
     "date" = "date_end"
   ),

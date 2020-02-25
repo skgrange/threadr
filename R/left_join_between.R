@@ -11,6 +11,9 @@
 #' 
 #' @param clean Should the joined output be cleaned before being returned? 
 #' 
+#' @param drop_between Should the variables used for the between/range test be
+#' dropped? 
+#' 
 #' @return Tibble. 
 #' 
 #' @author Stuart K. Grange
@@ -49,7 +52,7 @@
 #'   left_join_between(
 #'   data_invalidations,
 #'   by = c(
-#'   "station_id" = "station_id",
+#'     "station_id" = "station_id",
 #'     "date" = "date_start",
 #'     "date" = "date_end"
 #'   ),
@@ -57,7 +60,8 @@
 #' ) 
 #' 
 #' @export
-left_join_between <- function(df, df_y, by, match_fun, clean = TRUE) {
+left_join_between <- function(df, df_y, by, match_fun, clean = TRUE, 
+                              drop_between = TRUE) {
   
   # Do the join, can be slow
   df <- fuzzyjoin::fuzzy_left_join(
@@ -70,9 +74,26 @@ left_join_between <- function(df, df_y, by, match_fun, clean = TRUE) {
   # Clean the output, fuzzyjoin keeps the joined variables and suffixes things,
   # which is not desirable
   if (clean) {
+    
     df <- df %>% 
       select(-dplyr::ends_with(".y")) %>% 
       dplyr::rename_all(~stringr::str_remove(., ".x$"))
+    
+  }
+  
+  # Drop the between variables
+  if (drop_between) {
+    
+    # Get index for between
+    index_between <- purrr::map_chr(match_fun, format) %>% 
+      stringr::str_which("<|>")
+    
+    # Get names
+    names_between <- unname(by[index_between])
+    
+    # Drop
+    df <- select(df, -!!names_between)
+    
   }
   
   return(df)
