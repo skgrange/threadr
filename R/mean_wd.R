@@ -11,17 +11,19 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Numeric vector with length of 1. 
+#' @return Numeric vector with length of \code{1}. 
 #' 
 #' @export 
 mean_wd <- function(wd, ws, na.rm = FALSE) {
   
   # Check input vector
-  if (any(wd < 0, na.rm = TRUE)) 
-    stop("Negative wind directions detected...", call. = FALSE)
+  if (any(wd < 0, na.rm = TRUE)) {
+    stop("Negative wind directions detected.", call. = FALSE)
+  }
   
-  if (any(wd > 360, na.rm = TRUE)) 
-    stop("Wind directions greater than 360 detected...", call. = FALSE)
+  if (any(wd > 360, na.rm = TRUE)) {
+    stop("Wind directions greater than 360 detected.", call. = FALSE)
+  }
   
   # Calculate wind components, watch the negation
   if (missing(ws)) {
@@ -43,7 +45,7 @@ mean_wd <- function(wd, ws, na.rm = FALSE) {
   x_v <- mean(wind_v, na.rm = na.rm)
   
   # Average wind speed
-  x <- atan2(x_u, x_v) * 360 / 2 / pi + 180
+  x <- wind_direction_from_wind_components(x_u, x_v)
   
   return(x)
   

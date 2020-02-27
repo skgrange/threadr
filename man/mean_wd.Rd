@@ -17,7 +17,7 @@ most appropriate aggregation for wind direction.}
 \item{na.rm}{Should \code{NA}s be omitted from the calculation?}
 }
 \value{
-Numeric vector with length of 1.
+Numeric vector with length of \code{1}.
 }
 \description{
 Function to calculate mean wind direction.
