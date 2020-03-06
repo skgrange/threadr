@@ -5,10 +5,10 @@
 \title{Function to calculate absolute humidity from temperature and relative 
 humidity.}
 \usage{
-absolute_humidity(temp, rh)
+absolute_humidity(air_temp, rh)
 }
 \arguments{
-\item{temp}{Air temperature in degrees Celcius.}
+\item{air_temp}{Air temperature in degrees Celsius.}
 
 \item{rh}{Relative humidity in percentage.}
 }
@@ -18,6 +18,13 @@ Numeric vector, absolute humidity in g.m-3
 \description{
 Function to calculate absolute humidity from temperature and relative 
 humidity.
+}
+\examples{
+
+# Calculate absolute humidity with temperature in degrees C and relative
+# humidity in percent
+absolute_humidity(10.7, 73.3)
+
 }
 \author{
 Stuart K. Grange
