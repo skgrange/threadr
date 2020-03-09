@@ -13,7 +13,8 @@ theme_less_minimal(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   narrow_strips = FALSE,
-  x_label_rotate = FALSE
+  x_label_rotate = FALSE,
+  legend_position = NA
 )
 
 theme_narrow_strips(strip_margin = 2)
@@ -33,6 +34,9 @@ theme_x_label_rotate(angle = 45)
 
 \item{x_label_rotate}{Should the plot have rotated x-axis ticks?}
 
+\item{legend_position}{The position of the legend ("none", "left", "right", 
+"bottom", "top", or two-element numeric vector).}
+
 \item{strip_margin}{Margins for strip headings.}
 
 \item{angle}{Angle of text.}
@@ -46,13 +50,11 @@ for plot area.
 }
 \examples{
 
-\dontrun{
-
 # Load package
 library(ggplot2)
 
 # Create data
-data_example <- tibble(
+data_example <- tibble::tibble(
   x = seq(1:3), 
   y = sample(1:10, 3),
   facet_heading = "The plot"
@@ -69,8 +71,11 @@ ggplot(data_example, aes(x, y)) +
   geom_point() + 
   facet_wrap("facet_heading") + 
   theme_less_minimal(narrow_strips = TRUE, x_label_rotate = TRUE)
-
-}
+  
+# Plot and move legend
+ggplot(data_example, aes(x, y, colour = facet_heading)) + 
+  geom_point() + 
+  theme_less_minimal(legend_position = "bottom")
 
 }
 \author{

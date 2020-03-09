@@ -17,19 +17,20 @@
 #' 
 #' @param x_label_rotate Should the plot have rotated x-axis ticks? 
 #' 
+#' @param legend_position The position of the legend ("none", "left", "right", 
+#' "bottom", "top", or two-element numeric vector).
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Invisible, modification to a \strong{ggplot2} plot. 
 #' 
 #' @examples
 #' 
-#' \dontrun{
-#' 
 #' # Load package
 #' library(ggplot2)
 #' 
 #' # Create data
-#' data_example <- tibble(
+#' data_example <- tibble::tibble(
 #'   x = seq(1:3), 
 #'   y = sample(1:10, 3),
 #'   facet_heading = "The plot"
@@ -46,14 +47,18 @@
 #'   geom_point() + 
 #'   facet_wrap("facet_heading") + 
 #'   theme_less_minimal(narrow_strips = TRUE, x_label_rotate = TRUE)
-#' 
-#' }
+#'   
+#' # Plot and move legend
+#' ggplot(data_example, aes(x, y, colour = facet_heading)) + 
+#'   geom_point() + 
+#'   theme_less_minimal(legend_position = "bottom")
 #' 
 #' @export
 theme_less_minimal <- function(base_size = 11, base_family = "", 
                                base_line_size = base_size / 22, 
                                base_rect_size = base_size / 22,
-                               narrow_strips = FALSE, x_label_rotate = FALSE) {
+                               narrow_strips = FALSE, x_label_rotate = FALSE,
+                               legend_position = NA) {
   
   plot <- ggplot2::theme_bw(
     base_size = base_size, 
@@ -74,6 +79,10 @@ theme_less_minimal <- function(base_size = 11, base_family = "",
   # Do a couple of extra things
   if (narrow_strips) plot <- plot + theme_narrow_strips()
   if (x_label_rotate) plot <- plot + theme_x_label_rotate()
+  
+  if (!is.na(legend_position[1])) {
+    plot <- plot + ggplot2::theme(legend.position = legend_position)
+  }
   
   return(plot)
   
