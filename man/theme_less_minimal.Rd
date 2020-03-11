@@ -4,6 +4,7 @@
 \alias{theme_less_minimal}
 \alias{theme_narrow_strips}
 \alias{theme_x_label_rotate}
+\alias{ggplot_caption_format}
 \title{Function for a minimal \strong{ggplot2} appearance but with bounding lines 
 for plot area.}
 \usage{
@@ -20,6 +21,8 @@ theme_less_minimal(
 theme_narrow_strips(strip_margin = 2)
 
 theme_x_label_rotate(angle = 45)
+
+ggplot_caption_format(location = "left", size = NULL)
 }
 \arguments{
 \item{base_size}{Base font size.}
@@ -40,6 +43,8 @@ theme_x_label_rotate(angle = 45)
 \item{strip_margin}{Margins for strip headings.}
 
 \item{angle}{Angle of text.}
+
+\item{location, size}{Specific arguments for \code{ggplot_caption_format}.}
 }
 \value{
 Invisible, modification to a \strong{ggplot2} plot.
@@ -76,6 +81,13 @@ ggplot(data_example, aes(x, y)) +
 ggplot(data_example, aes(x, y, colour = facet_heading)) + 
   geom_point() + 
   theme_less_minimal(legend_position = "bottom")
+  
+# Plot and move legend
+ggplot(data_example, aes(x, y, colour = facet_heading)) + 
+  geom_point() + 
+  theme_less_minimal() + 
+  labs(caption = "A caption") + 
+  ggplot_caption_format(size = 10)
 
 }
 \author{

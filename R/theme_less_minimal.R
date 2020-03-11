@@ -20,6 +20,8 @@
 #' @param legend_position The position of the legend ("none", "left", "right", 
 #' "bottom", "top", or two-element numeric vector).
 #' 
+#' @param location,size Specific arguments for \code{ggplot_caption_format}. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Invisible, modification to a \strong{ggplot2} plot. 
@@ -52,6 +54,13 @@
 #' ggplot(data_example, aes(x, y, colour = facet_heading)) + 
 #'   geom_point() + 
 #'   theme_less_minimal(legend_position = "bottom")
+#'   
+#' # Plot and move legend
+#' ggplot(data_example, aes(x, y, colour = facet_heading)) + 
+#'   geom_point() + 
+#'   theme_less_minimal() + 
+#'   labs(caption = "A caption") + 
+#'   ggplot_caption_format(size = 10)
 #' 
 #' @export
 theme_less_minimal <- function(base_size = 11, base_family = "", 
@@ -112,4 +121,20 @@ theme_narrow_strips <- function(strip_margin = 2) {
 #' @export
 theme_x_label_rotate <- function(angle = 45) {
   ggplot2::theme(axis.text.x = ggplot2::element_text(angle = angle, hjust = 1))
+}
+
+
+#' @rdname theme_less_minimal
+#' 
+#' @export
+ggplot_caption_format <- function(location = "left", size = NULL) {
+  
+  # Switch
+  location <- if_else(location == "left", 0L, 1L)
+  
+  # Do
+  ggplot2::theme(
+    plot.caption = ggplot2::element_text(hjust = location, size = size)
+  )
+  
 }
