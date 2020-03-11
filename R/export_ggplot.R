@@ -1,6 +1,6 @@
 #' Function to export \strong{ggplot2} plot, usually as a \code{.pdf} file.
 #' 
-#' @param file File name to export plot to. 
+#' @param file File name to export plot to, usually as a \code{.pdf} file.
 #' 
 #' @param plot \strong{ggplot2} object. If not used, the last plot will be 
 #' retrieved. 
@@ -10,7 +10,9 @@
 #' @param height Plot height in inches. 
 #' 
 #' @param crop Should the output be cropped? \strong{systemr} needs to be 
-#' installed if \code{TRUE}. 
+#' installed if \code{TRUE}.
+#' 
+#' @param verbose Should the function give messages? 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -18,15 +20,22 @@
 #' 
 #' @export
 export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6, 
-                          height = 5, crop = FALSE) {
+                          height = 5, crop = FALSE, verbose = FALSE) {
   
   # Switch if no file name is given
-  if (is.na(file[1])) file <- fs::path_expand("~/Desktop/r_plot_export.pdf")
+  if (is.na(file[1])) {
+    file <- fs::path_expand("~/Desktop/r_plot_export.pdf")
+  } else {
+    file <- fs::path_expand(file)
+  }
   
   # Message if not a pdf
   if (!fs::path_ext(file) %in% c("pdf", "PDF")) {
     message("`file` is not a `.pdf` file...")
   }
+  
+  # Message
+  if (verbose) message(date_message(), "Exporting `", file, "`...")
   
   # Save plot
   ggplot2::ggsave(
@@ -37,8 +46,9 @@ export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6,
   )
   
   # Crop
+  if (verbose) message(date_message(), "Cropping `", file, "`...")
   if (crop) systemr::pdf_crop(file, file)
   
-  return(invisible(plot))
+  return(invisible(file))
   
 }

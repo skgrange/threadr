@@ -9,11 +9,12 @@ export_ggplot(
   plot = ggplot2::last_plot(),
   width = 6,
   height = 5,
-  crop = FALSE
+  crop = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
-\item{file}{File name to export plot to.}
+\item{file}{File name to export plot to, usually as a \code{.pdf} file.}
 
 \item{plot}{\strong{ggplot2} object. If not used, the last plot will be 
 retrieved.}
@@ -24,6 +25,8 @@ retrieved.}
 
 \item{crop}{Should the output be cropped? \strong{systemr} needs to be 
 installed if \code{TRUE}.}
+
+\item{verbose}{Should the function give messages?}
 }
 \value{
 Invisible \strong{ggplot2} object.
