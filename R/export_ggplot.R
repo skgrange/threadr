@@ -12,6 +12,8 @@
 #' @param crop Should the output be cropped? \strong{systemr} needs to be 
 #' installed if \code{TRUE}.
 #' 
+#' @param to_png Should the file be converted to a \code{.png} file too? 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @author Stuart K. Grange
@@ -20,7 +22,8 @@
 #' 
 #' @export
 export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6, 
-                          height = 5, crop = FALSE, verbose = FALSE) {
+                          height = 5, crop = FALSE, to_png = FALSE, 
+                          verbose = FALSE) {
   
   # Switch if no file name is given
   if (is.na(file[1])) {
@@ -48,6 +51,10 @@ export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6,
   # Crop
   if (verbose) message(date_message(), "Cropping `", file, "`...")
   if (crop) systemr::pdf_crop(file, file)
+  
+  # Convert to png
+  if (verbose) message(date_message(), "Converting `", file, "`...")
+  if (crop) systemr::pdf_to_png(file, resolution = 320)
   
   return(invisible(file))
   

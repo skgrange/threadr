@@ -10,6 +10,7 @@ export_ggplot(
   width = 6,
   height = 5,
   crop = FALSE,
+  to_png = FALSE,
   verbose = FALSE
 )
 }
@@ -25,6 +26,8 @@ retrieved.}
 
 \item{crop}{Should the output be cropped? \strong{systemr} needs to be 
 installed if \code{TRUE}.}
+
+\item{to_png}{Should the file be converted to a \code{.png} file too?}
 
 \item{verbose}{Should the function give messages?}
 }
