@@ -54,7 +54,7 @@ export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6,
   
   # Convert to png
   if (verbose) message(date_message(), "Converting `", file, "`...")
-  if (crop) systemr::pdf_to_png(file, resolution = 320)
+  if (to_png) systemr::pdf_to_png(file, resolution = 320)
   
   return(invisible(file))
   
