@@ -1,4 +1,5 @@
-#' Function to format a date in a verbose, English language character string. 
+#' Function to format a date in a verbose, English language style character
+#' string. 
 #' 
 #' @param x Date vector. 
 #' 
@@ -9,6 +10,8 @@
 #' @param time_zone Should the time zone string be printed? 
 #' 
 #' @param date_only Should only the date pieces be returned? 
+#' 
+#' @param drop_zeros Should leading zeros be dropped from the return? 
 #' 
 #' @return Character vector. 
 #' 
@@ -27,33 +30,30 @@
 #' 
 #' @export 
 str_english_date_format <- function(x, weekday = TRUE, seconds = TRUE, 
-                                    time_zone = TRUE, date_only = FALSE) {
+                                    time_zone = TRUE, date_only = FALSE,
+                                    drop_zeros = TRUE) {
   
   # The formatting string
   format_string <- "%A, %B %d %Y %H:%M"
   
   # Just the date
   if (date_only) {
-    
     time_zone <- FALSE
     format_string <- stringr::str_remove(format_string, " %H:%M")
-    
   } else {
-    
     # Append seconds
     if (seconds) format_string <- stringr::str_c(format_string, ":%OS3")
     # To-do: fractional second logic
-    
   }
   
   # Drop weekday
   if (!weekday) format_string <- stringr::str_remove(format_string, "%A, ")
   
-  # Do the formating
+  # Do the formatting
   x <- format(x, format_string, usetz = time_zone)
   
   # Remove leading zeros
-  x <- stringr::str_replace_all(x, " 0", " ")
+  if (drop_zeros) x <- stringr::str_replace_all(x, " 0", " ")
   
   return(x)
   

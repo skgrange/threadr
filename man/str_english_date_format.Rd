@@ -2,14 +2,16 @@
 % Please edit documentation in R/str_english_date_format.R
 \name{str_english_date_format}
 \alias{str_english_date_format}
-\title{Function to format a date in a verbose, English language character string.}
+\title{Function to format a date in a verbose, English language style character
+string.}
 \usage{
 str_english_date_format(
   x,
   weekday = TRUE,
   seconds = TRUE,
   time_zone = TRUE,
-  date_only = FALSE
+  date_only = FALSE,
+  drop_zeros = TRUE
 )
 }
 \arguments{
@@ -22,12 +24,15 @@ str_english_date_format(
 \item{time_zone}{Should the time zone string be printed?}
 
 \item{date_only}{Should only the date pieces be returned?}
+
+\item{drop_zeros}{Should leading zeros be dropped from the return?}
 }
 \value{
 Character vector.
 }
 \description{
-Function to format a date in a verbose, English language character string.
+Function to format a date in a verbose, English language style character
+string.
 }
 \examples{
 
