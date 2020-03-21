@@ -14,7 +14,7 @@ theme_less_minimal(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   narrow_strips = FALSE,
-  x_label_rotate = FALSE,
+  x_label_rotate = 0,
   legend_position = NA
 )
 
@@ -35,7 +35,7 @@ ggplot_caption_format(location = "left", size = NULL)
 
 \item{narrow_strips}{Should the plot have narrow strips for facet headings?}
 
-\item{x_label_rotate}{Should the plot have rotated x-axis ticks?}
+\item{x_label_rotate}{Angle for x-axes labels.}
 
 \item{legend_position}{The position of the legend ("none", "left", "right", 
 "bottom", "top", or two-element numeric vector).}
@@ -75,7 +75,7 @@ ggplot(data_example, aes(x, y)) +
 ggplot(data_example, aes(x, y)) + 
   geom_point() + 
   facet_wrap("facet_heading") + 
-  theme_less_minimal(narrow_strips = TRUE, x_label_rotate = TRUE)
+  theme_less_minimal(narrow_strips = TRUE, x_label_rotate = 45)
   
 # Plot and move legend
 ggplot(data_example, aes(x, y, colour = facet_heading)) + 
