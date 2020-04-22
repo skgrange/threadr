@@ -174,7 +174,7 @@ time_pad_worker <- function(df, interval, by, round, merge, full, warn) {
   # Remove final observation if ceiling rounded
   if (!is.na(round)) date_sequence <- date_sequence[-length(date_sequence)]
   
-  # To data frame
+  # To tibble
   date_sequence <- tibble(date = date_sequence)
   
   # Do the padding

@@ -98,7 +98,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
     if (verbose) message("Padding time series...")
     
-    # Detemine interval
+    # Determine interval
     if (determine_interval) {
       
       if (verbose) message("Detecting input averaging period/interval...")
@@ -161,7 +161,8 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     
     # Get wind direction
     df_wd <- filter(df, variable == "wd")
-    # Drop from orignal data frame
+    
+    # Drop from original data frame
     df <- filter(df, variable != "wd")
     
     # Do the wind direction aggregation
