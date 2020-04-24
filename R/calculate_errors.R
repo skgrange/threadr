@@ -1,7 +1,5 @@
 #' Function to calculate errors for an aggregation. 
 #' 
-#' @author Stuart K. Grange
-#' 
 #' @param x Numeric or date vector to be summarised. 
 #' 
 #' @param type Type of error to calculate, either \code{"se"}, \code{"ci"}, or 
@@ -11,7 +9,23 @@
 #' be calculated. \code{level} can be 90, 95, 98, 99, or 99.9 (which represent 
 #' percentage). 
 #' 
+#' @author Stuart K. Grange. 
+#' 
 #' @return Tibble.
+#' 
+#' @examples 
+#' 
+#' # Create a vector
+#' x <- sample(1:500)
+#' 
+#' # Calculate errors
+#' calculate_errors(x)
+#' 
+#' # Calculate errors with confidence intervals
+#' calculate_errors(x, type = "ci", level = 95)
+#' 
+#' # Calculate errors with ranges
+#' calculate_errors(x, type = "range")
 #' 
 #' @export
 calculate_errors <- function(x, type = "se", level = NA) {
@@ -80,6 +94,7 @@ calculate_errors <- function(x, type = "se", level = NA) {
     sd, 
     mean, 
     se, 
+    cv = sd / mean,
     error_type = type, 
     error_level = as.numeric(level), 
     error, 

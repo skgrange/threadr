@@ -1,6 +1,6 @@
 #' Function to write an R object to a JSON file.
 #' 
-#' \code{write_json} uses \code{jsonlite} as the data frame to JSON parser.
+#' \code{write_json} uses \strong{jsonlite} as the data frame to JSON parser.
 #' 
 #' @param x R object to be written as a JSON file.
 #' 
@@ -16,7 +16,9 @@
 #' @param auto_unbox Should vectors with the length of \code{1} be represented 
 #' as atomic, single element arrays? Default is \code{FALSE}. 
 #' 
-#' @author Stuart K. Grange
+#' @author Stuart K. Grange.
+#' 
+#' @return Invisible \code{x}. 
 #' 
 #' @examples
 #' \dontrun{
@@ -62,5 +64,7 @@ write_json <- function(x, file, pretty = TRUE, na = FALSE, auto_unbox = FALSE) {
   
   # Write JSON to disk
   write(json, file)
+  
+  return(invisible(x))
   
 }

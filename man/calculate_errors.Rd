@@ -22,6 +22,21 @@ Tibble.
 \description{
 Function to calculate errors for an aggregation.
 }
+\examples{
+
+# Create a vector
+x <- sample(1:500)
+
+# Calculate errors
+calculate_errors(x)
+
+# Calculate errors with confidence intervals
+calculate_errors(x, type = "ci", level = 95)
+
+# Calculate errors with ranges
+calculate_errors(x, type = "range")
+
+}
 \author{
-Stuart K. Grange
+Stuart K. Grange.
 }

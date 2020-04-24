@@ -21,8 +21,11 @@ JSON's \code{null} value.}
 \item{auto_unbox}{Should vectors with the length of \code{1} be represented 
 as atomic, single element arrays? Default is \code{FALSE}.}
 }
+\value{
+Invisible \code{x}.
+}
 \description{
-\code{write_json} uses \code{jsonlite} as the data frame to JSON parser.
+\code{write_json} uses \strong{jsonlite} as the data frame to JSON parser.
 }
 \examples{
 \dontrun{
@@ -34,5 +37,5 @@ write_json(data_car_identifiers, "car_identifiers.json")
 
 }
 \author{
-Stuart K. Grange
+Stuart K. Grange.
 }
