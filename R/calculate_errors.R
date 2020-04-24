@@ -16,7 +16,7 @@
 #' @examples 
 #' 
 #' # Create a vector
-#' x <- sample(1:500)
+#' x <- sample(c(1:500, NA))
 #' 
 #' # Calculate errors
 #' calculate_errors(x)
@@ -36,6 +36,9 @@ calculate_errors <- function(x, type = "se", level = NA) {
   stopifnot(type %in% c("se", "standard_error", "ci", "confidence_interval", "range"))
   stopifnot(is.numeric(x) | lubridate::is.POSIXt(x))
   
+  # Get n, including potential missing elements
+  n_all <- length(x)
+  
   # Drop all nas
   x <- x[!is.na(x)]
   
@@ -46,6 +49,9 @@ calculate_errors <- function(x, type = "se", level = NA) {
   
   # Calculate standard error
   se <- sd / sqrt(n)
+  
+  # Calculate coefficient of variation
+  cv <- sd / mean
   
   if (type %in% c("ci", "confidence_interval")) {
     
@@ -90,11 +96,12 @@ calculate_errors <- function(x, type = "se", level = NA) {
   
   # Bind together into a tibble
   df <- tibble(
+    n_all,
     n, 
     sd, 
     mean, 
     se, 
-    cv = sd / mean,
+    cv,
     error_type = type, 
     error_level = as.numeric(level), 
     error, 

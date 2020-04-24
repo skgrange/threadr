@@ -25,7 +25,7 @@ Function to calculate errors for an aggregation.
 \examples{
 
 # Create a vector
-x <- sample(1:500)
+x <- sample(c(1:500, NA))
 
 # Calculate errors
 calculate_errors(x)
