@@ -98,3 +98,13 @@ colour_inferno_peach <- function() "#E65C30"
 #' @rdname ggtheme_threadr
 #' @export
 colours_ggpubr <- function() c("#00AFBB", "#E7B800", "#FC4E07", "#868686FF")
+
+
+#' @rdname ggtheme_threadr
+#' @export
+colours_plotly <- function() {
+  c(
+    "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2",
+    "#7f7f7f", "#bcbd22"
+  )
+}
