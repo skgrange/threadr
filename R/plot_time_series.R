@@ -9,6 +9,9 @@
 #' 
 #' @param size Size/width of line geometry. 
 #' 
+#' @param scales Should scales be fixed ("fixed", the default), free ("free"), 
+#' or free in one dimension ("free_x", "free_y")?
+#' #' 
 #' @param ylim Limits for y-axes. 
 #' 
 #' @author Stuart K. Grange
@@ -28,7 +31,7 @@
 #' 
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
-                             size = 0.2, ylim = c(NA, NA)) {
+                             size = 0.2, scales = "fixed", ylim = c(NA, NA)) {
   
   # Check input
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -59,7 +62,7 @@ plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA,
   
   # Facet plot
   if (!is.na(facet_variable[1])) {
-    plot <- plot + ggplot2::facet_wrap(facet_variable)
+    plot <- plot + ggplot2::facet_wrap(facet_variable, scales = scales)
   }
   
   # Make sure the plot is printed
