@@ -15,11 +15,11 @@
 #' # Calculate errors 
 #' calculate_deltas(sample(1:5), sample(1:5))
 #' 
-#' # Not absolute
-#' calculate_deltas(sample(1:5), sample(1:5), absolute = FALSE)
+#' # Absolute
+#' calculate_deltas(sample(1:5), sample(1:5), absolute = TRUE)
 #'
 #' @export
-calculate_deltas <- function(x, y, absolute = TRUE, round = NA) {
+calculate_deltas <- function(x, y, absolute = FALSE, round = NA) {
   
   # Calculate delta
   delta <- x - y

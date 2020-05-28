@@ -4,7 +4,7 @@
 \alias{calculate_deltas}
 \title{Function to calculate deltas or differences between two vectors.}
 \usage{
-calculate_deltas(x, y, absolute = TRUE, round = NA)
+calculate_deltas(x, y, absolute = FALSE, round = NA)
 }
 \arguments{
 \item{x, y}{Numeric vectors.}
@@ -24,8 +24,8 @@ Function to calculate deltas or differences between two vectors.
 # Calculate errors 
 calculate_deltas(sample(1:5), sample(1:5))
 
-# Not absolute
-calculate_deltas(sample(1:5), sample(1:5), absolute = FALSE)
+# Absolute
+calculate_deltas(sample(1:5), sample(1:5), absolute = TRUE)
 
 }
 \author{

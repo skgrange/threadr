@@ -8,7 +8,7 @@ plot_time_series(
   df,
   colour = "#FC4E07",
   facet_variable = NA,
-  size = 0.2,
+  size = 0.3,
   scales = "fixed",
   ylim = c(NA, NA)
 )

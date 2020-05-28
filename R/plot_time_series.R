@@ -31,7 +31,7 @@
 #' 
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
-                             size = 0.2, scales = "fixed", ylim = c(NA, NA)) {
+                             size = 0.3, scales = "fixed", ylim = c(NA, NA)) {
   
   # Check input
   stopifnot("value" %in% names(df) && is.numeric(df$value))
