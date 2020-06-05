@@ -7,7 +7,7 @@
 #' @export
 quiet <- function(x) {
   
-  # # http://r.789695.n4.nabble.com/Suppressing-output-e-g-from-cat-td859876.html
+  # http://r.789695.n4.nabble.com/Suppressing-output-e-g-from-cat-td859876.html
   
   sink(tempfile())
   on.exit(sink())
