@@ -31,3 +31,13 @@ colours_lancet <- function(palette = c(1, 2)) {
   return(x)
   
 }
+
+
+#' @rdname colours_lancet
+#' @export 
+colours_icct <- function() {
+  c(
+    "#007d93", "#6c953e", "#f1ae1d", "#d54929", "#9d053b", "#652566", "#4f3227", 
+    "#414d56"
+  )
+}

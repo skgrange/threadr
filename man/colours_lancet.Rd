@@ -2,9 +2,12 @@
 % Please edit documentation in R/colours_lancet.R
 \name{colours_lancet}
 \alias{colours_lancet}
+\alias{colours_icct}
 \title{Function to generate a custom colour palettes from Lancet figures.}
 \usage{
 colours_lancet(palette = c(1, 2))
+
+colours_icct()
 }
 \arguments{
 \item{palette}{Palette number.}
