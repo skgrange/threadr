@@ -65,9 +65,6 @@ plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA,
     plot <- plot + ggplot2::facet_wrap(facet_variable, scales = scales)
   }
   
-  # Make sure the plot is printed
-  print(plot)
-  
-  return(invisible(plot))
+  return(plot)
   
 }
