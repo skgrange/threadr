@@ -24,8 +24,7 @@ for colour.}
 \item{size}{Size/width of line geometry.}
 
 \item{scales}{Should scales be fixed ("fixed", the default), free ("free"), 
-or free in one dimension ("free_x", "free_y")?
-#'}
+or free in one dimension ("free_x", "free_y")?}
 
 \item{ylim}{Limits for y-axes.}
 }

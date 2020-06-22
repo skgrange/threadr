@@ -11,7 +11,7 @@
 #' 
 #' @param scales Should scales be fixed ("fixed", the default), free ("free"), 
 #' or free in one dimension ("free_x", "free_y")?
-#' #' 
+#' 
 #' @param ylim Limits for y-axes. 
 #' 
 #' @author Stuart K. Grange
