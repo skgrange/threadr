@@ -40,11 +40,11 @@ ggplot_caption_format(location = "left", size = NULL)
 \item{legend_position}{The position of the legend ("none", "left", "right", 
 "bottom", "top", or two-element numeric vector).}
 
+\item{x_strip_margin, y_strip_margin}{Margins for strip headings.}
+
 \item{angle}{Angle of text.}
 
 \item{location, size}{Specific arguments for \code{ggplot_caption_format}.}
-
-\item{strip_margin}{Margins for strip headings.}
 }
 \value{
 Invisible, modification to a \strong{ggplot2} plot.

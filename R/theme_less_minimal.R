@@ -9,7 +9,7 @@
 #' 
 #' @param base_rect_size Base size for rectangle elements.
 #' 
-#' @param strip_margin Margins for strip headings. 
+#' @param x_strip_margin,y_strip_margin Margins for strip headings.
 #' 
 #' @param angle Angle of text. 
 #' 
