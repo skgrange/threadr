@@ -110,14 +110,14 @@ theme_less_minimal <- function(base_size = 11, base_family = "",
 #' @rdname theme_less_minimal
 #' 
 #' @export
-theme_narrow_strips <- function(strip_margin = 2) {
+theme_narrow_strips <- function(x_strip_margin = 2.2, y_strip_margin = 2.5) {
   
   ggplot2::theme(
     strip.text.x = ggplot2::element_text(
-      margin = ggplot2::margin(b = strip_margin, t = strip_margin),
+      margin = ggplot2::margin(b = x_strip_margin, t = x_strip_margin),
     ),
     strip.text.y = ggplot2::element_text(
-      margin = ggplot2::margin(b = strip_margin, t = strip_margin),
+      margin = ggplot2::margin(b = y_strip_margin, t = y_strip_margin),
       angle = -90
     )
   )
