@@ -34,7 +34,7 @@ str_english_date_format <- function(x, weekday = TRUE, seconds = TRUE,
                                     drop_zeros = TRUE) {
   
   # The formatting string
-  format_string <- "%A, %B %d %Y %H:%M"
+  format_string <- "%A, %B %d, %Y %H:%M"
   
   # Just the date
   if (date_only) {
