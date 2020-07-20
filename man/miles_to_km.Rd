@@ -24,6 +24,7 @@
 \alias{mpg_to_l_100_km}
 \alias{l_100_km_to_km_l}
 \alias{l_100km_to_mpg}
+\alias{km_l_to_l_100_km}
 \alias{cubic_inches_to_cubic_centimetres}
 \alias{cubic_centimetres_to_cubic_inches}
 \alias{bar_to_psi}
@@ -103,6 +104,8 @@ mpg_to_l_100_km(x, type = "imperial")
 l_100_km_to_km_l(x)
 
 l_100km_to_mpg(x, type = "imperial")
+
+km_l_to_l_100_km(x)
 
 cubic_inches_to_cubic_centimetres(x)
 

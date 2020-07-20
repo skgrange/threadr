@@ -20,11 +20,14 @@ Function to parse times into the \code{hms} data type.
 # Some different time formats
 times <- c(
   "44:41", "44:41.3", "01:38:44.566", "1:38:4", "24:00:00", "24:00", 
-  "68:10", "78:12:12"
+  "68:10", "78:12:12", "4:04.1", "4:04"
 )
 
 # Parse
 parse_time(times)
+
+# As seconds
+as.numeric(parse_time(times))
 
 }
 \author{

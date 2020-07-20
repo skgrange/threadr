@@ -66,7 +66,7 @@ data_time_series \%>\%
 
 }
 \seealso{
-\code{\link{fuzzy_left_join}}, \code{\link{findInterval}}
+\code{fuzzy_left_join}, \code{\link{findInterval}}
 }
 \author{
 Stuart K. Grange

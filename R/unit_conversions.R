@@ -84,11 +84,11 @@ metre_to_yard <- function(x) x / yard_to_metre(1)
 #' @export
 gallon_to_litre <- function(x, type = "imperial") {
   
-  if (type == "imperial")
+  if (type == "imperial") {
     x <- x * 4.54609
-  
-  if (type == "us") 
+  } else if (type == "us") {
     x <- x * 3.785411784
+  }
   
   return(x)
   
@@ -96,8 +96,9 @@ gallon_to_litre <- function(x, type = "imperial") {
 
 #' @rdname miles_to_km
 #' @export
-litre_to_gallon <- function(x, type = "imperial") 
+litre_to_gallon <- function(x, type = "imperial") {
   x / gallon_to_litre(1, type = type)
+}
 
 
 # Fuel consumption
@@ -118,6 +119,10 @@ l_100_km_to_km_l <- function(x) 100 / x # just the reciprocal
 #' @export
 #' @rdname miles_to_km
 l_100km_to_mpg <- function(x, type = "imperial") mpg_to_l_100_km(1, type) / x
+
+#' @export
+#' @rdname miles_to_km
+km_l_to_l_100_km <- function(x) 100 / x
 
 
 #' @export

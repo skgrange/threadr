@@ -18,7 +18,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{\link{fuzzy_left_join}}, \code{\link{findInterval}}
+#' @seealso \code{fuzzy_left_join}, \code{\link{findInterval}}
 #' 
 #' @examples
 #' 
