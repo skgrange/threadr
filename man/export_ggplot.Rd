@@ -11,6 +11,7 @@ export_ggplot(
   height = 5,
   crop = FALSE,
   to_png = FALSE,
+  device = cairo_pdf,
   verbose = FALSE
 )
 }
@@ -28,6 +29,8 @@ retrieved.}
 installed if \code{TRUE}.}
 
 \item{to_png}{Should the file be converted to a \code{.png} file too?}
+
+\item{device}{Device to use, the default is to use the cairo library.}
 
 \item{verbose}{Should the function give messages?}
 }

@@ -14,6 +14,8 @@
 #' 
 #' @param to_png Should the file be converted to a \code{.png} file too? 
 #' 
+#' @param device Device to use, the default is to use the cairo library.
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @author Stuart K. Grange
@@ -23,7 +25,7 @@
 #' @export
 export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6, 
                           height = 5, crop = FALSE, to_png = FALSE, 
-                          verbose = FALSE) {
+                          device = cairo_pdf, verbose = FALSE) {
   
   # Switch if no file name is given
   if (is.na(file[1])) {
@@ -45,7 +47,8 @@ export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6,
     plot, 
     filename = file,
     width = width,
-    height = height
+    height = height,
+    device = device
   )
   
   # Crop
