@@ -15,7 +15,7 @@ Depends:
     R (>= 3.2.0),
     stringr,
     lubridate,
-    dplyr
+    dplyr (>= 1.0.1)
 Imports:
     jsonlite,
     RCurl,
@@ -29,11 +29,11 @@ Imports:
     tidyr,
     zoo,
     magrittr, 
-    hms,
+    hms (>= 0.5.3),
     purrr, 
     stats,
     utils,
-    ggplot2,
+    ggplot2 (>= 3.3.2),
     fs
 Suggests:
     jpeg,
