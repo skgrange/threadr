@@ -37,5 +37,14 @@
 #' 
 #' @export
 rolling_mean <- function(x, k, align = "center", na.rm = FALSE) {
-  zoo::rollmean(x, k = k, fill = NA, align = align, na.rm = na.rm)
+  
+  # Catch Inf values
+  id_inf <- which(is.infinite(x))
+  if (length(id_inf)) x[id_inf] <- NA
+  
+  # Apply function
+  x <- zoo::rollmean(x, k = k, fill = NA, align = align, na.rm = na.rm)
+  
+  return(x)
+  
 }
