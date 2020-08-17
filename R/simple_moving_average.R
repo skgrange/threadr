@@ -18,6 +18,11 @@
 #' @export
 simple_moving_average <- function(x, width, align = "center", na.rm = TRUE) {
   
+  .Deprecated(
+    "rolling_mean", 
+    msg = "Please use `rolling_mean`, this function is deprecated..."
+  )
+  
   if (na.rm) {
     
     # Omit NAs
