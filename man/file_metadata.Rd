@@ -17,7 +17,7 @@ conveniently used within R.
 \details{
 \code{exiftool} is called as a system command and this function has not been
 tested on other non-Debian systems. I do not know how \code{exiftool} is 
-implemented on Windows or OS X and therefore I cannot guarantee that this 
+implemented on Windows or macOS and therefore I cannot guarantee that this 
 function will work. 
 
 \code{file_metadata} can be useful for media files and the exploration of 
@@ -28,8 +28,11 @@ present. Watch out for very large numbers of variables when imputing large
 XML or JSON documents with a large numbers of nested elements.
 }
 \examples{
+
 \dontrun{
+
 data_metadata <- file_metadata("music.mp3")
+
 }
 
 }

@@ -6,7 +6,7 @@
 #' 
 #' \code{exiftool} is called as a system command and this function has not been
 #' tested on other non-Debian systems. I do not know how \code{exiftool} is 
-#' implemented on Windows or OS X and therefore I cannot guarantee that this 
+#' implemented on Windows or macOS and therefore I cannot guarantee that this 
 #' function will work. 
 #' 
 #' \code{file_metadata} can be useful for media files and the exploration of 
@@ -23,8 +23,11 @@
 #' @seealso \href{http://www.sno.phy.queensu.ca/~phil/exiftool/}{exiftool}
 #'
 #' @examples
+#' 
 #' \dontrun{
+#' 
 #' data_metadata <- file_metadata("music.mp3")
+#' 
 #' }
 #'
 #' @export
@@ -33,13 +36,18 @@ file_metadata <- function(file) {
   # Check for programme
   detect_exiftool()
   
-  # Initialize progress bar
-  # if (.progress) progress_bar <- dplyr::progress_estimated(length(file))
-  
   # Ensure path is expanded, sometimes in necessary and then do
-  df <- fs::path_expand(file) %>% 
+  df <- file %>% 
+    fs::path_expand() %>% 
     purrr::map_dfr(file_metadata_worker) %>% 
-    as_tibble()
+    as_tibble() %>% 
+    mutate(across(everything(), type.convert, as.is = TRUE)) %>% 
+    mutate(
+      across(
+        dplyr::matches("date"), 
+        lubridate::ymd_hms, tz = "UTC", truncated = 3, quiet = TRUE
+      )
+    )
   
   return(df)
   
@@ -63,7 +71,9 @@ file_metadata_worker <- function(file, .progress) {
   string <- system(command, intern = TRUE)
   
   # Split string into variable and value
-  df <- jsonlite::fromJSON(string)
+  df <- string %>% 
+    jsonlite::fromJSON() %>% 
+    mutate(across(everything(), as.character))
   
   # If there are duplicated variables, append a suffix
   names(df) <- str_to_underscore(names(df))
