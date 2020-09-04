@@ -97,7 +97,9 @@ colour_inferno_peach <- function() "#E65C30"
 
 #' @rdname ggtheme_threadr
 #' @export
-colours_ggpubr <- function() c("#00AFBB", "#E7B800", "#FC4E07", "#868686FF")
+colours_ggpubr <- function() c(
+  "#00AFBB", "#E7B800", "#FC4E07", "#868686FF", "#BB6A00"
+)
 
 
 #' @rdname ggtheme_threadr

@@ -71,7 +71,8 @@
 #' @export
 str_date <- function(time = TRUE, tz = TRUE, underscore = FALSE) {
   
-  .Deprecated(msg = "`str_date` is now deprecated...")
+  # No longer used
+  .Defunct(msg = "`str_date` is no longer available.")
   
   if (!time) {
     date <- as.character(Sys.Date())  
@@ -136,7 +137,12 @@ str_to_underscore <- function(x) {
 #' @rdname str_date
 #' 
 #' @export
-str_trim_many_spaces <- function(x) stringr::str_replace_all(x, "\\s+", " ")
+str_trim_many_spaces <- function(x) {
+  
+  # No longer used
+  .Defunct(msg = "`str_date` is no longer available, please use `stringr::str_squish`.")
+  
+}
 
 
 # http://stackoverflow.com/questions/2247045/chopping-a-string-into-a-vector-of-fixed-width-character-elements
@@ -273,6 +279,8 @@ str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
 #'
 #' @export
 str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE) {
+  # Soon to be dropped
+  .Deprecated(msg = "`str_filter` is deprecated, please use `stringr::str_subset`.")
   grep(pattern, x, value = TRUE, ignore.case = ignore.case, invert = invert)
 }
 
@@ -367,3 +375,9 @@ str_english_currency_format <- function(x, sep = " ", currency = NA) {
   return(x)
   
 }
+
+
+#' @rdname str_date
+#'
+#' @export
+str_url_decode <- function(x) purrr::map_chr(x, URLdecode)

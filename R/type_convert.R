@@ -9,6 +9,9 @@
 #' @export
 type_convert <- function(x) {
   
+  # No longer used
+  .Deprecated(msg = "`type_convert` is no longer available, please use `type.convert`.")
+  
   # Vector
   if (class(x)[1] == "character") x <- type_converter(x)
   

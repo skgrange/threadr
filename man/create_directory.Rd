@@ -20,6 +20,7 @@ will create multiple levels of directories (it is recursive).
 }
 \examples{
 \dontrun{
+
 # Create a directory
 create_directory("data_dump")
 

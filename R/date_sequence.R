@@ -10,7 +10,7 @@
 #'
 #' @param today Should system date be included in the returned sequence? 
 #'
-#' @param sep What seperator should be used between the year, month, and day
+#' @param sep What separator should be used between the year, month, and day
 #' pieces of the date? If this is changed from \code{"-"} (hyphen), then the 
 #' returned vector will always be a character.
 #' 
@@ -26,6 +26,9 @@
 #'
 #' @export
 date_sequence <- function(days = -1, character = TRUE, today = TRUE, sep = "-") {
+  
+  # No longer used
+  .Defunct(msg = "`date_sequence` is no longer available.")
   
   # If character is not a hyphen, then the dates will always be characters
   if (sep != "-") character <- TRUE

@@ -6,7 +6,7 @@ NULL
 
 #' Pseudo-function to re-export functions from the \strong{utils} package. 
 #' 
-#' @importFrom utils download.file head object.size tail type.convert
+#' @importFrom utils download.file head object.size tail type.convert URLdecode
 NULL
 
 

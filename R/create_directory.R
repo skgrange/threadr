@@ -14,6 +14,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' 
 #' # Create a directory
 #' create_directory("data_dump")
 #' 
@@ -24,28 +25,7 @@
 #' 
 #' @export
 create_directory <- function(directory, quiet = TRUE) {
-  
-  # Soon to be dropped
   .Defunct(
-    msg = "`create_directory` is deprecated, please use dir.create."
+    msg = "`create_directory` is no longer available, please use fs::dir_create."
   )
-  
-  purrr::walk(directory, directory_creator, quiet)
-  
-}
-  
-
-# The actual function
-directory_creator <- function(x, quiet) {
-  
-  if (!dir.exists(x)) {
-    
-    # Create
-    dir.create(x, recursive = TRUE)
-    
-    # Message
-    if (!quiet) message(stringr::str_c("Created '", x, "' directory."))
-    
-  }
-
 }
