@@ -11,7 +11,7 @@
 #' # Some different time formats
 #' times <- c(
 #'   "44:41", "44:41.3", "01:38:44.566", "1:38:4", "24:00:00", "24:00", 
-#'   "68:10", "78:12:12", "4:04.1", "4:04"
+#'   "68:10", "78:12:12", "4:04.1", "4:04", NA
 #' )
 #' 
 #' # Parse
@@ -29,6 +29,6 @@ parse_time <- function(x) {
 
 
 format_hms_string <- function(x) {
-  if (stringr::str_count(x, ":") == 1L) x <- stringr::str_c("00:", x)
+  if (!is.na(x) && stringr::str_count(x, ":") == 1L) x <- stringr::str_c("00:", x)
   return(x)
 }
