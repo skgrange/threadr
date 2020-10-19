@@ -140,7 +140,7 @@ str_to_underscore <- function(x) {
 str_trim_many_spaces <- function(x) {
   
   # No longer used
-  .Defunct(msg = "`str_date` is no longer available, please use `stringr::str_squish`.")
+  .Defunct(msg = "`str_trim_many_spaces` is no longer available, please use `stringr::str_squish`.")
   
 }
 
