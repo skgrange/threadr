@@ -30,9 +30,7 @@ XML or JSON documents with a large numbers of nested elements.
 \examples{
 
 \dontrun{
-
 data_metadata <- file_metadata("music.mp3")
-
 }
 
 }

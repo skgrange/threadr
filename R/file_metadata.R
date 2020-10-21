@@ -25,9 +25,7 @@
 #' @examples
 #' 
 #' \dontrun{
-#' 
 #' data_metadata <- file_metadata("music.mp3")
-#' 
 #' }
 #'
 #' @export
@@ -87,14 +85,15 @@ file_metadata_worker <- function(file, .progress) {
 detect_exiftool <- function() {
   
   # Test
-  text <- suppressWarnings(system("which exiftool", intern = TRUE, ignore.stderr = TRUE))
+  text <- suppressWarnings(
+    system("which exiftool", intern = TRUE, ignore.stderr = TRUE)
+  )
   
   # Raise error if not installed
   if (length(text) == 0 || !grepl("exiftool", text)) {
-    stop("'exiftool' system programme not detected...", call. = FALSE)
+    stop("'exiftool' system programme not detected.", call. = FALSE)
   }
   
   # No return
   
 }
-
