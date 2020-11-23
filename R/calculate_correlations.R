@@ -13,11 +13,26 @@
 #' @export
 calculate_correlations <- function(df, type = "pearson") {
   
-  df %>% 
+  # Check type
+  stopifnot(type %in% c("pearson", "spearman"))
+  
+  # Create numeric matrix
+  matrix_numeric <- df %>% 
     select(tidyselect::vars_select_helpers$where(is.numeric)) %>% 
-    as.matrix() %>% 
-    Hmisc::rcorr(type = type) %>% 
-    tidy_rcorr()
+    as.matrix()
+  
+  # Calculate correlations and tidy output
+  # Message suppression is for when two or fewer observations are present 
+  df <- suppressWarnings(
+    matrix_numeric %>% 
+      Hmisc::rcorr(type = type) %>% 
+      tidy_rcorr() %>% 
+      mutate(type = !!type) %>% 
+      relocate(type,
+               .before = r)
+  )
+  
+  return(df)
   
 }
 
