@@ -40,6 +40,9 @@ calculate_ci <- function(x, level = 0.95) {
     x, sd = NULL, conf.level = level, method = "classic", sides = "two.sided"
   )
   
+  # Drop names
+  x_ci <- unname(x_ci)
+  
   # Calculate coefficient of variation
   cv <- sd / x_ci[1]
   
