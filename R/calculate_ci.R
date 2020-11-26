@@ -11,7 +11,7 @@
 #' 
 #' @author Stuart K. Grange and Andri Signorell.
 #' 
-#' @return Tibble. 
+#' @return Tibble with one row. 
 #' 
 #' @examples 
 #' 
@@ -35,16 +35,15 @@ calculate_ci <- function(x, level = 0.95) {
   # Calculate standard error
   se <- sd / sqrt(n)
   
-  # Calculate CIs
-  x_ci <- MeanCI(
-    x, sd = NULL, conf.level = level, method = "classic", sides = "two.sided"
+  # Calculate CIs, warning suppression is for when n is 1 and distribution tests
+  suppressWarnings(
+    x_ci <- MeanCI(
+      x, sd = NULL, conf.level = level, method = "classic", sides = "two.sided"
+    )
   )
   
   # Drop names
   x_ci <- unname(x_ci)
-  
-  # Calculate coefficient of variation
-  cv <- sd / x_ci[1]
   
   # Build tibble
   df <- tibble(
@@ -52,7 +51,6 @@ calculate_ci <- function(x, level = 0.95) {
     n, 
     sd,
     se,
-    cv,
     level, 
     mean = x_ci[1], 
     lower = x_ci[2], 

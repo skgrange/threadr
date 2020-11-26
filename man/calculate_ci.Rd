@@ -14,7 +14,7 @@ calculate_ci(x, level = 0.95)
 \strong{i.e.}, 0.95 is the 95 \% CI.}
 }
 \value{
-Tibble.
+Tibble with one row.
 }
 \description{
 The CI calculations use the \code{MeanCI} function written by 
