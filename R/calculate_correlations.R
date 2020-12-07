@@ -16,6 +16,19 @@ calculate_correlations <- function(df, type = "pearson") {
   # Check type
   stopifnot(type %in% c("pearson", "spearman"))
   
+  # Skip if fewer than 4 observations
+  if (nrow(df) < 4) {
+    
+    # Raise warning
+    warning(
+      "There are fewer than four observations, correlations cannot be calculated...", 
+      call. = FALSE
+    )
+    
+    return(tibble())
+    
+  }
+  
   # Create numeric matrix
   matrix_numeric <- df %>% 
     select(tidyselect::vars_select_helpers$where(is.numeric)) %>% 
