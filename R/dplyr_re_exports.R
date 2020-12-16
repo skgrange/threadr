@@ -2,7 +2,7 @@
 #'
 #' @importFrom dplyr select rename mutate filter arrange distinct summarise 
 #'     do group_by ungroup rowwise do left_join inner_join everything bind_rows 
-#'     pull as_tibble tibble if_else slice across relocate
+#'     pull as_tibble tibble if_else slice across relocate sym
 #' 
 NULL
 
@@ -21,4 +21,13 @@ NULL
 #' @importFrom stringr str_c str_trim str_split str_split_fixed str_replace 
 #'   str_replace_all str_to_lower str_to_upper str_remove str_remove_all
 #'
+NULL
+
+
+#' Pseudo-function to re-export \strong{rlang}'s walrus operator.
+#'
+#' @importFrom rlang :=
+#' @name :=
+#' @rdname walrus
+#' @export
 NULL

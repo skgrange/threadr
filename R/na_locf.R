@@ -20,7 +20,7 @@
 #' }
 #' 
 #' @export
-na_locf <- function (x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
+na_locf <- function(x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
 
 
 #' Function for interpolating \code{NA}s. 
@@ -47,13 +47,9 @@ na_locf <- function (x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
 na_interpolate <- function(x, na.rm = FALSE, spline = FALSE, extrapolate = FALSE) {
   
   if (!spline) {
-    
     x <- zoo::na.approx(x, na.rm = na.rm, rule = ifelse(extrapolate, 2, 1))
-    
   } else {
-    
     x <- zoo::na.spline(x, na.rm = na.rm)
-    
   }
   
   return(x)
