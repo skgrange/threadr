@@ -14,8 +14,8 @@ add_by_id_and_range(df, test, df_map, by, min, max, add)
 \item{df_map}{Mapping data frame containing \code{by}, \code{min}, \code{max},
 and \code{add} variables.}
 
-\item{by}{An identifying variable in both \code{df} and \code{df_map} which is
-to be used for the matching test.}
+\item{by}{An identifying variable (or up to three) in both \code{df} and 
+\code{df_map} which is to be used for the matching test.}
 
 \item{min, max}{Variables in \code{df_map} which will be used for the range
 test, i.e., is \code{test} between \code{min} and \code{max}?}
