@@ -22,9 +22,23 @@
 #' 
 #' @export
 parse_time <- function(x) {
-  x %>% 
-    purrr::map_chr(format_hms_string) %>% 
-    hms::parse_hms()
+  
+  # Format input
+  x <- purrr::map_chr(x, format_hms_string)
+  
+  # Check input and raise warning
+  if (any(stringr::str_count(x, "\\.") >= 2, na.rm = TRUE)) {
+    warning(
+      "Two periods (`.`) have been detected in input, this is probably an error...", 
+      call. = FALSE
+    )
+  }
+  
+  # Parse string
+  x <- hms::parse_hms(x)
+  
+  return(x)
+  
 }
 
 
