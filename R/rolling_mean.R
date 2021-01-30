@@ -9,6 +9,8 @@
 #' 
 #' @param na.rm Should \code{NA}s be removed for the aggregation? 
 #' 
+#' @param round Number of digits the return should be rounded to. 
+#' 
 #' @seealso \code{\link{mean}}
 #' 
 #' @author Stuart K. Grange
@@ -35,8 +37,11 @@
 #' # Apply a rolling mean to vector, 7 is for seven days/weekly
 #' rolling_mean(x, k = 7, na.rm = TRUE)
 #' 
+#' # Round to whole numbers only
+#' rolling_mean(x, k = 7, na.rm = TRUE, round = 0)
+#' 
 #' @export
-rolling_mean <- function(x, k, align = "center", na.rm = FALSE) {
+rolling_mean <- function(x, k, align = "center", na.rm = FALSE, round = NA) {
   
   # Catch Inf values
   id_inf <- which(is.infinite(x))
@@ -44,6 +49,9 @@ rolling_mean <- function(x, k, align = "center", na.rm = FALSE) {
   
   # Apply function
   x <- zoo::rollmean(x, k = k, fill = NA, align = align, na.rm = na.rm)
+  
+  # Round vector if desired
+  if (!is.na(round)) x <- round(x, digits = round)
   
   return(x)
   

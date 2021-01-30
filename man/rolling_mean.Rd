@@ -4,7 +4,7 @@
 \alias{rolling_mean}
 \title{Function to apply a rolling mean to a numeric vector.}
 \usage{
-rolling_mean(x, k, align = "center", na.rm = FALSE)
+rolling_mean(x, k, align = "center", na.rm = FALSE, round = NA)
 }
 \arguments{
 \item{x}{Numeric vector.}
@@ -15,6 +15,8 @@ rolling_mean(x, k, align = "center", na.rm = FALSE)
 right-aligned?}
 
 \item{na.rm}{Should \code{NA}s be removed for the aggregation?}
+
+\item{round}{Number of digits the return should be rounded to.}
 }
 \description{
 Function to apply a rolling mean to a numeric vector.
@@ -40,6 +42,9 @@ x <- c(
 
 # Apply a rolling mean to vector, 7 is for seven days/weekly
 rolling_mean(x, k = 7, na.rm = TRUE)
+
+# Round to whole numbers only
+rolling_mean(x, k = 7, na.rm = TRUE, round = 0)
 
 }
 \seealso{
