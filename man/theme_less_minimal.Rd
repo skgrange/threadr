@@ -13,7 +13,7 @@ theme_less_minimal(
   base_family = "",
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
-  narrow_strips = FALSE,
+  narrow_strips = TRUE,
   x_label_rotate = 0,
   legend_position = NA
 )

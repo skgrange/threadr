@@ -66,7 +66,7 @@
 theme_less_minimal <- function(base_size = 11, base_family = "", 
                                base_line_size = base_size / 22, 
                                base_rect_size = base_size / 22,
-                               narrow_strips = FALSE, x_label_rotate = 0,
+                               narrow_strips = TRUE, x_label_rotate = 0,
                                legend_position = NA) {
   
   plot <- ggplot2::theme_bw(
