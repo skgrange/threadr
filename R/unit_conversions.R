@@ -78,6 +78,14 @@ yard_to_metre <- function(x) 0.9144 * x
 #' @export
 metre_to_yard <- function(x) x / yard_to_metre(1)
 
+#' @rdname miles_to_km
+#' @export
+ms_to_knot <- function(x) x / (1.852 / 3.6)
+
+#' @rdname miles_to_km
+#' @export
+knot_to_ms <- function(x) x / ms_to_knot(1)
+
 
 # Volume
 #' @rdname miles_to_km

@@ -18,6 +18,8 @@
 \alias{metres_to_feet}
 \alias{yard_to_metre}
 \alias{metre_to_yard}
+\alias{ms_to_knot}
+\alias{knot_to_ms}
 \alias{gallon_to_litre}
 \alias{litre_to_gallon}
 \alias{mpg_to_km_l}
@@ -92,6 +94,10 @@ metres_to_feet(x)
 yard_to_metre(x)
 
 metre_to_yard(x)
+
+ms_to_knot(x)
+
+knot_to_ms(x)
 
 gallon_to_litre(x, type = "imperial")
 
