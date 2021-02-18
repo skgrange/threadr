@@ -29,6 +29,10 @@ parse_time(times)
 # As seconds
 as.numeric(parse_time(times))
 
+# parse_time will also handle numeric vectors, there is an assumption that
+# the elements are stored as seconds
+parse_time(c(55, 555.9, 60))
+
 }
 \author{
 Stuart K. Grange

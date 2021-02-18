@@ -20,22 +20,33 @@
 #' # As seconds
 #' as.numeric(parse_time(times))
 #' 
+#' # parse_time will also handle numeric vectors, there is an assumption that
+#' # the elements are stored as seconds
+#' parse_time(c(55, 555.9, 60))
+#' 
 #' @export
 parse_time <- function(x) {
   
-  # Format input
-  x <- purrr::map_chr(x, format_hms_string)
-  
-  # Check input and raise warning
-  if (any(stringr::str_count(x, "\\.") >= 2, na.rm = TRUE)) {
-    warning(
-      "Two periods (`.`) have been detected in input, this is probably an error...", 
-      call. = FALSE
-    )
+  # If numeric, assume the vector is seconds, otherwise do some string processing
+  if (is.numeric(x)) {
+    x <- hms::as_hms(x)
+  } else {
+    
+    # Format input
+    x <- purrr::map_chr(x, format_hms_string)
+    
+    # Check input and raise warning
+    if (any(stringr::str_count(x, "\\.") >= 2, na.rm = TRUE)) {
+      warning(
+        "Two periods (`.`) have been detected in input, this is probably an error...", 
+        call. = FALSE
+      )
+    }
+    
+    # Parse string
+    x <- hms::parse_hms(x)
+    
   }
-  
-  # Parse string
-  x <- hms::parse_hms(x)
   
   return(x)
   
