@@ -10,36 +10,19 @@
 ##' text components of their own graphs (see below).
 ##'
 ##' @param text A character vector.
-##' @param auto.text A logical option. The default, \code{TRUE}, applies
-##'   \code{quickText} to \code{text} and returns the result. The alternative,
-##'   \code{FALSE}, returns \code{text} unchanged. (A number of \code{openair}
-##'   functions enable/unenable \code{quickText} using this option.
 ##' @export
 ##' @return The function returns an expression for graphical evaluation.
 ##' @author Karl Ropkins.
-##' @keywords methods
-##' @examples
 ##'
-##'
-##' #example 1
-##' ##see axis formatting in an openair plot, e.g.:
-##' scatterPlot(mydata, x = "no2", y = "pm10")
-##'
-##' #example 2
-##' ##using quickText in other plots
-##' plot(mydata$no2, mydata$pm10, xlab = quickText("my no2 label"),
-##'      ylab = quickText("pm10 [ ug.m-3 ]"))
-##'
-##'
-parse_unit_text <- function(text, auto.text = TRUE) {
+parse_unit_text <- function(text) {
   
   # Pulled from openair
   # https://raw.githubusercontent.com/davidcarslaw/openair/master/R/quickText.R
   
   ## the lookup table version
   
-  ## #return if auto.text false
-  if (!auto.text) return(ans <- text)
+  # ## #return if auto.text false
+  # if (!auto.text) return(ans <- text)
   
   ## #return if already expression
   if (is.expression(text)) return(ans <- text)

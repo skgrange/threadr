@@ -4,15 +4,10 @@
 \alias{parse_unit_text}
 \title{Automatic text formatting for openair}
 \usage{
-parse_unit_text(text, auto.text = TRUE)
+parse_unit_text(text)
 }
 \arguments{
 \item{text}{A character vector.}
-
-\item{auto.text}{A logical option. The default, \code{TRUE}, applies
-\code{quickText} to \code{text} and returns the result. The alternative,
-\code{FALSE}, returns \code{text} unchanged. (A number of \code{openair}
-functions enable/unenable \code{quickText} using this option.}
 }
 \value{
 The function returns an expression for graphical evaluation.
@@ -28,21 +23,6 @@ to any recognised character sub-series. The function is used in a number of
 \code{openair} functions and can also be used directly by users to format
 text components of their own graphs (see below).
 }
-\examples{
-
-
-#example 1
-##see axis formatting in an openair plot, e.g.:
-scatterPlot(mydata, x = "no2", y = "pm10")
-
-#example 2
-##using quickText in other plots
-plot(mydata$no2, mydata$pm10, xlab = quickText("my no2 label"),
-     ylab = quickText("pm10 [ ug.m-3 ]"))
-
-
-}
 \author{
 Karl Ropkins.
 }
-\keyword{methods}
