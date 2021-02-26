@@ -1,7 +1,7 @@
 #' Pseudo-function to re-export functions from the \strong{stats} package. 
 #'
 #' @importFrom stats loess median na.exclude na.omit predict sd var lm qnorm 
-#' qt ccf na.pass
+#' qt ccf na.pass quantile
 NULL
 
 
