@@ -12,3 +12,17 @@
 #' 
 #' @export
 chunk <- function(x, n) split(x, ceiling(seq_along(x) / n))
+
+
+#' Function to chunk a vector into \emph{n} pieces. 
+#' 
+#' @author Joachim Schork
+#' 
+#' @param x Vector to be chunked. 
+#' 
+#' @param n Number of chunks to split \code{x} into. 
+#' 
+#' @export
+chunk_n <- function(x, n) {
+  split(x, cut(seq_along(x), n, labels = FALSE))
+}
