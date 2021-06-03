@@ -22,6 +22,8 @@
 #' 
 #' @examples
 #' 
+#' \dontrun{
+#' 
 #' # Build a look-up table
 #' data_invalidations <- dplyr::tribble(
 #'   ~station_id, ~date_start, ~date_end,
@@ -58,6 +60,9 @@
 #'   ),
 #'   match_fun = list(`==`, `>=`, `<=`)
 #' ) 
+#' 
+#' }
+#' 
 #' 
 #' @export
 left_join_between <- function(df, df_y, by, match_fun, clean = TRUE, 

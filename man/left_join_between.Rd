@@ -27,6 +27,8 @@ Tibble.
 }
 \examples{
 
+\dontrun{
+
 # Build a look-up table
 data_invalidations <- dplyr::tribble(
   ~station_id, ~date_start, ~date_end,
@@ -63,6 +65,9 @@ data_time_series \%>\%
   ),
   match_fun = list(`==`, `>=`, `<=`)
 ) 
+
+}
+
 
 }
 \seealso{
