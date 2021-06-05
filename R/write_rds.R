@@ -12,7 +12,7 @@
 #' 
 #' @return Invisible x.  
 #' 
-#' @return 
+#' @export
 write_rds <- function(x, file, compress = TRUE, verbose = FALSE) {
   
   # Check file

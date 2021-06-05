@@ -20,8 +20,6 @@ read_rds(file, verbose = FALSE)
 }
 \value{
 Invisible x.
-
-
 }
 \description{
 Function to read and write R's RDS files with some helpful messaging.
