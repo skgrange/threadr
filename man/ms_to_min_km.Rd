@@ -2,18 +2,20 @@
 % Please edit documentation in R/ms_to_min_km.R
 \name{ms_to_min_km}
 \alias{ms_to_min_km}
-\title{Function to convert speed in m.s-1 to minutes per kilometre.}
+\title{Function to convert speed in meters per second (m.s-1) to minutes per 
+kilometre (min.km-1).}
 \usage{
 ms_to_min_km(x, round = NA)
 }
 \arguments{
 \item{x}{Speed in metres per second (m.s-1).}
 
-\item{round}{Number of digits to round the return to.}
+\item{round}{Number of decimal points to round the return to.}
 }
 \value{
 \strong{hms} vector.
 }
 \description{
-Function to convert speed in m.s-1 to minutes per kilometre.
+Function to convert speed in meters per second (m.s-1) to minutes per 
+kilometre (min.km-1).
 }

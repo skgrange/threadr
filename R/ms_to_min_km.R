@@ -1,32 +1,28 @@
-#' Function to convert speed in m.s-1 to minutes per kilometre. 
+#' Function to convert speed in meters per second (m.s-1) to minutes per 
+#' kilometre (min.km-1). 
 #' 
 #' @param x Speed in metres per second (m.s-1). 
 #' 
-#' @param round Number of digits to round the return to. 
+#' @param round Number of decimal points to round the return to.
 #' 
 #' @return \strong{hms} vector. 
 #' 
 #' @export
 ms_to_min_km <- function(x, round = NA) {
   
-  # To minutes per km-1
-  x <- 60 / (x * 3.6)
+  # Conversion factor for m.s-1 to min.km-1
+  coefficient <- 1/3.6 * 60
   
-  # Calculate the two components
-  minutes <- floor(x)
-  fractional_minute <- x %% minutes
+  # Convert to from m.s-1 to km.m-1
+  x <- x / coefficient
   
-  # Transform the components
-  minutes_as_seconds <- minutes * 60
-  fractional_seconds <- fractional_minute * 60
-  
-  # Sum
-  x <- minutes_as_seconds + fractional_seconds
+  # Invert to get min.km-1 and push into seconds
+  x <- 1 / x * 60
   
   # Round if desired
   if (!is.na(round)) x <- round(x, round)
   
-  # To hms data type
+  # Make hms data type
   x <- hms::as_hms(x)
   
   return(x)
