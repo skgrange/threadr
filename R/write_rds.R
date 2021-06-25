@@ -51,6 +51,6 @@ read_rds <- function(file, verbose = FALSE) {
   # Read the file
   x <- readRDS(file)
   
-  return(invisible(x))
+  return(x)
 
 }
