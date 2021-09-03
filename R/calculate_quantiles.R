@@ -9,6 +9,9 @@
 #' 
 #' @param type Method to use to calculate the quantiles. 
 #' 
+#' @param keep_probabilities Should the probabilities vector be kept? If 
+#' \code{TRUE}, the return will contain a nested column. 
+#' 
 #' @param na.rm Should missing values be removed for calculation? 
 #' 
 #' @seealso \code{\link{quantile}}
@@ -17,18 +20,35 @@
 #' 
 #' @export
 calculate_quantiles <- function(x, probabilities = c(0.05, 0.95), type = 7, 
-                                na.rm = FALSE) {
+                                keep_probabilities = FALSE, na.rm = FALSE) {
   
   # Check input
   stopifnot(length(probabilities) == 2L)
   
-  x %>% 
+  # Calculate averages
+  mean <- mean(x, na.rm = na.rm)
+  median <- median(x, na.rm = na.rm)
+  
+  # Do the calculation
+  df <- x %>% 
     quantile(probs = probabilities, names = FALSE, type = type, na.rm = na.rm) %>% 
     t() %>% 
     data.frame(check.names = FALSE, fix.empty.names = FALSE) %>% 
     purrr::set_names(c("lower", "upper")) %>% 
-    mutate(probabilities = list(probabilities)) %>%
-    relocate(probabilities) %>% 
+    mutate(probabilities = list(probabilities),
+           mean = !!mean,
+           median = !!median) %>%
+    relocate(mean,
+             median) %>% 
     as_tibble()
+  
+  # Drop probabilities column
+  if (!keep_probabilities) {
+    df <- select(df, -probabilities)
+  } else {
+    df <- relocate(df, probabilities)
+  }
+  
+  return(df)
   
 }

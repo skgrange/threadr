@@ -4,7 +4,13 @@
 \alias{calculate_quantiles}
 \title{Function to calculate quantiles for a numeric vector.}
 \usage{
-calculate_quantiles(x, probabilities = c(0.05, 0.95), type = 7, na.rm = FALSE)
+calculate_quantiles(
+  x,
+  probabilities = c(0.05, 0.95),
+  type = 7,
+  keep_probabilities = FALSE,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -13,6 +19,9 @@ calculate_quantiles(x, probabilities = c(0.05, 0.95), type = 7, na.rm = FALSE)
 probabilities of the quantiles. These values will always be less than 1.}
 
 \item{type}{Method to use to calculate the quantiles.}
+
+\item{keep_probabilities}{Should the probabilities vector be kept? If 
+\code{TRUE}, the return will contain a nested column.}
 
 \item{na.rm}{Should missing values be removed for calculation?}
 }
