@@ -5,9 +5,9 @@
 \alias{read_rds}
 \title{Function to read and write R's RDS files with some helpful messaging.}
 \usage{
-write_rds(x, file, compress = TRUE, verbose = FALSE)
+write_rds(x, file, compress = TRUE, verbose = TRUE)
 
-read_rds(file, verbose = FALSE)
+read_rds(file, verbose = TRUE)
 }
 \arguments{
 \item{x}{An R object to write to disc.}
@@ -16,7 +16,8 @@ read_rds(file, verbose = FALSE)
 
 \item{compress}{Should the RDS file be written with compression?}
 
-\item{verbose}{Should the function give messages?}
+\item{verbose}{Should the function give messages? Note that the default is 
+\code{TRUE}.}
 }
 \value{
 Invisible x.

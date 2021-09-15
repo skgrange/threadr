@@ -8,12 +8,13 @@
 #' 
 #' @param compress Should the RDS file be written with compression? 
 #' 
-#' @param verbose Should the function give messages? 
+#' @param verbose Should the function give messages? Note that the default is 
+#' \code{TRUE}. 
 #' 
 #' @return Invisible x.  
 #' 
 #' @export
-write_rds <- function(x, file, compress = TRUE, verbose = FALSE) {
+write_rds <- function(x, file, compress = TRUE, verbose = TRUE) {
   
   # Check file
   if (!fs::path_ext(file) %in% c("rds", "RDS")) {
@@ -36,9 +37,13 @@ write_rds <- function(x, file, compress = TRUE, verbose = FALSE) {
 
 #' @rdname write_rds
 #' @export
-read_rds <- function(file, verbose = FALSE) {
+read_rds <- function(file, verbose = TRUE) {
   
   # Check file
+  if (!fs::file_exists(file)) {
+    stop("`", file, "` does not exist.", call. = FALSE)
+  }
+  
   if (!fs::path_ext(file) %in% c("rds", "RDS")) {
     stop("`file` must have the `.rds` or `.RDS` extension.", call. = FALSE)
   }
