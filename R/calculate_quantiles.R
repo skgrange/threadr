@@ -29,6 +29,10 @@ calculate_quantiles <- function(x, probabilities = c(0.05, 0.95), type = 7,
   mean <- mean(x, na.rm = na.rm)
   median <- median(x, na.rm = na.rm)
   
+  # Calculate counts
+  n_all <- length(x)
+  n <- length(na.omit(x))
+  
   # Do the calculation
   df <- x %>% 
     quantile(probs = probabilities, names = FALSE, type = type, na.rm = na.rm) %>% 
@@ -37,8 +41,12 @@ calculate_quantiles <- function(x, probabilities = c(0.05, 0.95), type = 7,
     purrr::set_names(c("lower", "upper")) %>% 
     mutate(probabilities = list(probabilities),
            mean = !!mean,
-           median = !!median) %>%
-    relocate(mean,
+           median = !!median,
+           n_all = !!n_all,
+           n = !!n) %>%
+    relocate(n_all, 
+             n, 
+             mean,
              median) %>% 
     as_tibble()
   
