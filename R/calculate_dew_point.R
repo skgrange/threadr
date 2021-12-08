@@ -20,8 +20,8 @@ calculate_dew_point <- function(temp, rh) {
   
   # Pulled from https://github.com/geanders/weathermetrics
   
-  # A critical rh test
-  if (any(rh > 100)) {
+  # A relative humidity test, made this a requirement
+  if (any(rh > 100, na.rm = TRUE)) {
     stop(
       "Values with relative humidity values greater than 100 are detected.", 
       call. = FALSE
