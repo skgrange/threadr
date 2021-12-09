@@ -22,17 +22,17 @@ absolute_humidity <- function(air_temp, rh) {
 }
 
 
-#' Function to calculate relative humidity from air temperature and dewpoint 
+#' Function to calculate relative humidity from air temperature and dew point 
 #' temperature. 
 #' 
 #' @param air_temp Air temperature in degrees Celsius. 
 #' 
-#' @param dewpoint Dewpoint temperature in degrees Celsius. 
+#' @param dewpoint Dew point temperature in degrees Celsius. 
 #' 
 #' @param m,t_n Constants for the approximation. The default values are accurate 
 #' in temperatures which are experienced in the ambient atmosphere. 
 #' 
-#' @return Numeric vector, relative humidity in percentage (%). 
+#' @return Numeric vector, relative humidity in percentage (\%).
 #' 
 #' @author Stuart K. Grange
 #' 

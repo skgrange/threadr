@@ -2,7 +2,7 @@
 % Please edit documentation in R/absolute_humidity.R
 \name{calculate_relative_humidity}
 \alias{calculate_relative_humidity}
-\title{Function to calculate relative humidity from air temperature and dewpoint 
+\title{Function to calculate relative humidity from air temperature and dew point 
 temperature.}
 \usage{
 calculate_relative_humidity(air_temp, dewpoint, m = 7.591386, t_n = 240.7263)
@@ -10,16 +10,16 @@ calculate_relative_humidity(air_temp, dewpoint, m = 7.591386, t_n = 240.7263)
 \arguments{
 \item{air_temp}{Air temperature in degrees Celsius.}
 
-\item{dewpoint}{Dewpoint temperature in degrees Celsius.}
+\item{dewpoint}{Dew point temperature in degrees Celsius.}
 
 \item{m, t_n}{Constants for the approximation. The default values are accurate 
 in temperatures which are experienced in the ambient atmosphere.}
 }
 \value{
-Numeric vector, relative humidity in percentage (%).
+Numeric vector, relative humidity in percentage (\%).
 }
 \description{
-Function to calculate relative humidity from air temperature and dewpoint 
+Function to calculate relative humidity from air temperature and dew point 
 temperature.
 }
 \examples{
