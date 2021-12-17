@@ -23,14 +23,17 @@
 #' @param no.. Should \code{"."} and \code{".."} be dropped from return? 
 #' 
 #' @param fs_path Should the return be an \strong{fs} path? Useful for tidying 
-#' paths and colour printing. 
+#' paths and colour printing.
 #' 
-#' @return Vector of file names or paths. 
+#' @param verbose Should the function give messages?
+#' 
+#' @return Vector of file names or paths.
 #' 
 #' @export
 list_files <- function(path = ".", pattern = NULL, all.files = FALSE, 
                        full.names = TRUE, recursive = FALSE, ignore.case = FALSE,
-                       include.dirs = FALSE, no.. = FALSE, fs_path = FALSE) {
+                       include.dirs = FALSE, no.. = FALSE, fs_path = FALSE,
+                       verbose = FALSE) {
   
   x <- list.files(
     path = path, 
@@ -43,7 +46,11 @@ list_files <- function(path = ".", pattern = NULL, all.files = FALSE,
     no.. = no..
   )
   
+  # To fs
   if (fs_path) x <- fs::as_fs_path(x)
+  
+  # Give a message
+  if (verbose) message(date_message(), "`", length(x), "` file(s)...")
   
   return(x)
   

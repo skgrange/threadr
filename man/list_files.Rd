@@ -13,7 +13,8 @@ list_files(
   ignore.case = FALSE,
   include.dirs = FALSE,
   no.. = FALSE,
-  fs_path = FALSE
+  fs_path = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ default is \code{TRUE}.}
 
 \item{fs_path}{Should the return be an \strong{fs} path? Useful for tidying 
 paths and colour printing.}
+
+\item{verbose}{Should the function give messages?}
 }
 \value{
 Vector of file names or paths.
