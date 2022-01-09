@@ -9,10 +9,12 @@
 #' 
 #' @param mode Mode with which to write the file.
 #' 
-#' @param method Method for downloading. 
+#' @param method Method for downloading remote files. 
+#' 
+#' @param cache_ok Is a server-side cached value acceptable?
 #' 
 #' @param sleep If a number, this is the number of seconds to sleep between 
-#' download iterations. This can help with keeping some webservers happy. 
+#' download iterations. This can help with keeping some web servers happy. 
 #' 
 #' @seealso \code{\link{download.file}}
 #' 
@@ -20,7 +22,7 @@
 #' 
 #' @export
 get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w", 
-                            method = "auto", sleep = FALSE) {
+                            method = "auto", cache_ok = TRUE, sleep = FALSE) {
   
   # Check
   stopifnot(length(file_remote) == length(file_local))
@@ -33,6 +35,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
     verbose = verbose,
     mode = mode,
     method = method,
+    cache_ok = cache_ok,
     sleep = sleep,
     index = seq(1, length(file_remote)),
     length = length(file_remote)
@@ -47,7 +50,7 @@ get_remote_file <- function(file_remote, file_local, verbose = TRUE, mode = "w",
 
 
 get_remote_file_worker <- function(index, file_remote, file_local, verbose, mode, 
-                                   method, sleep, length) {
+                                   method, cache_ok, sleep, length) {
   
   # No need for sleep for the last iteration
   if (index == length) sleep <- FALSE
@@ -59,7 +62,8 @@ get_remote_file_worker <- function(index, file_remote, file_local, verbose, mode
       destfile = file_local, 
       quiet = !verbose, 
       mode = mode,
-      method = method
+      method = method,
+      cacheOK = cache_ok
     )
     
   }, error = function(e) {

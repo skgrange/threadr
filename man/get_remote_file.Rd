@@ -10,6 +10,7 @@ get_remote_file(
   verbose = TRUE,
   mode = "w",
   method = "auto",
+  cache_ok = TRUE,
   sleep = FALSE
 )
 }
@@ -23,10 +24,12 @@ get_remote_file(
 
 \item{mode}{Mode with which to write the file.}
 
-\item{method}{Method for downloading.}
+\item{method}{Method for downloading remote files.}
+
+\item{cache_ok}{Is a server-side cached value acceptable?}
 
 \item{sleep}{If a number, this is the number of seconds to sleep between 
-download iterations. This can help with keeping some webservers happy.}
+download iterations. This can help with keeping some web servers happy.}
 }
 \description{
 Function to get/download file from an \code{URL}.
