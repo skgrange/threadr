@@ -37,4 +37,5 @@ remotes::install_github("skgrange/threadr")
     - Parse numerical date formats easily with `parse_unix_time` and `parse_excel_date`.
     - Aggregate by dates with `aggregate_by_date`. 
 
-  - **threadr** originally contained many database functions. These function were pulled from the package from version 0.4.0 onwards and can now be found in [**databaser**](https://github.com/skgrange/databaser).  
+  - **threadr** originally contained many database functions. These function were pulled from the package from version 0.4.0 onwards and can now be found in [**databaser**](https://github.com/skgrange/databaser).
+
