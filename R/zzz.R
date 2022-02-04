@@ -8,7 +8,7 @@ if (getRversion() >= "2.15.1") {
     "str_replace_all", "file_basename", "weekday", "saturday_logical", 
     "row_number", "date_ahead", "date_type", "descriptive", "year", "month", 
     "matches", "monday_logical", "confidence", "z_score", "name", "unique_name",
-    "gas", "r", "Winsorize", "InDots", "boot", "boot.ci"
+    "gas", "r", "Winsorize", "InDots", "boot", "boot.ci", "value_predict"
   )
   
   # Squash the note

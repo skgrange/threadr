@@ -14,7 +14,8 @@ plot_time_series(
 )
 }
 \arguments{
-\item{df}{Input data frame.}
+\item{df}{Input data frame with at least two variables, two of which are named
+\code{value} and \code{date}.}
 
 \item{colour}{Colour of line geometry or which variable in \code{df} to code
 for colour.}

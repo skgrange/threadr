@@ -1,6 +1,7 @@
 #' Function to plot time series data. 
 #' 
-#' @param df Input data frame. 
+#' @param df Input data frame with at least two variables, two of which are named
+#' \code{value} and \code{date}. 
 #' 
 #' @param colour Colour of line geometry or which variable in \code{df} to code
 #' for colour. 
@@ -32,6 +33,11 @@
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
                              size = 0.3, scales = "fixed", ylim = c(NA, NA)) {
+  
+  # If only value_predict is present rename, a common thing for my modelling
+  if (!"value" %in% names(df) && "value_predict" %in% names(df)) {
+    df <- rename(df, value = value_predict)
+  }
   
   # Check input
   stopifnot("value" %in% names(df) && is.numeric(df$value))
