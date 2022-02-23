@@ -73,7 +73,6 @@ calculate_ci <- function(x, level = 0.95, method = "standard", n_samples = 1000)
     sd,
     se,
     level, 
-    method = method,
     mean = x_ci[1], 
     lower = x_ci[2], 
     upper = x_ci[3]
