@@ -5,28 +5,42 @@
 \title{Function to calculate confidence intervals (CIs), usually based on population
 standard deviation.}
 \usage{
-calculate_ci(x, level = 0.95)
+calculate_ci(x, level = 0.95, method = "standard", n_samples = 1000)
 }
 \arguments{
 \item{x}{Numeric vector.}
 
 \item{level}{Confidence interval to calculate. This is a decimal, 
 \strong{i.e.}, 0.95 is the 95 \% CI.}
+
+\item{method}{Method to use for CI calculation. Can be one of two methods: 
+\code{standard} or \code{bootstrap}. \code{standard} calculates the sample 
+mean and lower and upper Gaussian confidence limits based on the 
+t-distribution. \code{bootstrap} uses non-parametric bootstrapping for
+calculating the lower and upper limits without assuming normality.}
+
+\item{n_samples}{When method is \code{bootstap}, how many bootstrap samples 
+should be taken?}
 }
 \value{
-Tibble with one row.
+A tibble with one row.
 }
 \description{
-The CI calculations use the \code{MeanCI} function written by 
-Andri Signorell.
+The CI calculations use the \code{\link{smean.cl.normal}} and 
+\code{\link{smean.cl.boot}} functions from the \strong{Hmisc} package that 
+were developed by Frank Harrell. These functions are also used internally by 
+\strong{ggplot2}.
 }
 \examples{
 
 # Calculate confidence intervals
 x <- c(44617L, 7066L, 17594L, 2726L, 1178L, 18898L, 5033L, 37151L,  4514L, 4000L)
+
 calculate_ci(x)
+calculate_ci(x, level = 0.9)
+calculate_ci(x, method = "bootstrap")
 
 }
 \author{
-Stuart K. Grange and Andri Signorell.
+Stuart K. Grange and Frank Harrell.
 }
