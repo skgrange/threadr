@@ -6,7 +6,7 @@
 \usage{
 calculate_quantiles(
   x,
-  probabilities = c(0.05, 0.95),
+  probabilities = c(0.025, 0.975),
   type = 7,
   keep_probabilities = FALSE,
   na.rm = FALSE

@@ -19,7 +19,7 @@
 #' @return Tibble. 
 #' 
 #' @export
-calculate_quantiles <- function(x, probabilities = c(0.05, 0.95), type = 7, 
+calculate_quantiles <- function(x, probabilities = c(0.025, 0.975), type = 7, 
                                 keep_probabilities = FALSE, na.rm = FALSE) {
   
   # Check input
