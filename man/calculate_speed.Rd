@@ -7,13 +7,16 @@
 \usage{
 calculate_speed(seconds, metres)
 
-calculate_pace(seconds, metres)
+calculate_pace(seconds, metres, round = NA)
 }
 \arguments{
 \item{seconds}{Numeric vector of time in seconds.}
 
 \item{metres}{Numeric vector of metres covered within the time period 
 in \code{seconds}.}
+
+\item{round}{For \code{calculate_pace}, the number of digits to round the 
+output too.}
 }
 \value{
 Numeric vector of speed in m s-1 or pace in min km-1.
@@ -27,14 +30,12 @@ Functions for calculating speed in m s-1 and pace in min km-1.
 calculate_speed(9.58, 100)
 ms_to_km_h(calculate_speed(9.58, 100))
 
-# and pace
-calculate_pace(19.19, 200)
-min_km_to_km_h(calculate_pace(19.19, 200))
+# Calculate pace of a run, the input takes seconds and metres
+# Use seconds for time
+calculate_pace(5400, half_marathon() * 1000)
 
-decimal_minute_to_string(calculate_pace(19.19, 200), hour = FALSE)
-
-calculate_speed(3503, half_marathon() * 1000)
-decimal_minute_to_string(calculate_pace(3503, half_marathon() * 1000))
+# Or the hms data type
+calculate_pace(parse_time("01:30:00"), half_marathon() * 1000)
 
 }
 \seealso{

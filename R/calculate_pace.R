@@ -5,6 +5,9 @@
 #' @param metres Numeric vector of metres covered within the time period 
 #' in \code{seconds}.
 #' 
+#' @param round For \code{calculate_pace}, the number of digits to round the 
+#' output too. 
+#' 
 #' @keywords speed, pace, running, sport, cycling
 #' 
 #' @seealso \code{\link{decimal_minute_to_string}}
@@ -19,14 +22,12 @@
 #' calculate_speed(9.58, 100)
 #' ms_to_km_h(calculate_speed(9.58, 100))
 #' 
-#' # and pace
-#' calculate_pace(19.19, 200)
-#' min_km_to_km_h(calculate_pace(19.19, 200))
+#' # Calculate pace of a run, the input takes seconds and metres
+#' # Use seconds for time
+#' calculate_pace(5400, half_marathon() * 1000)
 #' 
-#' decimal_minute_to_string(calculate_pace(19.19, 200), hour = FALSE)
-#' 
-#' calculate_speed(3503, half_marathon() * 1000)
-#' decimal_minute_to_string(calculate_pace(3503, half_marathon() * 1000))
+#' # Or the hms data type
+#' calculate_pace(parse_time("01:30:00"), half_marathon() * 1000)
 #' 
 #' @export
 calculate_speed <- function(seconds, metres) metres / seconds
@@ -34,16 +35,15 @@ calculate_speed <- function(seconds, metres) metres / seconds
 
 #' @rdname calculate_speed
 #' @export
-calculate_pace <- function(seconds, metres) {
+calculate_pace <- function(seconds, metres, round = NA) {
   
-  # Calculate speed in m s-1
-  x <- calculate_speed(seconds, metres)
+  # Push hms to seconds if needed
+  if (hms::is_hms(seconds)) seconds <- as.numeric(seconds)
   
-  # Transform to km h-1
-  x <- ms_to_km_h(x)
-  
-  # Then to pace
-  x <- km_h_to_min_km(x)
+  # Calculate speed in m s-1 and convert to min km-1, this will return an hms
+  # data type
+  x <- calculate_speed(seconds, metres) %>% 
+    ms_to_min_km(round = round)
   
   return(x)
   
@@ -64,6 +64,10 @@ calculate_pace <- function(seconds, metres) {
 #' 
 #' @export
 calculate_target_pace <- function(distance, time, as.hms = FALSE) {
+  
+  .Deprecated(
+    msg = "`calculate_target_pace` is deprecated, please use `threadr::calculate_pace`."
+  )
   
   # Pad string
   if (stringr::str_count(time, ":") == 1) time <- stringr::str_c("00:", time)
