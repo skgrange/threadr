@@ -13,6 +13,12 @@ ms_to_min_km <- function(x, round = NA) {
   # Conversion factor for m.s-1 to min.km-1
   coefficient <- 1/3.6 * 60
   
+  # Ensure speed is numeric
+  x <- as.numeric(x)
+  
+  # Zero speed is invalid
+  x <- if_else(x == 0, NA_real_, x)
+  
   # Convert to from m.s-1 to km.m-1
   x <- x / coefficient
   
