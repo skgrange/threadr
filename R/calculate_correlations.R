@@ -40,8 +40,12 @@ calculate_correlations <- function(df, type = "pearson") {
     matrix_numeric %>% 
       Hmisc::rcorr(type = type) %>% 
       tidy_rcorr() %>% 
+      rowwise() %>% 
+      mutate(sorted_variables = str_c_sorted_pairs(x, y)) %>% 
+      ungroup() %>% 
       mutate(type = !!type) %>% 
-      relocate(type,
+      relocate(sorted_variables,
+               type,
                .before = r)
   )
   
@@ -67,4 +71,9 @@ tidy_rcorr_matrix <- function(x) {
     tibble::rownames_to_column("x") %>% 
     tidyr::pivot_longer(-x, names_to = "y")
   
+}
+
+
+str_c_sorted_pairs <- function(x, y) {
+  stringr::str_c(sort(c(x, y)), collapse = "-")
 }
