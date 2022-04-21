@@ -12,7 +12,8 @@
 #' @param keep_probabilities Should the probabilities vector be kept? If 
 #' \code{TRUE}, the return will contain a nested column. 
 #' 
-#' @param na.rm Should missing values be removed for calculation? 
+#' @param na.rm Should missing values be removed for calculation? The default is
+#' \code{TRUE} because missing values cannot be used for quantile calculations. 
 #' 
 #' @seealso \code{\link{quantile}}
 #' 
@@ -20,7 +21,7 @@
 #' 
 #' @export
 calculate_quantiles <- function(x, probabilities = c(0.025, 0.975), type = 7, 
-                                keep_probabilities = FALSE, na.rm = FALSE) {
+                                keep_probabilities = FALSE, na.rm = TRUE) {
   
   # Check input
   stopifnot(length(probabilities) == 2L)
