@@ -13,14 +13,18 @@
 #' @export
 normalise <- function(x, na.rm = TRUE) {
   
-  # Calculate max and min once
-  min <- min(x, na.rm = na.rm)
-  max <- max(x, na.rm = na.rm)
-  
-  # Apply normalising function
-  x <- (x - min) / (max - min)
+  if (length(x) == 1L) {
+    # For when only one number is passed
+    x <- 1
+  } else {
+    # Calculate max and min once
+    min <- min(x, na.rm = na.rm)
+    max <- max(x, na.rm = na.rm)
+    
+    # Apply normalising function
+    x <- (x - min) / (max - min)
+  }
   
   return(x)
   
 }
-

@@ -20,13 +20,9 @@ write_json_lines <- function(df, file, append = FALSE, pagesize = 500,
   
   # Open connection
   if (append) {
-    
     con <- file(file, open = "a+")
-    
   } else {
-    
     con <- file(file, open = "w")
-    
   }
   
   # Export stream
@@ -35,7 +31,7 @@ write_json_lines <- function(df, file, append = FALSE, pagesize = 500,
   # Close connection
   close(con)
   
-  # No return
+  return(invisible(file))
   
 }
 
@@ -67,7 +63,7 @@ read_json_lines <- function(file, pagesize = 500, verbose = FALSE) {
   close(con)
   
   # If data frame, make tibble if possible
-  if (class(x) == "data.frame") {
+  if (inherits(x, "data.frame")) {
     
     # Get data classes
     classes <- purrr::map_chr(x, class)

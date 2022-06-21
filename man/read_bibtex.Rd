@@ -36,6 +36,4 @@ data_bib <- read_bibtex(url)
 }
 \author{
 Stuart K. Grange
-
-Stuart K. Grange
 }

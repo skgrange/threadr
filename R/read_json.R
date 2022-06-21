@@ -18,7 +18,7 @@ read_json <- function(file, flatten = TRUE) {
   x <- jsonlite::fromJSON(file, flatten)
   
   # If data frame, make tibble if possible
-  if (class(x) == "data.frame") {
+  if (inherits(x, "data.frame")) {
     
     # Get data classes
     classes <- purrr::map_chr(x, class)

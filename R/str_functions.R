@@ -328,7 +328,7 @@ str_utf8_to_integer <- function(x) {
 #' @export
 str_integer_to_utf8 <- function(x) {
   
-  if (class(x) == "numeric") x <- as.integer(x)
+  if (inherits(x, "numeric")) x <- as.integer(x)
   
   if (class(x) != "integer") {
     stop("Input must be an integer vector...", call. = FALSE)

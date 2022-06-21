@@ -41,6 +41,4 @@ message(date_message(), "Loading...")
 }
 \author{
 Stuart K. Grange
-
-Stuart K. Grange
 }
