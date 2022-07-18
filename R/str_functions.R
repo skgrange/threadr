@@ -330,12 +330,13 @@ str_integer_to_utf8 <- function(x) {
   
   if (inherits(x, "numeric")) x <- as.integer(x)
   
-  if (class(x) != "integer") {
-    stop("Input must be an integer vector...", call. = FALSE)
+  if (!inherits(x, "integer")) {
+    stop("Input must be an integer vector.", call. = FALSE)
   }
   
   # Do
   x <- purrr::map_chr(x, intToUtf8)
+  
   return(x)
   
 }

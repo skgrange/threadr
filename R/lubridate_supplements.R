@@ -76,11 +76,12 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   type <- stringr::str_to_lower(type)
   type <- stringr::str_replace_all(type, "\\.| ", "_")
   
-  if (!type %in% c("windows", "os_x_2007")) 
+  if (!type %in% c("windows", "os_x_2007")) {
     stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  }
   
   # To numeric
-  if (!class(x) == "numeric") x <- as.numeric(x)
+  if (!inherits(x, "numeric")) x <- as.numeric(x)
   
   # To unix time, different origins depending on version
   if (type == "windows") x <- (x - 25569) * 86400
@@ -119,12 +120,13 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
   type <- stringr::str_to_lower(type)
   type <- stringr::str_replace_all(type, "\\.| ", "_")
   
-  if (!type %in% c("windows", "os_x_2007")) 
+  if (!type %in% c("windows", "os_x_2007")) {
     stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  }
   
   # To numeric, why is this giving warnings? To-do figure out why.
   suppressWarnings(
-    if (!class(x) == "numeric") x <- as.numeric(x)
+    if (!inherits(x, "numeric")) x <- as.numeric(x)
   )
   
   # To Excel date, different origins depending on version
@@ -267,7 +269,7 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE,
   hemisphere <- stringr::str_to_lower(hemisphere)
   
   if (!hemisphere %in% c("northern", "southern")) {
-    stop("hemisphere must be 'northern' or 'southern'...")
+    stop("hemisphere must be 'northern' or 'southern'.")
   }
   
   # Get month of date

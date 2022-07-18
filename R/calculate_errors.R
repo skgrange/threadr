@@ -30,6 +30,13 @@
 #' @export
 calculate_errors <- function(x, type = "se", level = NA) {
   
+  # Message to user that this is not the function to use for a certain scenario
+  if (type == "ci") {
+    .Deprecated(
+      msg = "`calculate_errors` when using `type = 'ci' is deprecated, please use `calculate_ci`."
+    )
+  }
+  
   # Check inputs
   type <- stringr::str_to_lower(type)
   type <- stringr::str_trim(type)
@@ -70,21 +77,18 @@ calculate_errors <- function(x, type = "se", level = NA) {
     error <- se * z
     
   } else if (type %in% c("se", "standard_error")) {
-    
     # Reasign for next calculation
     error <- se
-    
   } else if (type == "range") {
-    
     error <- NA_real_
-    
   }
   
   if (type == "range") {
     
     # Calculate min and max, these variables will be renamed once in the tibble
-    lower <- min(x)
-    upper <- max(x)
+    # Warning suppression is for when only NAs are present or the length is zero
+    lower <- suppressWarnings(min(x))
+    upper <- suppressWarnings(max(x))
     
   } else {
     
