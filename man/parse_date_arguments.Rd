@@ -13,9 +13,12 @@ parse_date_arguments(date, type, tz = "UTC")
 
 \item{tz}{Time-zone, defaults to \code{"UTC"}.}
 }
+\value{
+POSIXct vector with length of 1.
+}
 \description{
 Function to parse date arguments for other functions.
 }
 \author{
-Stuart K. Grrange
+Stuart K. Grange
 }

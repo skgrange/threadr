@@ -6,7 +6,9 @@
 #' 
 #' @param tz Time-zone, defaults to \code{"UTC"}. 
 #' 
-#' @author Stuart K. Grrange
+#' @author Stuart K. Grange
+#' 
+#' @return POSIXct vector with length of 1. 
 #'
 #' @export 
 parse_date_arguments <- function(date, type, tz = "UTC") {

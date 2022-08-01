@@ -12,14 +12,18 @@
 #' @export
 loess_smoother <- function(x, y, span = 0.75, degree = 2) {
   
-  # Model
-  model <- loess(y ~ x, na.action = na.exclude, span = span, degree = degree)
+  # Date type change if a date
+  if (lubridate::is.POSIXt(x)) x <- as.numeric(x)
   
-  # Get vector
-  smooth <- predict(model)
+  # Model, warning suppression is for a low-level n warning
+  suppressWarnings(
+    model <- loess(y ~ x, na.action = na.exclude, span = span, degree = degree)
+  )
   
-  # Return
-  smooth
+  # Predict vector
+  smooth <- predict(model, na.action = na.exclude, se = FALSE)
+  
+  return(smooth)
   
 }
 
@@ -38,16 +42,20 @@ loess_smoother <- function(x, y, span = 0.75, degree = 2) {
 #' @export
 gam_smoother <- function(x, y, method = "GCV.Cp") {
   
-  # Model
-  model <- mgcv::gam(y ~ s(x, bs = "cr"), na.action = na.exclude, 
-                     method = method)
+  # Date type change if a date
+  if (lubridate::is.POSIXt(x)) x <- as.numeric(x)
   
-  # Get vector
+  # Model
+  model <- mgcv::gam(
+    y ~ s(x, bs = "cr"), na.action = na.exclude, method = method
+  )
+  
+  # Predict vector
   smooth <- predict(model)
+  
+  # Drop names
   attributes(smooth) <- NULL
   
-  # Return
-  smooth
+  return(smooth)
   
 }
-
