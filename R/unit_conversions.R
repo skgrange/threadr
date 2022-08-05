@@ -6,7 +6,7 @@
 #' 
 #' @param type,metric Type options. 
 #' 
-#' @param temp,rh,unit Specific options for some functions. 
+#' @param temp,rh,rh_min Specific options for some functions. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -178,68 +178,35 @@ fahrenheit_to_celsius <- function(x) (x - 32) * (5 / 9)
 celsius_to_fahrenheit <- function(x) x * 9 / 5 + 32
 
 
-# https://github.com/cran/weathermetrics
 #' @export
 #' @rdname miles_to_km
-heat_index <- function(temp, rh, unit = "c") {
+heat_index <- function(temp, rh, rh_min = NA) {
   
-  if (unit == "c") temp <- celsius_to_fahrenheit(temp)
+  # This function only takes temperature in degrees Celsius and percentatges for
+  # relative humidity
   
-  heat_index <- mapply(heat_index_calculation, temp, rh)
+  # Convert to Fahrenheit, the formula requires this
+  temp <- celsius_to_fahrenheit(temp)
   
-  if (unit == "c") heat_index <- fahrenheit_to_celsius(heat_index)
+  # Calculate the heat index
+  # https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/heat-index.htm
+  x <- (-42.379 + (2.04901523 * temp) + (10.14333127 * rh) -
+          (0.22475541 * temp * rh)  - (6.83783e-3 * temp^2) - 
+          (5.481717e-2 * rh^2) + (1.22874e-3 * temp^2 * rh) + 
+          (8.5282e-4 * temp * rh^2) - (1.99e-6 * temp^2 * rh^2))
   
-  return(heat_index)
+  # The heat index with a tempature of under 81 deg. F is invalid
+  x <- if_else(temp >= 81, x, temp)
   
-}
-
-# No export
-heat_index_calculation <- function(t = NA, rh = NA) {
+  # Apply a rh catch too
+  if (!is.na(rh_min)) {
+    x <- if_else(rh >= rh_min, x, temp)
+  }
   
-  if (is.na(rh) | is.na(t)) {
-    
-    hi <- NA
-    
-  } else 
-    
-    if (t <= 40) {
-      
-      hi <- t
-      
-    } else {
-      
-      alpha <- 61 + ((t - 68) * 1.2) + (rh * 0.094)
-      hi <- 0.5*(alpha + t)
-      
-      if (hi > 79) {
-        
-        hi <- -42.379 + 2.04901523 * t + 10.14333127 * rh - 
-          0.22475541 * t * rh - 6.83783 * 10^-3 * t^2 - 
-          5.481717 * 10^-2 * rh^2 + 1.22874 * 10^-3 * t^2 * 
-          rh + 8.5282 * 10^-4 * t * rh^2 - 1.99 * 10^-6 * 
-          t^2 * rh^2
-        
-        if (rh <= 13 & t >= 80 & t <= 112) {
-          
-          adjustment1 <- (13 - rh) / 4
-          adjustment2 <- sqrt((17 - abs(t - 95)) / 17)
-          total.adjustment <- adjustment1 * adjustment2
-          hi <- hi - total.adjustment
-          
-        } else 
-          
-          if (rh > 85 & t >= 80 & t <= 87) {
-            
-            adjustment1 <- (rh - 85) / 10
-            adjustment2 <- (87 - t) / 5
-            total.adjustment <- adjustment1 * adjustment2
-            hi <- hi + total.adjustment
-            
-          }
-      }
-    }
+  # Push back to Celsius
+  x <- fahrenheit_to_celsius(x)
   
-  return(hi)
+  return(x)
   
 }
 

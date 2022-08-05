@@ -133,7 +133,7 @@ fahrenheit_to_celsius(x)
 
 celsius_to_fahrenheit(x)
 
-heat_index(temp, rh, unit = "c")
+heat_index(temp, rh, rh_min = NA)
 
 kw_to_hp(x, metric = FALSE)
 
@@ -182,7 +182,7 @@ dry_adiabatic_lapse_rate()
 
 \item{type, metric}{Type options.}
 
-\item{temp, rh, unit}{Specific options for some functions.}
+\item{temp, rh, rh_min}{Specific options for some functions.}
 }
 \description{
 No rounding is ever done.
