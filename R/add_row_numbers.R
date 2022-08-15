@@ -34,6 +34,11 @@
 #' @export
 add_row_numbers <- function(df, name = "row_number", zero_based = FALSE) {
   
+  # No longer in use
+  .Deprecated(
+    msg = "`add_row_numbers` is deprecated, please use tibble::rowid_to_column."
+  )
+  
   # Drop variable if exists
   if (name %in% names(df)) df[, name] <- NULL
   

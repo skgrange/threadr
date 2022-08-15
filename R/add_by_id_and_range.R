@@ -120,24 +120,3 @@ get_na_type <- function(x) {
   
 }
 
-
-# # Build conditional statement
-# text_cmd <- stringr::str_c(
-#   "!!sym(by) == !!df_map[", i, ", '", by, "', drop = TRUE] & 
-#   !!sym(test) >= !!df_map[", i, ", '", min, "', drop = TRUE] & 
-#   !!sym(test) <= !!df_map[", i, ", '", max, "', drop = TRUE]"
-# )
-
-# # Build conditional statement
-# text_cmd <- stringr::str_c(
-#   "!!add := if_else(
-#   !!sym(by) == !!df_map[i, by, drop = TRUE] &
-#   !!sym(test) >= !!df_map[i, min, drop = TRUE] &
-#   !!sym(test) <= !!df_map[i, max, drop = TRUE],
-#   !!df_map[i, add, drop = TRUE], 
-#   !!sym(add)"
-# )
-# 
-# # Repeatedly mutate in place
-# df <- df %>%
-#   mutate(rlang::eval_tidy(rlang::parse_expr(text_cmd)))

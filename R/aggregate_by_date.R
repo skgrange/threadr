@@ -69,12 +69,12 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Check a few things
   if (!any(c("date", "value") %in% names(df))) {
-    stop("Input must contain `date` and `value` variables...", call. = FALSE)
+    stop("Input must contain `date` and `value` variables.", call. = FALSE)
   }
   
   # Check data type
   if (!class(df$value) %in% c("numeric", "integer")) {
-    stop("`value` must be of numeric or integer class...", call. = FALSE)
+    stop("`value` must be of numeric or integer class.", call. = FALSE)
   }
   
   if (!threshold <= 1 & threshold >= 0) {
