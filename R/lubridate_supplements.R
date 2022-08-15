@@ -326,3 +326,32 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE,
   return(y)
   
 }
+
+
+#' Function to return the system's idea of yesterday. 
+#' 
+#' @author Stuart K. Grange
+#'
+#' @param as_POSIXct Should the return be of \code{POSIXct} data type? 
+#' 
+#' @param tz If \code{as_POSIXct} is \code{TRUE}, what time zone should the 
+#' return be in? 
+#' 
+#' @return \code{Date} or \code{POSIXct} vector with a length of 1. 
+#' 
+#' @examples 
+#' 
+#' # Date data type
+#' yesterday()
+#' 
+#' # POSIXct  data type
+#' yesterday(as_POSIXct = TRUE)
+#'
+#' @export
+yesterday <- function(as_POSIXct = FALSE, tz = "UTC") {
+  
+  x <- lubridate::today() - lubridate::days(1)
+  if (as_POSIXct) x <- lubridate::ymd(x, tz = tz)
+  return(x)
+  
+}
