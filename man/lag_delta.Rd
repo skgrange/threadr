@@ -6,12 +6,14 @@
 \title{Functions to calculate the delta between a value and the lagged or leading 
 value.}
 \usage{
-lag_delta(x)
+lag_delta(x, na_as_zero = FALSE)
 
-lead_delta(x)
+lead_delta(x, na_as_zero = FALSE)
 }
 \arguments{
 \item{x}{Numeric vector.}
+
+\item{na_as_zero}{Should missing elements be set to 0?}
 }
 \value{
 Numeric vector.
