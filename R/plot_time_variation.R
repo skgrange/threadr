@@ -3,7 +3,11 @@
 #' @param df Input data frame with at least two variables, two of which are 
 #' named \code{value} and \code{date}. 
 #' 
-#' @param by A grouping variable to separately plot different variables. 
+#' @param by A grouping variable to separately plot different variables.
+#' 
+#' @param n_min How many observations are needed to create a valid confidence 
+#' interval? By default, at least two observations are needed to avoid very 
+#' large bounds that results in bad y-axes scales. 
 #' 
 #' @param colours A vector of colours to use for the plotting. 
 #' 
@@ -14,7 +18,8 @@
 #' @return A \strong{ggplot2} list object containing four plots. 
 #' 
 #' @export
-plot_time_variation <- function(df, by = NA, colours = NA, ylim = c(NA, NA)) {
+plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
+                                ylim = c(NA, NA)) {
   
   # Check inputs
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -40,28 +45,32 @@ plot_time_variation <- function(df, by = NA, colours = NA, ylim = c(NA, NA)) {
              hour,
              .add = TRUE) %>% 
     dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup()
+    ungroup() %>% 
+    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Hour
   df_hour <- df %>% 
     group_by(hour,
              .add = TRUE) %>% 
     dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup()
+    ungroup() %>% 
+    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Weekday
   df_weekday <- df %>% 
     group_by(weekday,
              .add = TRUE) %>% 
     dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup()
+    ungroup() %>% 
+    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Monthly
   df_month <- df %>% 
     group_by(month,
              .add = TRUE) %>% 
     dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup()
+    ungroup() %>% 
+    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # For plotting
   by_symbol <- sym(by)
@@ -79,7 +88,7 @@ plot_time_variation <- function(df, by = NA, colours = NA, ylim = c(NA, NA)) {
         group = !!by_symbol)
     ) + 
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
-    ggplot2::geom_line() + 
+    ggplot2::geom_line(na.rm = TRUE) + 
     ggplot2::facet_wrap("weekday", ncol = 7) + 
     theme_less_minimal(legend_position = "bottom")
   
@@ -95,7 +104,7 @@ plot_time_variation <- function(df, by = NA, colours = NA, ylim = c(NA, NA)) {
         group = !!by_symbol)
     ) + 
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
-    ggplot2::geom_line() + 
+    ggplot2::geom_line(na.rm = TRUE) + 
     theme_less_minimal(legend_position = "none")
   
   plot_weekday <- df_weekday %>% 
@@ -110,7 +119,7 @@ plot_time_variation <- function(df, by = NA, colours = NA, ylim = c(NA, NA)) {
         group = !!by_symbol)
     ) + 
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
-    ggplot2::geom_line() + 
+    ggplot2::geom_line(na.rm = TRUE) + 
     theme_less_minimal(legend_position = "none")
   
   plot_month <- df_month %>% 

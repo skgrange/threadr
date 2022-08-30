@@ -4,13 +4,17 @@
 \alias{plot_time_variation}
 \title{Function to plot hourly, weekday, and monthly averages.}
 \usage{
-plot_time_variation(df, by = NA, colours = NA, ylim = c(NA, NA))
+plot_time_variation(df, by = NA, n_min = 2, colours = NA, ylim = c(NA, NA))
 }
 \arguments{
 \item{df}{Input data frame with at least two variables, two of which are 
 named \code{value} and \code{date}.}
 
 \item{by}{A grouping variable to separately plot different variables.}
+
+\item{n_min}{How many observations are needed to create a valid confidence 
+interval? By default, at least two observations are needed to avoid very 
+large bounds that results in bad y-axes scales.}
 
 \item{colours}{A vector of colours to use for the plotting.}
 
