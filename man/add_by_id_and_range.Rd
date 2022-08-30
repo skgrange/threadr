@@ -29,6 +29,25 @@ Tibble.
 \description{
 Function to add a variable by testing an identifier and a range.
 }
+\examples{
+
+\dontrun{
+
+# Add a site variable based on sensor_id and date ranges to an observation
+# table containing time series
+add_by_id_and_range(
+  data_observations,
+  test = "date",
+  df_map = data_site_ranges,
+  by = "sensor_id",
+  min = "date_start",
+  max = "date_end",
+  add = "site"
+)
+
+}
+
+}
 \author{
 Stuart K. Grange
 }

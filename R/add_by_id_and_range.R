@@ -20,10 +20,28 @@
 #' 
 #' @return Tibble. 
 #' 
+#' @examples 
+#' 
+#' \dontrun{
+#' 
+#' # Add a site variable based on sensor_id and date ranges to an observation
+#' # table containing time series
+#' add_by_id_and_range(
+#'   data_observations,
+#'   test = "date",
+#'   df_map = data_site_ranges,
+#'   by = "sensor_id",
+#'   min = "date_start",
+#'   max = "date_end",
+#'   add = "site"
+#' )
+#' 
+#' }
+#' 
 #' @export
 add_by_id_and_range <- function(df, test, df_map, by, min, max, add) {
   
-  # To-do: make number of by generic. How does one dynamically construct the 
+  # TODO: make number of `by` generic. How does one dynamically construct the 
   # if_else testing statement? 
   
   # Check inputs
@@ -119,4 +137,3 @@ get_na_type <- function(x) {
   return(na_type)
   
 }
-
