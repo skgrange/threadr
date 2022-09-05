@@ -4,7 +4,15 @@
 \alias{plot_time_variation}
 \title{Function to plot hourly, weekday, and monthly averages.}
 \usage{
-plot_time_variation(df, by = NA, n_min = 2, colours = NA, ylim = c(NA, NA))
+plot_time_variation(
+  df,
+  by = NA,
+  n_min = 2,
+  colours = NA,
+  ylim = c(NA, NA),
+  legend_name = NA,
+  y_label = "Mean"
+)
 }
 \arguments{
 \item{df}{Input data frame with at least two variables, two of which are 
@@ -19,6 +27,10 @@ large bounds that results in bad y-axes scales.}
 \item{colours}{A vector of colours to use for the plotting.}
 
 \item{ylim}{Limits for y-axes.}
+
+\item{legend_name}{A string to overwrite the default legend label.}
+
+\item{y_label}{A string to overwrite the default y-axes labels.}
 }
 \value{
 A \strong{ggplot2} list object containing four plots.

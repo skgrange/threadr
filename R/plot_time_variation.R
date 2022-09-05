@@ -13,13 +13,18 @@
 #' 
 #' @param ylim Limits for y-axes.
 #' 
+#' @param legend_name A string to overwrite the default legend label. 
+#' 
+#' @param y_label A string to overwrite the default y-axes labels. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return A \strong{ggplot2} list object containing four plots. 
 #' 
 #' @export
 plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
-                                ylim = c(NA, NA)) {
+                                ylim = c(NA, NA), legend_name = NA,
+                                y_label = "Mean") {
   
   # Check inputs
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -30,6 +35,9 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     by <- "variable"
     df <- mutate(df, variable = "value")
   }
+  
+  # For legend name
+  if (is.na(legend_name)) legend_name <- by
   
   # Prepare input
   df <- df %>% 
@@ -90,7 +98,8 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
     ggplot2::geom_line(na.rm = TRUE) + 
     ggplot2::facet_wrap("weekday", ncol = 7) + 
-    theme_less_minimal(legend_position = "bottom")
+    theme_less_minimal(legend_position = "bottom") + 
+    ggplot2::labs(x = "Hour of day", y = y_label)
   
   plot_hours <- df_hour %>% 
     ggplot2::ggplot(
@@ -105,7 +114,8 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ) + 
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
     ggplot2::geom_line(na.rm = TRUE) + 
-    theme_less_minimal(legend_position = "none")
+    theme_less_minimal(legend_position = "none") + 
+    ggplot2::labs(x = "Hour of day", y = y_label)
   
   plot_weekday <- df_weekday %>% 
     ggplot2::ggplot(
@@ -120,7 +130,8 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ) + 
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
     ggplot2::geom_line(na.rm = TRUE) + 
-    theme_less_minimal(legend_position = "none")
+    theme_less_minimal(legend_position = "none") + 
+    ggplot2::labs(x = "Weekday", y = y_label)
   
   plot_month <- df_month %>% 
     ggplot2::ggplot(
@@ -136,7 +147,8 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
     ggplot2::geom_line() + 
     ggplot2::scale_x_discrete(drop = FALSE) + 
-    theme_less_minimal(legend_position = "none")
+    theme_less_minimal(legend_position = "none") + 
+    ggplot2::labs(x = "Month", y = y_label)
   
   # Add all plots to a list
   list_plots <- list(
@@ -148,7 +160,9 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   
   # Add colours to plots
   if (!is.na(colours[1])) {
-    list_plots <- purrr::map(list_plots, add_colours_to_plot, colours = colours)
+    list_plots <- purrr::map(
+      list_plots, add_colours_to_plot, colours = colours, legend_name = legend_name
+    )
   }
   
   # Add ylims to plots
@@ -167,11 +181,15 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   
 }
 
+# plot_weekday_hours + 
+#   ggplot2::scale_colour_manual(name = legend_name, values = colours)
 
-add_colours_to_plot <- function(plot, colours) {
-  plot + 
-    ggplot2::scale_colour_manual(values = colours) + 
-    ggplot2::scale_fill_manual(values = colours)
+add_colours_to_plot <- function(plot, colours, legend_name) {
+  
+  plot <- plot + 
+    ggplot2::scale_colour_manual(name = legend_name, values = colours) + 
+    ggplot2::scale_fill_manual(name = legend_name, values = colours)
+  
 }
 
 
