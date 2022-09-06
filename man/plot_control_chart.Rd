@@ -10,6 +10,7 @@ plot_control_chart(
   size = 2,
   control_constant = 1.128,
   control_multiplier = 3,
+  add_reference = FALSE,
   scales = "fixed"
 )
 }
@@ -26,6 +27,9 @@ sequential deviation. Through simulations, this is usually set as 1.128}
 
 \item{control_multiplier}{Multiplier for sequential deviation to get the 
 lower and upper control limits, typically 3.}
+
+\item{add_reference}{Should a reference value be added to the plot? This value
+must be called \code{value_reference} in \code{df}.}
 
 \item{scales}{A \strong{ggplot2} argument for setting the scales of the 
 facets.}
