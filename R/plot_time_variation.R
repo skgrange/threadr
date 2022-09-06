@@ -181,15 +181,11 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   
 }
 
-# plot_weekday_hours + 
-#   ggplot2::scale_colour_manual(name = legend_name, values = colours)
 
 add_colours_to_plot <- function(plot, colours, legend_name) {
-  
-  plot <- plot + 
+  plot + 
     ggplot2::scale_colour_manual(name = legend_name, values = colours) + 
     ggplot2::scale_fill_manual(name = legend_name, values = colours)
-  
 }
 
 
