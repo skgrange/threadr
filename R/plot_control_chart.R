@@ -7,6 +7,8 @@
 #' @param by A character vector indicating the grouping variables within 
 #' \code{df} to calculate control limits for and plot as facets. 
 #' 
+#' @param size Size of the plots' points.
+#' 
 #' @param scales A \strong{ggplot2} argument for setting the scales of the 
 #' facets.
 #' 
@@ -21,7 +23,7 @@
 #' @return ggplot2 plot. 
 #' 
 #' @export
-plot_control_chart <- function(df, by = as.character(), 
+plot_control_chart <- function(df, by = as.character(), size = 2,
                                control_constant = 1.128, control_multiplier = 3, 
                                scales = "fixed") {
   
@@ -53,6 +55,8 @@ plot_control_chart <- function(df, by = as.character(),
     left_join(df_limits, by = by) %>% 
     mutate(outlier = if_else(value >= upper | value <= lower, TRUE, FALSE))
   
+  # TODO: make outlier a factor for consistent point colours
+  
   plot <- ggplot2::ggplot() + 
     ggplot2::geom_hline(
       data = df_limits_long, ggplot2::aes(yintercept = value), linetype = "dashed"
@@ -61,7 +65,7 @@ plot_control_chart <- function(df, by = as.character(),
       data = df_join, ggplot2::aes(date, value), colour = "black"
     ) + 
     ggplot2::geom_point(
-      data = df_join, ggplot2::aes(date, value, colour = outlier), size = 3
+      data = df_join, ggplot2::aes(date, value, colour = outlier), size = size
     ) + 
     theme_less_minimal(legend_position = "none") + 
     ggplot2::scale_colour_manual(values = colours_ggpubr()[c(1, 3)]) + 

@@ -7,6 +7,7 @@
 plot_control_chart(
   df,
   by = as.character(),
+  size = 2,
   control_constant = 1.128,
   control_multiplier = 3,
   scales = "fixed"
@@ -17,6 +18,8 @@ plot_control_chart(
 
 \item{by}{A character vector indicating the grouping variables within 
 \code{df} to calculate control limits for and plot as facets.}
+
+\item{size}{Size of the plots' points.}
 
 \item{control_constant}{Constant used to transform the mean delta to 
 sequential deviation. Through simulations, this is usually set as 1.128}
