@@ -5,9 +5,9 @@
 \alias{read_rds}
 \title{Function to read and write R's RDS files with some helpful messaging.}
 \usage{
-write_rds(x, file, compress = TRUE, verbose = TRUE)
+write_rds(x, file, compress = TRUE, file_only_print = FALSE, verbose = TRUE)
 
-read_rds(file, verbose = TRUE)
+read_rds(file, file_only_print = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{x}{An R object to write to disc.}
@@ -15,6 +15,9 @@ read_rds(file, verbose = TRUE)
 \item{file}{File name of RDS file.}
 
 \item{compress}{Should the RDS file be written with compression?}
+
+\item{file_only_print}{If \code{verbose} is \code{TRUE}, should only the file
+name be printed without its path?}
 
 \item{verbose}{Should the function give messages? Note that the default is 
 \code{TRUE}.}
