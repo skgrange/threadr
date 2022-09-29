@@ -37,8 +37,9 @@ plot_control_chart <- function(df, by = as.character(), size = 2,
   # The needed variables
   stopifnot(all(c("date", "value", by) %in% names(df)))
   
+  # Check if reference value name is there
   if (add_reference && !"value_reference" %in% names(df)) {
-    stop("`value_reference`", call. = FALSE)
+    stop("`value_reference` is not contained in input.", call. = FALSE)
   }
   
   # Calculate control limits
@@ -52,17 +53,6 @@ plot_control_chart <- function(df, by = as.character(), size = 2,
       )
     ) %>% 
     ungroup()
-  
-  # # Make longer for plotting with lines
-  # df_limits_long <- df_limits %>% 
-  #   tidyr::pivot_longer(-1:-sequential_deviation, names_to = "limit")
-  
-  # ggplot2::geom_hline(
-  #   data = df_limits_long, 
-  #   ggplot2::aes(yintercept = value), 
-  #   linetype = "dashed",
-  #   colour = "grey50"
-  # ) 
   
   # Add outlier variable to input
   df_join <- df %>% 

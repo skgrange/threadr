@@ -12,7 +12,8 @@ if (getRversion() >= "2.15.1") {
     "matches", "monday_logical", "confidence", "z_score", "name", "unique_name",
     "gas", "r", "Winsorize", "InDots", "boot", "boot.ci", "value_predict", 
     "x", "y", "sorted_variables", "hour", "lower", "upper", "outlier",
-    "sequential_deviation", "value_reference"
+    "sequential_deviation", "value_reference", "rowid", "x_id", "y_id",
+    "x_interval", "y_interval", "interval"
   )
   
   # Squash the note
