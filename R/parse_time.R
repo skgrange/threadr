@@ -11,7 +11,7 @@
 #' # Some different time formats
 #' times <- c(
 #'   "44:41", "44:41.3", "01:38:44.566", "1:38:4", "24:00:00", "24:00", 
-#'   "68:10", "78:12:12", "4:04.1", "4:04", NA
+#'   "68:10", "78:12:12", "4:04.1", "4:04", NA, "110:42:00"
 #' )
 #' 
 #' # Parse
@@ -44,7 +44,10 @@ parse_time <- function(x) {
     }
     
     # Parse string
-    x <- hms::parse_hms(x)
+    y <- hms::parse_hms(x)
+    
+    # If there are missing elements, try applying logic than handles >= 24 hours
+    x <- if_else(is.na(y), parse_larger_than_24_hour_string(x), y)
     
   }
   
@@ -56,4 +59,14 @@ parse_time <- function(x) {
 format_hms_string <- function(x) {
   if (!is.na(x) && stringr::str_count(x, ":") == 1L) x <- stringr::str_c("00:", x)
   return(x)
+}
+
+
+parse_larger_than_24_hour_string <- function(x) {
+  
+  x %>% 
+    lubridate::hms(quiet = TRUE) %>% 
+    as.numeric() %>% 
+    hms::as_hms()
+  
 }
