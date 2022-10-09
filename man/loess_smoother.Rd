@@ -4,7 +4,7 @@
 \alias{loess_smoother}
 \title{Function to smooth an \emph{x}-\emph{y} pair with loess (local regression).}
 \usage{
-loess_smoother(x, y, span = 0.75, degree = 2)
+loess_smoother(x, y, span = 0.75, degree = 2, surface = "interpolate")
 }
 \arguments{
 \item{x}{Numeric vector.}
@@ -14,9 +14,13 @@ loess_smoother(x, y, span = 0.75, degree = 2)
 \item{span}{Smoother span.}
 
 \item{degree}{Degree of the polynomials to be used.}
+
+\item{surface}{A \code{loess.control} option. Can take the value 
+\code{"interpolate"} or \code{"direct"}, If \code{"direct"}, the loess model
+will predict outside its training space.}
 }
 \value{
-Numeric vector with the length of \code{x} or \code{y}
+Numeric vector with the length of \code{x} or \code{y}.
 }
 \description{
 Function to smooth an \emph{x}-\emph{y} pair with loess (local regression).
