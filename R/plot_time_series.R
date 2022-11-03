@@ -10,8 +10,8 @@
 #' 
 #' @param size Size/width of line geometry. 
 #' 
-#' @param scales Should scales be fixed ("fixed", the default), free ("free"), 
-#' or free in one dimension ("free_x", "free_y")?
+#' @param scales Should scales be fixed ("free_y", the default), "fixed", 
+#' free ("free"), or free in the x-dimension ("free_x", "free_y")?
 #' 
 #' @param ylim Limits for y-axes. 
 #' 
@@ -32,7 +32,7 @@
 #' 
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
-                             size = 0.3, scales = "fixed", ylim = c(NA, NA)) {
+                             size = 0.3, scales = "free_y", ylim = c(NA, NA)) {
   
   # If only value_predict is present rename, a common thing for my modelling
   if (!"value" %in% names(df) && "value_predict" %in% names(df)) {

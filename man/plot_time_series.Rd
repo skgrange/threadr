@@ -9,7 +9,7 @@ plot_time_series(
   colour = "#FC4E07",
   facet_variable = NA,
   size = 0.3,
-  scales = "fixed",
+  scales = "free_y",
   ylim = c(NA, NA)
 )
 }
@@ -24,8 +24,8 @@ for colour.}
 
 \item{size}{Size/width of line geometry.}
 
-\item{scales}{Should scales be fixed ("fixed", the default), free ("free"), 
-or free in one dimension ("free_x", "free_y")?}
+\item{scales}{Should scales be fixed ("free_y", the default), "fixed", 
+free ("free"), or free in the x-dimension ("free_x", "free_y")?}
 
 \item{ylim}{Limits for y-axes.}
 }
