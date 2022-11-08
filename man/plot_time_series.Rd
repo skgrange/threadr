@@ -8,7 +8,7 @@ plot_time_series(
   df,
   colour = "#FC4E07",
   facet_variable = NA,
-  size = 0.3,
+  linewidth = 0.3,
   scales = "free_y",
   ylim = c(NA, NA)
 )
@@ -22,7 +22,7 @@ for colour.}
 
 \item{facet_variable}{Variable in \code{df} to facet the plot.}
 
-\item{size}{Size/width of line geometry.}
+\item{linewidth}{Size/width of line geometry.}
 
 \item{scales}{Should scales be fixed ("free_y", the default), "fixed", 
 free ("free"), or free in the x-dimension ("free_x", "free_y")?}

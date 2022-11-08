@@ -8,7 +8,7 @@
 #' 
 #' @param facet_variable Variable in \code{df} to facet the plot. 
 #' 
-#' @param size Size/width of line geometry. 
+#' @param linewidth Size/width of line geometry. 
 #' 
 #' @param scales Should scales be fixed ("free_y", the default), "fixed", 
 #' free ("free"), or free in the x-dimension ("free_x", "free_y")?
@@ -32,7 +32,8 @@
 #' 
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
-                             size = 0.3, scales = "free_y", ylim = c(NA, NA)) {
+                             linewidth = 0.3, scales = "free_y", 
+                             ylim = c(NA, NA)) {
   
   # If only value_predict is present rename, a common thing for my modelling
   if (!"value" %in% names(df) && "value_predict" %in% names(df)) {
@@ -50,13 +51,13 @@ plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA,
       data = df, 
       ggplot2::aes_string("date", "value", colour = colour)
     ) +
-      ggplot2::geom_line(size = size, na.rm = TRUE)
+      ggplot2::geom_line(linewidth = linewidth, na.rm = TRUE)
     
   } else {
     
     # A bit simpler
     plot <- ggplot2::ggplot(data = df, ggplot2::aes(date, value)) +
-      ggplot2::geom_line(colour = colour, size = size, na.rm = TRUE)
+      ggplot2::geom_line(colour = colour, linewidth = linewidth, na.rm = TRUE)
     
   }
   
