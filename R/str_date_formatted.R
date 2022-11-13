@@ -1,6 +1,6 @@
 #' Function to format a date (usually) for printing. 
 #' 
-#' @param date Optional, a date to be formated. 
+#' @param date Optional, a date to be formatted. 
 #' 
 #' @param time_zone Should the time zone be printed with the date? 
 #' 

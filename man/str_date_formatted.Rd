@@ -13,7 +13,7 @@ date_message()
 message_date_prefix()
 }
 \arguments{
-\item{date}{Optional, a date to be formated.}
+\item{date}{Optional, a date to be formatted.}
 
 \item{time_zone}{Should the time zone be printed with the date?}
 
