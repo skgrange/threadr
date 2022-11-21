@@ -10,7 +10,11 @@
 script_paths <- function() {
   
   # Get script's file name
-  file <- scriptName::current_filename()
+  if (!interactive()) {
+    file <- scriptName::current_filename()
+  } else {
+    file <- rstudioapi::getActiveDocumentContext()$path
+  }
   
   # Build a list return
   list(
