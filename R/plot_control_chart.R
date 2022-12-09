@@ -70,13 +70,17 @@ plot_control_chart <- function(df, by = as.character(), size = 2,
         xmin = as.POSIXct(-Inf),
         xmax = as.POSIXct(Inf)
       ),
-      alpha = 0.15
+      alpha = 0.15,
+      na.rm = TRUE
     ) + 
     ggplot2::geom_line(
-      data = df_join, ggplot2::aes(date, value), colour = "black"
+      data = df_join, ggplot2::aes(date, value), colour = "black", na.rm = TRUE
     ) + 
     ggplot2::geom_point(
-      data = df_join, ggplot2::aes(date, value, colour = outlier), size = size
+      data = df_join, 
+      ggplot2::aes(date, value, colour = outlier), 
+      size = size,
+      na.rm = TRUE
     ) + 
     theme_less_minimal(legend_position = "none") + 
     ggplot2::scale_colour_manual(values = colours_ggpubr()[c(3, 1)], drop = FALSE) + 
@@ -95,7 +99,8 @@ plot_control_chart <- function(df, by = as.character(), size = 2,
         data = df_reference, 
         ggplot2::aes(yintercept = value_reference),
         linetype = "dashed",
-        colour = "black"
+        colour = "black",
+        na.rm = TRUE
       )
     
   }
