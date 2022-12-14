@@ -7,7 +7,7 @@
 time_zone(date)
 }
 \arguments{
-\item{date}{Date vector}
+\item{date}{Date vector.}
 }
 \value{
 Vector with a length of one.

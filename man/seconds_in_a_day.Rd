@@ -6,6 +6,7 @@
 \alias{seconds_in_a_minute}
 \alias{hours_in_a_year}
 \alias{days_in_a_year}
+\alias{year_days}
 \alias{seconds_in_a_year}
 \alias{seconds_in_a_week}
 \title{Functions to conveniently access number of seconds in different time periods.}
@@ -20,15 +21,19 @@ hours_in_a_year(leap_year = FALSE)
 
 days_in_a_year(leap_year = FALSE)
 
+year_days(x)
+
 seconds_in_a_year(leap_year = FALSE)
 
 seconds_in_a_week()
 }
 \arguments{
 \item{leap_year}{Should leap year logic be used?}
+
+\item{x}{A date or year vector.}
 }
 \value{
-Integer vecotor with length of one.
+Integer vector with length of one.
 }
 \description{
 Functions to conveniently access number of seconds in different time periods.

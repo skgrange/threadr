@@ -2,23 +2,23 @@
 % Please edit documentation in R/lubridate_supplements.R
 \name{parse_unix_time}
 \alias{parse_unix_time}
-\title{Function to conveniently parse a vector of unix time to a POSIXct date vector.}
+\title{Function to conveniently parse a vector of Unix time to a POSIXct date vector.}
 \usage{
 parse_unix_time(x, tz = "UTC", origin = "1970-01-01")
 }
 \arguments{
-\item{x}{An integer- or numeric-vector of unix times.}
+\item{x}{An integer- or numeric-vector of Unix times.}
 
 \item{tz}{Time-zone string. \code{parse_unix_time} defaults to \code{"UTC"}.}
 
-\item{origin}{Origin of epoch. By definition, unix time is \code{"1970-01-01"},
-but other epochs are in use.}
+\item{origin}{Origin of epoch. By definition, Unix time is \code{"1970-01-01"},
+but other epochs can be used.}
 }
 \value{
-A POSIXct vector with the length of x.
+A POSIXct vector with the length of \code{x}.
 }
 \description{
-Function to conveniently parse a vector of unix time to a POSIXct date vector.
+Function to conveniently parse a vector of Unix time to a POSIXct date vector.
 }
 \examples{
 

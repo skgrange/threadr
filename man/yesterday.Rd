@@ -23,7 +23,7 @@ Function to return the system's idea of yesterday.
 # Date data type
 yesterday()
 
-# POSIXct  data type
+# POSIXct data type
 yesterday(as_POSIXct = TRUE)
 
 }

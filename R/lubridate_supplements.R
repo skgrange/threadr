@@ -2,7 +2,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param date Date vector
+#' @param date Date vector.
 #' 
 #' @return Vector with a length of one. 
 #' 
@@ -21,18 +21,18 @@
 time_zone <- function(date) attr(date, "tzone")
 
 
-#' Function to conveniently parse a vector of unix time to a POSIXct date vector. 
+#' Function to conveniently parse a vector of Unix time to a POSIXct date vector. 
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param x An integer- or numeric-vector of unix times. 
+#' @param x An integer- or numeric-vector of Unix times. 
 #' 
 #' @param tz Time-zone string. \code{parse_unix_time} defaults to \code{"UTC"}. 
 #' 
-#' @param origin Origin of epoch. By definition, unix time is \code{"1970-01-01"},
-#' but other epochs are in use. 
+#' @param origin Origin of epoch. By definition, Unix time is \code{"1970-01-01"},
+#' but other epochs can be used.
 #' 
-#' @return A POSIXct vector with the length of x. 
+#' @return A POSIXct vector with the length of \code{x}.
 #' 
 #' @examples
 #' 
@@ -198,9 +198,11 @@ wday_monday <- function(x, as.factor = FALSE, abbr = FALSE) {
 
 #' Functions to conveniently access number of seconds in different time periods. 
 #' 
-#' @param leap_year Should leap year logic be used?  
+#' @param leap_year Should leap year logic be used? 
 #' 
-#' @return Integer vecotor with length of one. 
+#' @param x A date or year vector. 
+#' 
+#' @return Integer vector with length of one. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -228,6 +230,13 @@ hours_in_a_year <- function(leap_year = FALSE) if (!leap_year) 8760L else 8784L
 #' @rdname seconds_in_a_day
 #' @export
 days_in_a_year <- function(leap_year = FALSE) if (!leap_year) 365L else 366L
+
+
+#' @rdname seconds_in_a_day
+#' @export
+year_days <- function(x) {
+  if_else(lubridate::leap_year(x), 366L, 365L)
+}
 
 
 #' @rdname seconds_in_a_day
@@ -344,7 +353,7 @@ season <- function(date, hemisphere = "northern", as.factor = FALSE,
 #' # Date data type
 #' yesterday()
 #' 
-#' # POSIXct  data type
+#' # POSIXct data type
 #' yesterday(as_POSIXct = TRUE)
 #'
 #' @export
