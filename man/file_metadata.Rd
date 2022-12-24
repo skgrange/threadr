@@ -4,10 +4,12 @@
 \alias{file_metadata}
 \title{Function to extract file metadata with \code{exiftool}.}
 \usage{
-file_metadata(file)
+file_metadata(file, progress = FALSE)
 }
 \arguments{
 \item{file}{A vector of files to extract metadata from.}
+
+\item{progress}{Should a progress bar be displayed?}
 }
 \description{
 \code{file_metadata} uses Phil Harvey's Perl \code{exiftool} to extract a 

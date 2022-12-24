@@ -18,6 +18,8 @@
 #' 
 #' @param file A vector of files to extract metadata from. 
 #' 
+#' @param progress Should a progress bar be displayed? 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @seealso \href{http://www.sno.phy.queensu.ca/~phil/exiftool/}{exiftool}
@@ -29,7 +31,7 @@
 #' }
 #'
 #' @export
-file_metadata <- function(file) {
+file_metadata <- function(file, progress = FALSE) {
   
   # Check for programme
   detect_exiftool()
@@ -37,7 +39,7 @@ file_metadata <- function(file) {
   # Ensure path is expanded, sometimes in necessary and then do
   df <- file %>% 
     fs::path_expand() %>% 
-    purrr::map_dfr(file_metadata_worker) %>% 
+    purrr::map_dfr(file_metadata_worker, .progress = progress) %>% 
     as_tibble() %>% 
     mutate(across(everything(), type.convert, as.is = TRUE)) %>% 
     mutate(
@@ -52,7 +54,7 @@ file_metadata <- function(file) {
 }
 
 
-file_metadata_worker <- function(file, .progress) {
+file_metadata_worker <- function(file) {
 
   # Get file basename
   file_basename <- basename(file)
