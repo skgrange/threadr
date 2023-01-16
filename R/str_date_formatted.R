@@ -48,13 +48,16 @@ str_date_formatted <- function(date = NA, time_zone = TRUE,
 #' message(date_message(), "Loading...")
 #' 
 #' @rdname str_date_formatted
-#' 
 #' @export
 date_message <- function() stringr::str_c(str_date_formatted(), ": ")
 
 
 #' @rdname str_date_formatted
-#' 
+#' @export
+cli_date <- function() stringr::str_c(str_date_formatted(), ":")
+
+
+#' @rdname str_date_formatted
 #' @export
 message_date_prefix <- function() {
   

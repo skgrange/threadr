@@ -3,12 +3,15 @@
 \name{str_date_formatted}
 \alias{str_date_formatted}
 \alias{date_message}
+\alias{cli_date}
 \alias{message_date_prefix}
 \title{Function to format a date (usually) for printing.}
 \usage{
 str_date_formatted(date = NA, time_zone = TRUE, fractional_seconds = TRUE)
 
 date_message()
+
+cli_date()
 
 message_date_prefix()
 }
