@@ -73,12 +73,22 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Monthly
+  # Make sure all months are present
+  df_month_pad <- df %>% 
+    select(!!by) %>% 
+    ungroup() %>% 
+    distinct() %>% 
+    tidyr::expand_grid(month = month.abb)
+  
+  # Do the aggregation and join the padded series
   df_month <- df %>% 
     group_by(month,
              .add = TRUE) %>% 
     dplyr::group_modify(~calculate_ci(.$value)) %>% 
     ungroup() %>% 
-    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
+    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .))) %>% 
+    left_join(df_month_pad, ., by = join_by(!!by, month)) %>% 
+    mutate(month = factor(month, levels = month.abb))
   
   # For plotting
   by_symbol <- sym(by)
@@ -144,10 +154,10 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
         colour = !!by_symbol,
         group = !!by_symbol)
     ) + 
-    ggplot2::geom_ribbon(alpha = 0.3, colour = NA) + 
     ggplot2::geom_line() + 
+    ggplot2::geom_crossbar(alpha = 0.7, width = 0.3, colour = NA, na.rm = TRUE) + 
     ggplot2::scale_x_discrete(drop = FALSE) + 
-    theme_less_minimal(legend_position = "none") + 
+    theme_less_minimal(legend_position = "none") +
     ggplot2::labs(x = "Month", y = y_label)
   
   # Add all plots to a list
