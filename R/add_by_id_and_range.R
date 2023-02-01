@@ -41,6 +41,12 @@
 #' @export
 add_by_id_and_range <- function(df, test, df_map, by, min, max, add) {
   
+  # The function can be replaced with conditional joins after dplyr 1.1.0 was
+  # introduced in January 2023
+  .Deprecated(
+    msg = "`add_by_id_and_range` is deprecated, please use dplyr's join_by & inequality conditions."
+  )
+  
   # TODO: make number of `by` generic. How does one dynamically construct the 
   # if_else testing statement? 
   

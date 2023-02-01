@@ -280,7 +280,7 @@ str_to_general <- function(x) stringi::stri_trans_general(x, "Latin-ASCII")
 #' @export
 str_filter <- function(x, pattern, ignore.case = FALSE, invert = FALSE) {
   # Soon to be dropped
-  .Deprecated(msg = "`str_filter` is deprecated, please use `stringr::str_subset`.")
+  .Defunct(msg = "`str_filter` is deprecated, please use `stringr::str_subset`.")
   grep(pattern, x, value = TRUE, ignore.case = ignore.case, invert = invert)
 }
 
