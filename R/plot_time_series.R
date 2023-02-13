@@ -15,9 +15,12 @@
 #' 
 #' @param ylim Limits for y-axes. 
 #' 
+#' @param nrow,ncol When using \code{facet_variable}, how many rows and columns
+#' should be used? 
+#' 
 #' @author Stuart K. Grange
 #' 
-#' @return Invisible \strong{ggplot2} plot. 
+#' @return \strong{ggplot2} plot.
 #' 
 #' @examples 
 #' 
@@ -33,7 +36,7 @@
 #' @export
 plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA, 
                              linewidth = 0.3, scales = "free_y", 
-                             ylim = c(NA, NA)) {
+                             ylim = c(NA, NA), nrow = NULL, ncol = NULL) {
   
   # If only value_predict is present rename, a common thing for my modelling
   if (!"value" %in% names(df) && "value_predict" %in% names(df)) {
@@ -69,7 +72,10 @@ plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA,
   
   # Facet plot
   if (!is.na(facet_variable[1])) {
-    plot <- plot + ggplot2::facet_wrap(facet_variable, scales = scales)
+    plot <- plot + 
+      ggplot2::facet_wrap(
+        facet_variable, scales = scales, nrow = nrow, ncol = ncol
+      )
   }
   
   return(plot)

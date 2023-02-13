@@ -10,7 +10,9 @@ plot_time_series(
   facet_variable = NA,
   linewidth = 0.3,
   scales = "free_y",
-  ylim = c(NA, NA)
+  ylim = c(NA, NA),
+  nrow = NULL,
+  ncol = NULL
 )
 }
 \arguments{
@@ -28,9 +30,12 @@ for colour.}
 free ("free"), or free in the x-dimension ("free_x", "free_y")?}
 
 \item{ylim}{Limits for y-axes.}
+
+\item{nrow, ncol}{When using \code{facet_variable}, how many rows and columns
+should be used?}
 }
 \value{
-Invisible \strong{ggplot2} plot.
+\strong{ggplot2} plot.
 }
 \description{
 Function to plot time series data.
