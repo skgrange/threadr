@@ -55,7 +55,7 @@ correlation <- function (value_predict, value, method = "pearson") {
   
   # Calculate the statistic
   suppressWarnings(
-    x <- stats::cor.test(df$value_predict, value, method = method)
+    x <- stats::cor.test(df$value_predict, df$value, method = method)
   )
   
   # Extract the estimate from the object
