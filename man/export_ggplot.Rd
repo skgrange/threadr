@@ -11,6 +11,7 @@ export_ggplot(
   height = 5,
   crop = FALSE,
   to_png = FALSE,
+  png_resolution = 320,
   device = NULL,
   verbose = FALSE
 )
@@ -29,6 +30,9 @@ retrieved.}
 installed if \code{TRUE}.}
 
 \item{to_png}{Should the file be converted to a \code{.png} file too?}
+
+\item{png_resolution}{If \code{to_png} is \code{TRUE}, what resolution (in 
+dpi) should be used?}
 
 \item{device}{Device to use. Use \code{cairo_pdf} to use the cairo library.}
 

@@ -14,6 +14,9 @@
 #' 
 #' @param to_png Should the file be converted to a \code{.png} file too? 
 #' 
+#' @param png_resolution If \code{to_png} is \code{TRUE}, what resolution (in 
+#' dpi) should be used? 
+#' 
 #' @param device Device to use. Use \code{cairo_pdf} to use the cairo library.
 #' 
 #' @param verbose Should the function give messages? 
@@ -25,13 +28,18 @@
 #' @export
 export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6, 
                           height = 5, crop = FALSE, to_png = FALSE, 
-                          device = NULL, verbose = FALSE) {
+                          png_resolution = 320, device = NULL, verbose = FALSE) {
   
   # Switch if no file name is given
   if (is.na(file[1])) {
     file <- fs::path_expand("~/Desktop/r_plot_export.pdf")
   } else {
     file <- fs::path_expand(file)
+  }
+  
+  # Stop if length of file is not 1
+  if (length(file) != 1L) {
+    stop("`file` must have a length of 1.", call. = FALSE)
   }
   
   # Message if not a pdf
@@ -57,7 +65,7 @@ export_ggplot <- function(file = NA, plot = ggplot2::last_plot(), width = 6,
   
   # Convert to png
   if (verbose) message(date_message(), "Converting `", file, "`...")
-  if (to_png) systemr::pdf_to_png(file, resolution = 320)
+  if (to_png) systemr::pdf_to_png(file, resolution = png_resolution)
   
   return(invisible(file))
   
