@@ -43,8 +43,10 @@
 #' this previously, it can be set to \code{FALSE}. 
 #' 
 #' @param determine_interval Should the input time series be evaluate to find
-#' it's avergaing period/interval. This is required for the correct calculation 
+#' it's averaging period/interval. This is required for the correct calculation 
 #' of \code{threshold}. 
+#' 
+#' @param warn Should the function return warnings in certain situations? 
 #' 
 #' @param verbose Should the function give messages? 
 #' 
@@ -65,7 +67,8 @@
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
                               threshold = 0, round = NA, pad = TRUE, 
-                              determine_interval = TRUE, verbose = FALSE) {
+                              determine_interval = TRUE, warn = TRUE,
+                              verbose = FALSE) {
   
   # Check a few things
   if (!any(c("date", "value") %in% names(df))) {
@@ -83,10 +86,12 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Return empty data frame if input is empty
   if (nrow(df) == 0) {
-    warning(
-      "Input contains no observations, returning emmpty tibble...", 
-      call. = FALSE
-    )
+    if (warn) {
+      warning(
+        "Input contains no observations, returning emmpty tibble...", 
+        call. = FALSE
+      )
+    }
     return(tibble())
   }
   

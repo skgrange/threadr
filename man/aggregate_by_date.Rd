@@ -13,6 +13,7 @@ aggregate_by_date(
   round = NA,
   pad = TRUE,
   determine_interval = TRUE,
+  warn = TRUE,
   verbose = FALSE
 )
 }
@@ -56,8 +57,10 @@ this will be \code{TRUE} but if you want to speed the function up and have done
 this previously, it can be set to \code{FALSE}.}
 
 \item{determine_interval}{Should the input time series be evaluate to find
-it's avergaing period/interval. This is required for the correct calculation 
+it's averaging period/interval. This is required for the correct calculation 
 of \code{threshold}.}
+
+\item{warn}{Should the function return warnings in certain situations?}
 
 \item{verbose}{Should the function give messages?}
 }
