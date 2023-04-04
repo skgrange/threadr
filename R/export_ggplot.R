@@ -17,7 +17,8 @@
 #' @param png_resolution If \code{to_png} is \code{TRUE}, what resolution (in 
 #' dpi) should be used? 
 #' 
-#' @param device Device to use. Use \code{cairo_pdf} to use the cairo library.
+#' @param device Device to use. Use \code{cairo_pdf} (no quotes) to use the 
+#' \strong{cairo} library.
 #' 
 #' @param verbose Should the function give messages? 
 #' 
