@@ -23,6 +23,9 @@ Tibble.
 Function to calculate control limits, usually used for \code{XmR} control 
 charts.
 }
+\seealso{
+\code{\link{plot_control_chart}}
+}
 \author{
 Stuart K. Grange
 }

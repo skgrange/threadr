@@ -13,12 +13,14 @@
 #' 
 #' @return Tibble. 
 #' 
+#' @seealso \code{\link{plot_control_chart}}
+#' 
 #' @export
 calculate_control_limits <- function(x, control_constant = 1.128, 
                                      control_multiplier = 3) {
   
   # Some documentation here:
-  # https://r-bar.net/xmr-control-chart-tutorial-examples/
+  # https://r-bar.net/xmr-control-chart-tutorial-examples
   
   # Drop missing data
   x <- na.omit(x)
@@ -43,6 +45,9 @@ calculate_control_limits <- function(x, control_constant = 1.128,
   lower <- mean - control_multiplier * sequential_deviation
   upper <- mean + control_multiplier * sequential_deviation
   
+  # And range
+  upper_lower_range <- upper - lower
+  
   # Build a tibble return
   df <- tibble(
     mean,
@@ -50,7 +55,8 @@ calculate_control_limits <- function(x, control_constant = 1.128,
     mean_delta,
     sequential_deviation,
     lower,
-    upper
+    upper,
+    upper_lower_range
   )
   
   return(df)
