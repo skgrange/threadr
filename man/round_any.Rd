@@ -7,9 +7,10 @@
 round_any(x, accuracy, f = round)
 }
 \arguments{
-\item{x}{numeric or date-time (POSIXct) vector to round}
+\item{x}{numeric, date-time (POSIXct), or \strong{hms} vector to round.}
 
-\item{accuracy}{number to round to; for POSIXct objects, a number of seconds}
+\item{accuracy}{number to round to; for POSIXct or \strong{hms} objects, a 
+number of seconds.}
 
 \item{f}{rounding function: \code{\link{floor}}, \code{\link{ceiling}} or
 \code{\link{round}}}
@@ -18,6 +19,7 @@ round_any(x, accuracy, f = round)
 Round to multiple of any number.
 }
 \examples{
+
 round_any(135, 10)
 round_any(135, 100)
 round_any(135, 25)
@@ -28,9 +30,13 @@ round_any(135, 10, ceiling)
 round_any(135, 100, ceiling)
 round_any(135, 25, ceiling)
 
+# For POSIXct data-types
 round_any(Sys.time() + 1:10, 5)
 round_any(Sys.time() + 1:10, 5, floor)
 round_any(Sys.time(), 3600)
+
+# For hms data-types
+round_any(hms::as_hms(603), 60)
 
 }
 \keyword{manip}
