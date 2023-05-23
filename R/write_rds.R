@@ -14,7 +14,7 @@
 #' @param verbose Should the function give messages? Note that the default is 
 #' \code{TRUE}. 
 #' 
-#' @return Invisible x.  
+#' @return Invisible \code{x}.  
 #' 
 #' @export
 write_rds <- function(x, file, compress = TRUE, file_only_print = FALSE, 
@@ -22,11 +22,11 @@ write_rds <- function(x, file, compress = TRUE, file_only_print = FALSE,
   
   # Check file
   if (!fs::path_ext(file) %in% c("rds", "RDS")) {
-    stop("`file` must have the `.rds` or `.RDS` extension.", call. = FALSE)
+    cli::cli_abort("`file` must have the `.rds` or `.RDS` extension.")
   }
   
   # Export the object
-  if (verbose) message(date_message(), "Exporting `.rds` object...")
+  if (verbose) cli::cli_alert_info("{cli_date()} Exporting `.rds` object...")
   saveRDS(x, file = file, ascii = FALSE, compress = compress)
   
   # Message after the file have been written
@@ -39,7 +39,7 @@ write_rds <- function(x, file, compress = TRUE, file_only_print = FALSE,
       file_print <- file
     }
     
-    message(date_message(), "Exported `", file_print, "` (`", fs::file_size(file), "`).")
+    cli::cli_alert_info("{cli_date()} Exported `{file_print}` ({fs::file_size(file)}).")
     
   }
   
@@ -54,11 +54,11 @@ read_rds <- function(file, file_only_print = FALSE, verbose = TRUE) {
   
   # Check file
   if (!fs::file_exists(file)) {
-    stop("`", file, "` does not exist.", call. = FALSE)
+    cli::cli_abort("`file` does not exist.")
   }
   
   if (!fs::path_ext(file) %in% c("rds", "RDS")) {
-    stop("`file` must have the `.rds` or `.RDS` extension.", call. = FALSE)
+    cli::cli_abort("`file` must have the `.rds` or `.RDS` extension.")
   }
   
   # Message the file name and size to user
@@ -71,7 +71,7 @@ read_rds <- function(file, file_only_print = FALSE, verbose = TRUE) {
       file_print <- file
     }
     
-    message(date_message(), "Reading `", file_print, "` (`", fs::file_size(file), "`)...")
+    cli::cli_alert_info("{cli_date()} Reading `{file_print}` ({fs::file_size(file)})...")
     
   }
   

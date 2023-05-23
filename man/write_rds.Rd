@@ -23,7 +23,7 @@ name be printed without its path?}
 \code{TRUE}.}
 }
 \value{
-Invisible x.
+Invisible \code{x}.
 }
 \description{
 Function to read and write R's RDS files with some helpful messaging.
