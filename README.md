@@ -1,6 +1,5 @@
 # **threadr** <a href='https://github.com/skgrange/threadr'><img src='man/figures/logo.png' align="right" height="131.5" /></a>
 
-[![Build Status](https://travis-ci.org/skgrange/threadr.svg?branch=master)](https://travis-ci.org/skgrange/threadr)
 [![Lifecycle Status](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/)
 
 **threadr** is a collection of R utility functions to link pieces of analysis together. **threadr** is not a focused, single-unit package, rather a collection of functions which I use to glue many processes together.
@@ -22,7 +21,7 @@ remotes::install_github("skgrange/threadr")
     - scp functions
       - `list_files_scp` and `download_with_scp`. 
     - `str_*` functions. Do things with strings which **stringr** does not. 
-      - `str_trim_length`, `str_sentence_case`, `str_to_underscore`, `str_chop`, `str_drop_xml_tags`, `str_extract_digits`, `str_sql_quote`, `str_unique`, `str_nth_character`.
+      - `str_trim_length`, `str_sentence_case`, `str_to_underscore`, `str_chop`, `str_drop_xml_tags`, `str_extract_digits`, `str_sql_quote`, `str_nth_character`.
     - A number of unit conversion functions.
       - `miles_to_km`, `knots_to_km_h`, `kw_to_hp`, `fahrenheit_to_celsius`, `psi_to_bar`, `newton_metre_to_foot_pound`, `mpg_to_l_100_km`, `mpg_to_km_l`. 
     - Test if a vector is within one or many ranges `within_range`.

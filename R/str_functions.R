@@ -23,7 +23,7 @@
 #' \code{str_sql_quote} will add single quotes can collapse string vectors, a 
 #' common step for building SQL statements. 
 #' 
-#' \code{str_unique} will find unique characters in a string. 
+#' \code{str_unique_characters} will find unique characters in a string. 
 #' 
 #' \code{str_nth_character} will return single character(s) from position(s) 
 #' for a string. 
@@ -220,7 +220,7 @@ str_sql_quote <- function(x, collapse = ",") {
 #' @rdname str_date
 #'
 #' @export
-str_unique <- function(x) unique(strsplit(x, "")[[1]])
+str_unique_characters <- function(x) unique(strsplit(x, "")[[1]])
 
 
 #' @rdname str_date

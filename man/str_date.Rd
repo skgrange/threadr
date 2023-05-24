@@ -12,7 +12,7 @@
 \alias{str_rm_square_brackets}
 \alias{str_extract_digits}
 \alias{str_sql_quote}
-\alias{str_unique}
+\alias{str_unique_characters}
 \alias{str_nth_character}
 \alias{str_create_na}
 \alias{str_thousands_separator}
@@ -52,7 +52,7 @@ str_extract_digits(x, as.numeric = TRUE)
 
 str_sql_quote(x, collapse = ",")
 
-str_unique(x)
+str_unique_characters(x)
 
 str_nth_character(x, n)
 
@@ -111,7 +111,7 @@ to a numeric data class if desired.
 \code{str_sql_quote} will add single quotes can collapse string vectors, a 
 common step for building SQL statements. 
 
-\code{str_unique} will find unique characters in a string. 
+\code{str_unique_characters} will find unique characters in a string. 
 
 \code{str_nth_character} will return single character(s) from position(s) 
 for a string. 
