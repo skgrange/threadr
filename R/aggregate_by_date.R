@@ -162,12 +162,12 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # When the mean is desired (the normal use), wind direction needs additional 
   # processing, and the logic used more than once
-  wind_direction_detected <- if_else(
-    summary == "mean" & "variable" %in% names(df) & "wd" %in% unique(df$variable), 
+  to_process_wd <- if_else(
+    summary == "mean" && "variable" %in% names(df) && "wd" %in% unique(df$variable), 
     TRUE, FALSE
   )
   
-  if (wind_direction_detected) {
+  if (to_process_wd) {
     
     if (verbose) {
       cli::cli_alert_info("{cli_date()} Wind direction (`wd`) detected...")
@@ -198,7 +198,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   
   # Other variables
   if (verbose) {
-    cli::cli_alert_info("{cli_date()} Aggregating...")
+    cli::cli_alert_info("{cli_date()} Aggregating by date...")
   }
   
   # Warnings come from max is used when all elements are NA
@@ -216,7 +216,7 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   )
 
   # Bind wind direction too
-  if (wind_direction_detected) {
+  if (to_process_wd) {
     df <- bind_rows(df, df_wd)
   }
   
