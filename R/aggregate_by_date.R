@@ -70,43 +70,48 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
                               determine_interval = TRUE, warn = TRUE,
                               verbose = FALSE) {
   
-  # Check a few things
+  # Check the input
+  # The needed variables
   if (!any(c("date", "value") %in% names(df))) {
-    stop("Input must contain `date` and `value` variables.", call. = FALSE)
+    cli::cli_abort("Input must contain `date` and `value` variables.")
   }
   
   # Check data type
   if (!class(df$value) %in% c("numeric", "integer")) {
-    stop("`value` must be of numeric or integer class.", call. = FALSE)
+    cli::cli_abort("`value` must be of numeric or integer class.")
   }
   
   if (!threshold <= 1 & threshold >= 0) {
-    stop("Threshold must be between 0 and 1.", call. = FALSE)
+    cli::cli_abort("`threshold` must be between 0 and 1.")
   }
   
   # Return empty data frame if input is empty
   if (nrow(df) == 0) {
     if (warn) {
-      warning(
-        "Input contains no observations, returning emmpty tibble...", 
-        call. = FALSE
-      )
+      cli::cli_warn("Input contains no observations, returning emmpty tibble...")
     }
     return(tibble())
   }
   
   # Threshold means nothing for data capture
-  if (summary == "data_capture") threshold <- 0
+  if (summary == "data_capture") {
+    threshold <- 0
+  }
   
-  # Pad time series first, can be the bottle-neck but is needed for data capture
+  # Pad time series first, can be a slow process, but is needed for data capture
   if (pad) {
     
-    if (verbose) message("Padding time series...")
+    if (verbose) {
+      cli::cli_alert_info("{cli_date()} Padding time series...")
+    }
     
     # Determine interval
     if (determine_interval) {
       
-      if (verbose) message("Detecting input averaging period/interval...")
+      if (verbose) {
+        cli::cli_alert_info("{cli_date()} Detecting input averaging period/interval...")
+      }
+      
       interval_of_input <- detect_date_interval(df$date, text_return = TRUE)
       
       # For sequence date generator, needs a specific format
@@ -120,7 +125,9 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       
       # Switch for default
       if (interval_of_input == "unknown") {
-        if (verbose) message("Input averaging period/interval could not be determined...")
+        if (verbose) {
+          cli::cli_alert_info("{cli_date()} Input averaging period/interval could not be determined...")
+        }
         interval_of_input <- interval
       }
       
@@ -150,19 +157,21 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     by <- c("date", by)
   }
   
-  # Group data frame
-  df <- dplyr::group_by_at(df, by)
+  # Group data frame with a character vector
+  df <- group_by(df, across(dplyr::all_of(by)))
   
-  # Wind direction processing, logic used more than once
-  # Double && will break out of test if FALSE, no warnings
+  # When the mean is desired (the normal use), wind direction needs additional 
+  # processing, and the logic used more than once
   wind_direction_detected <- if_else(
-    "variable" %in% names(df) && "wd" %in% unique(df$variable), 
+    summary == "mean" & "variable" %in% names(df) & "wd" %in% unique(df$variable), 
     TRUE, FALSE
   )
   
   if (wind_direction_detected) {
     
-    if (verbose) message("Wind direction (`wd`) detected...")
+    if (verbose) {
+      cli::cli_alert_info("{cli_date()} Wind direction (`wd`) detected...")
+    }
     
     # Get wind direction
     df_wd <- filter(df, variable == "wd")
@@ -180,14 +189,17 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
             summary = !!summary, 
             threshold = !!threshold, 
             wd = TRUE
-          )
+          ),
+          .groups = "drop"
         )
     )
     
   }
   
   # Other variables
-  if (verbose) message("Aggregating...")
+  if (verbose) {
+    cli::cli_alert_info("{cli_date()} Aggregating...")
+  }
   
   # Warnings come from max is used when all elements are NA
   suppressWarnings(
@@ -198,25 +210,30 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
           summary = !!summary, 
           threshold = !!threshold, 
           wd = FALSE
-        )
+        ),
+        .groups = "drop"
       )
   )
 
   # Bind wind direction too
-  if (wind_direction_detected) df <- bind_rows(df, df_wd)
+  if (wind_direction_detected) {
+    df <- bind_rows(df, df_wd)
+  }
+  
+  if (verbose) {
+    cli::cli_alert_info("{cli_date()} Final clean-up and arranging..")
+  }
   
   # Add date end
-  if (verbose) message("Final clean-up and arranging...")
-  
   df <- df %>% 
-    ungroup() %>% 
     mutate(
       date_end = lubridate::ceiling_date(
         date, 
         unit = interval, 
         change_on_boundary = TRUE
       ),
-      date_end = date_end - 1)
+      date_end = date_end - 1
+    )
   
   # Do some post aggregation cleaning
   # Fix the variable order
@@ -231,8 +248,10 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     select(!!variable_order) %>%
     dplyr::arrange_at(rev(by))
   
-  # Round
-  if (!is.na(round)) df$value <- round(df$value, round)
+  # Round value if desired
+  if (!is.na(round)) {
+    df <- mutate(df, value = round(value, digits = round))
+  }
   
   return(df)
   
