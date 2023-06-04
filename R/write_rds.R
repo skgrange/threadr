@@ -39,7 +39,7 @@ write_rds <- function(x, file, compress = TRUE, file_only_print = FALSE,
       file_print <- file
     }
     
-    cli::cli_alert_info("{cli_date()} Exported `{file_print}` ({fs::file_size(file)}).")
+    cli::cli_alert_success("{cli_date()} Exported `{file_print}` ({fs::file_size(file)}).")
     
   }
   
