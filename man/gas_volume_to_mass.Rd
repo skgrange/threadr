@@ -9,6 +9,7 @@
 \alias{ppm_to_ppb}
 \alias{ppt_to_ppb}
 \alias{ppb_to_ppt}
+\alias{convert_water_percent_to_mass}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(
@@ -42,6 +43,13 @@ ppm_to_ppb(x)
 ppt_to_ppb(x)
 
 ppb_to_ppt(x)
+
+convert_water_percent_to_mass(
+  percent,
+  molecular_mass = 18.01528,
+  temp = 0,
+  pressure = 101325
+)
 }
 \arguments{
 \item{volume}{Gas concentration in ppb or ppm.}
@@ -63,7 +71,7 @@ degrees Celsius are often used.}
 
 \item{mass}{Gas concentration in ug m-3 or mg m-3.}
 
-\item{x}{Vector of gases to convert.}
+\item{x, percent}{Vector of gases to convert.}
 }
 \value{
 Numeric vector.

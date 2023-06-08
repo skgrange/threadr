@@ -282,22 +282,6 @@ acre_to_metre <- function(x) 4046.8564224 * x
 metre_to_acre <- function(x) x / acre_to_metre(1)
 
 
-# acre_to_square_metres <- function(x, type = "international") {
-#   
-#   # Two types apparently, but pretty similar
-#   if (type == "international") x <- x * 4046.8564224
-#   if (type == "us") x <- x * 4046 + 13525426 / 15499969
-#   
-#   # Return
-#   x
-#   
-# }
-# 
-# 
-# square_metres_to_acre <- function(x, type = "international")
-#   x / acre_to_square_metres(1, type)
-
-
 #' @export
 #' @rdname miles_to_km
 marathon <- function() 42.195

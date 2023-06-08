@@ -27,7 +27,7 @@
 #' 
 #' @param pressure Default is 101325 Pa (1 standard atmosphere). 
 #' 
-#' @param x Vector of gases to convert. 
+#' @param x,percent Vector of gases to convert. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -286,15 +286,18 @@ molecular_mass_table <- function(unique_names = TRUE) {
 #' @export
 milligram_to_microgram <- function(x) x * 1000
 
+
 #' @rdname gas_volume_to_mass
 #' 
 #' @export
 microgram_to_milligram <- function(x) x / milligram_to_microgram(1)
 
+
 #' @rdname gas_volume_to_mass
 #' 
 #' @export
 ppb_to_ppm <- function(x) x / 1000
+
 
 #' @rdname gas_volume_to_mass
 #' 
@@ -312,3 +315,28 @@ ppt_to_ppb <- function(x) x / 1000
 #' 
 #' @export
 ppb_to_ppt <- function(x) x / ppt_to_ppb(1)
+
+
+#' @rdname gas_volume_to_mass
+#' 
+#' @export
+convert_water_percent_to_mass <- function(percent, molecular_mass = 18.01528,
+                                          temp = 0, pressure = 101325) {
+  
+  # Convert concentration to ppm
+  concentration <- percent * 10000
+  
+  # Do the conversion to mass in mg.m-3
+  concentration_mass <- gas_volume_to_mass(
+    concentration, 
+    molecular_mass = molecular_mass, 
+    temp = temp,
+    pressure = pressure
+  )
+  
+  # To g.m-3, the units usually used for absolute humidity
+  concentration_mass <- concentration_mass / 1000
+  
+  return(concentration_mass)
+  
+}
