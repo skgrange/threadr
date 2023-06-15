@@ -7,7 +7,7 @@
 mean_wd(wd, ws, na.rm = FALSE)
 }
 \arguments{
-\item{wd}{Numeric vector representing wind direction.}
+\item{wd}{Numeric vector representing wind direction in degrees.}
 
 \item{ws}{Numeric vector representing wind speed. If \code{ws} is supplied, 
 average wind directions will be weighted by wind speed and therefore will be
