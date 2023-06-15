@@ -91,7 +91,10 @@ sd_wind <- function(wd, na.rm = FALSE) {
   
   # Calculate sd that was selected from an optimisation process in Yamartino1984
   # The error
-  error <- sqrt(1 - (x_u ^ 2 + x_v ^ 2))
+  # Warning suppression is for when one observation is available
+  suppressWarnings(
+    error <- sqrt(1 - (x_u ^ 2 + x_v ^ 2))
+  )
   
   # Expand to Yamartino1984's standard deviation
   sd <- asin(error) * (1 + (2 / sqrt(3) - 1) * error ^ 3)
