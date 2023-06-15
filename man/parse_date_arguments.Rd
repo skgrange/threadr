@@ -4,7 +4,7 @@
 \alias{parse_date_arguments}
 \title{Function to parse date arguments for other functions.}
 \usage{
-parse_date_arguments(date, type, tz = "UTC")
+parse_date_arguments(date, type, tz = "UTC", quiet = FALSE)
 }
 \arguments{
 \item{date}{Date string to be parsed.}
@@ -12,6 +12,9 @@ parse_date_arguments(date, type, tz = "UTC")
 \item{type}{Type of date: \code{"start"} or \code{"end"}.}
 
 \item{tz}{Time-zone, defaults to \code{"UTC"}.}
+
+\item{quiet}{Should the date parser be quiet and not raise warnings when 
+dates cannot be passed?}
 }
 \value{
 POSIXct vector with length of 1.
