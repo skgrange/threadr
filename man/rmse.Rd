@@ -5,6 +5,7 @@
 \alias{mean_bias}
 \alias{correlation}
 \alias{n_pairs}
+\alias{mae}
 \title{Functions to calculate various error statistics.}
 \usage{
 rmse(value_predict, value)
@@ -14,6 +15,8 @@ mean_bias(value_predict, value)
 correlation(value_predict, value, method = "pearson")
 
 n_pairs(value_predict, value)
+
+mae(value_predict, value)
 }
 \arguments{
 \item{value_predict}{A numeric vector to test against the "truth" 

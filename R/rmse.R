@@ -80,3 +80,19 @@ n_pairs <- function(value_predict, value) {
   return(x)
   
 }
+
+
+#' @rdname rmse
+#' @export
+mae <- function(value_predict, value) {
+  
+  # Create a tibble and drop any missing pairs
+  df <- tibble(value_predict, value) %>% 
+    tidyr::drop_na()
+  
+  # Calculate the statistic
+  x <- sum(abs(df$value - df$value_predict)) / nrow(df)
+  
+  return(x)
+  
+}
