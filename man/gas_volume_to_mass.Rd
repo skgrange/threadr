@@ -10,6 +10,7 @@
 \alias{ppt_to_ppb}
 \alias{ppb_to_ppt}
 \alias{convert_water_percent_to_mass}
+\alias{convert_absolute_humidity_to_percent}
 \title{Functions to convert gas concentrations between volume- and mass-units.}
 \usage{
 gas_volume_to_mass(
@@ -50,6 +51,13 @@ convert_water_percent_to_mass(
   temp = 0,
   pressure = 101325
 )
+
+convert_absolute_humidity_to_percent(
+  humidity,
+  molecular_mass = 18.01528,
+  temp = 0,
+  pressure = 101325
+)
 }
 \arguments{
 \item{volume}{Gas concentration in ppb or ppm.}
@@ -71,7 +79,7 @@ degrees Celsius are often used.}
 
 \item{mass}{Gas concentration in ug m-3 or mg m-3.}
 
-\item{x, percent}{Vector of gases to convert.}
+\item{x, percent, humidity}{Vector of gases to convert.}
 }
 \value{
 Numeric vector.
@@ -84,7 +92,11 @@ concentration is in ug m-3 or mg m-3 and ppb or ppm is desired.
 \details{
 These functions allow for input of temperatures and pressures which change 
 the coefficients used for the conversion between the unit systems, they do
-not use conversion factors.
+not use conversion factors. 
+
+\code{convert_water_percent_to_mass} will return humidity values in g.m-3 
+and \code{convert_absolute_humidity_to_percent} assumes the humidty input is
+also in g.m-3.
 }
 \examples{
 
@@ -111,6 +123,10 @@ gas_mass_to_volume(
 
 # NOx as NO2
 gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
+
+# Convert water concentration in percent to g.m-3 at different temperatures
+convert_water_percent_to_mass(1.18, temp = 0)
+convert_water_percent_to_mass(1.18, temp = 25)
 
 }
 \seealso{
