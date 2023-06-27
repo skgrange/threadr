@@ -76,27 +76,26 @@ calculate_vapour_pressure <- function(temp, type = 1L) {
 
 #' Function to calculate specific humidity. 
 #' 
+#' Specific humidity is the mass of water vapour in grams per kilogram of moist 
+#' air.
+#' 
 #' @param temp Temperature degrees Celsius. 
 #' 
 #' @param rh Relative humidity in percentage.
 #' 
 #' @param pressure Pressure in hectopascals (hPa). 
 #' 
-#' @return Numeric vector, specific humidity in \code{kg.kg-1}. 
+#' @return Numeric vector, specific humidity in \code{g.kg-1}. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @seealso \code{\link{absolute_humidity}}, \code{\link{calculate_dew_point}},
-#' \code{\link{calculate_vapour_pressure}}
+#' \code{\link{calculate_vapour_pressure}}, \code{\link{calculate_mixing_ratio}}
 #' 
 #' @examples 
 #' 
 #' # Calculate specific humidities at different relative humidities
 #' specific_humidity(20, 95:100)
-#' 
-#' # Calculate specific humidities at different relative humidities and convert
-#' # to g.kg-1
-#' specific_humidity(20, 95:100) * 1000
 #' 
 #' @export
 specific_humidity <- function(temp, rh, pressure = 1013.25) {
@@ -109,8 +108,41 @@ specific_humidity <- function(temp, rh, pressure = 1013.25) {
   
   # In kg.kg-1
   specific_humidity <- (0.622 * vapour_pressure) / 
-    (pressure - (0.378 * vapour_pressure))
+    (pressure - (0.378 * vapour_pressure)) * 1000
   
   return(specific_humidity)
+  
+}
+
+
+#' Function to calculate the mixing ratio of water vapour.  
+#' 
+#' The mixing ratio is the mass of water vapour in grams mixed into a kilogram 
+#' of dry air. 
+#' 
+#' @param temp Temperature degrees Celsius. 
+#' 
+#' @param pressure Pressure in hectopascals (hPa). 
+#' 
+#' @return Numeric vector, mixing ratio in \code{g.kg-1 in dry air}. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @seealso \code{\link{absolute_humidity}}, \code{\link{calculate_dew_point}},
+#' \code{\link{calculate_vapour_pressure}}, \code{\link{specific_humidity}}
+#' 
+#' @examples 
+#' 
+#' # Calculate the mixing ratio
+#' calculate_mixing_ratio(temp = 20, pressure = 1013.25)
+#' 
+#' @export
+calculate_mixing_ratio <- function(temp, pressure = 1013.25) {
+  
+  # Calculate vapour pressure
+  vapour_pressure <- calculate_vapour_pressure(temp, type = 2L)
+  
+  # Calculate mixing ratio
+  621.97 * vapour_pressure / (pressure - vapour_pressure)
   
 }

@@ -14,24 +14,21 @@ specific_humidity(temp, rh, pressure = 1013.25)
 \item{pressure}{Pressure in hectopascals (hPa).}
 }
 \value{
-Numeric vector, specific humidity in \code{kg.kg-1}.
+Numeric vector, specific humidity in \code{g.kg-1}.
 }
 \description{
-Function to calculate specific humidity.
+Specific humidity is the mass of water vapour in grams per kilogram of moist 
+air.
 }
 \examples{
 
 # Calculate specific humidities at different relative humidities
 specific_humidity(20, 95:100)
 
-# Calculate specific humidities at different relative humidities and convert
-# to g.kg-1
-specific_humidity(20, 95:100) * 1000
-
 }
 \seealso{
 \code{\link{absolute_humidity}}, \code{\link{calculate_dew_point}},
-\code{\link{calculate_vapour_pressure}}
+\code{\link{calculate_vapour_pressure}}, \code{\link{calculate_mixing_ratio}}
 }
 \author{
 Stuart K. Grange
