@@ -4,10 +4,14 @@
 \alias{calculate_vapour_pressure}
 \title{Function to calculate atmospheric vapour pressure.}
 \usage{
-calculate_vapour_pressure(temp)
+calculate_vapour_pressure(temp, type = 1L)
 }
 \arguments{
 \item{temp}{Air temperature or dew point temperature in degrees Celsius.}
+
+\item{type}{What type of vapour pressure should be calculated? Type \code{1} 
+is the package's original version and type \code{2} is Bolton 1980's version
+often used with dew point temperatures.}
 }
 \value{
 Numeric vector, vapour pressure in hectopascals (hPa).
@@ -19,6 +23,9 @@ Function to calculate atmospheric vapour pressure.
 
 # Calculate saturated vapour pressure with air temperature
 calculate_vapour_pressure(20)
+
+# Use Bolton 1980's formula
+calculate_vapour_pressure(20, type = 2)
 
 # Calculate actual vapour pressure with dew point temperature
 calculate_vapour_pressure(calculate_dew_point(temp = 20, rh = 65))

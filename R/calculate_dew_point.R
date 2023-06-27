@@ -37,6 +37,10 @@ calculate_dew_point <- function(temp, rh) {
 #' 
 #' @param temp Air temperature or dew point temperature in degrees Celsius. 
 #' 
+#' @param type What type of vapour pressure should be calculated? Type \code{1} 
+#' is the package's original version and type \code{2} is Bolton 1980's version
+#' often used with dew point temperatures. 
+#' 
 #' @return Numeric vector, vapour pressure in hectopascals (hPa). 
 #' 
 #' @author Stuart K. Grange
@@ -46,10 +50,67 @@ calculate_dew_point <- function(temp, rh) {
 #' # Calculate saturated vapour pressure with air temperature
 #' calculate_vapour_pressure(20)
 #' 
+#' # Use Bolton 1980's formula
+#' calculate_vapour_pressure(20, type = 2)
+#' 
 #' # Calculate actual vapour pressure with dew point temperature
 #' calculate_vapour_pressure(calculate_dew_point(temp = 20, rh = 65))
 #' 
 #' @export
-calculate_vapour_pressure <- function(temp) {
-  6.11 * 10 ^ (7.5 * temp / (237.3 + temp))
+calculate_vapour_pressure <- function(temp, type = 1L) {
+  
+  if (type == 1L) {
+    # The original version
+    x <- 6.11 * 10 ^ (7.5 * temp / (237.3 + temp))
+  } else if (type == 2L) {
+    # Bolton 1980's version, usually used with dew point temperature
+    x <- 6.112 * exp((17.67 * temp)/(temp + 243.5))
+  } else {
+    stop("`type` not recognised.", call. = FALSE)
+  }
+  
+  return(x)
+  
+}
+
+
+#' Function to calculate specific humidity. 
+#' 
+#' @param temp Temperature degrees Celsius. 
+#' 
+#' @param rh Relative humidity in percentage.
+#' 
+#' @param pressure Pressure in hectopascals (hPa). 
+#' 
+#' @return Numeric vector, specific humidity in \code{kg.kg-1}. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @seealso \code{\link{absolute_humidity}}, \code{\link{calculate_dew_point}},
+#' \code{\link{calculate_vapour_pressure}}
+#' 
+#' @examples 
+#' 
+#' # Calculate specific humidities at different relative humidities
+#' specific_humidity(20, 95:100)
+#' 
+#' # Calculate specific humidities at different relative humidities and convert
+#' # to g.kg-1
+#' specific_humidity(20, 95:100) * 1000
+#' 
+#' @export
+specific_humidity <- function(temp, rh, pressure = 1013.25) {
+  
+  # Calculate dew point temperature
+  dew_point <- calculate_dew_point(temp, rh)
+  
+  # Calculate vapour pressure
+  vapour_pressure <- calculate_vapour_pressure(dew_point, type = 2L)
+  
+  # In kg.kg-1
+  specific_humidity <- (0.622 * vapour_pressure) / 
+    (pressure - (0.378 * vapour_pressure))
+  
+  return(specific_humidity)
+  
 }
