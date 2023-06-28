@@ -16,8 +16,8 @@ calculate_dew_point(temp, rh)
 Numeric vector, dew point temperature in degrees Celsius.
 }
 \description{
-Function to calculate the dew point from temperature and relative 
-humidity.
+Dew point temperature is the temperature which air must be cooled to achieve
+saturation.
 }
 \examples{
 

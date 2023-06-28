@@ -17,7 +17,8 @@ often used with dew point temperatures.}
 Numeric vector, vapour pressure in hectopascals (hPa).
 }
 \description{
-Function to calculate atmospheric vapour pressure.
+Water vapour pressure is the atmospheric pressure which is exerted by water 
+vapour (gaseous water).
 }
 \examples{
 

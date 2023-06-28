@@ -13,11 +13,11 @@ absolute_humidity(air_temp, rh)
 \item{rh}{Relative humidity in percentage.}
 }
 \value{
-Numeric vector, absolute humidity in g.m-3
+Numeric vector, absolute humidity in \code{g.m-3}.
 }
 \description{
-Function to calculate absolute humidity from temperature and relative 
-humidity.
+Absolute humidity is the amount of amount of water vapour in air, usually
+expressed in \code{g.m-3}.
 }
 \examples{
 

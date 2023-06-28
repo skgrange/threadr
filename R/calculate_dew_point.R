@@ -1,6 +1,9 @@
 #' Function to calculate the dew point from temperature and relative 
 #' humidity.
 #' 
+#' Dew point temperature is the temperature which air must be cooled to achieve
+#' saturation.   
+#' 
 #' @param temp Air temperature in degrees Celsius. 
 #' 
 #' @param rh Relative humidity in percentage. 
@@ -35,6 +38,9 @@ calculate_dew_point <- function(temp, rh) {
 
 #' Function to calculate atmospheric vapour pressure. 
 #' 
+#' Water vapour pressure is the atmospheric pressure which is exerted by water 
+#' vapour (gaseous water). 
+#' 
 #' @param temp Air temperature or dew point temperature in degrees Celsius. 
 #' 
 #' @param type What type of vapour pressure should be calculated? Type \code{1} 
@@ -64,7 +70,7 @@ calculate_vapour_pressure <- function(temp, type = 1L) {
     x <- 6.11 * 10 ^ (7.5 * temp / (237.3 + temp))
   } else if (type == 2L) {
     # Bolton 1980's version, usually used with dew point temperature
-    x <- 6.112 * exp((17.67 * temp)/(temp + 243.5))
+    x <- 6.112 * exp((17.67 * temp) / (temp + 243.5))
   } else {
     stop("`type` not recognised.", call. = FALSE)
   }
