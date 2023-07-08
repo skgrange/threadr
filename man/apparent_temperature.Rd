@@ -18,6 +18,13 @@ Apparent temperature was defined by Steadman (1994). There are two variants,
 one using radiation and one without -- this function uses the non-radiation
 variant.
 }
+\examples{
+
+# Calculate apparent temperature, some real observations from the Bernese 
+# Jura in summer 2021 when it felt warm
+apparent_temperature(25.7, 64.5, 0.9)
+
+}
 \seealso{
 \code{\link{heat_index}}.
 }

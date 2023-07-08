@@ -12,7 +12,7 @@ NULL
 #' @name utils functions
 #' 
 #' @importFrom utils download.file head object.size tail type.convert URLdecode
-#' packageVersion packageDate
+#' packageVersion packageDate installed.packages
 NULL
 
 

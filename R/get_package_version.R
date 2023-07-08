@@ -44,13 +44,15 @@ get_package_version_worker <- function(package) {
   
   if (stringr::str_to_upper(package) == "R") {
     df <- get_r_version()
-  } else {
+  } else if (package %in% rownames(installed.packages())) {
     df <- tibble::tibble(
       date_system = lubridate::now(),
       package = package,
       version = as.character(packageVersion(package)),
       date_package = lubridate::ymd(packageDate(package), tz = "UTC")
     )
+  } else {
+    df <- tibble::tibble()
   }
   
   return(df)

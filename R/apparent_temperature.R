@@ -14,7 +14,7 @@
 #' 
 #' @seealso \code{\link{heat_index}}. 
 #' 
-#' @example 
+#' @examples
 #' 
 #' # Calculate apparent temperature, some real observations from the Bernese 
 #' # Jura in summer 2021 when it felt warm
