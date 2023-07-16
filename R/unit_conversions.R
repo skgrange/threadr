@@ -126,7 +126,7 @@ l_100_km_to_km_l <- function(x) 100 / x # just the reciprocal
 
 #' @export
 #' @rdname miles_to_km
-l_100km_to_mpg <- function(x, type = "imperial") mpg_to_l_100_km(1, type) / x
+l_100_km_to_mpg <- function(x, type = "imperial") mpg_to_l_100_km(1, type) / x
 
 #' @export
 #' @rdname miles_to_km

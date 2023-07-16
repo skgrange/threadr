@@ -93,8 +93,8 @@ test_that("Fuel consumption conversions", {
   expect_equal(mpg_to_l_100_km(40), 7.0620234075)
   expect_equal(mpg_to_l_100_km(40, type = "us"), 5.8803645825)
   
-  expect_equal(l_100km_to_mpg(6), 47.08015605)
-  expect_equal(l_100km_to_mpg(6, type = "us"), 39.20243055)
+  expect_equal(l_100_km_to_mpg(6), 47.08015605)
+  expect_equal(l_100_km_to_mpg(6, type = "us"), 39.20243055)
   
   expect_equal(l_100_km_to_km_l(6), 16.666666666667)
   
