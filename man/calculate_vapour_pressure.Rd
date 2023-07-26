@@ -10,9 +10,8 @@ calculate_vapour_pressure(temp, type = 1L)
 \item{temp}{Air temperature or dew point temperature in degrees Celsius.}
 
 \item{type}{What type of vapour pressure should be calculated? Type \code{1} 
-is the package's original version, type \code{2} is Bolton 1980's version
-often used with dew point temperatures, and type \code{3} is Dosseger et 
-al. 1992's version that is used for the calculation of apparent temperature}
+is the package's original version and type \code{2} is Bolton 1980's version
+often used with dew point temperatures.}
 }
 \value{
 Numeric vector, vapour pressure in hectopascals (hPa).

@@ -8,10 +8,6 @@
 #' the coefficients used for the conversion between the unit systems, they do
 #' not use conversion factors. 
 #' 
-#' \code{convert_water_percent_to_mass} will return humidity values in g.m-3 
-#' and \code{convert_absolute_humidity_to_percent} assumes the humidty input is
-#' also in g.m-3.
-#' 
 #' @param volume Gas concentration in ppb or ppm. 
 #' 
 #' @param mass Gas concentration in ug m-3 or mg m-3. 
@@ -31,7 +27,7 @@
 #' 
 #' @param pressure Default is 101325 Pa (1 standard atmosphere). 
 #' 
-#' @param x,percent,humidity Vector of gases to convert. 
+#' @param x Vector of gases to convert. 
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -64,10 +60,6 @@
 #' 
 #' # NOx as NO2
 #' gas_volume_to_mass(14.64, "no2", temp = 20, unit_input = "ppb")
-#' 
-#' # Convert water concentration in percent to g.m-3 at different temperatures
-#' convert_water_percent_to_mass(1.18, temp = 0)
-#' convert_water_percent_to_mass(1.18, temp = 25)
 #' 
 #' @export
 gas_volume_to_mass <- function(volume, gas, molecular_mass = NA, 
@@ -326,54 +318,48 @@ ppt_to_ppb <- function(x) x / 1000
 ppb_to_ppt <- function(x) x / ppt_to_ppb(1)
 
 
-#' @rdname gas_volume_to_mass
-#' 
-#' @export
-convert_water_percent_to_mass <- function(percent, molecular_mass = 18.01528,
-                                          temp = 0, pressure = 101325) {
-  
-  # Convert concentration to ppm
-  concentration <- percent * 10000
-  
-  # Do the conversion to mass in ug.m-3
-  concentration_mass <- gas_volume_to_mass(
-    concentration, 
-    molecular_mass = molecular_mass, 
-    temp = temp,
-    pressure = pressure,
-    unit_output = "ug_m3"
-  )
-  
-  # To g.m-3, the units usually used for absolute humidity
-  concentration_mass <- concentration_mass / 1000
-  
-  return(concentration_mass)
-  
-}
+#' convert_water_percent_to_mass <- function(percent, molecular_mass = 18.01528,
+#'                                           temp = 0, pressure = 101325) {
+#'   
+#'   # Convert concentration to ppm
+#'   concentration <- percent * 10000
+#'   
+#'   # Do the conversion to mass in ug.m-3
+#'   concentration_mass <- gas_volume_to_mass(
+#'     concentration, 
+#'     molecular_mass = molecular_mass, 
+#'     temp = temp,
+#'     pressure = pressure,
+#'     unit_output = "ug_m3"
+#'   )
+#'   
+#'   # To g.m-3, the units usually used for absolute humidity
+#'   concentration_mass <- concentration_mass / 1000
+#'   
+#'   return(concentration_mass)
+#'   
+#' }
 
 
-#' @rdname gas_volume_to_mass
-#' 
-#' @export
-convert_absolute_humidity_to_percent <- function(humidity, 
-                                                 molecular_mass = 18.01528,
-                                                 temp = 0, pressure = 101325) {
-  
-  # Convert input unit (assumed to be g.kg-1) to ug.m-3
-  humidity <- humidity / 1000
-  
-  # Convert from mass to volume and return in ppb units
-  concentration <- gas_mass_to_volume(
-    humidity, 
-    molecular_mass = molecular_mass, 
-    temp = temp,
-    pressure = pressure,
-    unit_output = "ppb"
-  )
-  
-  # Transform ppb to percent
-  concentration <- concentration * 100
-  
-  return(concentration)
-  
-}
+#' convert_absolute_humidity_to_percent <- function(humidity, 
+#'                                                  molecular_mass = 18.01528,
+#'                                                  temp = 0, pressure = 101325) {
+#'   
+#'   # Convert input unit (assumed to be g.kg-1) to ug.m-3
+#'   humidity <- humidity / 1000
+#'   
+#'   # Convert from mass to volume and return in ppb units
+#'   concentration <- gas_mass_to_volume(
+#'     humidity, 
+#'     molecular_mass = molecular_mass, 
+#'     temp = temp,
+#'     pressure = pressure,
+#'     unit_output = "ppb"
+#'   )
+#'   
+#'   # Transform ppb to percent
+#'   concentration <- concentration * 100
+#'   
+#'   return(concentration)
+#'   
+#' }
