@@ -19,7 +19,8 @@ time_dygraph(
   tz = NA,
   window = NULL,
   group = NULL,
-  y_reference = NA
+  y_reference = NA,
+  main = NULL
 )
 }
 \arguments{
@@ -55,16 +56,19 @@ two.}
 connected when rendered in an HTML document.}
 
 \item{y_reference}{Location of a y-axis reference line.}
+
+\item{main}{The plot's title.}
 }
 \value{
-Invisible, an interactive dygraph.
+Invisible, an interactive \strong{dygraph}.
 }
 \description{
 Function for plotting interactive time-series plots in a similar way to
 \code{timePlot}.
 }
 \seealso{
-\code{timePlot}, \code{\link{dygraph}}
+\code{timePlot}, \code{\link{dygraph}}, 
+\code{\link{plot_time_series}}
 }
 \author{
 Stuart K. Grange

@@ -1,6 +1,8 @@
 #' Function for plotting interactive time-series plots in a similar way to
 #' \code{timePlot}. 
 #' 
+#' @author Stuart K. Grange
+#' 
 #' @param df Data frame with a variable/column named \code{"date"}.
 #' 
 #' @param variable Variable in \code{df} to plot. Default is \code{"value"}. 
@@ -34,20 +36,24 @@
 #' 
 #' @param y_reference Location of a y-axis reference line. 
 #' 
-#' @return Invisible, an interactive dygraph.  
-#'
-#' @seealso \code{timePlot}, \code{\link{dygraph}}
+#' @param main The plot's title. 
 #' 
-#' @author Stuart K. Grange
+#' @return Invisible, an interactive \strong{dygraph}.  
+#'
+#' @seealso \code{timePlot}, \code{\link{dygraph}}, 
+#' \code{\link{plot_time_series}}
 #' 
 #' @export
 time_dygraph <- function(df, variable = "value", colour = "dodgerblue", 
-                         range = TRUE, step = FALSE, points = FALSE, fill = FALSE,
-                         color = colour, ylab = NA, legend_width = 400, tz = NA,
-                         window = NULL, group = NULL, y_reference = NA) {
+                         range = TRUE, step = FALSE, points = FALSE, 
+                         fill = FALSE, color = colour, ylab = NA, 
+                         legend_width = 400, tz = NA, window = NULL, 
+                         group = NULL, y_reference = NA, main = NULL) {
   
   # Check Input
-  if (nrow(df) == 0) stop("There are no observations to plot...", call. = FALSE)
+  if (nrow(df) == 0) {
+    stop("There are no observations to plot.", call. = FALSE)
+  }
   
   if (!"date" %in% names(df)) {
     stop("`date` must be present in data frame.", call. = FALSE)
@@ -71,7 +77,7 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   if (length(variable) == 1) {
     
     # For a single variable
-    # Message supression is for Registered S3 method overwritten...
+    # Message suppression is for registered S3 method overwritten message
     suppressMessages(
       time_series <- xts::xts(
         df[, variable, drop = TRUE], 
@@ -86,26 +92,27 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
     # Select variables
     df <- df[, c("date", variable), drop = FALSE]
     
-    # Promote
+    # Promote data frame to time series object
     list_ts <- data_frame_to_timeseries(df, tz = tz)
     
     # Bind
     time_series <- do.call(cbind, list_ts)
     
     # Also alter colours if needed
-    if (length(colour) != length(variable))
+    if (length(colour) != length(variable)) {
       colour <- ggplot2_colours(length(variable))
+    }
     
   }
   
   # Fix names, names can be mashed
   names(time_series) <- variable
   
-  # To-do: add vertical reference lines
+  # TODO: add vertical reference lines
   # https://rstudio.github.io/dygraphs/gallery-event-lines.html
   
   # Plot
-  plot <- dygraphs::dygraph(time_series, group = group) %>%  
+  plot <- dygraphs::dygraph(time_series, main = main, group = group) %>%  
     dygraphs::dyOptions(
       colors = colour, 
       stepPlot = step, 
@@ -117,26 +124,17 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   
   # Add range selector
   if (range) {
-    
-    plot <- plot %>% 
-      dygraphs::dyRangeSelector(dateWindow = window)
-    
+    plot <- dygraphs::dyRangeSelector(plot, dateWindow = window)
   }
   
   # Label for y-axis
   if (!is.na(ylab)) {
-    
-    plot <- plot %>% 
-      dygraphs::dyAxis("y", label = ylab)
-    
+    plot <- dygraphs::dyAxis(plot, "y", label = ylab)
   }
   
   # Reference line
   if (!is.na(y_reference)[1]) {
-    
-    plot <- plot %>% 
-      dygraphs::dyLimit(y_reference)
-    
+    plot <- dygraphs::dyLimit(plot, y_reference)
   }
   
   return(plot)
