@@ -19,7 +19,7 @@ aggregate_by_date(
 }
 \arguments{
 \item{df}{Input data frame to be aggregated. \code{df} must contain 
-\code{"date"} and \code{"value"} variables. the \code{"date"} variable 
+\code{"date"} and \code{"value"} variables. The \code{"date"} variable 
 must be a \code{POSIXct} date class and the value must be a \code{numeric} or
 \code{integer} data type.}
 
