@@ -4,10 +4,10 @@
 \alias{detect_date_interval}
 \title{Function to determine period of a date vector.}
 \usage{
-detect_date_interval(date, skip = 1, n = 100, text_return = FALSE)
+detect_date_interval(date, skip = 1L, n = 100L, text_return = FALSE)
 }
 \arguments{
-\item{date}{A date vector of POSIXt class.}
+\item{date}{A date vector of \code{POSIXt} class.}
 
 \item{skip}{Number of elements in \code{date} to skip before detecting 
 interval.}
@@ -18,7 +18,7 @@ interval.}
 based return be attempted?}
 }
 \value{
-Numeric or text vector with a length of 1.
+Integer or character vector with a length of \code{1}.
 }
 \description{
 Function to determine period of a date vector.

@@ -1,6 +1,6 @@
 #' Function to determine period of a date vector.
 #' 
-#' @param date A date vector of POSIXt class.  
+#' @param date A date vector of \code{POSIXt} class.  
 #' 
 #' @param skip Number of elements in \code{date} to skip before detecting 
 #' interval. 
@@ -12,14 +12,14 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Numeric or text vector with a length of 1. 
+#' @return Integer or character vector with a length of \code{1}.
 #' 
 #' @export
-detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
+detect_date_interval <- function(date, skip = 1L, n = 100L, text_return = FALSE) {
   
   # Check
   if (!lubridate::is.POSIXt(date)) {
-    stop("`date` must be a POSIXt date.", call. = FALSE)
+    cli::cli_abort("`date` must be a POSIXt date.")
   }
   
   # A catch for vectors with fewer elements than skip
@@ -35,10 +35,10 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
   
   # Calculate difference
   seconds <- difftime(date, date_lag, units = "secs")
-  seconds <- as.numeric(seconds)
+  seconds <- as.integer(seconds)
   seconds <- seconds[!is.na(seconds)]
   
-  # Most common occurance
+  # Most common occurrence
   seconds <- mode_average(seconds, na.rm = TRUE)
   
   if (!text_return) {
@@ -49,28 +49,23 @@ detect_date_interval <- function(date, skip = 1, n = 100, text_return = FALSE) {
     period <- "unknown"
     
     # Missing-ness test, when length is one
-    if (length(seconds) == 1 && is.na(seconds)) return(period)
+    if (length(seconds) == 1L && is.na(seconds)) {
+      return(period)
+    }
     
     # Known periods
-    if (all(seconds == 1)) {
-      period <- "second"
-    } else if (all(seconds == 60)) {
-      period <- "minute"
-    } else if (all(seconds == 300)) {
-      period <- "five_minute"
-    } else if (all(seconds == 600)) {
-      period <- "ten_minute"
-    } else if (all(seconds == 900)) {
-      period <- "fifteen_minute"
-    } else if (all(seconds == 1800)) {
-      period <- "half_hour"
-    } else if (all(seconds == 3600)) {
-      period <- "hour"
-    } else if (all(seconds == 86400)) {
-      period <- "day"
-    } else if (all(seconds %in% c(2419200, 2678400, 2592000, 2505600))) {
-      period <- "month"
-    }
+    period <- dplyr::case_when(
+      all(seconds == 1L) ~ "second",
+      all(seconds == 60L) ~ "minute",
+      all(seconds == 300L) ~ "five_minute",
+      all(seconds == 600L) ~ "ten_minute",
+      all(seconds == 900L) ~ "fifteen_minute",
+      all(seconds == 1800L) ~ "half_hour",
+      all(seconds == 3600L) ~ "hour",
+      all(seconds == 86400L) ~ "day",
+      all(seconds %in% c(2419200L, 2678400L, 2592000L, 2505600L)) ~ "month",
+      .default = "unknown"
+    )
     
     # Return text
     return(period)
