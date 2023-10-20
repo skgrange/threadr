@@ -38,6 +38,8 @@
 #' 
 #' @param main The plot's title. 
 #' 
+#' @param highlight On mouse-over, should the time series be highlighted? 
+#' 
 #' @return Invisible, an interactive \strong{dygraph}.  
 #'
 #' @seealso \code{timePlot}, \code{\link{dygraph}}, 
@@ -48,26 +50,27 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
                          range = TRUE, step = FALSE, points = FALSE, 
                          fill = FALSE, color = colour, ylab = NA, 
                          legend_width = 400, tz = NA, window = NULL, 
-                         group = NULL, y_reference = NA, main = NULL) {
+                         group = NULL, y_reference = NA, main = NULL,
+                         highlight = FALSE) {
   
   # Check Input
   if (nrow(df) == 0) {
-    stop("There are no observations to plot.", call. = FALSE)
+    cli::cli_abort("There are no observations to plot.")
   }
   
   if (!"date" %in% names(df)) {
-    stop("`date` must be present in data frame.", call. = FALSE)
+    cli::cli_abort("`date` must be present in data frame.")
   }
   
   if (!lubridate::is.POSIXct(df$date)) {
-    stop("`date` must be a parsed date (POSIXct).", call. = FALSE) 
+    cli::cli_abort("`date` must be a parsed date (POSIXct).") 
   }
   
   # Check variable names
   input_names <- names(df)
   
   if (!all(variable %in% input_names)) {
-    stop("All variables are not within input data.", call. = FALSE)
+    cli::cli_abort("All variables are not within input data.")
   }
   
   # Get time zone from date in input data frame
@@ -135,6 +138,13 @@ time_dygraph <- function(df, variable = "value", colour = "dodgerblue",
   # Reference line
   if (!is.na(y_reference)[1]) {
     plot <- dygraphs::dyLimit(plot, y_reference)
+  }
+  
+  # Highlight the time series during mouse-over
+  if (highlight) {
+    plot <- dygraphs::dyHighlight(
+      plot, highlightSeriesBackgroundAlpha = 0.5, hideOnMouseOut = TRUE
+    )
   }
   
   return(plot)

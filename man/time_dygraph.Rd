@@ -20,7 +20,8 @@ time_dygraph(
   window = NULL,
   group = NULL,
   y_reference = NA,
-  main = NULL
+  main = NULL,
+  highlight = FALSE
 )
 }
 \arguments{
@@ -58,6 +59,8 @@ connected when rendered in an HTML document.}
 \item{y_reference}{Location of a y-axis reference line.}
 
 \item{main}{The plot's title.}
+
+\item{highlight}{On mouse-over, should the time series be highlighted?}
 }
 \value{
 Invisible, an interactive \strong{dygraph}.
