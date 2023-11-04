@@ -19,3 +19,6 @@ Numeric vector with the units of hectopascal/millibar.
 Function to calculate the water partial pressure/vapour pressure of water 
 using the August-Roche-Magnus (or Magnus-Tetens or Magnus) equation.
 }
+\seealso{
+\code{\link{calculate_water_volume_mixing_ratio}}
+}

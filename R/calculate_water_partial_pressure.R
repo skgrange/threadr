@@ -7,6 +7,8 @@
 #' 
 #' @return Numeric vector with the units of hectopascal/millibar.
 #' 
+#' @seealso \code{\link{calculate_water_volume_mixing_ratio}}
+#' 
 #' @export
 calculate_water_partial_pressure <- function(temp, rh) {
   
