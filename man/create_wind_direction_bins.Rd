@@ -2,7 +2,8 @@
 % Please edit documentation in R/create_wind_direction_bins.R
 \name{create_wind_direction_bins}
 \alias{create_wind_direction_bins}
-\title{Function to transform numeric wind direction values (0--360) degrees to bins.}
+\title{Function to transform numeric wind direction values (0--360 degrees) into 
+bins.}
 \usage{
 create_wind_direction_bins(wd)
 }
@@ -13,7 +14,8 @@ create_wind_direction_bins(wd)
 A factor vector with levels.
 }
 \description{
-Function to transform numeric wind direction values (0--360) degrees to bins.
+Function to transform numeric wind direction values (0--360 degrees) into 
+bins.
 }
 \examples{
 

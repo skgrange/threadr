@@ -1,8 +1,9 @@
-#' Function to transform numeric wind direction values (0--360) degrees to bins.
-#' 
-#' @param wd A numeric vector representing wind direction values. 
+#' Function to transform numeric wind direction values (0--360 degrees) into 
+#' bins.
 #' 
 #' @author Stuart K. Grange
+#' 
+#' @param wd A numeric vector representing wind direction values. 
 #' 
 #' @return A factor vector with levels. 
 #' 

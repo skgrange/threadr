@@ -18,11 +18,11 @@ mean_wd <- function(wd, ws, na.rm = FALSE) {
   
   # Check input vector
   if (any(wd < 0, na.rm = TRUE)) {
-    stop("Negative wind directions detected.", call. = FALSE)
+    cli::cli_abort("Negative wind directions detected.")
   }
   
   if (any(wd > 360, na.rm = TRUE)) {
-    stop("Wind directions greater than 360 detected.", call. = FALSE)
+    cli::cli_abort("Wind directions greater than 360 degrees detected.")
   }
   
   # Convert wd into radians before using trigonometry
@@ -71,11 +71,11 @@ sd_wind <- function(wd, na.rm = FALSE) {
   
   # Check input vector
   if (any(wd < 0, na.rm = TRUE)) {
-    stop("Negative wind directions detected.", call. = FALSE)
+    cli::cli_abort("Negative wind directions detected.")
   }
   
   if (any(wd > 360, na.rm = TRUE)) {
-    stop("Wind directions greater than 360 detected.", call. = FALSE)
+    cli::cli_abort("Wind directions greater than 360 degrees detected.")
   }
   
   # Convert degrees to radians

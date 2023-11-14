@@ -2,6 +2,7 @@ context("Time padder")
 
 test_that("Test time padder with single site", {
   
+  # Load some data
   df <- readRDS(
     system.file("extdata/data_airbase_single_sampled.rds", package = "threadr")
   )
@@ -17,7 +18,7 @@ test_that("Test time padder with single site", {
   # Group by
   expect_equal(nrow(time_pad(df, interval = "hour", by = "site")), 6572)
   
-  # Multiple
+  # Multiple variables
   expect_equal(
     nrow(
       time_pad(
@@ -25,13 +26,16 @@ test_that("Test time padder with single site", {
         interval = "hour", 
         by = c("site", "country", "site_type")
       )
-    ), 6572)
+    ), 
+    6572
+  )
   
 })
 
 
 test_that("Test time padder with multiple sites", {
   
+  # Load data
   df <- readRDS(
     system.file("extdata/data_airbase_sampled.rds", package = "threadr")
   )
@@ -46,6 +50,7 @@ test_that("Test time padder with multiple sites", {
         by = c("site", "country", "site_type")
       )
     ),
-    14226)
+    14226
+  )
   
 })

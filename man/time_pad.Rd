@@ -2,13 +2,13 @@
 % Please edit documentation in R/time_pad.R
 \name{time_pad}
 \alias{time_pad}
-\title{Function to pad time-series.}
+\title{Function to pad time series.}
 \usage{
 time_pad(df, interval = "hour", by = NA, round = NA, full = FALSE, warn = TRUE)
 }
 \arguments{
-\item{df}{A data frame including parsed dates. The date variable/column must
-be named \code{date}.}
+\item{df}{A tibble/data frame including parsed dates. The date 
+variable/column must be named \code{date}.}
 
 \item{interval}{Interval of returned time series. Some examples could be: 
 \code{"min"} \code{"hour"}, \code{"day"}, \code{"month"}, \code{"year"} but 
@@ -40,8 +40,8 @@ end a padded time-series at a "nice place", for example, at the beginning of
 an hour or day.
 }
 \details{
-\code{time_pad} pads a time-series by calculating the maximum and minimum 
-dates within a time-series and then generating a uniform date sequence 
+\code{time_pad} pads a time series by calculating the maximum and minimum 
+dates within a time series and then generating a uniform date sequence 
 between the maximum and minimum dates. This date sequence is then joined to 
 the input data frame and the missing values are represented as \code{NA}.
 }
@@ -49,7 +49,7 @@ the input data frame and the missing values are represented as \code{NA}.
 
 \dontrun{
 
-# Pad time-series so every minute is present
+# Pad time series so every minute is present
 data_nelson_pad <- time_pad(data_nelson, interval = "min", round = "day")
 
 # Keep identifying variables "site" and "sensor"
@@ -64,7 +64,8 @@ data_ozone_sensor_pad <- time_pad(
 }
 \seealso{
 See \code{\link{round_date_interval}}, \code{timeAverage}, 
-\code{\link{round_date}}, \code{\link{left_join}}
+\code{\link{round_date}}, \code{\link{left_join}}, 
+\code{\link{aggregate_by_date}}
 }
 \author{
 Stuart K. Grange

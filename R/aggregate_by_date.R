@@ -120,13 +120,15 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
         interval_of_input == "ten_minute" ~ "10 min",
         interval_of_input == "fifteen_minute" ~ "15 min",
         interval_of_input == "half_hour" ~ "30 min",
-        TRUE ~ interval_of_input
+        .default = interval_of_input
       )
       
       # Switch for default
       if (interval_of_input == "unknown") {
         if (verbose) {
-          cli::cli_alert_info("{cli_date()} Input averaging period/interval could not be determined...")
+          cli::cli_alert_info(
+            "{cli_date()} Input averaging period/interval could not be determined..."
+          )
         }
         interval_of_input <- interval
       }
@@ -160,10 +162,12 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
   # Group data frame with a character vector
   df <- group_by(df, across(dplyr::all_of(by)))
   
-  # When the mean is desired (the normal use), wind direction needs additional 
-  # processing, and the logic used more than once
+  # When the mean (the normal use) or standard deviation is desired, wind 
+  # direction needs additional processing, and the logic used more than once
   to_process_wd <- if_else(
-    summary == "mean" && "variable" %in% names(df) && "wd" %in% unique(df$variable), 
+    summary %in% c("mean", "sd") && 
+      "variable" %in% names(df) && 
+      "wd" %in% unique(df$variable), 
     TRUE, FALSE
   )
   
@@ -179,20 +183,19 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     # Drop from original data frame
     df <- filter(df, variable != "wd")
     
-    # Do the wind direction aggregation
-    # Warnings come from max is used when all elements are NA
-    suppressWarnings(
-      df_wd <- df_wd %>% 
-        summarise(
-          value = aggregate_by_date_worker(
-            value, 
-            summary = !!summary, 
-            threshold = !!threshold, 
-            wd = TRUE
-          ),
-          .groups = "drop"
-        )
-    )
+    # Find the function that is required
+    aggregation_function_wind <- aggregation_function_type(summary, wd = TRUE)
+    
+    # Aggregate wind direction with the correct summary function
+    df_wd <- df_wd %>% 
+      summarise(
+        value = aggregate_by_date_worker(
+          value, 
+          f = aggregation_function_wind,
+          threshold = !!threshold
+        ),
+        .groups = "drop"
+      )
     
   }
   
@@ -201,20 +204,20 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     cli::cli_alert_info("{cli_date()} Aggregating by date...")
   }
   
-  # Warnings come from max is used when all elements are NA
-  suppressWarnings(
-    df <- df %>% 
-      summarise(
-        value = aggregate_by_date_worker(
-          value, 
-          summary = !!summary, 
-          threshold = !!threshold, 
-          wd = FALSE
-        ),
-        .groups = "drop"
-      )
-  )
-
+  # Aggregate all variables that are not wind direction
+  # Find the function that is required
+  aggregation_function <- aggregation_function_type(summary, wd = FALSE)
+  
+  df <- df %>% 
+    summarise(
+      value = aggregate_by_date_worker(
+        value, 
+        f = aggregation_function,
+        threshold = !!threshold
+      ),
+      .groups = "drop"
+    )
+  
   # Bind wind direction too
   if (to_process_wd) {
     df <- bind_rows(df, df_wd)
@@ -258,42 +261,19 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
 }
 
 
-aggregate_by_date_worker <- function(x, summary, threshold, wd = FALSE) {
+aggregate_by_date_worker <- function(x, f, threshold, wd = FALSE) {
   
-  if (wd) {
-    
-    if (threshold == 0) {
-      # Use trigonometry
-      x <- mean_wd(x, na.rm = TRUE)
-    } else {
-      # Calculate data capture
-      data_capture <- calculate_data_capture(x)
-      if (threshold <= data_capture) {
-        x <- mean_wd(x, na.rm = TRUE)
-      } else {
-        # Invalid summary
-        x <- NA
-      }
-    }
-    
+  if (threshold == 0) {
+    x <- f(x, na.rm = TRUE)
   } else {
-    
-    # Get function to use
-    aggregation_function <- aggregation_function_type(summary)
-    
-    if (threshold == 0) {
-      x <- aggregation_function(x, na.rm = TRUE)
+    # Calculate data capture
+    data_capture <- calculate_data_capture(x)
+    if (threshold <= data_capture) {
+      x <- f(x, na.rm = TRUE)
     } else {
-      # Calculate data capture
-      data_capture <- calculate_data_capture(x)
-      if (threshold <= data_capture) {
-        x <- aggregation_function(x, na.rm = TRUE)
-      } else {
-        # Invalid summary
-        x <- NA
-      }
+      # An invalid summary
+      x <- NA
     }
-    
   }
   
   return(x)
@@ -312,21 +292,26 @@ calculate_data_capture <- function(x) {
 }
 
 
-aggregation_function_type <- function(type) {
+aggregation_function_type <- function(type, wd = FALSE) {
   
-  # Switch
-  if (type == "mean") f <- mean
-  if (type == "median") f <- median
-  if (type %in% c("max", "maximum")) f <- max
-  if (type %in% c("min", "minumum")) f <- min
-  if (type == "sum") f <- sum_custom
-  if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
-  if (type == "mode") f <- mode_average
-  # Parse na.rm for consistency, but is is not used
-  if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
-  # na.rm is not used here either, this could be wrong if date is not padded
-  if (type == "data_capture") {
-    f <- function(x, na.rm) sum(!is.na(x)) / length(x)
+  # Switch character vector to function, would be better to use case_when
+  if (!wd) {
+    if (type == "mean") f <- mean
+    if (type == "median") f <- median
+    if (type %in% c("max", "maximum")) f <- max_no_warnings
+    if (type %in% c("min", "minumum")) f <- min_no_warnings
+    if (type == "sum") f <- sum_custom
+    if (type %in% c("sd", "stdev", "standard_deviation")) f <- sd
+    if (type == "mode") f <- mode_average
+    # Parse na.rm for consistency, but is is not used
+    if (type %in% c("count", "n")) f <- function(x, na.rm) sum(!is.na(x))
+    # na.rm is not used here either, this could be wrong if date is not padded
+    if (type == "data_capture") {
+      f <- function(x, na.rm) sum(!is.na(x)) / length(x)
+    }
+  } else {
+    if (type == "mean") f <- mean_wd
+    if (type == "sd") f <- sd_wind
   }
   
   return(f)
@@ -345,4 +330,15 @@ sum_custom <- function(x, na.rm) {
   
   return(x)
   
+}
+
+
+# For no warnings when all elements are missing
+max_no_warnings <- function(x, na.rm) {
+  suppressWarnings(max(x, na.rm = na.rm))
+}
+
+
+min_no_warnings <- function(x, na.rm) {
+  suppressWarnings(min(x, na.rm = na.rm))
 }
