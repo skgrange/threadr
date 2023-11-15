@@ -15,7 +15,8 @@
 #' @param na.rm Should missing values be removed for calculation? The default is
 #' \code{TRUE} because missing values cannot be used for quantile calculations. 
 #' 
-#' @seealso \code{\link{quantile}}
+#' @seealso \code{\link{quantile}}, \code{\link{calculate_ci}}, 
+#' \code{\link{calculate_range}}
 #' 
 #' @return Tibble. 
 #' 

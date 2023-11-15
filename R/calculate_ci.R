@@ -24,6 +24,8 @@
 #' 
 #' @return A tibble with one row. 
 #' 
+#' @seealso \code{\link{calculate_quantiles}}, \code{\link{calculate_range}}
+#' 
 #' @examples 
 #' 
 #' # Calculate confidence intervals

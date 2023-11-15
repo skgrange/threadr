@@ -41,6 +41,9 @@ calculate_ci(x, level = 0.9)
 calculate_ci(x, method = "bootstrap")
 
 }
+\seealso{
+\code{\link{calculate_quantiles}}, \code{\link{calculate_range}}
+}
 \author{
 Stuart K. Grange and Frank Harrell.
 }

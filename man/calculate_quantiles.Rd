@@ -33,7 +33,8 @@ Tibble.
 Function to calculate quantiles for a numeric vector.
 }
 \seealso{
-\code{\link{quantile}}
+\code{\link{quantile}}, \code{\link{calculate_ci}}, 
+\code{\link{calculate_range}}
 }
 \author{
 Stuart K. Grange
