@@ -2,25 +2,41 @@
 % Please edit documentation in R/mode_average.R
 \name{mode_average}
 \alias{mode_average}
-\title{Function to calculate mode of a vector.}
+\title{Function to calculate mode (the value that appears most often) of a vector.}
 \usage{
 mode_average(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{Input vector.}
 
-\item{na.rm}{Should \code{NA}s be omitted? Deafult is \code{FALSE}.}
+\item{na.rm}{Should \code{NA}s be omitted?}
 }
 \value{
-Vector with a length of one.
+Vector with a length of \code{1}.
 }
 \description{
-Function to calculate mode of a vector.
+Function to calculate mode (the value that appears most often) of a vector.
+}
+\examples{
+
+# Calculate the mode of integers
+mode_average(c(1L, 2L, 3L, 3L))
+
+# Calculate the mode of a numeric vector
+mode_average(c(5, 6, 6, 500000))
+
+# Will return the first element when one or two elements are supplied
+mode_average(c(5, 1))
+mode_average(c("hail", "rain"))
+
+# Will also work with character and factor vectors
+mode_average(c("rain", "hail", "sunshine", "rain"))
+
 }
 \seealso{
 \href{http://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode}{stackoverflow},
 \code{\link{mean}}, \code{\link{median}}
 }
 \author{
-Ken Williams with enhancement by Stuart K. Grange
+Ken Williams.
 }
