@@ -25,10 +25,18 @@ Function to calculate percentage change between new and old values.
 percentage_change(100, 50)
 percentage_change(50, 100)
 
-# Global mean CO2 concentrations
+# Global mean CO2 mole fraction
 percentage_change(277, 400)
 percentage_change(277, 400, as_decimal = TRUE)
 
+# Percentage change depends on the order of the inputs because it depends on
+# the denominator
+percentage_change(104, 130)
+percentage_change(130, 104)
+
+}
+\seealso{
+\code{\link{percentage_difference}}
 }
 \author{
 Stuart K. Grange

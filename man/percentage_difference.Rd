@@ -23,6 +23,14 @@ Function to calculate the percentage difference between two values.
 percentage_difference(100, 80)
 percentage_difference(104, 130)
 
+# A percentage difference's sign changes when the order of the inputs change,
+# but not the value
+percentage_difference(104, 130)
+percentage_difference(130, 104)
+
+}
+\seealso{
+\code{\link{percentage_change}}
 }
 \author{
 Stuart K. Grange
