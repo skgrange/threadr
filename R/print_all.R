@@ -1,6 +1,8 @@
 #' Function to print all rows in a tibble. 
 #' 
-#' @param x Object to print. 
+#' @param x Object to print, usually a tibble. 
+#' 
+#' @param n Number of rows to print.
 #' 
 #' @return Invisible \code{x}. 
 #' 
@@ -11,17 +13,17 @@
 #' # Load a package
 #' library(dplyr)
 #' 
-#' # Truncated print
+#' # Standard printing will not print all rows
 #' tibble(x = 1:30)
 #' 
-#' # Print all
+#' # Print all rows
 #' tibble(x = 1:30) %>% print_all()
 #' 
 #' @export
-print_all <- function(x) {
+print_all <- function(x, n = Inf) {
   
-  if ("tbl" %in% class(x)) {
-    print(x, n = Inf)
+  if (any(c("tbl", "sf") %in% class(x))) {
+    print(x, n = n)
   } else {
     print(x)
   }

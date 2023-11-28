@@ -4,10 +4,12 @@
 \alias{print_all}
 \title{Function to print all rows in a tibble.}
 \usage{
-print_all(x)
+print_all(x, n = Inf)
 }
 \arguments{
-\item{x}{Object to print.}
+\item{x}{Object to print, usually a tibble.}
+
+\item{n}{Number of rows to print.}
 }
 \value{
 Invisible \code{x}.
@@ -20,10 +22,10 @@ Function to print all rows in a tibble.
 # Load a package
 library(dplyr)
 
-# Truncated print
+# Standard printing will not print all rows
 tibble(x = 1:30)
 
-# Print all
+# Print all rows
 tibble(x = 1:30) \%>\% print_all()
 
 }
