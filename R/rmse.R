@@ -47,11 +47,16 @@ mean_bias <- function(value_predict, value) {
 
 #' @rdname rmse
 #' @export
-correlation <- function (value_predict, value, method = "pearson") {
+correlation <- function(value_predict, value, method = "pearson") {
   
   # Create a tibble and drop any missing pairs
   df <- tibble(value_predict, value) %>%
     tidyr::drop_na()
+  
+  # If no pairs, return NA, the function will error otherwise
+  if (nrow(df) == 0L) {
+    return(NA_real_)
+  }
   
   # Calculate the statistic
   suppressWarnings(
