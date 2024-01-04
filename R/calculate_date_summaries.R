@@ -34,6 +34,11 @@ calculate_date_summaries <- function(df, ..., interval = "hour", verbose = FALSE
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
   stopifnot("value" %in% names(df) && inherits(df$value, "numeric"))
   
+  # No missing dates are allowed
+  if (anyNA(df$date)) {
+    cli::cli_abort("Missing dates detected.")
+  }
+  
   # Catch the n arguments that are used for grouping the tibble, called a defuse
   # operation
   dots <- dplyr::enquos(..., .named = TRUE)
