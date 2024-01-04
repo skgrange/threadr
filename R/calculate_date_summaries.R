@@ -18,17 +18,20 @@
 #' multiples of time intervals are accepted. For example, a valid \code{interval}
 #' is \code{"5 mins"}. 
 #' 
+#' @param drop_n Should the count of non-missing elements (\code{n}) be dropped
+#' from the return? 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @param progress Should a progress bar be displayed? 
 #' 
 #' @return Tibble. 
 #' 
-#' @seealso \code{\link{aggregate_by_date}}
+#' @seealso \code{\link{aggregate_by_date}}, \code{\link{time_pad}}
 #' 
 #' @export
-calculate_date_summaries <- function(df, ..., interval = "hour", verbose = FALSE,
-                                     progress = FALSE) {
+calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE, 
+                                     verbose = FALSE, progress = FALSE) {
   
   # Check the inputs
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
@@ -76,11 +79,16 @@ calculate_date_summaries <- function(df, ..., interval = "hour", verbose = FALSE
   
   # Add to aggregated tibbles to nested object and reframe to keep the 
   # identifiers
-  df_nest_agg <- df_nest %>% 
+  df_agg <- df_nest %>% 
     mutate(observations = !!list_agg) %>% 
     dplyr::reframe(observations)
   
-  return(df_nest_agg)
+  # Drop count/n if desired
+  if (drop_n) {
+    df_agg <- select(df_agg, -n)
+  }
+  
+  return(df_agg)
   
 }
 
@@ -103,6 +111,9 @@ calculate_date_summaries_worker <- function(df, name, interval, verbose) {
   
   # Create a sequence with all dates present, used for padding the time series
   date_sequence <- seq(date_start, date_end, by = interval)
+  
+  # Drop final element of sequence because of the ceiling date rounding
+  date_sequence <- head(date_sequence, -1)
   
   # Create a tibble for joining
   df_date_sequence <- tibble(date = date_sequence)

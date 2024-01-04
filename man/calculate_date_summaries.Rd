@@ -8,6 +8,7 @@ calculate_date_summaries(
   df,
   ...,
   interval = "hour",
+  drop_n = FALSE,
   verbose = FALSE,
   progress = FALSE
 )
@@ -26,6 +27,9 @@ be processed with vector functions.}
 multiples of time intervals are accepted. For example, a valid \code{interval}
 is \code{"5 mins"}.}
 
+\item{drop_n}{Should the count of non-missing elements (\code{n}) be dropped
+from the return?}
+
 \item{verbose}{Should the function give messages?}
 
 \item{progress}{Should a progress bar be displayed?}
@@ -38,7 +42,7 @@ Tibble.
 to ensure all date steps are present in the return.
 }
 \seealso{
-\code{\link{aggregate_by_date}}
+\code{\link{aggregate_by_date}}, \code{\link{time_pad}}
 }
 \author{
 Stuart K. Grange

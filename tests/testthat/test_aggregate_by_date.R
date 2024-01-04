@@ -134,12 +134,12 @@ test_that("Test date aggregators' wind direction calculations", {
     aggregate_by_date(df, "hour", round = 2)$value, c(88.23, 276.33)
   )
   
-  # Another function, but that will have the same result as above
+  # Another function, but this will have the same result as above
   expect_equal(
     calculate_date_summaries(df, variable) %>% 
       mutate(value = round(value, 2)) %>% 
       pull(value),
-    c(88.23, 276.33, NA_real_) 
+    c(88.23, 276.33) 
   )
   
   # A single value
