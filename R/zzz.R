@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1") {
     "x", "y", "sorted_variables", "hour", "lower", "upper", "outlier",
     "sequential_deviation", "value_reference", "rowid", "x_id", "y_id",
     "x_interval", "y_interval", "interval", "date_package", "observations",
-    "n"
+    "n", "event"
   )
   
   # Squash the note

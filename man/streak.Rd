@@ -2,21 +2,30 @@
 % Please edit documentation in R/streak.R
 \name{streak}
 \alias{streak}
-\title{Function to determine streaks/consecutive events.}
+\alias{streak_max}
+\alias{streak_group}
+\title{Functions to determine and group streaks/consecutive events.}
 \usage{
 streak(event, only_true = TRUE)
+
+streak_max(event)
+
+streak_group(streak_max)
 }
 \arguments{
 \item{event}{A logical vector indicating if an event occurred or not.}
 
 \item{only_true}{Should only events that are \code{TRUE} be returned as 
 streaks?}
+
+\item{streak_max}{In the case of \code{streak_group}, the output from the 
+\code{streak_max} function.}
 }
 \value{
-Numeric vector with the length of \code{event}.
+Integer vector with the length of \code{event} or \code{streak_max}.
 }
 \description{
-Function to determine streaks/consecutive events.
+Streaks are also known as run lengths.
 }
 \seealso{
 \code{\link{rle}}

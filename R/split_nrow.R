@@ -3,12 +3,12 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param df Data frame to be split. \code{df} can also be a vector.  
+#' @param df Data frame or vector to be split. 
 #' 
 #' @param rows Number of rows for \code{df} to be split by. In the case of a 
 #' vector, \code{rows} is length. 
 #' 
-#' @return list with \emph{n} elements.
+#' @return List with \emph{n} elements.
 #' 
 #' @examples 
 #' \dontrun{
@@ -51,6 +51,7 @@ split_nrow <- function(df, rows) {
 #' @export
 split_into_equal_parts <- function(df, n_parts = 10) {
   
+  # Check if object is a data frame
   stopifnot(inherits(df, "data.frame"))
   
   # Get number of rows of the input

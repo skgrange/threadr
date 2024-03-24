@@ -8,13 +8,13 @@ based on number of rows or length.}
 split_nrow(df, rows)
 }
 \arguments{
-\item{df}{Data frame to be split. \code{df} can also be a vector.}
+\item{df}{Data frame or vector to be split.}
 
 \item{rows}{Number of rows for \code{df} to be split by. In the case of a 
 vector, \code{rows} is length.}
 }
 \value{
-list with \emph{n} elements.
+List with \emph{n} elements.
 }
 \description{
 Function to split a data frames and vectors into lists with \emph{n} elements
