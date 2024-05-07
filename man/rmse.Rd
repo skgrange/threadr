@@ -3,6 +3,7 @@
 \name{rmse}
 \alias{rmse}
 \alias{mean_bias}
+\alias{mean_bias_normalised}
 \alias{correlation}
 \alias{n_pairs}
 \alias{mae}
@@ -11,6 +12,8 @@
 rmse(value_predict, value)
 
 mean_bias(value_predict, value)
+
+mean_bias_normalised(value_predict, value)
 
 correlation(value_predict, value, method = "pearson")
 

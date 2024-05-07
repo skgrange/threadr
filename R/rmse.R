@@ -47,6 +47,22 @@ mean_bias <- function(value_predict, value) {
 
 #' @rdname rmse
 #' @export
+mean_bias_normalised <- function(value_predict, value) {
+  
+  # Create a tibble and drop any missing pairs
+  df <- tibble(value_predict, value) %>%
+    tidyr::drop_na()
+  
+  # Divide the difference by the reference value
+  x <- sum(df$value_predict - df$value) / sum(df$value)
+  
+  return(x)
+  
+}
+
+
+#' @rdname rmse
+#' @export
 correlation <- function(value_predict, value, method = "pearson") {
   
   # Create a tibble and drop any missing pairs

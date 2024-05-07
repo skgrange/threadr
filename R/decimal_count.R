@@ -17,39 +17,42 @@
 #' }
 #' 
 #' @export
-decimal_count <- function(value) sapply(value, decimal_counter)
+decimal_count <- function(value) purrr::map_int(value, decimal_counter)
 
 
 # The worker
 decimal_counter <- function(x) {
-  
+
   # Check
   stopifnot(class(x) == "numeric")
-  
+
   # If NA, return NA
   if (is.na(x)) {
-    
-    x <- NA
-    
+    x <- NA_integer_
   } else {
-    
+
     # If contains a period
     if (grepl("\\.", x)) {
-      
       x <- stringr::str_replace(x, "0+$", "")
       x <- stringr::str_replace(x, "^.+[.]", "")
       x <- stringr::str_length(x)
-      
     } else {
-      
-      # Otherwise return zero
-      x <- 0
-      
+      x <- 0L
     }
-    
+
   }
-  
-  # Return
-  x
-  
+
+  return(x)
+
 }
+
+# https://stackoverflow.com/questions/5173692/how-to-return-number-of-decimal-places-in-r
+# decimal_count_ <- function(x) {
+#   
+#   if_else(
+#     abs(x - round(x)) > .Machine$double.eps ^ 0.5,
+#     nchar(sub("^\\d+\\.", "", sub("0+$", "", as.character(x)))),
+#     0L
+#   )
+#   
+# }
