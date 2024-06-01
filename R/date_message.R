@@ -65,3 +65,35 @@ str_date_formatted <- function(date = NA, time_zone = TRUE,
   return(x)
   
 }
+
+
+#' Function to print the length of an object, generally for printing with 
+#' \strong{cli} messaging. 
+#' 
+#' \code{cli_n} will return the number of rows of a data frame, not the number 
+#' of columns. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param x Object to print length of. 
+#' 
+#' @param sep Should the length be formatted with a thousands separator? 
+#' 
+#' @export
+cli_n <- function(x, sep = FALSE) {
+  
+  # Get length of object
+  if (!is.data.frame(x)) {
+    n <- length(n)
+  } else {
+    n <- nrow(x)
+  }
+  
+  # Add thousands separator
+  if (sep) {
+    n <- format(n, big.mark = " ", scientific = FALSE)
+  }
+  
+  return(n)
+  
+}
