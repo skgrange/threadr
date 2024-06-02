@@ -7,6 +7,7 @@
 \alias{correlation}
 \alias{n_pairs}
 \alias{mae}
+\alias{difference}
 \title{Functions to calculate various error statistics.}
 \usage{
 rmse(value_predict, value)
@@ -20,6 +21,8 @@ correlation(value_predict, value, method = "pearson")
 n_pairs(value_predict, value)
 
 mae(value_predict, value)
+
+difference(value_predict, value, absolute = FALSE)
 }
 \arguments{
 \item{value_predict}{A numeric vector to test against the "truth" 
@@ -29,12 +32,14 @@ mae(value_predict, value)
 
 \item{method}{For \code{correlation}, what method to use? Usually, this 
 will be either \code{"pearson"} or \code{"spearman"}.}
+
+\item{absolute}{Should absolute values be returned?}
 }
 \value{
 Numeric vector with length of 1.
 }
 \description{
-All functions will drop any missing elements before the calculation is done.
+Most functions will drop any missing elements before the calculation is done.
 }
 \author{
 Stuart K. Grange

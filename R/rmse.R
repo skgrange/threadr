@@ -1,6 +1,6 @@
 #' Functions to calculate various error statistics. 
 #' 
-#' All functions will drop any missing elements before the calculation is done. 
+#' Most functions will drop any missing elements before the calculation is done.
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -11,6 +11,8 @@
 #' 
 #' @param method For \code{correlation}, what method to use? Usually, this 
 #' will be either \code{"pearson"} or \code{"spearman"}. 
+#' 
+#' @param absolute Should absolute values be returned? 
 #' 
 #' @return Numeric vector with length of 1. 
 #' 
@@ -113,6 +115,23 @@ mae <- function(value_predict, value) {
   
   # Calculate the statistic
   x <- sum(abs(df$value - df$value_predict)) / nrow(df)
+  
+  return(x)
+  
+}
+
+
+#' @rdname rmse
+#' @export
+difference <- function(value_predict, value, absolute = FALSE) {
+  
+  # The difference, using the order of prediction - truth
+  x <- value_predict - value
+  
+  # To absolute values if desired
+  if (absolute) {
+    x <- abs(x)
+  }
   
   return(x)
   
