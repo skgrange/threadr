@@ -4,13 +4,19 @@
 \alias{object_size}
 \title{Convenience function to find size of R object.}
 \usage{
-object_size(object, unit = "Mb")
+object_size(x, unit = "Mb", as_fs_bytes = FALSE)
 }
 \arguments{
-\item{object}{An R object.}
+\item{x}{An R object.}
 
-\item{unit}{Units of size. See \link{object.size} for options. Defaults to 
+\item{unit}{Unit of size. See \link{object.size} for options. Defaults to 
 \code{"Mb"} for megabytes.}
+
+\item{as_fs_bytes}{Should the return be in \code{fs}'s bytes data type? If
+\code{TRUE}, \code{unit} is ignored.}
+}
+\value{
+Character or \code{fs_bytes} vector with length of \code{1}.
 }
 \description{
 \code{object_size} is a simple wrapper for \code{object.size} and 

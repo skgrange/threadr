@@ -5,16 +5,30 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param object An R object. 
+#' @param x An R object. 
 #' 
-#' @param unit Units of size. See \link{object.size} for options. Defaults to 
-#' \code{"Mb"} for megabytes.
+#' @param unit Unit of size. See \link{object.size} for options. Defaults to 
+#' \code{"Mb"} for megabytes. 
+#' 
+#' @param as_fs_bytes Should the return be in \code{fs}'s bytes data type? If
+#' \code{TRUE}, \code{unit} is ignored. 
+#' 
+#' @return Character or \code{fs_bytes} vector with length of \code{1}. 
 #'
 #' @export
-object_size <- function(object, unit = "Mb") {
+object_size <- function(x, unit = "Mb", as_fs_bytes = FALSE) {
   
-  y <- object.size(object)
-  y <- format(y, unit)
-  y
+  # Get object's size
+  size <- object.size(x)
+  
+  if (as_fs_bytes) {
+    # To the fs bytes data type
+    size <- fs::as_fs_bytes(size)
+  } else {
+    # Format to a character string with units
+    size <- format(size, units = unit, digits = 1)
+  }
+  
+  return(size)
   
 }
