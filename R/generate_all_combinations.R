@@ -23,9 +23,8 @@ generate_all_combinations <- function(x) {
   # The number of combinations which will be generated
   # 2 ^ n - 1
   
-  # Will generate a unique list
-  x %>% 
-    seq_along() %>% 
+  # Generate a unique list
+  seq_along(x) %>% 
     purrr::map(~combn(x, ., FUN = list)) %>% 
     purrr::flatten()
   
