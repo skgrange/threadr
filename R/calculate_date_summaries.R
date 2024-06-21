@@ -21,6 +21,12 @@
 #' @param drop_n Should the count of non-missing elements (\code{n}) be dropped
 #' from the return? 
 #' 
+#' @param drop_date_end Should the \code{date_end} variable be dropped from the
+#' return? 
+#' 
+#' @param use_data_table Should the \code{data.table} backend be used for the
+#' aggregation calculations? 
+#' 
 #' @param verbose Should the function give messages? 
 #' 
 #' @param progress Should a progress bar be displayed? 
@@ -31,11 +37,17 @@
 #' 
 #' @export
 calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE, 
-                                     verbose = FALSE, progress = FALSE) {
+                                     drop_date_end = FALSE, 
+                                     use_data_table = TRUE, verbose = FALSE, 
+                                     progress = FALSE) {
   
   # Check the inputs
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
-  stopifnot("value" %in% names(df) && inherits(df$value, "numeric"))
+  stopifnot(
+    "value" %in% names(df) && 
+      inherits(df$value, "numeric") | 
+      inherits(df$value, "integer")
+  )
   
   # No missing dates are allowed
   if (anyNA(df$date)) {
@@ -72,7 +84,7 @@ calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE,
   list_agg <- list_agg %>%
     purrr::imap(
       ~calculate_date_summaries_worker(
-        .x, .y, interval = interval, verbose = verbose
+        .x, .y, interval = interval, use_data_table, verbose = verbose
       ),
       .progress = progress
     )
@@ -88,12 +100,18 @@ calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE,
     df_agg <- select(df_agg, -n)
   }
   
+  # Drop date_end if desired
+  if (drop_date_end) {
+    df_agg <- select(df_agg, -date_end)
+  }
+  
   return(df_agg)
   
 }
 
 
-calculate_date_summaries_worker <- function(df, name, interval, verbose) {
+calculate_date_summaries_worker <- function(df, name, interval, use_data_table, 
+                                            verbose) {
   
   # Switch some intervals if needed
   interval <- dplyr::case_when(
@@ -121,7 +139,12 @@ calculate_date_summaries_worker <- function(df, name, interval, verbose) {
   # Join the observations to the date sequence tibble, the padding operation
   df_join <- dplyr::full_join(df_date_sequence, df, by = join_by(date))
   
-  # Group the tibble
+  # Create a lazy data.table for better grouped performance
+  if (use_data_table) {
+    df_join <- dtplyr::lazy_dt(df_join)
+  }
+  
+  # Add date grouping
   df <- df_join %>% 
     mutate(date = lubridate::floor_date(date, interval)) %>% 
     group_by(date)
@@ -149,7 +172,7 @@ calculate_date_summaries_worker <- function(df, name, interval, verbose) {
                 .groups = "drop")
   }
   
-  # Calculate and add `date_end`
+  # Calculate and add `date_end`, as_tibble is needed for
   df <- df %>% 
     mutate(
       date_end = lubridate::ceiling_date(
@@ -159,6 +182,6 @@ calculate_date_summaries_worker <- function(df, name, interval, verbose) {
     relocate(date,
              date_end)
   
-  return(df)
+  return(as_tibble(df))
   
 }

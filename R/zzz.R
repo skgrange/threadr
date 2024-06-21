@@ -21,3 +21,7 @@ if (getRversion() >= "2.15.1") {
   utils::globalVariables(variables)
   
 }
+
+
+# Set an environment variable
+.datatable.aware <- TRUE

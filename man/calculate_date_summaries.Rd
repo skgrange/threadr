@@ -9,6 +9,8 @@ calculate_date_summaries(
   ...,
   interval = "hour",
   drop_n = FALSE,
+  drop_date_end = FALSE,
+  use_data_table = TRUE,
   verbose = FALSE,
   progress = FALSE
 )
@@ -29,6 +31,12 @@ is \code{"5 mins"}.}
 
 \item{drop_n}{Should the count of non-missing elements (\code{n}) be dropped
 from the return?}
+
+\item{drop_date_end}{Should the \code{date_end} variable be dropped from the
+return?}
+
+\item{use_data_table}{Should the \code{data.table} backend be used for the
+aggregation calculations?}
 
 \item{verbose}{Should the function give messages?}
 
