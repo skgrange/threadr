@@ -28,7 +28,6 @@
 #' # Or as a percent
 #'  calculate_water_volume_mixing_ratio(13.3, 92.5, 976.5, as_percent = TRUE)
 #' 
-#' 
 #' @export
 calculate_water_volume_mixing_ratio <- function(temp, rh, pressure, 
                                                 as_percent = FALSE) {

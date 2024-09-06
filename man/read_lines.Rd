@@ -21,7 +21,7 @@ read_lines(
 \item{collapse}{Should the vector which is loaded be collapsed to a length of
 \code{1}.}
 
-\item{encoding}{Coding of input. Defult is \code{"UTF-8"}.}
+\item{encoding}{Coding of input. Default is \code{"UTF-8"}.}
 
 \item{skip_null}{Should nulls be skipped?}
 

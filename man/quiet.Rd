@@ -2,9 +2,12 @@
 % Please edit documentation in R/quiet.R
 \name{quiet}
 \alias{quiet}
+\alias{gc_quiet}
 \title{Function to catch \code{cat} messages and make them invisible.}
 \usage{
 quiet(x)
+
+gc_quiet()
 }
 \arguments{
 \item{x}{An expression.}

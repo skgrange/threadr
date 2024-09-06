@@ -7,7 +7,7 @@
 #' @param collapse Should the vector which is loaded be collapsed to a length of
 #' \code{1}. 
 #' 
-#' @param encoding Coding of input. Defult is \code{"UTF-8"}. 
+#' @param encoding Coding of input. Default is \code{"UTF-8"}. 
 #' 
 #' @param skip_null Should nulls be skipped? 
 #' 
