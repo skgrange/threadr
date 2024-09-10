@@ -85,8 +85,13 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
     cli::cli_abort("`threshold` must be between 0 and 1.")
   }
   
-  # Return empty data frame if input is empty
-  if (nrow(df) == 0) {
+  # Only only summary is allowed
+  if (length(summary) != 1L) {
+    cli::cli_abort("Only one `summary` is allowed.")
+  }
+  
+  # Return empty tibble if input is empty
+  if (nrow(df) == 0L) {
     if (warn) {
       cli::cli_warn("Input contains no observations, returning emmpty tibble...")
     }
