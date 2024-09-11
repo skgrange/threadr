@@ -62,6 +62,9 @@
 #' # Aggregate to hourly means
 #' aggregate_by_date(data_air, "hour", by = c("site", "variable"))
 #' 
+#' # Multiple intervals are also supported, such as multiple days 
+#' aggregate_by_date(data_air, "14 days", by = c("site", "variable"))
+#' 
 #' }
 #' 
 #' @export
