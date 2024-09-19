@@ -12,10 +12,14 @@
 #' 
 #' @param na String used for missing values. 
 #' 
+#' @param excel_bom Should a byte-order mark (BOM) be added to the file to 
+#' indicate to Microsoft Excel that the file is \code{UTF-8} encoded. 
+#' 
 #' @return Invisible \code{df}.
 #' 
 #' @export
-write_csv_threadr <- function(df, file, format_dates = TRUE, na = "") {
+write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
+                              excel_bom = FALSE) {
   
   # Check object
   stopifnot(inherits(df, "data.frame"))
@@ -26,8 +30,7 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "") {
       df, 
       across(
         tidyselect::vars_select_helpers$where(lubridate::is.POSIXt), 
-        format,
-        format = "%Y-%m-%d %H:%M:%S"
+        ~format(., format = "%Y-%m-%d %H:%M:%S")
       )
     )
   }
@@ -39,7 +42,11 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "") {
   )
   
   # Export
-  readr::write_csv(df, file = file, na = na)
+  if (excel_bom) {
+    readr::write_excel_csv(df, file = file, na = na)
+  } else {
+    readr::write_csv(df, file = file, na = na)
+  }
   
   return(invisible(df))
   

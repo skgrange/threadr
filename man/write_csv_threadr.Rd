@@ -5,7 +5,7 @@
 \title{Function to export data frame/tibble to a \code{.csv} text file with certain 
 defaults.}
 \usage{
-write_csv_threadr(df, file, format_dates = TRUE, na = "")
+write_csv_threadr(df, file, format_dates = TRUE, na = "", excel_bom = FALSE)
 }
 \arguments{
 \item{df}{A data frame or tibble to write to disk.}
@@ -16,6 +16,9 @@ write_csv_threadr(df, file, format_dates = TRUE, na = "")
 \code{\%Y-\%m-\%d \%H:\%M:\%S} string?}
 
 \item{na}{String used for missing values.}
+
+\item{excel_bom}{Should a byte-order mark (BOM) be added to the file to 
+indicate to Microsoft Excel that the file is \code{UTF-8} encoded.}
 }
 \value{
 Invisible \code{df}.
