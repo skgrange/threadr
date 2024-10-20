@@ -120,7 +120,12 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
         cli::cli_alert_info("{cli_date()} Detecting input averaging period/interval...")
       }
       
-      interval_of_input <- detect_date_interval(df$date, text_return = TRUE)
+      # Get unique dates, sort, and detect the interval
+      interval_of_input <- df %>% 
+        pull(date) %>% 
+        unique() %>% 
+        sort() %>% 
+        detect_date_interval(text_return = TRUE)
       
       # For sequence date generator, needs a specific format
       interval_of_input <- dplyr::case_when(
