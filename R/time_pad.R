@@ -30,6 +30,10 @@
 #' @param full Should the date joining use the \code{full_join} function? If 
 #' \code{TRUE}, no input dates will be lost but the default is \code{FALSE}. 
 #' 
+#' @param uniform_padding If a \code{by} vector is supplied, should all groups
+#' be padded with the same start and end dates? The minimum and maximum dates
+#' contained in \code{df} will be used for this uniform padding process. 
+#' 
 #' @param warn Should the function give a warning when dates are duplicated? 
 #' Default is \code{TRUE}. 
 #' 
@@ -59,10 +63,10 @@
 #' 
 #' @export
 time_pad <- function(df, interval = "hour", by = NA, round = NA, full = FALSE, 
-                     warn = TRUE) {
+                     uniform_padding = FALSE, warn = TRUE) {
   
   # Check input
-  if (nrow(df) == 0) {
+  if (nrow(df) == 0L) {
     cli::cli_abort("Input data frame has no observations.")
   }
   
@@ -102,6 +106,31 @@ time_pad <- function(df, interval = "hour", by = NA, round = NA, full = FALSE,
   }, warning = function(w) {
     interval
   })
+  
+  # When desired, add the global start and end dates so each group will have
+  # the same number of observations after padding
+  if (!is.na(by[1]) && uniform_padding) {
+    
+    # Filter to the start and end dates for the entire tibble, not by groups
+    df_dates_global <- df %>% 
+      filter(date == min(date) | date == max(date)) %>% 
+      distinct(date) %>% 
+      arrange(date)
+    
+    # Check if there is only a pair of dates
+    if (nrow(df_dates_global) != 2L) {
+      cli::cli_warn("There are more than a pair of global start and end dates...")
+    }
+    
+    # Expand global dates with groups (`by`) too
+    df_dates_global_expand <- df %>% 
+      distinct(across(dplyr::all_of(by))) %>% 
+      tidyr::expand_grid(df_dates_global)
+    
+    # Join the global dates to each of the groups
+    df <- dplyr::full_join(df, df_dates_global_expand, by = c("date", by))
+    
+  }
   
   # For dplyr's grouping
   if (is.na(by[1])) {

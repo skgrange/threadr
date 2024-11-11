@@ -46,6 +46,10 @@
 #' it's averaging period/interval. This is required for the correct calculation 
 #' of \code{threshold}. 
 #' 
+#' @param uniform_padding If a \code{by} vector is supplied, should all groups
+#' be padded with the same start and end dates? The minimum and maximum dates
+#' contained in \code{df} will be used for this uniform padding process. 
+#' 
 #' @param warn Should the function return warnings in certain situations? 
 #' 
 #' @param verbose Should the function give messages? 
@@ -70,8 +74,8 @@
 #' @export
 aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean", 
                               threshold = 0, round = NA, pad = TRUE, 
-                              determine_interval = TRUE, warn = TRUE,
-                              verbose = FALSE) {
+                              determine_interval = TRUE, uniform_padding = FALSE, 
+                              warn = TRUE, verbose = FALSE) {
   
   # Check the input
   # The needed variables
@@ -156,8 +160,9 @@ aggregate_by_date <- function(df, interval = "hour", by = NA, summary = "mean",
       interval = interval_of_input, 
       by = by, 
       full = TRUE, 
-      warn = FALSE,
-      round = interval
+      uniform_padding = uniform_padding,
+      round = interval,
+      warn = FALSE
     )
     
   }

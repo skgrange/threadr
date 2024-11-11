@@ -13,6 +13,7 @@ aggregate_by_date(
   round = NA,
   pad = TRUE,
   determine_interval = TRUE,
+  uniform_padding = FALSE,
   warn = TRUE,
   verbose = FALSE
 )
@@ -59,6 +60,10 @@ this previously, it can be set to \code{FALSE}.}
 \item{determine_interval}{Should the input time series be evaluate to find
 it's averaging period/interval. This is required for the correct calculation 
 of \code{threshold}.}
+
+\item{uniform_padding}{If a \code{by} vector is supplied, should all groups
+be padded with the same start and end dates? The minimum and maximum dates
+contained in \code{df} will be used for this uniform padding process.}
 
 \item{warn}{Should the function return warnings in certain situations?}
 

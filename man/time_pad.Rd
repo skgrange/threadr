@@ -4,7 +4,15 @@
 \alias{time_pad}
 \title{Function to pad time series.}
 \usage{
-time_pad(df, interval = "hour", by = NA, round = NA, full = FALSE, warn = TRUE)
+time_pad(
+  df,
+  interval = "hour",
+  by = NA,
+  round = NA,
+  full = FALSE,
+  uniform_padding = FALSE,
+  warn = TRUE
+)
 }
 \arguments{
 \item{df}{A tibble/data frame including parsed dates. The date 
@@ -25,6 +33,10 @@ Examples are \code{"hour"}, \code{"day"}, \code{"month"}, and \code{"year"}.}
 
 \item{full}{Should the date joining use the \code{full_join} function? If 
 \code{TRUE}, no input dates will be lost but the default is \code{FALSE}.}
+
+\item{uniform_padding}{If a \code{by} vector is supplied, should all groups
+be padded with the same start and end dates? The minimum and maximum dates
+contained in \code{df} will be used for this uniform padding process.}
 
 \item{warn}{Should the function give a warning when dates are duplicated? 
 Default is \code{TRUE}.}
