@@ -19,7 +19,9 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return A \strong{ggplot2} list object containing four plots. 
+#' @return A list object containing two objects -- the first element contains
+#' four individual plots and the second is the four plots combined into a 
+#' single object. 
 #' 
 #' @export
 plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
@@ -187,7 +189,16 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ncol = 1
   )
   
-  return(plot)
+  # Put the individual plots and cowplot object into a list
+  list_plots_many <- list(
+    plots_individual = list_plots,
+    plots_grid = plot
+  )
+  
+  # Print combined plot
+  print(list_plots_many$plots_grid)
+  
+  return(invisible(list_plots_many))
   
 }
 

@@ -33,7 +33,9 @@ large bounds that results in bad y-axes scales.}
 \item{y_label}{A string to overwrite the default y-axes labels.}
 }
 \value{
-A \strong{ggplot2} list object containing four plots.
+A list object containing two objects -- the first element contains
+four individual plots and the second is the four plots combined into a 
+single object.
 }
 \description{
 Function to plot hourly, weekday, and monthly averages.
