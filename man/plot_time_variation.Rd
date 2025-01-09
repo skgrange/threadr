@@ -11,7 +11,8 @@ plot_time_variation(
   colours = NA,
   ylim = c(NA, NA),
   legend_name = NA,
-  y_label = "Mean"
+  y_label = "Mean",
+  plot = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ large bounds that results in bad y-axes scales.}
 \item{legend_name}{A string to overwrite the default legend label.}
 
 \item{y_label}{A string to overwrite the default y-axes labels.}
+
+\item{plot}{Should the plot be printed?}
 }
 \value{
 A list object containing two objects -- the first element contains

@@ -17,6 +17,8 @@
 #' 
 #' @param y_label A string to overwrite the default y-axes labels. 
 #' 
+#' @param plot Should the plot be printed?
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return A list object containing two objects -- the first element contains
@@ -26,7 +28,7 @@
 #' @export
 plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
                                 ylim = c(NA, NA), legend_name = NA,
-                                y_label = "Mean") {
+                                y_label = "Mean", plot = TRUE) {
   
   # Check inputs
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -183,7 +185,7 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   }
   
   # Combine plots
-  plot <- cowplot::plot_grid(
+  plot_grid <- cowplot::plot_grid(
     list_plots$weekday_hours, 
     cowplot::plot_grid(list_plots$hours, list_plots$weekday, list_plots$month, nrow = 1), 
     ncol = 1
@@ -192,11 +194,13 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   # Put the individual plots and cowplot object into a list
   list_plots_many <- list(
     plots_individual = list_plots,
-    plots_grid = plot
+    plots_grid = plot_grid
   )
   
-  # Print combined plot
-  print(list_plots_many$plots_grid)
+  # Print combined plot if desired
+  if (plot) {
+    print(list_plots_many$plots_grid) 
+  }
   
   return(invisible(list_plots_many))
   
