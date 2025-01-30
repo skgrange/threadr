@@ -5,12 +5,20 @@
 \title{Function to transform potentially heterogeneous time zones and force their
 representation in the UTC time zone.}
 \usage{
-transform_dates_with_time_zone(df, warn = TRUE)
+transform_dates_with_time_zone(
+  df,
+  dates_replace = TRUE,
+  drop_time_zone = FALSE
+)
 }
 \arguments{
 \item{df}{Tibble with \code{date} and \code{time_zone} variables.}
 
-\item{warn}{Should the function raise warnings?}
+\item{dates_replace}{Should the function replace/overwrite the original 
+\code{date} variable(s) with the transformed version?}
+
+\item{drop_time_zone}{Should the helper \code{time_zone} variable be dropped
+in the return?}
 }
 \value{
 \code{df} with transformed date variables.
