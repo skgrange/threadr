@@ -11,7 +11,8 @@ plot_time_variation(
   colours = NA,
   ylim = c(NA, NA),
   legend_name = NA,
-  y_label = "Mean",
+  y_label = NA,
+  normalise = FALSE,
   plot = TRUE
 )
 }
@@ -33,12 +34,18 @@ large bounds that results in bad y-axes scales.}
 
 \item{y_label}{A string to overwrite the default y-axes labels.}
 
+\item{normalise}{Should the aggregations be normalised by dividing the 
+aggregations by their means? This helps when \code{by} is used and the groups
+have different response scales.}
+
 \item{plot}{Should the plot be printed?}
 }
 \value{
-A list object containing two objects -- the first element contains
-four individual plots and the second is the four plots combined into a 
-single object.
+A list object containing two objects -- the first element contains 
+the aggregations that are calculated and plotted and the second contains the
+plots. The plots are further split into an element that contains the four 
+individual plots and the second is the four plots combined into a single 
+object.
 }
 \description{
 Function to plot hourly, weekday, and monthly averages.

@@ -17,18 +17,25 @@
 #' 
 #' @param y_label A string to overwrite the default y-axes labels. 
 #' 
+#' @param normalise Should the aggregations be normalised by dividing the 
+#' aggregations by their means? This helps when \code{by} is used and the groups
+#' have different response scales. 
+#' 
 #' @param plot Should the plot be printed?
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return A list object containing two objects -- the first element contains
-#' four individual plots and the second is the four plots combined into a 
-#' single object. 
+#' @return A list object containing two objects -- the first element contains 
+#' the aggregations that are calculated and plotted and the second contains the
+#' plots. The plots are further split into an element that contains the four 
+#' individual plots and the second is the four plots combined into a single 
+#' object. 
 #' 
 #' @export
 plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
                                 ylim = c(NA, NA), legend_name = NA,
-                                y_label = "Mean", plot = TRUE) {
+                                y_label = NA, normalise = FALSE, 
+                                plot = TRUE) {
   
   # Check inputs
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -40,8 +47,15 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     df <- mutate(df, variable = "value")
   }
   
-  # For legend name
-  if (is.na(legend_name)) legend_name <- by
+  # For default legend name
+  if (is.na(legend_name)) {
+    legend_name <- by
+  }
+  
+  # For default y-axis label
+  if (is.na(y_label)) {
+    y_label <- if_else(normalise, "Normalised mean", "Mean")
+  }
   
   # Prepare input
   df <- df %>% 
@@ -56,25 +70,28 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     group_by(weekday,
              hour,
              .add = TRUE) %>% 
-    dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup() %>% 
-    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
+    dplyr::reframe(calculate_ci(value)) %>% 
+    dplyr::group_by_at(by) %>% 
+    divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
+    mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Hour
   df_hour <- df %>% 
     group_by(hour,
              .add = TRUE) %>% 
-    dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup() %>% 
-    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
+    dplyr::reframe(calculate_ci(value)) %>% 
+    dplyr::group_by_at(by) %>% 
+    divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
+    mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Weekday
   df_weekday <- df %>% 
     group_by(weekday,
              .add = TRUE) %>% 
-    dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup() %>% 
-    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .)))
+    dplyr::reframe(calculate_ci(value)) %>% 
+    dplyr::group_by_at(by) %>% 
+    divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
+    mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Monthly
   # Make sure all months are present
@@ -88,16 +105,17 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   df_month <- df %>% 
     group_by(month,
              .add = TRUE) %>% 
-    dplyr::group_modify(~calculate_ci(.$value)) %>% 
-    ungroup() %>% 
-    mutate(across(c("lower", "upper"), ~if_else(n <= !!n_min, NA_real_, .))) %>% 
+    dplyr::reframe(calculate_ci(value)) %>% 
+    dplyr::group_by_at(by) %>% 
+    divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
+    mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .))) %>% 
     left_join(df_month_pad, ., by = c(by, "month")) %>% 
     mutate(month = factor(month, levels = month.abb))
   
   # For plotting
   by_symbol <- sym(by)
   
-  # Build the plots
+  # Build the plots, 
   plot_weekday_hours <- df_weekday_hours %>% 
     ggplot2::ggplot(
       ggplot2::aes(
@@ -184,6 +202,14 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     list_plots <- purrr::map(list_plots, add_ylim_to_plot, ylim = ylim)
   }
   
+  # Combine aggregations
+  list_data_aggregations <- list(
+    weekday_hours = df_weekday_hours,
+    hours = df_hour,
+    weekday = df_weekday,
+    month = df_month
+  )
+  
   # Combine plots
   plot_grid <- cowplot::plot_grid(
     list_plots$weekday_hours, 
@@ -191,18 +217,21 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     ncol = 1
   )
   
-  # Put the individual plots and cowplot object into a list
-  list_plots_many <- list(
-    plots_individual = list_plots,
-    plots_grid = plot_grid
+  # Put aggregations and the individual plots and cowplot object into a list
+  list_data_and_plots <- list(
+    data = list_data_aggregations,
+    plots = list(
+      individual = list_plots,
+      grid = plot_grid
+    )
   )
   
   # Print combined plot if desired
   if (plot) {
-    print(list_plots_many$plots_grid) 
+    print(list_data_and_plots$plots$grid) 
   }
   
-  return(invisible(list_plots_many))
+  return(invisible(list_data_and_plots))
   
 }
 
@@ -216,4 +245,22 @@ add_colours_to_plot <- function(plot, colours, legend_name) {
 
 add_ylim_to_plot <- function(plot, ylim) {
   plot + ggplot2::ylim(ylim)
+}
+
+
+divide_by_mean <- function(df, normalise = FALSE, drop_grouping = TRUE) {
+  
+  if (normalise) {
+    # Normalise the summaries
+    df <- mutate(df, across(c(mean, lower, upper), ~. / mean(., na.rm = TRUE)))
+    
+    # Drop the grouping too
+    if (drop_grouping) {
+      df <- ungroup(df)
+    }
+    
+  }
+  
+  return(df)
+  
 }
