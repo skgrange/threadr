@@ -136,3 +136,19 @@ difference <- function(value_predict, value, absolute = FALSE) {
   return(x)
   
 }
+
+
+#' @rdname rmse
+#' @export
+percent_bias <- function(value, value_predict) {
+
+  # Create a tibble and drop any missing pairs
+  df <- tibble(value_predict, value) %>% 
+    tidyr::drop_na()
+  
+  # Calculate the summary statistic
+  x <- mean((df$value - df$value_predict) / df$value) * 100
+  
+  return(x)
+    
+}

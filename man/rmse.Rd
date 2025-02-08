@@ -8,6 +8,7 @@
 \alias{n_pairs}
 \alias{mae}
 \alias{difference}
+\alias{percent_bias}
 \title{Functions to calculate various error statistics.}
 \usage{
 rmse(value_predict, value)
@@ -23,6 +24,8 @@ n_pairs(value_predict, value)
 mae(value_predict, value)
 
 difference(value_predict, value, absolute = FALSE)
+
+percent_bias(value, value_predict)
 }
 \arguments{
 \item{value_predict}{A numeric vector to test against the "truth" 
