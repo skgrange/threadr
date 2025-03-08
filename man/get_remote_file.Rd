@@ -2,6 +2,7 @@
 % Please edit documentation in R/get_remote_file.R
 \name{get_remote_file}
 \alias{get_remote_file}
+\alias{get_remote_file_if_new}
 \title{Function to get/download file from an \code{URL}.}
 \usage{
 get_remote_file(
@@ -12,6 +13,13 @@ get_remote_file(
   method = "auto",
   cache_ok = TRUE,
   sleep = FALSE
+)
+
+get_remote_file_if_new(
+  file_remote,
+  file_local,
+  verbose = TRUE,
+  cache_ok = TRUE
 )
 }
 \arguments{
@@ -30,6 +38,9 @@ get_remote_file(
 
 \item{sleep}{If a number, this is the number of seconds to sleep between 
 download iterations. This can help with keeping some web servers happy.}
+}
+\value{
+Invisible \code{file_local}.
 }
 \description{
 Function to get/download file from an \code{URL}.
