@@ -364,3 +364,36 @@ yesterday <- function(as_POSIXct = FALSE, tz = "UTC") {
   return(x)
   
 }
+
+
+#' Function to get current system time at second accuracy. 
+#' 
+#' \code{now_to_the_second} floor rounds the current time. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param tz Time zone to represent dates in. The default is the system's time 
+#' zone. 
+#' 
+#' @param as_numeric Should the time be returned as the numeric Unix time? 
+#' 
+#' @seealso \code{\link{now}}, \code{\link{Sys.time}}, \code{\link{floor_date}}
+#' 
+#' @return \code{POSIXct} or numeric vector with a length of 1.
+#' 
+#' @export
+now_to_the_second <- function(tz = Sys.timezone(), as_numeric = FALSE) {
+  
+  # Get current time with sub-second accuracy
+  x <- lubridate::now(tzone = tz)
+  
+  # Round date, floor rounding here
+  x <- lubridate::floor_date(x, "second")
+  
+  if (as_numeric) {
+    x <- as.numeric(x)
+  }
+  
+  return(x)
+  
+}

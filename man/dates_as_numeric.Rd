@@ -13,7 +13,7 @@ dates_as_numeric(df, include_times = TRUE)
 \item{include_times}{Should times (\code{hms}) also be converted?}
 }
 \value{
-Data frame or tibble.
+\code{df} with numeric dates and times.
 }
 \description{
 Function to convert all date variables in a data frame to their numeric 

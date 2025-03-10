@@ -7,7 +7,7 @@
 #' 
 #' @param include_times Should times (\code{hms}) also be converted? 
 #'
-#' @return Data frame or tibble.  
+#' @return \code{df} with numeric dates and times. 
 #'
 #' @export
 dates_as_numeric <- function(df, include_times = TRUE) {
@@ -19,7 +19,9 @@ dates_as_numeric <- function(df, include_times = TRUE) {
   df <- mutate(df, across(lubridate::is.POSIXt, as.numeric))
   
   # Convert times too
-  if (include_times) df <- mutate(df, across(hms::is_hms, as.numeric))
+  if (include_times) {
+    df <- mutate(df, across(hms::is_hms, as.numeric))
+  }
   
   return(df)
   
