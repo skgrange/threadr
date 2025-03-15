@@ -397,3 +397,36 @@ now_to_the_second <- function(tz = Sys.timezone(), as_numeric = FALSE) {
   return(x)
   
 }
+
+
+#' Function to test a date (\code{}) vector for sub second accuracy.
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @param date A date vector.
+#' 
+#' @return A logical vector with the length of 1. 
+#' 
+#' @export
+has_sub_seconds <- function(date) {
+  
+  # Check data type
+  stopifnot(inherits(date, "POSIXct"))
+  
+  # Check for missing elements
+  stopifnot(!anyNA(date))
+  
+  # Get only unique values
+  date_unique <- unique(date)
+  
+  # Test if input is identical to it's floor rounded representation 
+  is_floor <- identical(
+    date_unique, lubridate::floor_date(date_unique, "seconds")
+  )
+  
+  # Do any elements fail the test?
+  has_sub_seconds <- any(!is_floor)
+  
+  return(has_sub_seconds)
+  
+}
