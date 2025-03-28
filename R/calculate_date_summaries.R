@@ -24,6 +24,8 @@
 #' @param drop_date_end Should the \code{date_end} variable be dropped from the
 #' return? 
 #' 
+#' @param n_to_count Should the \code{n} variable be renamed to \code{count}? 
+#' 
 #' @param use_data_table Should the \code{data.table} backend be used for the
 #' aggregation calculations? 
 #' 
@@ -38,8 +40,8 @@
 #' @export
 calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE, 
                                      drop_date_end = FALSE, 
-                                     use_data_table = TRUE, verbose = FALSE, 
-                                     progress = FALSE) {
+                                     n_to_count = FALSE, use_data_table = TRUE, 
+                                     verbose = FALSE, progress = FALSE) {
   
   # Check the inputs
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
@@ -94,6 +96,11 @@ calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE,
   df_agg <- df_nest %>% 
     mutate(observations = !!list_agg) %>% 
     dplyr::reframe(observations)
+  
+  # Rename n to count if desired
+  if (n_to_count) {
+    df_agg <- rename(df_agg, count = n)
+  }
   
   # Drop count/n if desired
   if (drop_n) {
