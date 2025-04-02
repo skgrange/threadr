@@ -204,9 +204,9 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   
   # Combine aggregations
   list_data_aggregations <- list(
-    weekday_hours = df_weekday_hours,
-    hours = df_hour,
-    weekday = df_weekday,
+    weekday_hours = ungroup(df_weekday_hours),
+    hours = ungroup(df_hour),
+    weekday = ungroup(df_weekday),
     month = df_month
   )
   
