@@ -37,8 +37,8 @@
 #' @param warn Should the function give a warning when dates are duplicated? 
 #' Default is \code{TRUE}. 
 #' 
-#' @seealso See \code{\link{round_date_interval}}, \code{timeAverage}, 
-#' \code{\link{round_date}}, \code{\link{left_join}}, 
+#' @seealso \code{\link{round_date_interval}}, \code{\link[openair]{timeAverage}}, 
+#' \code{\link[lubridate]{round_date}}, \code{\link[dplyr:mutate-joins]{left_join}}, 
 #' \code{\link{aggregate_by_date}}
 #' 
 #' @author Stuart K. Grange

@@ -38,7 +38,7 @@ data_zones <- add_row_numbers(data_zones, name = "id", zero_based = TRUE)
 
 }
 \seealso{
-\code{\link{add_rownames}}
+\code{\link[tibble]{rowid_to_column}}
 }
 \author{
 Stuart K. Grange

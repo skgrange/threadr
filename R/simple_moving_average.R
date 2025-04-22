@@ -11,7 +11,7 @@
 #' @param na.rm Should \code{NA}s be removed for the aggregation. Default is 
 #' \code{TRUE}, but setting to \code{FALSE} will be faster. 
 #' 
-#' @seealso \code{\link{mean}}, \code{\link{rollmean}}
+#' @seealso \code{\link{mean}}, \code{\link[zoo]{rollmean}}
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -26,17 +26,15 @@ simple_moving_average <- function(x, width, align = "center", na.rm = TRUE) {
   if (na.rm) {
     
     # Omit NAs
-    x <- zoo::rollapply(x, width, align = align, fill = NA,
-                        function(y) mean(y, na.rm = TRUE))
+    x <- zoo::rollapply(
+      x, width, align = align, fill = NA, function(y) mean(y, na.rm = TRUE)
+    )
     
   } else { 
-    
     # Optimised version, much faster
     x <- zoo::rollmean(x, width, align = align, fill = NA)
-    
   }
   
-  # Return
-  x
+  return(x)
   
 }

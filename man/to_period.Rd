@@ -14,7 +14,8 @@ to_period(date_one, date_two, round = FALSE, as.character = FALSE)
 
 \item{round}{Number of decimal points to round to. Default is no rounding.}
 
-\item{as.character}{Should the period be formated and returned as a character?}
+\item{as.character}{Should the period be formatted and returned as a 
+character?}
 }
 \value{
 \code{Period} or character vector.
@@ -24,7 +25,7 @@ Function to calculate a \strong{lubridate} \code{period} date class based on
 two dates.
 }
 \seealso{
-\code{\link{as.period}}
+\code{\link[lubridate]{as.period}}
 }
 \author{
 Stuart K. Grange

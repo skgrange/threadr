@@ -19,7 +19,7 @@ Integer vector.
 Function to get Monday-based week number of a date.
 }
 \seealso{
-\code{\link{wday}}, \code{\link{week_financial}}
+\code{\link[lubridate]{wday}}, \code{\link{week_financial}}
 }
 \author{
 Stuart K. Grange

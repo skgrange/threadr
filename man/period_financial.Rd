@@ -27,7 +27,8 @@ period_financial(data_hours$date)
 
 }
 \seealso{
-\code{\link{wday}}, \code{\link{week_financial}}, \code{\link{month}}
+\code{\link[lubridate]{wday}}, \code{\link{week_financial}}, 
+\code{\link[lubridate]{month}}
 }
 \author{
 Stuart K. Grange

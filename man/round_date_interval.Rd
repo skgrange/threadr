@@ -68,7 +68,7 @@ round_date_interval(date, "30 sec")
 
 }
 \seealso{
-See \code{\link{time_pad}}, \code{\link{round_date}}, 
+See \code{\link{time_pad}}, \code{\link[lubridate]{round_date}}, 
 \code{\link{round_any}}
 }
 \author{

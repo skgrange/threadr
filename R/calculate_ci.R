@@ -1,10 +1,11 @@
 #' Function to calculate confidence intervals (CIs), usually based on population
 #' standard deviation. 
 #' 
-#' @description The CI calculations use the \code{\link{smean.cl.normal}} and 
-#' \code{\link{smean.cl.boot}} functions from the \strong{Hmisc} package that 
-#' were developed by Frank Harrell. These functions are also used internally by 
-#' \strong{ggplot2}. 
+#' @description The CI calculations use the 
+#' \code{\link[Hmisc:smean.sd]{smean.cl.normal}} and 
+#' \code{\link[Hmisc:smean.sd]{smean.cl.boot}} functions from the \strong{Hmisc} 
+#' package that were developed by Frank Harrell. These functions are also used 
+#' internally by \strong{ggplot2}. 
 #' 
 #' @param x Numeric vector.
 #' 

@@ -75,8 +75,8 @@ data_ozone_sensor_pad <- time_pad(
 
 }
 \seealso{
-See \code{\link{round_date_interval}}, \code{timeAverage}, 
-\code{\link{round_date}}, \code{\link{left_join}}, 
+\code{\link{round_date_interval}}, \code{\link[openair]{timeAverage}}, 
+\code{\link[lubridate]{round_date}}, \code{\link[dplyr:mutate-joins]{left_join}}, 
 \code{\link{aggregate_by_date}}
 }
 \author{

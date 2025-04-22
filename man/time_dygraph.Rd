@@ -70,7 +70,7 @@ Function for plotting interactive time-series plots in a similar way to
 \code{timePlot}.
 }
 \seealso{
-\code{timePlot}, \code{\link{dygraph}}, 
+\code{\link[openair]{timePlot}}, \code{\link[dygraphs]{dygraph}}, 
 \code{\link{plot_time_series}}
 }
 \author{

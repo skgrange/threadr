@@ -27,7 +27,7 @@ year_financial(data_hours$date)
 
 }
 \seealso{
-\code{\link{year}}, \code{\link{week_financial}}
+\code{\link[lubridate]{year}}, \code{\link{week_financial}}
 }
 \author{
 Stuart K. Grange

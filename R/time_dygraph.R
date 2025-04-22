@@ -42,7 +42,7 @@
 #' 
 #' @return Invisible, an interactive \strong{dygraph}.  
 #'
-#' @seealso \code{timePlot}, \code{\link{dygraph}}, 
+#' @seealso \code{\link[openair]{timePlot}}, \code{\link[dygraphs]{dygraph}}, 
 #' \code{\link{plot_time_series}}
 #' 
 #' @export

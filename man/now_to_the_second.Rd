@@ -19,7 +19,8 @@ zone.}
 \code{now_to_the_second} floor rounds the current time.
 }
 \seealso{
-\code{\link{now}}, \code{\link{Sys.time}}, \code{\link{floor_date}}
+\code{\link[lubridate]{now}}, \code{\link{Sys.time}}, 
+\code{\link[lubridate]{floor_date}}
 }
 \author{
 Stuart K. Grange

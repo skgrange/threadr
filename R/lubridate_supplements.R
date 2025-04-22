@@ -377,7 +377,8 @@ yesterday <- function(as_POSIXct = FALSE, tz = "UTC") {
 #' 
 #' @param as_numeric Should the time be returned as the numeric Unix time? 
 #' 
-#' @seealso \code{\link{now}}, \code{\link{Sys.time}}, \code{\link{floor_date}}
+#' @seealso \code{\link[lubridate]{now}}, \code{\link{Sys.time}}, 
+#' \code{\link[lubridate]{floor_date}}
 #' 
 #' @return \code{POSIXct} or numeric vector with a length of 1.
 #' 

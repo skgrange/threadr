@@ -16,7 +16,7 @@ Vector of same data type and length of \code{x}.
 }
 \description{
 Used to replace each \code{NA} with the most recent non-\code{NA} prior to 
-it. \code{locf} is a simple wrapper for \code{zoo::na.locf}.
+it. \code{locf} is a simple wrapper for \code{\link[zoo]{na.approx}}.
 }
 \examples{
 \dontrun{

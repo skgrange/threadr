@@ -22,7 +22,7 @@ right-aligned? Default is \code{"center"}.}
 Function to apply rolling mean to a vector.
 }
 \seealso{
-\code{\link{mean}}, \code{\link{rollmean}}
+\code{\link{mean}}, \code{\link[zoo]{rollmean}}
 }
 \author{
 Stuart K. Grange

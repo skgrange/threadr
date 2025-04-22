@@ -1,7 +1,7 @@
 #' Function for carrying last observation forwards. 
 #' 
 #' Used to replace each \code{NA} with the most recent non-\code{NA} prior to 
-#' it. \code{locf} is a simple wrapper for \code{zoo::na.locf}.
+#' it. \code{locf} is a simple wrapper for \code{\link[zoo]{na.approx}}. 
 #' 
 #' @param x Input vector. 
 #' 
@@ -34,14 +34,14 @@ na_locf <- function(x, na.rm = FALSE) zoo::na.locf(x, na.rm = na.rm)
 #' @param spline Should \code{NA}s be replaced using cubic splines rather than 
 #' linear interpolation. 
 #' 
-#' @param extrapolate Should leading and preceeding \code{NA}s be extrapolated 
+#' @param extrapolate Should leading and preceding \code{NA}s be extrapolated 
 #' too? Only used for linear interpolation.
 #' 
 #' @return Vector length of \code{x}. 
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{\link{na.approx}}
+#' @seealso \code{\link[zoo]{na.approx}}
 #' 
 #' @export
 na_interpolate <- function(x, na.rm = FALSE, spline = FALSE, extrapolate = FALSE) {

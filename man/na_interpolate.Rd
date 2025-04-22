@@ -14,7 +14,7 @@ na_interpolate(x, na.rm = FALSE, spline = FALSE, extrapolate = FALSE)
 \item{spline}{Should \code{NA}s be replaced using cubic splines rather than 
 linear interpolation.}
 
-\item{extrapolate}{Should leading and preceeding \code{NA}s be extrapolated 
+\item{extrapolate}{Should leading and preceding \code{NA}s be extrapolated 
 too? Only used for linear interpolation.}
 }
 \value{
@@ -24,7 +24,7 @@ Vector length of \code{x}.
 \code{na_interpolate} wraps functions from the \strong{zoo} package.
 }
 \seealso{
-\code{\link{na.approx}}
+\code{\link[zoo]{na.approx}}
 }
 \author{
 Stuart K. Grange

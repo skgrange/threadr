@@ -9,7 +9,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{\link{wday}}, \code{\link{week_financial}}
+#' @seealso \code{\link[lubridate]{wday}}, \code{\link{week_financial}}
 #' 
 #' @export
 week_monday <- function(date, floor = FALSE) {
@@ -34,7 +34,7 @@ week_monday <- function(date, floor = FALSE) {
 
 
 # Function to build look-up table
-monday_week_table <- function (date, floor) {
+monday_week_table <- function(date, floor) {
   
   # Round to contain all years days
   date_start <- lubridate::floor_date(min(date, na.rm = TRUE), "year")
@@ -79,7 +79,7 @@ monday_week_table <- function (date, floor) {
 #' 
 #' @return Integer vector. 
 #' 
-#' @seealso \code{\link{wday}}, \code{\link{week_monday}}
+#' @seealso \code{\link[lubridate]{wday}}, \code{\link{week_monday}}
 #' 
 #' @examples
 #' \dontrun{
@@ -113,7 +113,7 @@ week_financial <- function(date, start = "july", floor = TRUE) {
 
 
 # Function to build look-up table
-financial_week_table <- function (date, start, floor) {
+financial_week_table <- function(date, start, floor) {
   
   # Lower case
   start_month <- stringr::str_to_lower(start)
@@ -164,7 +164,7 @@ financial_week_table <- function (date, start, floor) {
 #' 
 #' @return Integer vector. 
 #' 
-#' @seealso \code{\link{year}}, \code{\link{week_financial}}
+#' @seealso \code{\link[lubridate]{year}}, \code{\link{week_financial}}
 #' 
 #' @examples
 #' \dontrun{
@@ -174,7 +174,7 @@ financial_week_table <- function (date, start, floor) {
 #' }
 #' 
 #' @export
-year_financial <- function (date, start = "july") {
+year_financial <- function(date, start = "july") {
   
   .Deprecated()
   
@@ -202,7 +202,8 @@ year_financial <- function (date, start = "july") {
 #' 
 #' @return Integer vector. 
 #' 
-#' @seealso \code{\link{wday}}, \code{\link{week_financial}}, \code{\link{month}}
+#' @seealso \code{\link[lubridate]{wday}}, \code{\link{week_financial}}, 
+#' \code{\link[lubridate]{month}}
 #' 
 #' @examples
 #' \dontrun{
