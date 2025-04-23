@@ -15,7 +15,7 @@ if (getRversion() >= "2.15.1") {
     "sequential_deviation", "value_reference", "rowid", "x_id", "y_id",
     "x_interval", "y_interval", "interval", "date_package", "observations",
     "n", "event", "date_in_time_zone", "date_end_in_time_zone", "path", 
-    "type", "size", "modification_time", "week_monday_number"
+    "type", "size", "modification_time", "week_monday_year", "week_monday_number"
   )
   
   # Squash the note

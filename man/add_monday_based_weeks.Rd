@@ -7,11 +7,11 @@
 add_monday_based_weeks(df)
 }
 \arguments{
-\item{df}{A tibble/data frame including parsed dates. The date variable/column 
-must be named \code{date}.}
+\item{df}{A tibble/data frame including parsed dates. The date 
+variable/column must be named \code{date}.}
 }
 \value{
-\code{df} with three new variables located after the \code{date} 
+\code{df} with four new variables located after the \code{date} 
 variable.
 }
 \description{

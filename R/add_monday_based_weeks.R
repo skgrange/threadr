@@ -2,10 +2,10 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @param df A tibble/data frame including parsed dates. The date variable/column 
-#' must be named \code{date}.
+#' @param df A tibble/data frame including parsed dates. The date 
+#' variable/column must be named \code{date}.
 #' 
-#' @return \code{df} with three new variables located after the \code{date} 
+#' @return \code{df} with four new variables located after the \code{date} 
 #' variable.
 #' 
 #' @export
@@ -42,8 +42,9 @@ add_monday_based_weeks <- function(df) {
   
   # Create date sequence
   # Get start and end dates
-  date_start <- lubridate::ymd(stringr::str_c(min(years), "-01-01"), tz = tz)
-  date_end <- lubridate::ymd(stringr::str_c(max(years), "-12-31"), tz = tz)
+  # Use the past and future years to handle incomplete weeks
+  date_start <- lubridate::ymd(stringr::str_c(min(years) - 1, "-01-01"), tz = tz)
+  date_end <- lubridate::ymd(stringr::str_c(max(years) + 1, "-12-31"), tz = tz)
   
   # Generate daily sequence
   date_sequence <- seq(date_start, date_end, by = "day")
@@ -60,15 +61,15 @@ add_monday_based_weeks <- function(df) {
   
   # Build date range tibble
   df_ranges <- tibble(
-    year = years_start_week,
+    week_monday_year = years_start_week,
     date_start_week = date_start_week,
     date_end_week = date_end_week
   ) %>% 
-    group_by(year) %>% 
+    group_by(week_monday_year) %>% 
     mutate(week_monday_number = 1L:n()) %>% 
     ungroup() %>% 
-    select(-year) %>% 
-    relocate(week_monday_number)
+    relocate(week_monday_number,
+             .after = week_monday_year)
   
   # Join weekly dates to date in tibble
   df_join <- df %>% 
@@ -78,7 +79,8 @@ add_monday_based_weeks <- function(df) {
         between(date, date_start_week, date_end_week)
       )
     ) %>% 
-    relocate(week_monday_number,
+    relocate(week_monday_year,
+             week_monday_number,
              date_start_week,
              date_end_week,
              .after = date)
