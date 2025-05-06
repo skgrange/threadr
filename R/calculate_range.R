@@ -1,4 +1,4 @@
-#' Function to summaries a numeric vector by calculating and minimum, maximum, 
+#' Function to summarise a numeric vector by calculating and minimum, maximum, 
 #' range, and other summary statistics.
 #' 
 #' @param x Numeric vector.

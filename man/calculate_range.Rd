@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_range.R
 \name{calculate_range}
 \alias{calculate_range}
-\title{Function to summaries a numeric vector by calculating and minimum, maximum, 
+\title{Function to summarise a numeric vector by calculating and minimum, maximum, 
 range, and other summary statistics.}
 \usage{
 calculate_range(x, inf_to_na = FALSE)
@@ -18,7 +18,7 @@ in the vector and can cause issues plotting.}
 A tibble with one row.
 }
 \description{
-Function to summaries a numeric vector by calculating and minimum, maximum, 
+Function to summarise a numeric vector by calculating and minimum, maximum, 
 range, and other summary statistics.
 }
 \examples{
