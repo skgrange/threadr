@@ -25,7 +25,7 @@ mae(value_predict, value)
 
 difference(value_predict, value, absolute = FALSE)
 
-percent_bias(value, value_predict)
+percent_bias(value_predict, value)
 }
 \arguments{
 \item{value_predict}{A numeric vector to test against the "truth" 
