@@ -53,7 +53,8 @@ Tibble.
 to ensure all date steps are present in the return.
 }
 \seealso{
-\code{\link{aggregate_by_date}}, \code{\link{time_pad}}
+\code{\link{aggregate_by_date}}, \code{\link{time_pad}}, 
+\code{\link{calculate_date_summaries_wide}}
 }
 \author{
 Stuart K. Grange

@@ -35,7 +35,8 @@
 #' 
 #' @return Tibble. 
 #' 
-#' @seealso \code{\link{aggregate_by_date}}, \code{\link{time_pad}}
+#' @seealso \code{\link{aggregate_by_date}}, \code{\link{time_pad}}, 
+#' \code{\link{calculate_date_summaries_wide}}
 #' 
 #' @export
 calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE, 
