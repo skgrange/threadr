@@ -84,3 +84,23 @@ calculate_ci <- function(x, level = 0.95, method = "standard", n_samples = 1000)
   return(df)
   
 }
+
+
+#' @rdname calculate_ci
+#' @export
+calculate_ci_bounds <- function(x, level = 0.95) {
+  
+  # Calculate ci
+  x_ci <- Hmisc::smean.cl.normal(
+    x, mult = qt((1 + level)/2, length(x) - 1), conf.int = level, na.rm = TRUE
+  )
+  
+  # Lower-case names
+  names(x_ci) <- stringr::str_to_lower(names(x_ci))
+  
+  # To tibble
+  df <- tibble::as_tibble_row(x_ci)
+  
+  return(df)
+  
+}

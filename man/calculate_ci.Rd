@@ -2,10 +2,13 @@
 % Please edit documentation in R/calculate_ci.R
 \name{calculate_ci}
 \alias{calculate_ci}
+\alias{calculate_ci_bounds}
 \title{Function to calculate confidence intervals (CIs), usually based on population
 standard deviation.}
 \usage{
 calculate_ci(x, level = 0.95, method = "standard", n_samples = 1000)
+
+calculate_ci_bounds(x, level = 0.95)
 }
 \arguments{
 \item{x}{Numeric vector.}
