@@ -30,7 +30,7 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
       df, 
       across(
         tidyselect::vars_select_helpers$where(lubridate::is.POSIXt), 
-        ~format(., format = "%Y-%m-%d %H:%M:%S")
+        ~format_dates_for_export(.)
       )
     )
   }
@@ -49,5 +49,31 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
   }
   
   return(invisible(df))
+  
+}
+
+
+format_dates_for_export <- function(date) {
+  
+  # Test for sub-second resolution
+  # Get unique values
+  date_unique <- unique(date)
+  
+  # Test for sub-seconds
+  is_floor <- identical(
+    date_unique, lubridate::floor_date(date_unique, "seconds")
+  )
+  
+  # To a logical
+  has_sub_seconds <- any(!is_floor)
+  
+  # The format string
+  format_string <- if_else(
+    has_sub_seconds, "%Y-%m-%d %H:%M:%S.%OS", "%Y-%m-%d %H:%M:%S"
+  )
+  
+  date_string <- format(date, format = format_string)
+  
+  return(date_string)
   
 }
