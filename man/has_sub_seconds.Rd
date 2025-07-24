@@ -2,7 +2,7 @@
 % Please edit documentation in R/lubridate_supplements.R
 \name{has_sub_seconds}
 \alias{has_sub_seconds}
-\title{Function to test a date (\code{}) vector for sub second accuracy.}
+\title{Function to test a date (\code{POSIXct}) vector for sub second accuracy.}
 \usage{
 has_sub_seconds(date)
 }
@@ -13,7 +13,7 @@ has_sub_seconds(date)
 A logical vector with the length of 1.
 }
 \description{
-Function to test a date (\code{}) vector for sub second accuracy.
+Function to test a date (\code{POSIXct}) vector for sub second accuracy.
 }
 \author{
 Stuart K. Grange

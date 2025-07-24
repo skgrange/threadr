@@ -400,7 +400,7 @@ now_to_the_second <- function(tz = Sys.timezone(), as_numeric = FALSE) {
 }
 
 
-#' Function to test a date (\code{}) vector for sub second accuracy.
+#' Function to test a date (\code{POSIXct}) vector for sub second accuracy.
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -414,11 +414,11 @@ has_sub_seconds <- function(date) {
   # Check data type
   stopifnot(inherits(date, "POSIXct"))
   
-  # Check for missing elements
-  stopifnot(!anyNA(date))
-  
   # Get only unique values
   date_unique <- unique(date)
+  
+  # Remove missing elements
+  date_unique <- date_unique[!is.na(date_unique)]
   
   # Test if input is identical to it's floor rounded representation 
   is_floor <- identical(
