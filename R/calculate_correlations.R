@@ -20,9 +20,8 @@ calculate_correlations <- function(df, type = "pearson") {
   if (nrow(df) < 4) {
     
     # Raise warning
-    warning(
-      "There are fewer than four observations, correlations cannot be calculated...", 
-      call. = FALSE
+    cli::cli_alert_warning(
+      "There are fewer than four observations, correlations cannot be calculated..."
     )
     
     return(tibble())
@@ -57,9 +56,11 @@ calculate_correlations <- function(df, type = "pearson") {
 tidy_rcorr <- function(list) {
   
   list %>% 
+    .[names(.) != "type"] %>% 
     purrr::set_names(stringr::str_to_lower(names(.))) %>% 
-    purrr::map_dfr(tidy_rcorr_matrix, .id = "statistic") %>% 
-    tidyr::pivot_wider(names_from = "statistic")
+    purrr::map(tidy_rcorr_matrix) %>% 
+    purrr::list_rbind(names_to = "statistic") %>% 
+    tidyr::pivot_wider(names_from = statistic)
   
 }
 
