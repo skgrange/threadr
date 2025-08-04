@@ -5,7 +5,14 @@
 \title{Function to export data frame/tibble to a \code{.csv} text file with certain 
 defaults.}
 \usage{
-write_csv_threadr(df, file, format_dates = TRUE, na = "", excel_bom = FALSE)
+write_csv_threadr(
+  df,
+  file,
+  format_dates = TRUE,
+  na = "",
+  excel_bom = FALSE,
+  show_progress = FALSE
+)
 }
 \arguments{
 \item{df}{A data frame or tibble to write to disk.}
@@ -19,6 +26,8 @@ write_csv_threadr(df, file, format_dates = TRUE, na = "", excel_bom = FALSE)
 
 \item{excel_bom}{Should a byte-order mark (BOM) be added to the file to 
 indicate to Microsoft Excel that the file is \code{UTF-8} encoded.}
+
+\item{show_progress}{Should \strong{readr}'s progress messaging be displayed?}
 }
 \value{
 Invisible \code{df}.
