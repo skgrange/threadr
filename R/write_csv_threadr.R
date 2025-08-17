@@ -15,13 +15,16 @@
 #' @param excel_bom Should a byte-order mark (BOM) be added to the file to 
 #' indicate to Microsoft Excel that the file is \code{UTF-8} encoded. 
 #' 
+#' @param append If \code{TRUE}, data will be appended to an existing file. 
+#' 
 #' @param show_progress Should \strong{readr}'s progress messaging be displayed? 
 #' 
 #' @return Invisible \code{df}.
 #' 
 #' @export
 write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
-                              excel_bom = FALSE, show_progress = FALSE) {
+                              excel_bom = FALSE, append = FALSE, 
+                              show_progress = FALSE) {
   
   # Check object
   stopifnot(inherits(df, "data.frame"))
@@ -30,7 +33,11 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
   if (!show_progress) {
     # Store setting
     progress_setting <- options()$readr.show_progress
-    progress_setting <- if_else(is.null(progress_setting), TRUE, progress_setting)
+    
+    if (is.null(progress_setting)) {
+      progress_setting <- TRUE
+    }
+    
     # Switch off progress
     options(readr.show_progress = show_progress)
   }
@@ -54,9 +61,9 @@ write_csv_threadr <- function(df, file, format_dates = TRUE, na = "",
   
   # Export
   if (excel_bom) {
-    readr::write_excel_csv(df, file = file, na = na)
+    readr::write_excel_csv(df, file = file, na = na, append = append)
   } else {
-    readr::write_csv(df, file = file, na = na)
+    readr::write_csv(df, file = file, na = na, append = append)
   }
   
   # Return progress setting

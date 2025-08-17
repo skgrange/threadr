@@ -11,6 +11,7 @@ write_csv_threadr(
   format_dates = TRUE,
   na = "",
   excel_bom = FALSE,
+  append = FALSE,
   show_progress = FALSE
 )
 }
@@ -26,6 +27,8 @@ write_csv_threadr(
 
 \item{excel_bom}{Should a byte-order mark (BOM) be added to the file to 
 indicate to Microsoft Excel that the file is \code{UTF-8} encoded.}
+
+\item{append}{If \code{TRUE}, data will be appended to an existing file.}
 
 \item{show_progress}{Should \strong{readr}'s progress messaging be displayed?}
 }
