@@ -41,18 +41,18 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   stopifnot("value" %in% names(df) && is.numeric(df$value))
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
   
-  # If no by is included
+  # If no `by` is included
   if (is.na(by[1])) {
     by <- "variable"
     df <- mutate(df, variable = "value")
   }
   
-  # For default legend name
+  # For the default legend name
   if (is.na(legend_name)) {
     legend_name <- by
   }
   
-  # For default y-axis label
+  # For the default y-axis label
   if (is.na(y_label)) {
     y_label <- if_else(normalise, "Normalised mean", "Mean")
   }
@@ -64,13 +64,26 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
            month = lubridate::month(date, label = TRUE)) %>% 
     dplyr::group_by_at(by)
   
+  # Extract weekday sequence, used for padding
+  weekdays <- levels(df$weekday)
+  
   # Calculate aggregations
   # Hourly weekdays
+  # Create a table containing all hours and weekdays
+  df_weekday_hours_pad <- df %>% 
+    select(!!by) %>% 
+    ungroup() %>% 
+    distinct() %>% 
+    tidyr::expand_grid(hour = 0:23, weekday = weekdays)
+  
+  # Summarise
   df_weekday_hours <- df %>% 
     group_by(weekday,
              hour,
              .add = TRUE) %>% 
     dplyr::reframe(calculate_ci(value)) %>% 
+    left_join(df_weekday_hours_pad, ., by = c(by, "hour", "weekday")) %>% 
+    mutate(weekday = factor(weekday, levels = !!weekdays)) %>% 
     dplyr::group_by_at(by) %>% 
     divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
     mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
@@ -85,16 +98,26 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Weekday
+  # Create a table containing all weekdays
+  df_weekday_pad <- df %>% 
+    select(!!by) %>% 
+    ungroup() %>% 
+    distinct() %>% 
+    tidyr::expand_grid(weekday = weekdays)
+  
+  # Summarise
   df_weekday <- df %>% 
     group_by(weekday,
              .add = TRUE) %>% 
     dplyr::reframe(calculate_ci(value)) %>% 
+    left_join(df_weekday_pad, ., by = c(by, "weekday")) %>% 
+    mutate(weekday = factor(weekday, levels = !!weekdays)) %>% 
     dplyr::group_by_at(by) %>% 
     divide_by_mean(normalise = normalise, drop_grouping = TRUE) %>% 
     mutate(across(c(lower, upper), ~if_else(n <= !!n_min, NA_real_, .)))
   
   # Monthly
-  # Make sure all months are present
+  # Create a table containing all months
   df_month_pad <- df %>% 
     select(!!by) %>% 
     ungroup() %>% 
@@ -115,7 +138,7 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   # For plotting
   by_symbol <- sym(by)
   
-  # Build the plots, 
+  # Build the individual plots
   plot_weekday_hours <- df_weekday_hours %>% 
     ggplot2::ggplot(
       ggplot2::aes(
@@ -176,7 +199,7 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
         colour = !!by_symbol,
         group = !!by_symbol)
     ) + 
-    ggplot2::geom_line() + 
+    ggplot2::geom_line(na.rm = TRUE) + 
     ggplot2::geom_crossbar(alpha = 0.7, width = 0.3, colour = NA, na.rm = TRUE) + 
     ggplot2::scale_x_discrete(drop = FALSE) + 
     theme_less_minimal(legend_position = "none") +
