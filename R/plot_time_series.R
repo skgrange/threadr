@@ -49,10 +49,10 @@ plot_time_series <- function(df, colour = "#FC4E07", facet_variable = NA,
   
   if (colour %in% names(df)) {
     
-    # Requires the use of aes_string
+    # Requires the use of dot-data notation
     plot <- ggplot2::ggplot(
       data = df, 
-      ggplot2::aes_string("date", "value", colour = colour)
+      ggplot2::aes(.data[["date"]], .data[["value"]], colour = .data[[colour]])
     ) +
       ggplot2::geom_line(linewidth = linewidth, na.rm = TRUE)
     

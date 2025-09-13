@@ -79,14 +79,16 @@ theme_less_minimal <- function(base_size = 11, base_family = "",
       legend.background = ggplot2::element_blank(), 
       legend.key = ggplot2::element_blank(), 
       panel.background = ggplot2::element_blank(), 
-      panel.border = ggplot2::element_rect(fill = NA, linetype = 1, size = 0.1),
-      strip.background = ggplot2::element_rect(linetype = 1, size = 0.1),
+      panel.border = ggplot2::element_rect(fill = NA, linetype = 1, linewidth = 0.1),
+      strip.background = ggplot2::element_rect(linetype = 1, linewidth = 0.1),
       plot.background = ggplot2::element_blank(),
       complete = TRUE
     )
   
   # Do a couple of extra things
-  if (narrow_strips) plot <- plot + theme_narrow_strips()
+  if (narrow_strips) {
+    plot <- plot + theme_narrow_strips()
+  }
   
   # x label work
   # Switch for old default use
