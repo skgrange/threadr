@@ -4,14 +4,14 @@
 \alias{calculate_target_pace}
 \title{Function to calculate target pace in min km-1.}
 \usage{
-calculate_target_pace(distance, time, as.hms = FALSE)
+calculate_target_pace(distance, time, as_hms = FALSE)
 }
 \arguments{
 \item{distance}{Distance in kilometres.}
 
 \item{time}{A formatted time string such as \code{16:05} or \code{01:24:00}.}
 
-\item{as.hms}{Should the return be of \strong{hms} class?}
+\item{as_hms}{Should the return be of \strong{hms} class?}
 }
 \value{
 Character of \strong{hms} vector.

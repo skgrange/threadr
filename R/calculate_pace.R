@@ -30,7 +30,9 @@
 #' calculate_pace(parse_time("01:30:00"), half_marathon() * 1000)
 #' 
 #' @export
-calculate_speed <- function(seconds, metres) metres / seconds
+calculate_speed <- function(seconds, metres) {
+  metres / seconds
+}
 
 
 #' @rdname calculate_speed
@@ -56,21 +58,23 @@ calculate_pace <- function(seconds, metres, round = NA) {
 #' 
 #' @param time A formatted time string such as \code{16:05} or \code{01:24:00}. 
 #' 
-#' @param as.hms Should the return be of \strong{hms} class? 
+#' @param as_hms Should the return be of \strong{hms} class? 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @return Character of \strong{hms} vector. 
 #' 
 #' @export
-calculate_target_pace <- function(distance, time, as.hms = FALSE) {
+calculate_target_pace <- function(distance, time, as_hms = FALSE) {
   
   .Deprecated(
     msg = "`calculate_target_pace` is deprecated, please use `threadr::calculate_pace`."
   )
   
   # Pad string
-  if (stringr::str_count(time, ":") == 1) time <- stringr::str_c("00:", time)
+  if (stringr::str_count(time, ":") == 1) {
+    time <- stringr::str_c("00:", time)
+  }
   
   # Time to seconds
   time <- as.numeric(hms::parse_hms(time))
@@ -82,7 +86,9 @@ calculate_target_pace <- function(distance, time, as.hms = FALSE) {
   x <- hms::as_hms(x)
   
   # To character
-  if (!as.hms) x <- format(x, format = "%H:%M:%OS")
+  if (!as_hms) {
+    x <- format(x, format = "%H:%M:%OS")
+  }
   
   return(x)
   

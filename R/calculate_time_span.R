@@ -43,8 +43,13 @@ calculate_time_span <- function(date_one, date_two,
                                 as.character = FALSE) {
   
   # Push dates to POSIXct
-  if (lubridate::is.Date(date_one)) date_one <- as.POSIXct(date_one, tz = "UTC")
-  if (lubridate::is.Date(date_two)) date_two <- as.POSIXct(date_two, tz = "UTC")
+  if (lubridate::is.Date(date_one)) {
+    date_one <- as.POSIXct(date_one, tz = "UTC")
+  }
+  
+  if (lubridate::is.Date(date_two)) {
+    date_two <- as.POSIXct(date_two, tz = "UTC")
+  }
   
   # Check that inputs are POSIXct
   stopifnot(lubridate::is.POSIXt(date_one), lubridate::is.POSIXt(date_two))
@@ -54,7 +59,7 @@ calculate_time_span <- function(date_one, date_two,
   if (format != "period") x <- as.numeric(date_two) - as.numeric(date_one)
   
   if (format == "hms") {
-    x <- hms::as.hms(x)
+    x <- hms::as_hms(x)
   } else if (format == "duration") {
     x <- lubridate::as.duration(x)
   } else if (format == "period") {
@@ -65,10 +70,14 @@ calculate_time_span <- function(date_one, date_two,
   }
   
   # Round return
-  if (!is.na(round)) x <- round(x, digits = round)
+  if (!is.na(round)) {
+    x <- round(x, digits = round)
+  }
   
   # To character
-  if (as.character) x <- format(x)
+  if (as.character) {
+    x <- format(x)
+  }
   
   return(x)
   

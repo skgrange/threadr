@@ -16,7 +16,7 @@ str_hms <- function(x, round = NA) {
   stopifnot(any(c("hms", "numeric", "integer") %in% class(x)))
   
   # Check data type
-  if (any(c("numeric", "integer") %in% class(x))) x <- hms::as.hms(x)
+  if (any(c("numeric", "integer") %in% class(x))) x <- hms::as_hms(x)
   
   if (!is.na(round)) {
     
@@ -24,14 +24,14 @@ str_hms <- function(x, round = NA) {
     x <- round(x, round)
     
     # Alters type, push it back
-    x <- hms::as.hms(x)
+    x <- hms::as_hms(x)
     
   }
   
   # To character
   x <- format(x)
   
-  # Precding white space for NAs
+  # Preceding white space for NAs
   x <- stringr::str_trim(x)
   
   # NA to true NAs
