@@ -4,11 +4,6 @@
 #' file's metadata and then formats the output into a table which can be 
 #' conveniently used within R. 
 #' 
-#' \code{exiftool} is called as a system command and this function has not been
-#' tested on other non-Debian systems. I do not know how \code{exiftool} is 
-#' implemented on Windows or macOS and therefore I cannot guarantee that this 
-#' function will work. 
-#' 
 #' \code{file_metadata} can be useful for media files and the exploration of 
 #' metadata. 
 #' 
@@ -27,6 +22,7 @@
 #' @examples
 #' 
 #' \dontrun{
+#' # Get metadata file a single file
 #' data_metadata <- file_metadata("music.mp3")
 #' }
 #'
@@ -36,50 +32,43 @@ file_metadata <- function(file, progress = FALSE) {
   # Check for programme
   detect_exiftool()
   
-  # Ensure path is expanded, sometimes in necessary and then do
-  df <- file %>% 
+  # Ensure path is expanded, sometimes this is necessary, then get metadata
+  file %>% 
     fs::path_expand() %>% 
-    purrr::map_dfr(file_metadata_worker, .progress = progress) %>% 
+    purrr::map(
+      purrr::in_parallel(
+        function(x) 
+        file_metadata_worker(x),
+        file_metadata_worker = file_metadata_worker,
+        str_to_underscore = str_to_underscore
+      ),
+      .progress = progress
+    ) %>% 
+    purrr::list_rbind() %>% 
     as_tibble() %>% 
-    mutate(across(everything(), type.convert, as.is = TRUE)) %>% 
+    mutate(across(everything(), ~type.convert(., as.is = TRUE))) %>% 
     mutate(
       across(
         dplyr::matches("date"), 
-        lubridate::ymd_hms, tz = "UTC", truncated = 3, quiet = TRUE
+        ~lubridate::ymd_hms(., tz = "UTC", truncated = 3, quiet = TRUE)
       )
     )
-  
-  return(df)
   
 }
 
 
 file_metadata_worker <- function(file) {
-
-  # Get file basename
-  file_basename <- basename(file)
   
-  # Escape characters for bash
-  file <- gsub("$", "\\$", file, fixed = TRUE)
-  file <- gsub("`", "\\`", file, fixed = TRUE)
-
-  # Build system command
-  # Watch the different types of quotes here
-  command <- stringr::str_c("exiftool -json ", '"', file, '"')
+  # For parallel processing
+  requireNamespace("dplyr")
   
-  # Use system command
-  string <- system(command, intern = TRUE)
-  
-  # Split string into variable and value
-  df <- string %>% 
+  # Call system programme and do some minimal formatting
+  processx::run("exiftool", args = c("-json", file)) %>% 
+    .[["stdout"]] %>% 
     jsonlite::fromJSON() %>% 
-    mutate(across(everything(), as.character))
-  
-  # If there are duplicated variables, append a suffix
-  names(df) <- str_to_underscore(names(df))
-  names(df) <- make.names(names(df), unique = TRUE)
-  
-  return(df)
+    mutate(across(everything(), as.character)) %>% 
+    dplyr::rename_with(str_to_underscore) %>% 
+    dplyr::rename_with(~make.names(., unique = TRUE))
   
 }
 
@@ -93,7 +82,7 @@ detect_exiftool <- function() {
   
   # Raise error if not installed
   if (length(text) == 0 || !grepl("exiftool", text)) {
-    stop("'exiftool' system programme not detected.", call. = FALSE)
+    cli::cli_abort("'exiftool' system programme not detected.")
   }
   
   # No return
