@@ -15,7 +15,7 @@ gam_smoother(x, y, method = "GCV.Cp")
 \item{method}{Smoothing estimation method.}
 }
 \value{
-Numeric vector with the length of \code{x} or \code{y}
+Numeric vector with the length of \code{x} or \code{y}.
 }
 \description{
 Function to smooth an \emph{x}-\emph{y} pair with a generalised additive 
