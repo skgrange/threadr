@@ -25,7 +25,7 @@ the rate of change is proportional to the quantity itself.
 # Starting condition of 10000 with a low value for the exponential growth
 exponential_growth(start = 10000, rate = 1.1, steps = 6)
 
-# The same starting condition but with twice the growth rate, a huge change
+# The same starting condition but with twice the growth rate, a big change
 exponential_growth(start = 10000, rate = 1.1 * 2, steps = 6)
 
 }

@@ -18,28 +18,11 @@
 #' # Starting condition of 10000 with a low value for the exponential growth
 #' exponential_growth(start = 10000, rate = 1.1, steps = 6)
 #' 
-#' # The same starting condition but with twice the growth rate, a huge change
+#' # The same starting condition but with twice the growth rate, a big change
 #' exponential_growth(start = 10000, rate = 1.1 * 2, steps = 6)
 #' 
 #' @export
 exponential_growth <- function(start, rate, steps = 1) {
-  
-  # Make sure the number of steps is an integer
-  steps <- as.integer(steps)
-  
-  # Pre-allocate vector
-  x <- numeric(length = steps)
-  
-  # To the multiplication, the growth is based on it's previous value and
-  # therefore, a for loop needs to be used
-  for (i in seq_len(steps)) {
-    if (i == 1L) {
-      x[i] <- start
-    } else {
-      x[i] <- x[i - 1L] * rate
-    }
-  }
-  
-  return(x)
-  
+  # The growth is based on the previous value
+  start * rate^(seq_len(steps) - 1)
 }
