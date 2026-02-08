@@ -83,7 +83,7 @@ format_dates_for_export <- function(date) {
   
   # The format string
   format_string <- if_else(
-    has_sub_seconds, "%Y-%m-%d %H:%M:%S.%OS", "%Y-%m-%d %H:%M:%S"
+    has_sub_seconds, "%Y-%m-%d %H:%M:%OS", "%Y-%m-%d %H:%M:%S"
   )
   
   # Do the string processing
