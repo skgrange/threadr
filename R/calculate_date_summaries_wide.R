@@ -37,10 +37,12 @@ calculate_date_summaries_wide <- function(df, ..., interval = "hour",
     cli::cli_abort("Missing dates detected.")
   }
   
-  # Switch interval if needed
+  # Switch interval if needed and drop trailing s or seconds if supplied
   interval <- dplyr::case_when(
     interval == "minute" ~ "min",
-    .default = interval
+    stringr::str_detect(interval, "s$|sec$|second$|seconds$") ~ 
+      stringr::str_remove_all(interval, "s$|sec$|second|$seconds$"),
+    .default = as.character(interval)
   ) %>% 
     stringr::str_to_lower()
   
@@ -82,12 +84,22 @@ calculate_date_summaries_wide_worker <- function(df, interval, use_data_table) {
   # Get date range
   date_range <- range(df$date)
   
+  # If a period exists, assume it is for a sub second sequence that needs to be
+  # numeric but the rounding functions require a different format
+  if (stringr::str_detect(interval, "\\.")) {
+    interval_for_rounding <- stringr::str_c(interval, "s")
+    interval_for_sequence <- as.numeric(interval)
+  } else {
+    interval_for_rounding <- interval
+    interval_for_sequence <- interval
+  }
+  
   # Round to nearest date boundaries
-  date_start <- lubridate::floor_date(date_range[1], interval)
-  date_end <- lubridate::ceiling_date(date_range[2], interval)
+  date_start <- lubridate::floor_date(date_range[1], interval_for_rounding)
+  date_end <- lubridate::ceiling_date(date_range[2], interval_for_rounding)
   
   # Create a sequence with all dates present, used for padding the time series
-  date_sequence <- seq(date_start, date_end, by = interval)
+  date_sequence <- seq(date_start, date_end, by = interval_for_sequence)
   
   # Drop final element of sequence because of the ceiling date rounding
   date_sequence <- head(date_sequence, -1)
@@ -100,7 +112,7 @@ calculate_date_summaries_wide_worker <- function(df, interval, use_data_table) {
   
   # Add date grouping
   df_join <- df_join %>% 
-    mutate(date = lubridate::floor_date(date, interval)) %>% 
+    mutate(date = lubridate::floor_date(date, interval_for_rounding)) %>% 
     group_by(date)
   
   # Get numeric variable names, required for the data.table call
@@ -113,11 +125,13 @@ calculate_date_summaries_wide_worker <- function(df, interval, use_data_table) {
   
   # Do the aggregation across all numeric variables and add date_end too
   df_agg <- df_join %>% 
-    summarise(across(tidyselect::all_of(variables_numeric), ~mean(., na.rm = TRUE)),
-              .groups = "drop") %>% 
+    summarise(
+      across(tidyselect::all_of(variables_numeric), ~mean(., na.rm = TRUE)),
+      .groups = "drop"
+    ) %>% 
     mutate(
       date_end = lubridate::ceiling_date(
-        date, unit = interval, change_on_boundary = TRUE
+        date, unit = interval_for_rounding, change_on_boundary = TRUE
       ) - 1
     ) %>% 
     relocate(date_end, 
