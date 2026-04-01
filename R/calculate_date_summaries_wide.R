@@ -40,8 +40,8 @@ calculate_date_summaries_wide <- function(df, ..., interval = "hour",
   # Switch interval if needed and drop trailing s or seconds if supplied
   interval <- dplyr::case_when(
     interval == "minute" ~ "min",
-    stringr::str_detect(interval, "s$|sec$|second$|seconds$") ~ 
-      stringr::str_remove_all(interval, "s$|sec$|second|$seconds$"),
+    # stringr::str_detect(interval, "s$|sec$|second$|seconds$") ~ 
+    #   stringr::str_remove_all(interval, "s$|sec$|second|$seconds$"),
     .default = as.character(interval)
   ) %>% 
     stringr::str_to_lower()
