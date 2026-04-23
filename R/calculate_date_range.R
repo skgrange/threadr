@@ -20,8 +20,8 @@ calculate_date_range <- function(date) {
   n <- length(date[!is.na(date)])
   
   # Calculate start and end
-  min <- min(date, na.rm = TRUE)
-  max <- max(date, na.rm = TRUE)
+  min <- suppressWarnings(min(date, na.rm = TRUE))
+  max <- suppressWarnings(max(date, na.rm = TRUE))
   
   # Calculate time span
   range <- calculate_time_span(min, max, format = "seconds")
