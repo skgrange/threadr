@@ -26,6 +26,8 @@
 #' 
 #' @param n_to_count Should the \code{n} variable be renamed to \code{count}? 
 #' 
+#' @param include_sd Should standard deviations also be calculated? 
+#' 
 #' @param use_data_table Should the \code{data.table} backend be used for the
 #' aggregation calculations? 
 #' 
@@ -41,8 +43,9 @@
 #' @export
 calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE, 
                                      drop_date_end = FALSE, 
-                                     n_to_count = FALSE, use_data_table = TRUE, 
-                                     verbose = FALSE, progress = FALSE) {
+                                     n_to_count = FALSE, include_sd = FALSE, 
+                                     use_data_table = TRUE, verbose = FALSE, 
+                                     progress = FALSE) {
   
   # Check the inputs
   stopifnot("date" %in% names(df) && lubridate::is.POSIXct(df$date))
@@ -87,7 +90,7 @@ calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE,
   list_agg <- list_agg %>%
     purrr::imap(
       ~calculate_date_summaries_worker(
-        .x, .y, interval = interval, use_data_table, verbose = verbose
+        .x, .y, interval = interval, include_sd, use_data_table, verbose = verbose
       ),
       .progress = progress
     )
@@ -118,8 +121,8 @@ calculate_date_summaries <- function(df, ..., interval = "hour", drop_n = FALSE,
 }
 
 
-calculate_date_summaries_worker <- function(df, name, interval, use_data_table, 
-                                            verbose) {
+calculate_date_summaries_worker <- function(df, name, interval, include_sd, 
+                                            use_data_table, verbose) {
   
   # Switch interval if needed and drop trailing s or seconds if supplied
   interval <- dplyr::case_when(
@@ -183,11 +186,22 @@ calculate_date_summaries_worker <- function(df, name, interval, use_data_table,
                 .groups = "drop")
     
   } else {
-    # Standard use, the mean
-    df <- df %>% 
-      summarise(n = sum(!is.na(value)),
-                value = mean(value, na.rm = TRUE),
-                .groups = "drop")
+    
+    if (!include_sd) {
+      # Standard use, the mean
+      df <- df %>% 
+        summarise(n = sum(!is.na(value)),
+                  value = mean(value, na.rm = TRUE),
+                  .groups = "drop")
+    } else {
+      # Include the sd calculation too
+      df <- df %>% 
+        summarise(n = sum(!is.na(value)),
+                  sd = sd(value, na.rm = TRUE), 
+                  value = mean(value, na.rm = TRUE),
+                  .groups = "drop")
+    }
+    
   }
   
   # Calculate and add `date_end`, as_tibble is needed for

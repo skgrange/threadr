@@ -11,6 +11,7 @@ calculate_date_summaries(
   drop_n = FALSE,
   drop_date_end = FALSE,
   n_to_count = FALSE,
+  include_sd = FALSE,
   use_data_table = TRUE,
   verbose = FALSE,
   progress = FALSE
@@ -37,6 +38,8 @@ from the return?}
 return?}
 
 \item{n_to_count}{Should the \code{n} variable be renamed to \code{count}?}
+
+\item{include_sd}{Should standard deviations also be calculated?}
 
 \item{use_data_table}{Should the \code{data.table} backend be used for the
 aggregation calculations?}
