@@ -382,3 +382,11 @@ str_english_currency_format <- function(x, sep = " ", currency = NA) {
 #'
 #' @export
 str_url_decode <- function(x) purrr::map_chr(x, URLdecode)
+
+
+#' @rdname str_date
+#'
+#' @export
+str_unique_collapse <- function(x, sep = "; ") {
+  stringr::str_c(sort(unique(x)), collapse = sep)
+}

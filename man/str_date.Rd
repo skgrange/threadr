@@ -27,6 +27,7 @@
 \alias{str_extract_characters}
 \alias{str_english_currency_format}
 \alias{str_url_decode}
+\alias{str_unique_collapse}
 \title{Functions to preform string operations which do not currently exist in
 \code{stringr}.}
 \usage{
@@ -81,6 +82,8 @@ str_extract_characters(x)
 str_english_currency_format(x, sep = " ", currency = NA)
 
 str_url_decode(x)
+
+str_unique_collapse(x, sep = "; ")
 }
 \arguments{
 \item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert, currency}{Function specific options.}
