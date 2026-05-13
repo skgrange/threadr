@@ -11,7 +11,7 @@
 #' 
 #' @return Integer vector. 
 #' 
-#' @section \code{\link{which}}, \code{\link{which.min}}
+#' @seealso \code{\link{which}}, \code{\link{which.min}}
 #' 
 #' @examples 
 #' 

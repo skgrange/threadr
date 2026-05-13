@@ -20,10 +20,6 @@ Integer vector.
 \description{
 Function to find closest index in a vector.
 }
-\section{\code{\link{which}}, \code{\link{which.min}}}{
-NA
-}
-
 \examples{
 
 # A vector with no 17
@@ -44,6 +40,9 @@ which_closest(x, 17)[1]
 # Get element, use as a filter
 x[which_closest(x, 17)[1]]
 
+}
+\seealso{
+\code{\link{which}}, \code{\link{which.min}}
 }
 \author{
 Stuart K. Grange
