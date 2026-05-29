@@ -13,6 +13,8 @@ plot_time_variation(
   legend_name = NA,
   y_label = NA,
   normalise = FALSE,
+  labels = ggplot2::waiver(),
+  legend_rows = 1,
   plot = TRUE
 )
 }
@@ -37,6 +39,12 @@ large bounds that results in bad y-axes scales.}
 \item{normalise}{Should the aggregations be normalised by dividing the 
 aggregations by their means? This helps when \code{by} is used and the groups
 have different response scales.}
+
+\item{labels}{If labels contain expressions to be parsed, set this argument 
+to \code{scales::label_parse()}.}
+
+\item{legend_rows}{How many rows should the legend be? Larger numbers are 
+useful for long labels.}
 
 \item{plot}{Should the plot be printed?}
 }

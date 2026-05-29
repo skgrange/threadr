@@ -21,6 +21,12 @@
 #' aggregations by their means? This helps when \code{by} is used and the groups
 #' have different response scales. 
 #' 
+#' @param labels If labels contain expressions to be parsed, set this argument 
+#' to \code{scales::label_parse()}. 
+#' 
+#' @param legend_rows How many rows should the legend be? Larger numbers are 
+#' useful for long labels. 
+#' 
 #' @param plot Should the plot be printed?
 #' 
 #' @author Stuart K. Grange
@@ -35,7 +41,8 @@
 plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA, 
                                 ylim = c(NA, NA), legend_name = NA,
                                 y_label = NA, normalise = FALSE, 
-                                plot = TRUE) {
+                                labels = ggplot2::waiver(),
+                                legend_rows = 1, plot = TRUE) {
   
   # Check inputs
   stopifnot("value" %in% names(df) && is.numeric(df$value))
@@ -52,8 +59,8 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
     legend_name <- by
   }
   
-  # For the default y-axis label
-  if (is.na(y_label)) {
+  # For the default y-axis label, warning suppression is for expressions
+  if (suppressWarnings(is.na(y_label))) {
     y_label <- if_else(normalise, "Normalised mean", "Mean")
   }
   
@@ -216,7 +223,12 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
   # Add colours to plots
   if (!is.na(colours[1])) {
     list_plots <- purrr::map(
-      list_plots, add_colours_to_plot, colours = colours, legend_name = legend_name
+      list_plots, 
+      add_colours_to_plot, 
+      colours = colours, 
+      legend_name = legend_name,
+      labels = labels,
+      legend_rows = legend_rows
     )
   }
   
@@ -259,10 +271,20 @@ plot_time_variation <- function(df, by = NA, n_min = 2, colours = NA,
 }
 
 
-add_colours_to_plot <- function(plot, colours, legend_name) {
+add_colours_to_plot <- function(plot, colours, legend_name, labels, 
+                                legend_rows) {
   plot + 
-    ggplot2::scale_colour_manual(name = legend_name, values = colours) + 
-    ggplot2::scale_fill_manual(name = legend_name, values = colours)
+    ggplot2::scale_colour_manual(
+      name = legend_name, values = colours, labels = labels
+    ) + 
+    ggplot2::scale_fill_manual(
+      name = legend_name, values = colours, labels = labels
+    ) + 
+    ggplot2::guides(
+      colour = ggplot2::guide_legend(nrow = legend_rows), 
+      fill = ggplot2::guide_legend(nrow = legend_rows)
+    )
+  
 }
 
 
