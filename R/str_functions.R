@@ -63,7 +63,7 @@
 #' 
 #' @param x,string Input string. 
 #' 
-#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert,currency
+#' @param time,tz,underscore,length,n,as.numeric,collapse,sep,pattern,ignore.case,invert,currency,empty_as_na
 #' Function specific options. 
 #' 
 #' @author Stuart K. Grange
@@ -387,6 +387,16 @@ str_url_decode <- function(x) purrr::map_chr(x, URLdecode)
 #' @rdname str_date
 #'
 #' @export
-str_unique_collapse <- function(x, sep = "; ") {
-  stringr::str_c(sort(unique(x)), collapse = sep)
+str_unique_collapse <- function(x, sep = "; ", empty_as_na = FALSE) {
+  
+  # Order and collapse unique values
+  x <- stringr::str_c(sort(unique(x)), collapse = sep)
+  
+  # Set empty strings as missing if desired
+  if (empty_as_na) {
+    x <- if_else(x == "", NA_character_, x)
+  }
+  
+  return(x)
+
 }

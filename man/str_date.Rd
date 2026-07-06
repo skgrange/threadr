@@ -83,10 +83,10 @@ str_english_currency_format(x, sep = " ", currency = NA)
 
 str_url_decode(x)
 
-str_unique_collapse(x, sep = "; ")
+str_unique_collapse(x, sep = "; ", empty_as_na = FALSE)
 }
 \arguments{
-\item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert, currency}{Function specific options.}
+\item{time, tz, underscore, length, n, as.numeric, collapse, sep, pattern, ignore.case, invert, currency, empty_as_na}{Function specific options.}
 
 \item{x, string}{Input string.}
 }

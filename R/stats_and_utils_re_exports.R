@@ -2,8 +2,7 @@
 #' 
 #' @name stats functions
 #'
-#' @importFrom stats loess median na.exclude na.omit predict sd var lm qnorm 
-#' qt ccf na.pass quantile
+#' @importFrom stats loess median na.exclude na.omit predict sd var lm qnorm qt ccf na.pass quantile
 NULL
 
 
@@ -11,8 +10,7 @@ NULL
 #' 
 #' @name utils functions
 #' 
-#' @importFrom utils download.file head object.size tail type.convert URLdecode
-#' packageVersion packageDate installed.packages
+#' @importFrom utils download.file head object.size tail type.convert URLdecode packageVersion packageDate installed.packages
 NULL
 
 
