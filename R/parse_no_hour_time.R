@@ -12,8 +12,6 @@
 #' 
 #' @return Period, hms, or numeric vector.
 #' 
-#' @seealso \code{\link{period_to_date}}, \code{\link{period_to_string}} 
-#' 
 #' @examples 
 #' 
 #' # Parse a times with no hour
@@ -64,3 +62,4 @@ parse_no_hour_time <- function(x, format = "period") {
   return(x)
   
 }
+

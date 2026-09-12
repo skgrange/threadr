@@ -32,9 +32,6 @@ parse_no_hour_time(c(124.17, "89:22"), format = "seconds")
 
 
 }
-\seealso{
-\code{\link{period_to_date}}, \code{\link{period_to_string}}
-}
 \author{
 Stuart K. Grange
 }

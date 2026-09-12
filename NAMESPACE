@@ -9,9 +9,7 @@ export(":=")
 export(absolute_humidity)
 export(absolute_zero)
 export(acre_to_metre)
-export(add_by_id_and_range)
 export(add_monday_based_weeks)
-export(add_row_numbers)
 export(add_steak_variables)
 export(aggregate_by_date)
 export(any_duplicated)
@@ -19,13 +17,10 @@ export(any_interval_overlap)
 export(apparent_temperature)
 export(apply_hampel_identifier)
 export(arrange_left)
-export(as_binary)
 export(bar_to_psi)
-export(base_df)
 export(build_zero_row_tibble)
 export(calculate_ci)
 export(calculate_ci_bounds)
-export(calculate_control_limits)
 export(calculate_correlations)
 export(calculate_cross_correlations)
 export(calculate_date_range)
@@ -33,7 +28,6 @@ export(calculate_date_summaries)
 export(calculate_date_summaries_wide)
 export(calculate_deltas)
 export(calculate_dew_point)
-export(calculate_errors)
 export(calculate_mixing_ratio)
 export(calculate_pace)
 export(calculate_pace_splits)
@@ -72,7 +66,6 @@ export(cubic_inches_to_cubic_centimetres)
 export(data_frame_to_latex_table)
 export(data_frame_to_timeseries)
 export(data_frame_to_zoo)
-export(date_centre)
 export(date_message)
 export(dates_as_numeric)
 export(days_in_a_year)
@@ -87,15 +80,12 @@ export(dry_adiabatic_lapse_rate)
 export(duplicated_rows)
 export(easter_monday)
 export(easter_sunday)
-export(evaluate_text)
 export(exponential_growth)
 export(export_ggplot)
 export(factor_coerce)
 export(fahrenheit_to_celsius)
 export(feet_to_metres)
-export(file_information)
 export(file_metadata)
-export(file_size)
 export(foot_pound_to_newton_meter)
 export(foot_to_metre)
 export(gallon_to_litre)
@@ -107,13 +97,10 @@ export(generate_all_combinations)
 export(get_package_version)
 export(get_remote_file)
 export(get_remote_file_if_new)
-export(gg_no_grid_lines)
 export(ggplot2_colours)
 export(ggplot_caption_format)
-export(ggtheme_threadr)
 export(good_friday)
 export(gravity)
-export(grepl_all)
 export(half_marathon)
 export(has_sub_seconds)
 export(heat_index)
@@ -139,7 +126,6 @@ export(l_100_km_to_mpg)
 export(lag_delta)
 export(lb_to_kg)
 export(lead_delta)
-export(left_join_range)
 export(linear_fit)
 export(list_files)
 export(list_files_ftp)
@@ -188,21 +174,16 @@ export(parse_date_arguments)
 export(parse_excel_date)
 export(parse_iso_week)
 export(parse_no_hour_time)
-export(parse_personal_path)
 export(parse_time)
 export(parse_unit_text)
 export(parse_unix_time)
 export(pascal_to_psi)
-export(pdf_write_metadata)
 export(percent_bias)
 export(percent_lost)
 export(percent_of)
 export(percentage_change)
 export(percentage_difference)
 export(period_financial)
-export(period_to_date)
-export(period_to_string)
-export(plot_control_chart)
 export(plot_image_jpg)
 export(plot_time_series)
 export(plot_time_variation)
@@ -216,21 +197,14 @@ export(print_palette)
 export(psi_to_bar)
 export(psi_to_pascal)
 export(quiet)
-export(read_bibtex)
-export(read_bibtex_aux)
-export(read_csv_git_hub)
-export(read_csv_remote)
 export(read_html_tables)
 export(read_json)
 export(read_json_lines)
-export(read_lines)
 export(read_rdata)
 export(read_rds)
 export(read_rds_remote)
 export(read_xml)
-export(replicate_rows)
 export(reset_row_names)
-export(rm_na_rows)
 export(rmse)
 export(rolling_mean)
 export(round_any)
@@ -248,13 +222,11 @@ export(seconds_in_an_hour)
 export(select_fs_file_info)
 export(serialise_r_object)
 export(set_sub_second_option)
-export(simple_moving_average)
 export(specific_humidity)
 export(speed_of_light)
 export(split_into_equal_parts)
 export(split_nrow)
 export(standard_atmosphere)
-export(standardise)
 export(stone_to_kg)
 export(str_chop)
 export(str_create_na)
@@ -305,7 +277,6 @@ export(symbol_superscript_minus)
 export(sys_unix_time)
 export(theme_less_minimal)
 export(theme_narrow_strips)
-export(theme_super_minimal)
 export(theme_x_label_rotate)
 export(tidy_summary)
 export(time_dygraph)
@@ -315,8 +286,6 @@ export(to_json)
 export(to_period)
 export(transform_dates_with_time_zone)
 export(twos_complement)
-export(type_convert)
-export(type_converter)
 export(unix_time_to_excel_date)
 export(unserialise_r_object)
 export(upload_to_ftp)
@@ -342,64 +311,72 @@ export(year_financial)
 export(yesterday)
 export(zoo_to_data_frame)
 import(lubridate)
-importFrom(dplyr,across)
-importFrom(dplyr,arrange)
-importFrom(dplyr,as_tibble)
-importFrom(dplyr,between)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,distinct)
-importFrom(dplyr,do)
-importFrom(dplyr,everything)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,if_else)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,join_by)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,pull)
-importFrom(dplyr,relocate)
-importFrom(dplyr,rename)
-importFrom(dplyr,rowwise)
-importFrom(dplyr,select)
-importFrom(dplyr,slice)
-importFrom(dplyr,summarise)
-importFrom(dplyr,sym)
-importFrom(dplyr,tibble)
-importFrom(dplyr,ungroup)
+importFrom(dplyr,
+  across,
+  arrange,
+  as_tibble,
+  between,
+  bind_rows,
+  distinct,
+  do,
+  everything,
+  filter,
+  group_by,
+  if_else,
+  inner_join,
+  join_by,
+  left_join,
+  mutate,
+  pull,
+  relocate,
+  rename,
+  rowwise,
+  select,
+  slice,
+  summarise,
+  sym,
+  tibble,
+  ungroup
+)
 importFrom(ggplot2,"%+replace%")
 importFrom(grDevices,cairo_pdf)
 importFrom(magrittr,"%>%")
 importFrom(rlang,":=")
-importFrom(stats,ccf)
-importFrom(stats,lm)
-importFrom(stats,loess)
-importFrom(stats,median)
-importFrom(stats,na.exclude)
-importFrom(stats,na.omit)
-importFrom(stats,na.pass)
-importFrom(stats,predict)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,quantile)
-importFrom(stats,sd)
-importFrom(stats,var)
-importFrom(stringr,str_c)
-importFrom(stringr,str_remove)
-importFrom(stringr,str_remove_all)
-importFrom(stringr,str_replace)
-importFrom(stringr,str_replace_all)
-importFrom(stringr,str_split)
-importFrom(stringr,str_split_fixed)
-importFrom(stringr,str_to_lower)
-importFrom(stringr,str_to_upper)
-importFrom(stringr,str_trim)
-importFrom(utils,URLdecode)
-importFrom(utils,download.file)
-importFrom(utils,head)
-importFrom(utils,installed.packages)
-importFrom(utils,object.size)
-importFrom(utils,packageDate)
-importFrom(utils,packageVersion)
-importFrom(utils,tail)
-importFrom(utils,type.convert)
+importFrom(stats,
+  ccf,
+  lm,
+  loess,
+  median,
+  na.exclude,
+  na.omit,
+  na.pass,
+  predict,
+  qnorm,
+  qt,
+  quantile,
+  sd,
+  var
+)
+importFrom(stringr,
+  str_c,
+  str_remove,
+  str_remove_all,
+  str_replace,
+  str_replace_all,
+  str_split,
+  str_split_fixed,
+  str_to_lower,
+  str_to_upper,
+  str_trim
+)
+importFrom(utils,
+  URLdecode,
+  download.file,
+  head,
+  installed.packages,
+  object.size,
+  packageDate,
+  packageVersion,
+  tail,
+  type.convert
+)

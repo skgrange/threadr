@@ -28,7 +28,7 @@ read_html_tables <- function(url, col_names = TRUE) {
     
     # Read page
     text <- tryCatch({
-      read_lines(url)
+      readr::read_lines(url)
     }, error = function(e) {
       # Break and return here
       return(list())
