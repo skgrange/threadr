@@ -78,16 +78,18 @@ sd_wind <- function(wd, na.rm = FALSE) {
     cli::cli_abort("Wind directions greater than 360 degrees detected.")
   }
   
+  # Drop missing elements
+  if (na.rm) {
+    wd <- wd[!is.na(wd)]
+  }
+  
   # Convert degrees to radians
   wd_radians <- wd * pi / 180
   
   # Calculate the two wind components, using negation but doe not matter for the
   # error calculation
-  x_u <- mean(-sin(wd_radians), na.rm = na.rm)
-  x_v <- mean(-cos(wd_radians), na.rm = na.rm)
-  
-  # Mean wind direction in degrees
-  # atan2(x_u, x_v) * 360/2/pi + 180
+  x_u <- mean(-sin(wd_radians))
+  x_v <- mean(-cos(wd_radians))
   
   # Calculate sd that was selected from an optimisation process in Yamartino1984
   # The error

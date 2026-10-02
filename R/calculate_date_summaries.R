@@ -179,11 +179,27 @@ calculate_date_summaries_worker <- function(df, name, interval, include_sd,
       )
     }
     
+    # Calculate the sd of wind direction if desired
+    if (include_sd) {
+      sd_wind <- df %>% 
+        summarise(sd = sd_wind(value, na.rm = TRUE),
+                  .groups = "drop") %>% 
+        pull(sd)
+    }
+    
     # Use the correct logic for wind direction
     df <- df %>% 
       summarise(n = sum(!is.na(value)),
                 value = mean_wd(value, na.rm = TRUE),
                 .groups = "drop")
+    
+    # Add sd if it has been requested
+    if (include_sd) {
+      df <- df %>% 
+        mutate(sd = !!sd_wind) %>% 
+        relocate(sd,
+                 .after = n)
+    }
     
   } else {
     
@@ -204,7 +220,7 @@ calculate_date_summaries_worker <- function(df, name, interval, include_sd,
     
   }
   
-  # Calculate and add `date_end`, as_tibble is needed for
+  # Calculate and add `date_end`, as_tibble is needed for data table things
   df <- df %>% 
     mutate(
       date_end = lubridate::ceiling_date(
